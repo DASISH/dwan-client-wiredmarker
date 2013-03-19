@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/property.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/setting.css" type="text/css" ?>
+<!DOCTYPE wizard [
+<!ENTITY % overlayDTD   SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%overlayDTD;
+<!ENTITY % markerCustomDTD SYSTEM "chrome://markingcollection/locale/markerCustom.dtd" >
+%markerCustomDTD;
+]>
+<dialog
+	id="mcPropDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	buttons="accept,cancel"
+	onload="mcPropService.init();"
+	ondialogaccept="mcPropService.accept();"
+	ondialogcancel="mcPropService.cancel();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/templatefolderproperty.js" />
+	<hbox flex="1">
+		<tree
+			id="mcTreeFiles"
+			datasources="rdf:null"
+			ref="urn:allmarker:root"
+			flags="dont-build-content"
+			hidecolumnpicker="true"
+			seltype="single"
+			class="plain" flex="1"  hidden="true">
+			<treecols>
+				<treecol id="mcTreeFilesName" hideheader="true" primary="true" flex="1"/>
+			</treecols>
+			<template>
+				<rule>
+					<treechildren>
+						<treeitem uri="rdf:*">
+							<treerow>
+								<treecell label="rdf:http://home.netscape.com/NC-rdf#Name" />
+							</treerow>
+						</treeitem>
+					</treechildren>
+				</rule>
+			</template>
+		</tree>
+		<vbox flex="1">
+			<groupbox id="mcPropTitleGroup" flex="1">
+				<caption label="&markingcollection.prop.title;" />
+				<textbox id="mcPropTitle" flex="1" style=""/>
+			</groupbox>
+			<groupbox id="mcPropNoteGroup" flex="1">
+				<caption label="&markingcollection.prop.note;" />
+				<textbox id="mcPropNote" multiline="true" flex="1" style="" oninput="" />
+			</groupbox>
+		</vbox>
+	</hbox>
+</dialog>

@@ -1,0 +1,7 @@
+<!ENTITY pdf.addtext.dialog.title  "登録">
+<!ENTITY pdf.addtext.dialog.msg    "マーカは付きませんが、以下の情報を登録しますか？">
+<!ENTITY pdf.addtext.caption.title "タイトル">
+<!ENTITY pdf.addtext.caption.url   "URL">
+<!ENTITY pdf.addtext.caption.note  "ノート">
+<!ENTITY pdf.addtext.caption.pageinfo  "ページ情報">
+<!ENTITY pdf.addtext.caption.pagetitle "ページタイトル">

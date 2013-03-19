@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/property.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/treeprojectDicMngDialog.css" type="text/css" ?>
+<!DOCTYPE dialog SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<dialog
+	id="mcDicMngDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	buttons=","
+	onload="bitsTreeProjectDicMngService.init(event);"
+	ondialogaccept="bitsTreeProjectDicMngService.accept(event);"
+	ondialogcancel="bitsTreeProjectDicMngService.cancel(event);">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/treeprojectDicMngDialog.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _mcDicMngDialogDialogOK(aEvent){
+			document.getElementById("mcDicMngDialog").acceptDialog();
+		}
+		function _mcDicMngDialogDialogCancel(aEvent){
+			document.getElementById("mcDicMngDialog").cancelDialog();
+		}
+	]]>
+	</script>
+	<stringbundleset id="mcStringBundles">
+		<stringbundle id="mcDicMngString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<deck id="mcDicMngDeck" selectedIndex="0">
+		<vbox id="mcDicMngDeck0" flex="1">
+			<toolbox id="mcDicMngToolbox">
+				<toolbar id="mcDicMngToolbar">
+					<toolbarbutton
+						id="mcDicMngItemAdd"
+						label="&markingcollection.project.dictionary.item.add;..."
+						image="chrome://markingcollection/skin/menu_create.png"
+						oncommand="bitsTreeProjectDicMngService.onItemAddCommand(event)"/>
+					<toolbarbutton
+						id="mcDicMngItemDel"
+						label="&markingcollection.project.dictionary.item.del;"
+						image="chrome://markingcollection/skin/menu_remove.png"
+						disabled="true"
+						oncommand="bitsTreeProjectDicMngService.onItemDelCommand(event)"/>
+					<spacer flex="1"/>
+					<toolbarbutton
+						id="mcDicMngSearchButton"
+						class="search-go-button"
+						tooltiptext="&markingcollection.project.dictionary.item.search;"
+						type="checkbox"
+						autoCheck="true"
+						oncommand="bitsTreeProjectDicMngService.onSearchButtonCommand(event)"/>
+					<textbox
+						id="mcDicMngSearchTextbox"
+						editable="true"
+						flex="1"
+						disabled="true"
+						emptytext="keyword"
+						placeholder="keyword"
+						style="font-size:0.9em;-moz-appearance: none !important;border: none;"
+						oninput="bitsTreeProjectDicMngService.onSearchInput(event)"
+						onkeypress="bitsTreeProjectDicMngService.onSearchKeyPress(event)"/>
+					<checkbox
+						id="mcDicMngSearchCaseSensitiveCheckbox"
+						label="case-sensitive"
+						disabled="true"
+						oncommand="bitsTreeProjectDicMngService.onSearchButtonCommand(event)"/>
+				</toolbar>
+			</toolbox>
+			<tree
+				id="mcDicMngTree"
+				flex="1"
+				seltype="multiple"
+				hidecolumnpicker="false"
+				class="plain"
+				editable="true"
+				enableColumnDrag="true"
+				rows="20"
+				onclick="bitsTreeProjectDicMngService.onclick(event)"
+				onselect="bitsTreeProjectDicMngService.onSelectTree(event)"
+				onkeypress="bitsTreeProjectDicMngService.onTreeKeyPress(event);"
+				onkeydown="bitsTreeProjectDicMngService.onTreeKeyDown(event);"
+			>
+				<treecols>
+					<treecol id="treecheckbox" type="checkbox" label="Exception" editable="true" persist="hidden,width"/>
+					<splitter class="tree-splitter"/>
+					<treecol id="treeterm" flex="2" label="Term" persist="hidden,width"/>
+					<splitter class="tree-splitter"/>
+					<treecol id="treedate" flex="1" label="Date" persist="hidden,width"/>
+				</treecols>
+				<treechildren class="gridlines"/>
+			</tree>
+			<bbox pack="end">
+				<button label="OK" oncommand="_mcDicMngDialogDialogOK(event);" id="mcDicMngOKButton"/>
+				<button label="Cancel" oncommand="_mcDicMngDialogDialogCancel(event);"/>
+			</bbox>
+		</vbox>
+		<vbox id="mcDicMngDeck1" flex="1">
+			<vbox flex="1">
+				<label value="Input new Term"/>
+				<textbox id="mcDicTermTextbox" value="" flex="1"/>
+			</vbox>
+			<bbox pack="center">
+				<button label="OK" oncommand="bitsTreeProjectDicMngService.onItemAddOK(event);"/>
+				<button label="Cancel" oncommand="bitsTreeProjectDicMngService.onItemAddCancel(event);"/>
+			</bbox>
+		</vbox>
+	</deck>
+</dialog>

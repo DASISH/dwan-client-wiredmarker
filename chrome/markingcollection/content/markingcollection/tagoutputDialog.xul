@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<dialog
+	id="tagoutputDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	title="&markingcollection.tagoutput.menu.title;"
+	buttons="accept,cancel"
+	defaultButton="accept"
+	onload="tagoutputDialog.init();"
+	ondialogaccept="return tagoutputDialog.accept();"
+	ondialogcancel="return tagoutputDialog.cancel();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/tagoutputDialog.js"/>
+	<stringbundleset id="tagoutputDialogStringBundles">
+		<stringbundle id="tagoutputDialogString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<groupbox>
+		<caption label="&markingcollection.tagoutput.output.caption;"/>
+		<groupbox>
+			<caption label="&markingcollection.tagoutput.style.caption;"/>
+			<radiogroup orient="horizontal" oncommand="tagoutputDialog.style(event)">
+				<radio id="no_style"   value="no"   label="&markingcollection.tagoutput.style.no_style;"/>
+				<radio id="with_style" value="with" label="&markingcollection.tagoutput.style.with_style;"/>
+			</radiogroup>
+		</groupbox>
+		<groupbox>
+			<caption label="&markingcollection.tagoutput.visibility.caption;"/>
+			<radiogroup oncommand="tagoutputDialog.visibility(event)">
+				<radio id="visible" value="visible" label="&markingcollection.tagoutput.visibility.visible;"/>
+				<radio id="hidden"  value="hidden"  label="&markingcollection.tagoutput.visibility.hidden;"/>
+				<hbox align="right">
+					<vbox style="background-color:#fff;">
+						<description style="color:#f00">&markingcollection.tagoutput.visibility.description1;</description>
+						<description style="color:#f00">&markingcollection.tagoutput.visibility.description2;</description>
+					</vbox>
+				</hbox>
+			</radiogroup>
+		</groupbox>
+		<groupbox align="center">
+			<caption label="&markingcollection.tagoutput.format.caption;"/>
+			<label id="format" value=""/>
+		</groupbox>
+	</groupbox>
+	<groupbox>
+		<caption label="&markingcollection.tagoutput.html.caption;"/>
+		<checkbox id="path" label="&markingcollection.tagoutput.html.path;" oncommand="tagoutputDialog.path(event)"/>
+	</groupbox>
+</dialog>

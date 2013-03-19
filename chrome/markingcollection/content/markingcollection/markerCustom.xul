@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/setting.css" type="text/css" ?>
+<!DOCTYPE wizard [
+<!ENTITY % overlayDTD   SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%overlayDTD;
+<!ENTITY % markerCustomDTD SYSTEM "chrome://markingcollection/locale/markerCustom.dtd" >
+%markerCustomDTD;
+]>
+<dialog
+	id="markerCustomizeDialog"
+	title="&markingcollection.button.customize; - &markingcollection.marker;"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	buttonlabelextra2="&markingcollection.markerCustom.preset; 0/8"
+	onload="markerCustomizer.init();"
+	ondialogaccept="markerCustomizer.done();"
+	ondialogextra2="markerCustomizer.rotatePreset();"
+	oncommand="markerCustomizer.update();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/common.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/markerCustom.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/marker.js" />
+	<broadcasterset>
+		<broadcaster id="markerBroadcast0" disabled="true" />
+		<broadcaster id="markerBroadcast1" disabled="true" />
+		<broadcaster id="markerBroadcast2" disabled="true" />
+	</broadcasterset>
+	<hbox flex="1">
+		<groupbox flex="1" orient="vertical">
+			<caption label="&markingcollection.markerCustom.background;" />
+			<hbox>
+				<checkbox id="markerBackgroundEnabled" label="&markingcollection.markerCustom.color;"  />
+				<colorpicker id="markerBackgroundColor" type="button" onchange="markerCustomizer.update();" observes="markerBroadcast0" />
+			</hbox>
+		</groupbox>
+		<groupbox flex="1">
+			<caption label="&markingcollection.markerCustom.text;" />
+			<hbox>
+				<checkbox id="markerTextEnabled" label="&markingcollection.markerCustom.color;" />
+				<colorpicker id="markerTextColor" type="button" onchange="markerCustomizer.update();" observes="markerBroadcast1" />
+				<checkbox id ="markerTextBold"   label="&markingcollection.markerCustom.bold;"   observes="markerBroadcast1" />
+				<checkbox id ="markerTextItalic" label="&markingcollection.markerCustom.italic;" observes="markerBroadcast1" />
+				<checkbox id ="markerTextStrike" label="&markingcollection.markerCustom.line;"   observes="markerBroadcast1" />
+			</hbox>
+		</groupbox>
+	</hbox>
+	<groupbox flex="1">
+		<caption label="&markingcollection.markerCustom.border;" />
+		<hbox>
+			<checkbox id="markerBorderEnabled" label="&markingcollection.markerCustom.color;" />
+			<colorpicker id="markerBorderColor" type="button" onchange="markerCustomizer.update();" observes="markerBroadcast2" />
+		</hbox>
+		<hbox align="center">
+			<label value="&markingcollection.markerCustom.type;:" />
+			<menulist id="markerBorderType" observes="markerBroadcast2">
+				<menupopup>
+					<menuitem label="&markingcollection.markerCustom.box;" value="box" />
+					<menuitem label="&markingcollection.markerCustom.underline;" value="underline" />
+				</menupopup>
+			</menulist>
+			<label value="&markingcollection.markerCustom.style;:" />
+			<menulist id="markerBorderStyle" observes="markerBroadcast2">
+				<menupopup>
+					<menuitem value="solid"  label="&markingcollection.markerCustom.solid;"  index="0" />
+					<menuitem value="dotted" label="&markingcollection.markerCustom.dotted;" index="1" />
+					<menuitem value="dashed" label="&markingcollection.markerCustom.dashed;" index="2" />
+					<menuitem value="double" label="&markingcollection.markerCustom.double;" index="3" />
+					<menuitem value="groove" label="&markingcollection.markerCustom.groove;" index="4" />
+					<menuitem value="ridge"  label="&markingcollection.markerCustom.ridge;"  index="5" />
+					<menuitem value="inset"  label="&markingcollection.markerCustom.inset;"  index="6" />
+					<menuitem value="outset" label="&markingcollection.markerCustom.outset;" index="7" />
+				</menupopup>
+			</menulist>
+			<label value="&markingcollection.markerCustom.width;:" />
+			<menulist id="markerBorderWidth" observes="markerBroadcast2">
+				<menupopup>
+					<menuitem value="thin"   label="&markingcollection.markerCustom.thin;"   index="0" />
+					<menuitem value="medium" label="&markingcollection.markerCustom.medium;" index="1" />
+					<menuitem value="thick"  label="&markingcollection.markerCustom.thick;"  index="2" />
+				</menupopup>
+			</menulist>
+		</hbox>
+	</groupbox>
+	<vbox style="background:white;padding:16px;border:1px solid ThreeDShadow;text-align:center;" align="center">
+		<label id="markerCustomPreview" value="Firefox, rediscover the web" />
+	</vbox>
+</dialog>

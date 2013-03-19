@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="tagoutputOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://markingcollection/content/tagoutput.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _tagoutputOverlayInit(aEvent){
+			window.setTimeout(
+				function(){
+					bitsTagOutputService.init(aEvent);
+				},0);
+		}
+		function _tagoutputOverlayDone(aEvent){
+			bitsTagOutputService.done(aEvent);
+		}
+		window.addEventListener("load", _tagoutputOverlayInit, false);
+		window.addEventListener("unload", _tagoutputOverlayDone, false);
+	]]>
+	</script>
+	<menupopup id="contentAreaContextMenu">
+		<menu id="MarkingCollectionContextMenu">
+			<menupopup id="MarkingCollectionContextMenupopup">
+				<menuseparator
+					id="MarkingCollectionContextMenuTagOutputSeparator"
+					insertafter="MarkingCollectionContextMenuSeparatorMarkerRemove"/>
+				<menuitem
+					id="MarkingCollectionContextMenuTagOutput"
+					class="menuitem-iconic"
+					label="&markingcollection.tagoutput.menu.title;..."
+					image="chrome://markingcollection/skin/tag_save.png"
+					oncommand="window.top.bitsTagOutputService.onTagOutputContextmenuCommand({event:event});"
+					insertafter="MarkingCollectionContextMenuSeparatorMarkerRemove"/>
+			</menupopup>
+		</menu>
+	</menupopup>
+	<vbox id="appcontent">
+		<browser id="bitsTagOutputBrowser" collapsed="true" type="content"/>
+	</vbox>
+</overlay>

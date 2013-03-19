@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/meta.dtd" >
+%metaDTD;
+<!ENTITY % treecontextmenuDTD SYSTEM "chrome://markingcollection/locale/treecontextmenu.dtd" >
+%treecontextmenuDTD;
+]>
+<overlay
+	id="treeContextmenuSidebarOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://markingcollection/content/treeContextmenu.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _treeContextmenuSidebarOverlayInit(aEvent){
+			bitsTreeContextmenu.init(aEvent);
+		}
+		function _treeContextmenuSidebarOverlayDone(aEvent){
+			bitsTreeContextmenu.done(aEvent);
+		}
+		window.addEventListener("load", _treeContextmenuSidebarOverlayInit, false);
+		window.addEventListener("unload", _treeContextmenuSidebarOverlayDone, false);
+	]]>
+	</script>
+	<popupset id="mcPopupSet">
+		<menupopup
+			id="mcPopupFolder"
+			onpopupshowing="mcController.onPopupShowing(event);"
+			onpopuphiding="mcController.onPopupHiding(event);">
+			<menu
+				id="mcPopupFolderFolderMenu"
+				class="menu-iconic"
+				image="chrome://markingcollection/skin/folder.png"
+				label="&treecontextmenu.folder;">
+				<menupopup>
+					<menuitem
+						id="mcPopupFolderCreateContents"
+						class="menuitem-iconic"
+						label="&treecontextmenu.folder.new;..."
+						image="chrome://markingcollection/skin/folder-add.png"
+						oncommand="mcTreeHandler.create(mcTreeHandler.TREE.currentIndex);event.stopPropagation();"/>
+					<menuseparator observes="mcPopupFolderTemplateFolder"/>
+					<menu
+						id="mcPopupFolderTemplateFolder"
+						class="menu-iconic"
+						image="chrome://markingcollection/skin/add-template-folder.png"
+						label="&markingcollection.templateFolder;"
+						onpopupshowing="mcTreeTemplateFolder.onPopupShowingMng(event);">
+						<menupopup>
+							<menu
+								id="mcPopupFolderCreates"
+								class="menu-iconic"
+								label="&treecontextmenu.folder.template.new;"
+								image="chrome://markingcollection/skin/folder-add.png"
+								onmouseover="event.stopPropagation();">
+								<menupopup
+									id="mcPopupFolderCreatesMenu"
+									onpopupshowing="mcTreeTemplateFolder.onPopupShowing(event);"
+									onpopuphiding="mcTreeTemplateFolder.onPopupHiding(event);"
+									oncommand="mcTreeTemplateFolder.onCommand(event,mcTreeHandler.TREE.currentIndex);"/>
+							</menu>
+							<menuitem
+								id="mcPopupFolderTemplateFolderCreate"
+								class="menuitem-iconic"
+								label="&treecontextmenu.folder.template.create;..."
+								image="chrome://markingcollection/skin/add.png"
+								oncommand="mcTreeTemplateFolder.onClick(event,mcTreeHandler.TREE.currentIndex);" />
+							<menuitem
+								id="mcPopupFolderTemplateFolderRemove"
+								class="menuitem-iconic"
+								label="&treecontextmenu.folder.template.remove;..."
+								image="chrome://markingcollection/skin/delete.png"
+								oncommand="mcTreeTemplateFolder.onRemove(event);" />
+						</menupopup>
+					</menu>
+					<menuseparator observes="mcPopupFolderRemoves"/>
+					<menu
+						id="mcPopupFolderRemoves"
+						class="menu-iconic"
+						label="&markingcollection.remove;"
+						image="chrome://markingcollection/skin/delete.png"
+						onmouseover="event.stopPropagation();">
+						<menupopup id="mcPopupFolderRemovesMenu">
+							<menuitem
+								id="mcPopupFolderRemoveFolder"
+								class="menuitem-iconic"
+								label="&markingcollection.remove.folder;"
+								image="chrome://markingcollection/skin/folder-delete.png"
+								oncommand="setTimeout(function(){mcTreeHandler.removeFolder(event);},0);" />
+							<menuitem
+								id="mcPopupFolderRemoveAllFolder"
+								class="menuitem-iconic"
+								label="&markingcollection.remove.folderall;"
+								image="chrome://markingcollection/skin/folders-delete.png"
+								oncommand="setTimeout(function(){mcTreeHandler.removeAllFolder(event);},0);"/>
+							<menuitem
+								id="mcPopupFolderRemoveAllContents"
+								class="menuitem-iconic"
+								label="&markingcollection.remove.itemall;"
+								image="chrome://markingcollection/skin/folder-items-delete.png"
+								oncommand="setTimeout(function(){mcTreeHandler.removeAll(event);},0);" />
+						</menupopup>
+					</menu>
+				</menupopup>
+			</menu>
+			<menu
+				id="mcPopupFolderViewMenu"
+				class="menu-iconic"
+				image="chrome://markingcollection/skin/view.png"
+				label="&treecontextmenu.view;">
+				<menupopup>
+					<menuitem
+						id="mcPopupFolderListView"
+						class="menuitem-iconic"
+						label="&treecontextmenu.view.list;"
+						image="chrome://markingcollection/skin/list.png"
+						oncommand="window.top.bitsTreeListService.dispList(event,'chrome://markingcollection/content/listview_drag.xsl');"/>
+					<menu
+						id="mcPopupFolderTreeListViewMenu"
+						class="menu-iconic"
+						label="&markingcollection.treelistview;"
+						image="chrome://markingcollection/skin/toolbar_listview.png">
+						<menupopup
+							id="mcPopupFolderTreeListViewMenuPopup"
+							onpopupshowing="window.top.bitsTreeListService.onPopupShowing(event);"
+							onpopuphiding="window.top.bitsTreeListService.onPopupHiding(event);"
+							oncommand="window.top.bitsTreeListService.onCommand(event);">
+							<menuitem
+								id="mcPopupFolderTreeListView"
+								class="menuitem-iconic"
+								label="&markingcollection.treelistview.defaults;"
+								image="chrome://markingcollection/skin/stylesheet.png"
+								oncommand="window.top.bitsTreeListService.dispList(event);"/>
+							<menuseparator observes="mcPopupFolderTreeListViewSeparator"/>
+						</menupopup>
+					</menu>
+					<menuseparator id="mcPopupFolderItemViewSeparator" observes="mcPopupFolderItemViewMenu"/>
+					<menu
+						id="mcPopupFolderItemViewMenu"
+						class="menu-iconic"
+						label="&treecontextmenu.view.itemviewstyle;"
+						image="chrome://markingcollection/skin/itemview.png">
+						<menupopup>
+							<menu
+								id="mcPopupFolderItemViewFaviconMenu"
+								class="menu-iconic"
+								label="&treecontextmenu.view.itemviewstyle.favicon;"
+								image="chrome://markingcollection/skin/defaultFavicon.png">
+								<menupopup id="mcPopupFolderItemViewFaviconMenupopup"/>
+							</menu>
+							<menu
+								id="mcPopupFolderItemViewItemMenu"
+								class="menu-iconic"
+								label="&treecontextmenu.view.itemviewstyle.items;"
+								image="chrome://markingcollection/skin/itemview.png">
+								<menupopup id="mcPopupFolderItemViewItemMenupopup"/>
+							</menu>
+						</menupopup>
+					</menu>
+					<menuseparator id="mcPopupFolderFilterSeparator"/>
+					<menuitem
+						id="mcPopupFolderFilter"
+						class="menuitem-iconic"
+						label="&treecontextmenu.view.filter;..."
+						image="chrome://markingcollection/skin/filter.png"
+						oncommand="mcTreeFolderFilterService.onCommand(event)"/>
+				</menupopup>
+			</menu>
+			<menu
+				id="mcPopupFolderImportMenu"
+				class="menu-iconic"
+				image="chrome://markingcollection/skin/import.png"
+				label="&treecontextmenu.import;">
+				<menupopup>
+					<menu
+						id="mcPopupFolderCapture"
+						class="menu-iconic"
+						label="&treecontextmenu.import.capture;"
+						image="chrome://markingcollection/skin/capture.png">
+						<menupopup>
+							<menuitem
+								class="menuitem-iconic"
+								label="&markingcollection.capture.document;"
+								image="chrome://markingcollection/skin/document.png"
+								oncommand="mcCapture.commandCaptureFromDocument(event);" />
+							<menuitem
+								class="menuitem-iconic"
+								label="&markingcollection.capture.clipboard;"
+								image="chrome://markingcollection/skin/clipboard.png"
+								oncommand="mcCapture.commandCaptureFromClipboard(event);" />
+						</menupopup>
+					</menu>
+					<menuseparator observes="mcPopupFolderImportTag"/>
+					<menuitem
+						id="mcPopupFolderImportTag"
+						class="menuitem-iconic"
+						label="&treecontextmenu.import.tag;..."
+						image="chrome://markingcollection/skin/import-tag.png"
+						oncommand="window.top.bitsImportTagService.dispList(event);"/>
+					<menuseparator observes="mcPopupFolderProjectDocumentsMenu"/>
+					<menu
+						id="mcPopupFolderProjectDocumentsMenu"
+						class="menu-iconic"
+						label="&treecontextmenu.import.localfile;"
+						image="chrome://markingcollection/skin/documents.png">
+						<menupopup id="mcPopupFolderProjectDocumentsMenupopup">
+							<menuitem
+								label="&markingcollection.project.documents.select.folder;..."
+								class="menuitem-iconic"
+								image="chrome://markingcollection/skin/toolbar_folder.png"
+								oncommand="window.top.bitsTreeProjectService.readDocumentFromFolder(event);" />
+							<menuitem
+								label="&markingcollection.project.documents.select.file;..."
+								class="menuitem-iconic"
+								image="chrome://markingcollection/skin/documents.png"
+								oncommand="window.top.bitsTreeProjectService.readDocumentFromFile(event);" />
+						</menupopup>
+					</menu>
+				</menupopup>
+			</menu>
+			<menu
+				id="mcPopupFolderExportMenu"
+				class="menu-iconic"
+				image="chrome://markingcollection/skin/export.png"
+				label="&treecontextmenu.export;">
+				<menupopup>
+					<menuitem
+						id="mcPopupFolderExport"
+						class="menuitem-iconic"
+						label="&treecontextmenu.export.export;..."
+						image="chrome://markingcollection/skin/zip.png"
+						oncommand="window.top.bitsTreeExportService.saveFile(event)"
+						disabled="false"/>
+					<menuseparator
+						id="mcPopupFolderTagOutputMenuseparator"
+						observes="mcPopupFolderTagOutput"/>
+					<menuitem
+						id="mcPopupFolderTagOutput"
+						class="menuitem-iconic"
+						label="&treecontextmenu.export.tagoutput;..."
+						image="chrome://markingcollection/skin/tag_save.png"
+						oncommand="window.top.bitsTagOutputService.onTagOutputRdfCommand({event:event});"/>
+				</menupopup>
+			</menu>
+			<menu
+				id="mcPopupFolderAutoMarkingMenu"
+				class="menu-iconic"
+				image="chrome://markingcollection/skin/automarker.png"
+				label="&treecontextmenu.automarking;">
+				<menupopup>
+					<menu id="mcPopupFolderProjectIndexMenu" class="menu-iconic" label="&markingcollection.project.index.menu.caption;" image="chrome://markingcollection/skin/index_list.png">
+						<menupopup id="mcPopupFolderProjectIndexMenupopup">
+							<menu
+								class="menu-iconic"
+								label="&markingcollection.project.index.menu.display;"
+								image="chrome://markingcollection/skin/index_list.png">
+								<menupopup>
+									<menuitem
+										id="mcPopupFolderProjectIndexOutputMenuitem"
+										class="menuitem-iconic"
+										label="&markingcollection.project.index.menu.display.normal;..."
+										image="chrome://markingcollection/skin/stylesheet.png"
+										oncommand="window.top.bitsTreeProjectService.displayIndex(event,'chrome://markingcollection/content/treeindex_standard.xsl');"/>
+									<menuitem
+										id="mcPopupFolderProjectIndexOutputMenuitem"
+										class="menuitem-iconic"
+										label="&markingcollection.project.index.menu.display.url;..."
+										image="chrome://markingcollection/skin/stylesheet.png"
+										oncommand="window.top.bitsTreeProjectService.displayIndex(event,'chrome://markingcollection/content/treeindex_url.xsl');"/>
+								</menupopup>
+							</menu>
+							<menuitem
+								id="mcPopupFolderCreateProjectContents1"
+								class="menuitem-iconic"
+								label="&markingcollection.project.index.menu.save;..."
+								image="chrome://markingcollection/skin/index_save.png"
+								oncommand="window.top.bitsTreeProjectService.saveIndex(event);"/>
+						</menupopup>
+					</menu>
+					<menuseparator
+						observes="mcPopupFolderProjectDictionaryMenu"/>
+					<menu
+						id="mcPopupFolderProjectDictionaryMenu"
+						class="menu-iconic"
+						label="&treecontextmenu.automarking.dictionary;"
+						image="chrome://markingcollection/skin/dictionary.png">
+						<menupopup id="mcPopupFolderProjectDictionaryMenupopup">
+							<menuitem
+								label="&markingcollection.project.dictionary.apply;"
+								class="menuitem-iconic"
+								image="chrome://markingcollection/skin/dictionary_apply.png"
+								oncommand="window.top.bitsTreeProjectService.applyDictionary(event)" />
+							<menuseparator/>
+							<menuitem
+								label="&markingcollection.project.dictionary.edit;"
+								class="menuitem-iconic"
+								image="chrome://markingcollection/skin/dictionary_edit.png"
+								oncommand="window.top.bitsTreeProjectService.makeDictionary(event)" />
+							<menuseparator/>
+							<menuitem
+								label="&markingcollection.project.dictionary.read;..."
+								class="menuitem-iconic"
+								image="chrome://markingcollection/skin/toolbar_folder.png"
+								oncommand="window.top.bitsTreeProjectService.readDictionary(event)" />
+							<menuitem
+								label="&markingcollection.project.dictionary.save;..."
+								class="menuitem-iconic"
+								image="chrome://markingcollection/skin/dictionary_save.png"
+								oncommand="window.top.bitsTreeProjectService.saveDictionary(event)" />
+							<menuitem
+								label="&markingcollection.project.dictionary.management;..."
+								class="menuitem-iconic"
+								image="chrome://markingcollection/skin/management.png"
+								oncommand="window.top.bitsTreeProjectService.mngDictionary(event)" />
+						</menupopup>
+					</menu>
+					<menuseparator observes="mcPopupFolderEditReplacedURL"/>
+					<menuitem
+						id="mcPopupFolderEditReplacedURL"
+						class="menuitem-iconic"
+						label="&markingcollection.edit.replacedURL;..."
+						image="chrome://markingcollection/skin/edit.png"
+						oncommand="mcTreeHandler.replacedURL(event);"/>
+				</menupopup>
+			</menu>
+			<menuseparator observes="mcPopupFolderProperty"/>
+			<menuitem
+				id="mcPopupFolderProperty"
+				class="menuitem-iconic"
+				label="&markingcollection.property;"
+				image="chrome://markingcollection/skin/menu_property.png"
+				oncommand="mcController.property(null);" />
+		</menupopup>
+		<menupopup id="mcPopupObject">
+			<menuitem
+				id="mcPopupObjectOpen"
+				label="&markingcollection.open;"
+				oncommand="mcController.open(null,false);"
+				nodelay="true"
+				default="true"/>
+			<menuitem
+				id="mcPopupObjectOpenNewTab"
+				label="&markingcollection.open.newtab;"
+				oncommand="mcController.open(null,true);"
+				nodelay="true"/>
+			<menuseparator id="mcPopupObjectHyperAnchorCopyToClipboardMenuseparator" observes="mcPopupHyperAnchorCopyToClipboard"/>
+			<menu
+				id="mcPopupObjectHyperAnchorCopyToClipboard"
+				label="&markingcollection.hyperanchor.sidebar_copy_to_clipboard;"
+				class="menu-iconic"
+				image="chrome://markingcollection/skin/marker_copy.png">
+				<menupopup>
+					<menuitem
+						label="&meta.menuitem.hyperanchor.copy_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copy.png"
+						oncommand="mcController.copy('copy');"/>
+					<menuitem
+						label="&meta.menuitem.hyperanchor.copytitle_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copytext.png"
+						oncommand="mcController.copy('title');"/>
+					<menuitem
+						label="&meta.menuitem.hyperanchor.copynote_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copytext.png"
+						oncommand="mcController.copy('note');"/>
+					<menuitem
+						label="&meta.menuitem.hyperanchor.copymeta_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copytext.png"
+						oncommand="mcController.copy('pagetitle');"/>
+				</menupopup>
+			</menu>
+			<menuitem
+				id="mcPopupObjectHyperAnchorCopyFormatToClipboard"
+				label="&meta.menuitem.hyperanchor.copyformat_to_clipboard;"
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/marker_copy.png"
+				oncommand="mcController.copy('format');" />
+			<menuitem
+				id="mcPopupObjectHyperAnchorCopyFormatSetting"
+				label="&meta.menuitem.hyperanchor.copyformatsetting;..."
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/marker_copy.png"
+				oncommand="mcController.copy('setting');"/>
+			<menuseparator observes="mcPopupObjectCache"/>
+			<menu id="mcPopupObjectCache" class="menu-iconic" label="&markingcollection.autocache.cache;" image="chrome://markingcollection/skin/autocache.png">
+				<menupopup>
+					<menuitem
+						id="mcPopupObjectCacheOpen"
+						label="&markingcollection.autocache.open;"
+						observes="mcPopupObjectOpenSeparator"
+						oncommand="window.top.bitsAutocacheService.openCache(event);"/>
+					<menuitem
+						id="mcPopupObjectCacheOpenNewtab"
+						label="&markingcollection.autocache.open.newtab;"
+						observes="mcPopupObjectOpenSeparator"
+						oncommand="window.top.bitsAutocacheService.openCache(event,true);"/>
+					<menuseparator observes="mcPopupObjectCachePast"/>
+					<menuitem
+						id="mcPopupObjectCachePast"
+						label="&markingcollection.autocache.past;..."
+						oncommand="window.top.bitsAutocacheService.pastCache(event);" hidden="true"/>
+				</menupopup>
+			</menu>
+			<menuseparator
+				id="mcPopupObjectTagOutputMenuseparator"
+				observes="mcPopupObjectTagOutput"/>
+			<menuitem
+				id="mcPopupObjectTagOutput"
+				class="menuitem-iconic"
+				label="&markingcollection.tagoutput.menu.title;..."
+				image="chrome://markingcollection/skin/tag_save.png"
+				oncommand="window.top.bitsTagOutputService.onTagOutputRdfCommand({event:event});"/>
+			<menuseparator observes="mcPopupObjectRemoveContents"/>
+			<menuitem
+				id="mcPopupObjectRemoveContents"
+				class="menuitem-iconic"
+				label="&markingcollection.remove;"
+				image="chrome://markingcollection/skin/menu_remove.png"
+				oncommand="setTimeout(function(){mcTreeHandler.remove(event);},0);" />
+			<menuseparator observes="mcPopupObjectProperty"/>
+			<menuitem
+				id="mcPopupObjectProperty"
+				class="menuitem-iconic"
+				label="&markingcollection.property;"
+				image="chrome://markingcollection/skin/menu_property.png"
+				oncommand="mcController.property(null);" />
+		</menupopup>
+	</popupset>
+</overlay>

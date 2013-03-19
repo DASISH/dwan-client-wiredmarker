@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/property.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/setting.css" type="text/css" ?>
+<!DOCTYPE wizard [
+<!ENTITY % overlayDTD   SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%overlayDTD;
+<!ENTITY % markerCustomDTD SYSTEM "chrome://markingcollection/locale/markerCustom.dtd" >
+%markerCustomDTD;
+]>
+<dialog
+	id="mcRepositoryDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	title="&markingcollection.tools.settings; - &markingcollection.repository;"
+	buttons="accept,cancel"
+	onload="mcRepository.onload();"
+	onunload="mcRepository.onunload();"
+	ondialogaccept="mcRepository.ondialogaccept();"
+	ondialogcancel="mcRepository.ondialogcancel();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/repository.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/md5.js" />
+	<vbox flex="1">
+		<groupbox id="mcRepositoryPathGroup" flex="1">
+			<caption label="&markingcollection.repository.folder;" />
+			<hbox>
+				<textbox id="mcRepositoryPath" flex="1"/>
+				<toolbarbutton id="mcToolbarRepositoryMergeButton" image="chrome://markingcollection/skin/folder-close.png" tooltiptext="&markingcollection.repository;&markingcollection.repository.folder;" oncommand="mcRepository.commandChangedRepository(event)"/>
+			</hbox>
+		</groupbox>
+		<groupbox id="mcRepositoryUserGroup" flex="1">
+			<caption label="&markingcollection.repository.user;" />
+			<grid flex="1">
+				<columns>
+					<column />
+					<column flex="1"/>
+				</columns>
+				<rows>
+					<row>
+						<label value="E-Mail :" control="mcRepositoryUser"/>
+						<textbox id="mcRepositoryUser"/>
+					</row>
+					<row>
+						<label   id="mcRepositoryPasswordLabel" value="Password :" control="mcRepositoryPassword" hidden="true"/>
+						<textbox id="mcRepositoryPassword"      type="password" hidden="true"/>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+	</vbox>
+</dialog>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/sidebar.css" type="text/css"?>
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/meta.dtd" >
+%metaDTD;
+<!ENTITY % treecontextmenuDTD SYSTEM "chrome://markingcollection/locale/treecontextmenu.dtd" >
+%treecontextmenuDTD;
+]>
+<overlay
+	id="treedateOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/treedate.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+	]]>
+	</script>
+	<box id="bitsSidebarBox">
+		<vbox id="bitsSidebarVBox">
+			<vbox id="mcTreeVBox">
+				<tabbox id="mcTreeTabbox">
+					<tabs id="mcTreeTabs" onselect="bitsTreeDate.onSelectTabs(event);">
+						<tab id="mcTreeTabDate" label="Date"/>
+					</tabs>
+					<tabpanels id="mcTreeTabpanels">
+						<tabpanel id="mcTreeTabpanelDate">
+							<tree
+								id="bitsTreeDate"
+								onclick="bitsTreeDate.onClick(event);"
+								onmousedown="bitsTreeDate.onMousedown(event);"
+								seltype="single"
+								editable="false"
+								hidecolumnpicker="true"
+								contextmenu="mcPopupDateFolder"
+								class="plain"
+								flex="1">
+								<treecols>
+									<treecol id="bitsTreeDateTreecolDate" hideheader="true" ignoreincolumnpicker="true" primary="true" flex="1"/>
+								</treecols>
+								<treechildren/>
+							</tree>
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
+			</vbox>
+		</vbox>
+	</box>
+	<popupset id="mcPopupSet">
+		<popup
+			id="mcPopupDateFolder"
+			onpopupshowing="bitsTreeDate.onPopupShowing(event);"
+			onpopuphiding="bitsTreeDate.onPopupHiding(event);">
+			<menu
+				id="mcPopupDateFolderViewMenu"
+				class="menu-iconic"
+				image="chrome://markingcollection/skin/view.png"
+				label="&treecontextmenu.view;">
+				<menupopup>
+					<menuitem
+						id="mcPopupDateFolderListView"
+						class="menuitem-iconic"
+						label="&treecontextmenu.view.list;"
+						image="chrome://markingcollection/skin/list.png"
+						oncommand="window.top.bitsTreeListService.dispList(event,'chrome://markingcollection/content/listview_drag.xsl');"/>
+					<menu
+						id="mcPopupDateFolderTreeListViewMenu"
+						class="menu-iconic"
+						label="&markingcollection.treelistview;"
+						image="chrome://markingcollection/skin/toolbar_listview.png">
+						<menupopup
+							id="mcPopupDateFolderTreeListViewMenuPopup"
+							onpopupshowing="window.top.bitsTreeListService.onPopupShowing(event);"
+							onpopuphiding="window.top.bitsTreeListService.onPopupHiding(event);"
+							oncommand="window.top.bitsTreeListService.onCommand(event);">
+							<menuitem
+								id="mcPopupDateFolderTreeListView"
+								class="menuitem-iconic"
+								label="&markingcollection.treelistview.defaults;"
+								image="chrome://markingcollection/skin/stylesheet.png"
+								oncommand="window.top.bitsTreeListService.dispList(event);"/>
+							<menuseparator observes="mcPopupDateFolderTreeListViewSeparator"/>
+						</menupopup>
+					</menu>
+				</menupopup>
+			</menu>
+		</popup>
+	</popupset>
+</overlay>

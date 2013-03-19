@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/autocache.css" type="text/css"?>
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/meta.dtd" >
+%metaDTD;
+]>
+<overlay
+	id="autocacheSidebarOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript">
+	<![CDATA[
+	]]>
+	</script>
+	<popupset id="mcPopupSet">
+		<menupopup id="mcPopup">
+			<menuitem
+				id="mcPopupHyperAnchorCopyFormatSetting"
+				label="&meta.menuitem.hyperanchor.copyformatsetting;..."
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/marker_copy.png"
+				oncommand="mcController.copy('setting');"
+				insertafter="mcPopupOpenSeparator" />
+			<menuitem
+				id="mcPopupHyperAnchorCopyFormatToClipboard"
+				label="&meta.menuitem.hyperanchor.copyformat_to_clipboard;"
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/marker_copy.png"
+				oncommand="mcController.copy('format');"
+				insertafter="mcPopupOpenSeparator" />
+			<menu
+				id="mcPopupHyperAnchorCopyToClipboard"
+				label="&markingcollection.hyperanchor.sidebar_copy_to_clipboard;"
+				class="menu-iconic"
+				image="chrome://markingcollection/skin/marker_copy.png"
+				insertafter="mcPopupOpenSeparator">
+				<menupopup>
+					<menuitem
+						label="&meta.menuitem.hyperanchor.copy_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copy.png"
+						oncommand="mcController.copy('copy');"/>
+					<menuitem
+						label="&meta.menuitem.hyperanchor.copytitle_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copytext.png"
+						oncommand="mcController.copy('title');"/>
+					<menuitem
+						label="&meta.menuitem.hyperanchor.copynote_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copytext.png"
+						oncommand="mcController.copy('note');"/>
+					<menuitem
+						label="&meta.menuitem.hyperanchor.copymeta_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copytext.png"
+						oncommand="mcController.copy('pagetitle');"/>
+				</menupopup>
+			</menu>
+<!--			<menuseparator id="mcPopupHyperAnchorCopyToClipboardMenuseparator" observes="mcPopupHyperAnchorCopyToClipboard" insertafter="mcPopupOpenSeparator"/>-->
+		</menupopup>
+		<menupopup id="bitsItemTreePopup">
+			<menuseparator id="bitsItemTreePopupHyperAnchorCopyToClipboardMenuseparator" observes="bitsItemTreePopupHyperAnchorCopyMenu" insertafter="bitsItemTreePopupOpenMenuseparator"/>
+			<menuitem
+				id="bitsItemTreePopupHyperAnchorCopyFormatSetting"
+				label="&meta.menuitem.hyperanchor.copyformatsetting;..."
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/marker_copy.png"
+				insertafter="bitsItemTreePopupOpenMenuseparator"/>
+			<menuitem
+				id="bitsItemTreePopupHyperAnchorCopyFormatToClipboard"
+				label="&meta.menuitem.hyperanchor.copyformat_to_clipboard;"
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/marker_copy.png"
+				insertafter="bitsItemTreePopupOpenMenuseparator"/>
+			<menu
+				id="bitsItemTreePopupHyperAnchorCopyMenu"
+				label="&markingcollection.hyperanchor.sidebar_copy_to_clipboard;"
+				class="menu-iconic"
+				image="chrome://markingcollection/skin/marker_copy.png"
+				insertafter="bitsItemTreePopupOpenMenuseparator">
+				<menupopup>
+					<menuitem
+						id="bitsItemTreePopupHyperAnchorCopyToClipboard"
+						label="&meta.menuitem.hyperanchor.copy_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copy.png"/>
+					<menuitem
+						id="bitsItemTreePopupHyperAnchorCopyTitleToClipboard"
+						label="&meta.menuitem.hyperanchor.copytitle_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copytext.png"/>
+					<menuitem
+						id="bitsItemTreePopupHyperAnchorCopyNoteToClipboard"
+						label="&meta.menuitem.hyperanchor.copynote_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copytext.png"/>
+					<menuitem
+						id="bitsItemTreePopupHyperAnchorCopyMetaToClipboard"
+						label="&meta.menuitem.hyperanchor.copymeta_to_clipboard;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/marker_copytext.png"/>
+				</menupopup>
+			</menu>
+		</menupopup>
+	</popupset>
+</overlay>

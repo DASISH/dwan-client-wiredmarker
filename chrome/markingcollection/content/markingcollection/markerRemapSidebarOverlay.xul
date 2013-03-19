@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://browser/skin/searchbar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/browser.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/places/places.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/sidebar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/remap.dtd">
+<overlay
+	id="treeprojectOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _markerremapMainInit(aEvent){
+			window.top.bitsMarkerRemap.load(aEvent);
+		}
+		function _markerremapMainDone(aEvent){
+			window.top.bitsMarkerRemap.unload(aEvent);
+		}
+		window.addEventListener("load", _markerremapMainInit, false);
+		window.addEventListener("unload", _markerremapMainDone, false);
+	]]>
+	</script>
+	<popupset id="mcPopupSet">
+
+		<menupopup id="mcPopup">
+			<menuitem
+				id="mcPopupRemap"
+				label="&remap.menuitem;"
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/remap.png"
+				insertbefore="mcPopupOpen"
+				oncommand="window.top.bitsMarkerRemap.reMap(event)" />
+			<menuseparator
+				id="mcPopupRemapMenuseparator"
+				observes="mcPopupRemap"
+				insertbefore="mcPopupOpen"/>
+		</menupopup>
+
+		<menupopup id="mcPopupObject">
+			<menuitem
+				id="mcPopupObjectRemap"
+				label="&remap.menuitem;"
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/remap.png"
+				insertbefore="mcPopupObjectOpen"
+				oncommand="window.top.bitsMarkerRemap.reMap(event)" />
+			<menuseparator
+				id="mcPopupObjectRemapMenuseparator"
+				observes="mcPopupObjectRemap"
+				insertbefore="mcPopupObjectOpen"/>
+		</menupopup>
+
+		<menupopup id="bitsItemTreePopup">
+			<menuitem
+				id="bitsItemTreePopupRemap"
+				label="&remap.menuitem;"
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/remap.png"
+				insertbefore="bitsItemTreePopupOpen"
+				oncommand="window.top.bitsMarkerRemap.reMap(event)" />
+			<menuseparator
+				id="bitsItemTreePopupRemapMenuseparator"
+				observes="bitsItemTreePopupRemap"
+				insertbefore="bitsItemTreePopupOpen"/>
+		</menupopup>
+
+	</popupset>
+</overlay>

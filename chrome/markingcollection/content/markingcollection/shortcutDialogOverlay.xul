@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/shortcut.css" type="text/css" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="shortcutDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://global/content/nsDragAndDrop.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/shortcutDialogOverlay.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _shortcutDialogInit(aEvent){
+			bitsShortcutDialogOverlay.init(aEvent);
+		}
+		function _shortcutDialogDone(aEvent){
+			bitsShortcutDialogOverlay.done(aEvent);
+		}
+		window.addEventListener("load", _shortcutDialogInit, false);
+		window.addEventListener("unload", _shortcutDialogDone, false);
+	]]>
+	</script>
+	<tabbox id="mcSettingTabbox">
+		<tabs id="mcSettingTabs">
+			<tab id="mcShortcutTab" label="&markingcollection.shortcut.tab;" image="chrome://markingcollection/skin/shortcut.png"/>
+		</tabs>
+		<tabpanels id="mcSettingTabPanels">
+			<tabpanel id="mcShortcutTabPanel" orient="vertical" flex="1">
+				<hbox flex="1">
+					<tree
+						id="bitsShortcutTree"
+						flex="1"
+						hidecolumnpicker="true"
+						seltype="multiple"
+						class="plain"
+						onclick="bitsShortcutDialogOverlay.onClick(event);"
+						ondblclick="bitsShortcutDialogOverlay.onDblClick(event);"
+					>
+						<treecols id="bitsShortcutCols">
+							<treecol
+								id="bitsShortcutPriorityCol"
+								flex="1"
+								style="min-width:19px;"/>
+							<treecol
+								id="bitsShortcutTitleCol"
+								flex="100"
+								label="Title"
+								/>
+							<treecol
+								id="bitsShortcutShiftCol"
+								label="Shift"
+								flex="1"
+								type="checkbox"
+								/>
+							<treecol
+								id="bitsShortcutAltCol"
+								label="Alt"
+								flex="1"
+								type="checkbox"
+								/>
+							<treecol
+								id="bitsShortcutAccelCol"
+								label="Control"
+								flex="1"
+								type="checkbox"
+								/>
+							<treecol
+								id="bitsShortcutKeyCol"
+								label="Key"
+								flex="1"
+								/>
+							<treecol
+								id="bitsShortcutDisabledCol"
+								label="Disabled"
+								type="checkbox"
+								flex="1"
+								/>
+						</treecols>
+						<treechildren/>
+					</tree>
+					<vbox>
+						<toolbarbutton
+							id="bitsShortcutAdd"
+							label="&markingcollection.shortcut.add;"
+							image="chrome://markingcollection/skin/menu_create.png"
+							hidden="true"
+							oncommand="bitsShortcutDialogOverlay.onAdd(event);"/>
+						<toolbarbutton
+							id="bitsShortcutEdit"
+							label="&markingcollection.shortcut.edit;"
+							image="chrome://markingcollection/skin/menu_property.png"
+							disabled="true"
+							oncommand="bitsShortcutDialogOverlay.onEdit(event);"/>
+						<toolbarbutton
+							id="bitsShortcutDel"
+							label="&markingcollection.shortcut.del;"
+							image="chrome://markingcollection/skin/menu_remove.png"
+							disabled="true"
+							oncommand="bitsShortcutDialogOverlay.onDel(event);"/>
+					</vbox>
+				</hbox>
+				<checkbox id="bitsShortcutDisp" label="&markingcollection.shortcut.disptree;" oncommand="bitsShortcutDialogOverlay.onDispTree(event);"/>
+				<description style="-moz-appearance: none;color:#ff0000;">&markingcollection.shortcut.attention1;</description>
+				<description style="-moz-appearance: none;color:#ff0000;">&markingcollection.shortcut.attention2;</description>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</overlay>

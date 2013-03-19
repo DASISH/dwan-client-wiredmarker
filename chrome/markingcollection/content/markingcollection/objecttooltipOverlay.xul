@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="objecttooltipOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://markingcollection/content/objecttooltip.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _objecttooltipOverlayInit(aEvent){
+			window.setTimeout(
+				function(){
+					bitsObjectTooltip.init(aEvent);
+				},0);
+		}
+		function _objecttooltipOverlayDone(aEvent){
+			bitsObjectTooltip.done(aEvent);
+		}
+		window.addEventListener("load", _objecttooltipOverlayInit, false);
+		window.addEventListener("unload", _objecttooltipOverlayDone, false);
+	]]>
+	</script>
+	<popupset id="mainPopupSet">
+		<tooltip id="MarkingCollectionObjectTooltip" flex="1">
+			<grid>
+				<columns>
+					<column/>
+					<column flex="1"/>
+				</columns>
+				<rows>
+					<row>
+						<hbox align="start" pack="end">
+							<description value="&markingcollection.setting.marker.mouseover.title; : " style="font-weight:bold;"/>
+						</hbox><description id="MarkingCollectionObjectTooltipTitleLabel"/>
+					</row>
+					<row>
+						<hbox align="start" pack="end">
+							<description value="&markingcollection.setting.marker.mouseover.note; : " style="font-weight:bold;"/>
+						</hbox><description id="MarkingCollectionObjectTooltipNoteDescription"/>
+					</row>
+				</rows>
+			</grid>
+		</tooltip>
+	</popupset>
+</overlay>

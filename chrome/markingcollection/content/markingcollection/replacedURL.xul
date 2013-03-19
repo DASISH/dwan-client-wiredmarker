@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<!DOCTYPE window SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<dialog
+	id="mcRepDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	buttons="accept,cancel,extra1"
+	defaultButton="extra1"
+	onload="mcReplacedURL.init();"
+	ondialogaccept="mcReplacedURL.accept();"
+	ondialogcancel="mcReplacedURL.cancel();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/replacedURL.js" />
+	<stringbundleset id="mcStringBundles">
+		<stringbundle id="mcRepString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<groupbox flex="1">
+		<grid>
+			<columns>
+				<column/>
+				<column flex="1"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="&markingcollection.edit.replacedTarget;"/>
+					<radiogroup id="mcRepTarget" orient="horizontal" oncommand="mcReplacedURL.changeTarget()">
+						<radio id="mcRepTargetDirectory" label="&markingcollection.edit.replacedTarget.directory;" selected="true"/>
+						<radio id="mcRepTargetFile" label="&markingcollection.edit.replacedTarget.file;"/>
+					</radiogroup>
+				</row>
+				<separator class="groove-thin"/>
+				<row>
+					<label control="mcRepSearchMenulist" value="&markingcollection.edit.searched;:"/>
+					<menulist id="mcRepSearchMenulist" editable="true" flex="1" onfocus="this.select()" oninput="mcReplacedURL.change()" oncommand="mcReplacedURL.change()">
+						<menupopup/>
+					</menulist>
+				</row>
+				<row>
+					<label control="mcRepReplaceTextbox" value="&markingcollection.edit.replaced;:"/>
+					<hbox>
+						<textbox id="mcRepReplaceTextbox" value="" flex="1" onfocus="this.select()" oninput="mcReplacedURL.change()"/>
+						<toolbarbutton type="menu" label="&markingcollection.edit.getURL;">
+							<menupopup>
+								<menuitem label="&markingcollection.edit.displayURL;" class="menuitem-iconic" image="chrome://markingcollection/skin/firefox.png" oncommand="mcReplacedURL.displayURL();"/>
+								<menuitem label="&markingcollection.edit.folderURL;" class="menuitem-iconic" image="chrome://markingcollection/skin/folder-close.png" oncommand="mcReplacedURL.folderURL();"/>
+							</menupopup>
+						</toolbarbutton>
+					</hbox>
+				</row>
+				<row>
+					<spacer/>
+					<hbox>
+					<spacer flex="1"/>
+						<button id="mcRepReplaceButton" label="&markingcollection.edit.replaced;" dlgtype="extra1" oncommand="mcReplacedURL.replaced();"/>
+					</hbox>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+</dialog>

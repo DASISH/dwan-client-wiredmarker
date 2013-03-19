@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="autocacheDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _autocacheDialogOverlayInit(aEvent){
+
+			var manually_exec = nsPreferences.getBoolPref("wiredmarker.autocache.manually.exec", false);
+			document.getElementById("bitsSelectDisplayAutocacheManually").checked = manually_exec;
+			document.getElementById("bitsSelectDisplayAutocacheManually").setAttribute("disabled","true");
+
+
+			var manually_confirm = nsPreferences.getBoolPref("wiredmarker.autocache.manually.confirm", true);
+			document.getElementById("bitsSelectDisplayAutocacheManuallyConfirm").checked = manually_confirm;
+			document.getElementById("bitsSelectDisplayAutocacheManuallyConfirm").setAttribute("disabled","true");
+
+
+			document.getElementById("bitsSelectDisplayAutocacheMarkingDisabled").removeAttribute("disabled");
+			document.getElementById("bitsSelectDisplayAutocacheMarkingConfirm").removeAttribute("disabled");
+			document.getElementById("bitsSelectDisplayAutocacheMarkingValid").removeAttribute("disabled");
+
+			document.getElementById("bitsAutocacheSaveFolderCheckbox").setAttribute("disabled","true");
+			document.getElementById("bitsAutocacheSaveFolderTextbox").setAttribute("disabled","true");
+			document.getElementById("bitsAutocacheSaveFolderUserTextbox").setAttribute("disabled","true");
+			document.getElementById("bitsAutocacheSaveFolderUserButton").setAttribute("disabled","true");
+
+			document.getElementById("bitsAutocacheTopmenuDisplay").setAttribute("disabled","true");
+			document.getElementById("bitsAutocacheTopmenuDisplayNumber").setAttribute("disabled","true");
+
+			var autocache_use = nsPreferences.copyUnicharPref("wiredmarker.autocache.use","valid");
+			switch(autocache_use){
+				case "switching":
+					document.getElementById("bitsSelectDisplayAutocacheDisabled").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayAutocacheSwitching").setAttribute("selected","true");
+					document.getElementById("bitsSelectDisplayAutocacheValid").removeAttribute("selected");
+
+					document.getElementById("bitsSelectDisplayAutocacheManuallyConfirm").removeAttribute("disabled");
+					break;
+				case "valid":
+					document.getElementById("bitsSelectDisplayAutocacheDisabled").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayAutocacheSwitching").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayAutocacheValid").setAttribute("selected","true");
+					document.getElementById("bitsSelectDisplayAutocacheMarking").removeAttribute("disabled");
+					break;
+				default:
+					document.getElementById("bitsSelectDisplayAutocacheDisabled").setAttribute("selected","true");
+					document.getElementById("bitsSelectDisplayAutocacheSwitching").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayAutocacheValid").removeAttribute("selected");
+
+
+					document.getElementById("bitsSelectDisplayAutocacheManually").removeAttribute("disabled");
+					if(manually_exec){
+						document.getElementById("bitsSelectDisplayAutocacheManuallyConfirm").removeAttribute("disabled");
+					}else{
+						document.getElementById("bitsSelectDisplayAutocacheManuallyConfirm").setAttribute("disabled","true");
+						document.getElementById("bitsSelectDisplayAutocacheMarkingDisabled").setAttribute("disabled","true");
+						document.getElementById("bitsSelectDisplayAutocacheMarkingConfirm").setAttribute("disabled","true");
+						document.getElementById("bitsSelectDisplayAutocacheMarkingValid").setAttribute("disabled","true");
+					}
+					break;
+			}
+			var autocache_marking = nsPreferences.copyUnicharPref("wiredmarker.autocache.marking","confirm");
+			switch(autocache_marking){
+				case "confirm":
+					document.getElementById("bitsSelectDisplayAutocacheMarkingDisabled").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayAutocacheMarkingConfirm").setAttribute("selected","true");
+					document.getElementById("bitsSelectDisplayAutocacheMarkingValid").removeAttribute("selected");
+					break;
+				case "valid":
+					document.getElementById("bitsSelectDisplayAutocacheMarkingDisabled").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayAutocacheMarkingConfirm").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayAutocacheMarkingValid").setAttribute("selected","true");
+					break;
+				default:
+					document.getElementById("bitsSelectDisplayAutocacheMarkingDisabled").setAttribute("selected","true");
+					document.getElementById("bitsSelectDisplayAutocacheMarkingConfirm").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayAutocacheMarkingValid").removeAttribute("selected");
+					break;
+			}
+
+
+			if(autocache_use != "disabled"){
+				document.getElementById("bitsAutocacheSaveFolderCheckbox").removeAttribute("disabled");
+				var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+				var browserWindow = wm.getMostRecentWindow("navigator:browser");
+				if(browserWindow && browserWindow.bitsAutocacheService){
+					document.getElementById("bitsAutocacheSaveFolderTextbox").value = browserWindow.bitsAutocacheService.default_cachedir.path;
+				}
+
+				var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+				try{
+					var save_folder = prefs.getComplexValue("wiredmarker.autocache.save.folder", Components.interfaces.nsILocalFile);
+					document.getElementById("bitsAutocacheSaveFolderUserTextbox").value = save_folder.path;
+				}catch(e){
+					nsPreferences.setBoolPref("wiredmarker.autocache.save.default", true);
+				}
+
+				var save_default = nsPreferences.getBoolPref("wiredmarker.autocache.save.default", true);
+				document.getElementById("bitsAutocacheSaveFolderCheckbox").checked = save_default;
+				if(save_default){
+					document.getElementById("bitsAutocacheSaveFolderTextbox").removeAttribute("disabled");
+				}else{
+					document.getElementById("bitsAutocacheSaveFolderUserTextbox").removeAttribute("disabled");
+					document.getElementById("bitsAutocacheSaveFolderUserButton").removeAttribute("disabled");
+				}
+			}
+
+			if(autocache_use != "disabled"){
+				document.getElementById("bitsAutocacheTopmenuDisplay").removeAttribute("disabled");
+				var topmenu_display = nsPreferences.getBoolPref("wiredmarker.autocache.topmenu.display", false);
+				document.getElementById("bitsAutocacheTopmenuDisplay").checked = topmenu_display;
+				if(topmenu_display) document.getElementById("bitsAutocacheTopmenuDisplayNumber").removeAttribute("disabled");
+
+				var topmenu_number = nsPreferences.getIntPref("wiredmarker.autocache.topmenu.number", 0);
+				var elem = document.getElementById("bitsAutocacheTopmenuDisplayNumber");
+				elem.valueNumber = topmenu_number;
+				elem.value = topmenu_number;
+			}
+			window.sizeToContent();
+		}
+		function _autocacheDialogOverlayDone(aEvent){
+
+		}
+		function _SelectAutocacheCommand(aEvent){
+			nsPreferences.setUnicharPref("wiredmarker.autocache.use", aEvent.target.value);
+			_autocacheDialogOverlayInit();
+		}
+		function _CheckAutocacheManuallyCommand(aEvent){
+			nsPreferences.setBoolPref("wiredmarker.autocache.manually.exec", aEvent.target.checked);
+			_autocacheDialogOverlayInit();
+		}
+		function _CheckAutocacheManuallyConfirmCommand(aEvent){
+			nsPreferences.setBoolPref("wiredmarker.autocache.manually.confirm", aEvent.target.checked);
+		}
+		function _SelectAutocacheMarkingCommand(aEvent){
+			nsPreferences.setUnicharPref("wiredmarker.autocache.marking", aEvent.target.value);
+		}
+
+		function _GetAutocacheSaveFolder(){
+			var picker = Components.classes["@mozilla.org/filepicker;1"].createInstance(Components.interfaces.nsIFilePicker);
+			var result = null;
+			try{
+				picker.init(window, "Selected Save Folder", picker.modeGetFolder);
+				var showResult = picker.show();
+				if(showResult == picker.returnOK) result = picker.file;
+			}catch(e){
+				result = null;
+				alert(e);
+			}
+			return result;
+		}
+
+		function _CommandAutocacheSaveFolder(aEvent){
+			var folder = _GetAutocacheSaveFolder();
+			var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+			if(folder){
+				prefs.setComplexValue("wiredmarker.autocache.save.folder", Components.interfaces.nsILocalFile, folder);
+			}else{
+				try{
+					var save_folder = prefs.getComplexValue("wiredmarker.autocache.save.folder", Components.interfaces.nsILocalFile);
+				}catch(e){
+					nsPreferences.setBoolPref("wiredmarker.autocache.save.default", true);
+					try{prefs.clearUserPref("wiredmarker.autocache.save.folder");}catch(e){}
+				}
+			}
+			_autocacheDialogOverlayInit();
+		}
+
+		function _CheckAutocacheSaveFolder(aEvent){
+			nsPreferences.setBoolPref("wiredmarker.autocache.save.default", aEvent.target.checked);
+			if(!aEvent.target.checked){
+				try{
+					var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+					var save_folder = prefs.getComplexValue("wiredmarker.autocache.save.folder", Components.interfaces.nsILocalFile);
+				}catch(e){
+					save_folder = undefined;
+				}
+				if(!save_folder){
+					_CommandAutocacheSaveFolder();
+				}else{
+					_autocacheDialogOverlayInit();
+				}
+			}else{
+				_autocacheDialogOverlayInit();
+			}
+		}
+
+		function _CheckAutocacheDisplay(aEvent){
+			nsPreferences.setBoolPref("wiredmarker.autocache.topmenu.display", aEvent.target.checked);
+			_autocacheDialogOverlayInit();
+		}
+
+		function _InputAutocacheDisplayNumber(aEvent){
+			if(parseInt(aEvent.target.value)>50) aEvent.target.value = 50;
+			if(parseInt(aEvent.target.value)<0) aEvent.target.value = 0;
+			nsPreferences.setIntPref("wiredmarker.autocache.topmenu.number", aEvent.target.value);
+			_autocacheDialogOverlayInit();
+		}
+
+		function _dump(aString){
+			var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+			var browserWindow = wm.getMostRecentWindow("navigator:browser");
+			if(browserWindow && browserWindow.bitsMarkingCollection) browserWindow.bitsMarkingCollection._dump(aString);
+		}
+
+		window.addEventListener("load", _autocacheDialogOverlayInit, false);
+		window.addEventListener("unload", _autocacheDialogOverlayDone, false);
+	]]>
+	</script>
+	<tabbox id="mcSettingTabbox">
+		<tabs id="mcSettingTabs">
+			<tab id="mcProjectTab" label="&markingcollection.autocache.tab;" image="chrome://markingcollection/skin/autocache.png"/>
+		</tabs>
+		<tabpanels id="mcSettingTabPanels">
+			<tabpanel id="mcAutocacheTabPanel" orient="vertical" flex="1">
+				<hbox align="center">
+					<groupbox>
+						<caption label="&markingcollection.autocache.caption;" style="background-color:#fff;"/>
+						<hbox>
+							<radiogroup id="" orient="horizontal" oncommand="_SelectAutocacheCommand(event)">
+								<radio id="bitsSelectDisplayAutocacheValid"     value="valid"     label="&markingcollection.autocache.valid;"/>
+								<radio id="bitsSelectDisplayAutocacheDisabled"  value="disabled"  label="&markingcollection.autocache.disabled;"/>
+								<radio id="bitsSelectDisplayAutocacheSwitching" value="switching" label="&markingcollection.autocache.switching;" hidden="true"/>
+							</radiogroup>
+							<checkbox id="bitsSelectDisplayAutocacheManually" label="&markingcollection.autocache.manually.caption;" oncommand="_CheckAutocacheManuallyCommand(event)" disabled="true" hidden="true"/>
+							<checkbox id="bitsSelectDisplayAutocacheManuallyConfirm" label="&markingcollection.autocache.manually.confirm;" oncommand="_CheckAutocacheManuallyConfirmCommand(event)" disabled="true" hidden="true"/>
+						</hbox>
+					</groupbox>
+					<groupbox id="bitsSelectDisplayAutocacheMarking">
+						<caption label="&markingcollection.autocache.marking;" style="background-color:#fff;"/>
+						<radiogroup id="" orient="horizontal" oncommand="_SelectAutocacheMarkingCommand(event)">
+							<radio id="bitsSelectDisplayAutocacheMarkingDisabled" value="disabled" label="&markingcollection.autocache.marking.disabled;"/>
+							<radio id="bitsSelectDisplayAutocacheMarkingConfirm"  value="confirm"  label="&markingcollection.autocache.marking.confirm;"/>
+							<radio id="bitsSelectDisplayAutocacheMarkingValid"    value="valid"    label="&markingcollection.autocache.marking.valid;"/>
+						</radiogroup>
+					</groupbox>
+				</hbox>
+				<groupbox id="bitsAutocacheSaveFolder">
+					<caption label="&markingcollection.autocache.save.folder;" style="background-color:#fff;"/>
+					<hbox align="center">
+						<checkbox id="bitsAutocacheSaveFolderCheckbox" label="&markingcollection.autocache.save.default;:" oncommand="_CheckAutocacheSaveFolder(event);"/>
+						<textbox id="bitsAutocacheSaveFolderTextbox" flex="1" readonly="true"/>
+					</hbox>
+					<hbox align="center">
+						<label control="bitsAutocacheSaveFolderUserTextbox" value="&markingcollection.autocache.save.user;:"/>
+						<textbox id="bitsAutocacheSaveFolderUserTextbox" flex="1" readonly="true"/>
+						<button id="bitsAutocacheSaveFolderUserButton" label="&markingcollection.autocache.save.folder;" oncommand="_CommandAutocacheSaveFolder(event);"/>
+					</hbox>
+				</groupbox>
+				<hbox>
+				<groupbox id="bitsAutocacheTopmenu">
+					<caption label="&markingcollection.autocache.topmenu.caption;" style="background-color:#fff;"/>
+					<hbox align="center">
+						<checkbox id="bitsAutocacheTopmenuDisplay" label="&markingcollection.autocache.topmenu.display;" oncommand="_CheckAutocacheDisplay(event)"/>
+						<label control="bitsAutocacheSaveFolderUserTextbox" value="&markingcollection.autocache.topmenu.number;:"/>
+						<textbox id="bitsAutocacheTopmenuDisplayNumber" type="number" wraparound="true" min="0" max="50" size="2" maxlength="2" onchange="_InputAutocacheDisplayNumber(event)"/>
+					</hbox>
+					<hbox align="center">
+						<description style="color:#ff0000;padding-left:1em;">&markingcollection.autocache.topmenu.attention;</description>
+					</hbox>
+				</groupbox>
+				</hbox>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</overlay>

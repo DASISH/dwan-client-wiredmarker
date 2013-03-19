@@ -1,0 +1,25 @@
+<!ENTITY treecontextmenu.folder                 "フォルダ">
+<!ENTITY treecontextmenu.folder.new             "空フォルダを作成">
+<!ENTITY treecontextmenu.folder.template.new    "テンプレートを使用してフォルダを作成">
+<!ENTITY treecontextmenu.folder.template.create "テンプレートを作成">
+<!ENTITY treecontextmenu.folder.template.remove "テンプレートを削除">
+
+<!ENTITY treecontextmenu.view       "表示">
+<!ENTITY treecontextmenu.view.list  "リスト表示">
+<!ENTITY treecontextmenu.view.list.remove "除く">
+<!ENTITY treecontextmenu.view.itemviewstyle         "アイテムビュースタイル">
+<!ENTITY treecontextmenu.view.itemviewstyle.favicon "アイコンサイズ">
+<!ENTITY treecontextmenu.view.itemviewstyle.items   "表示アイテム">
+<!ENTITY treecontextmenu.view.filter  "フォルダフィルタ">
+
+<!ENTITY treecontextmenu.import       "インポート">
+<!ENTITY treecontextmenu.import.capture       "イメージをキャプチャ">
+<!ENTITY treecontextmenu.import.tag       "HTMLタグを指定して取込">
+<!ENTITY treecontextmenu.import.localfile "ローカルファイルの一括登録">
+
+<!ENTITY treecontextmenu.export           "エクスポート">
+<!ENTITY treecontextmenu.export.export    "Wired-Marker形式でエクスポート">
+<!ENTITY treecontextmenu.export.tagoutput "フォルダ内のコンテンツをタグ付き出力">
+
+<!ENTITY treecontextmenu.automarking            "自動マーキング">
+<!ENTITY treecontextmenu.automarking.dictionary "辞書">

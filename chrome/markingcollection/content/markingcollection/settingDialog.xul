@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/setting.css" type="text/css" ?>
+<?xul-overlay href="chrome://markingcollection/content/menuDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/treeContextmenuDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/treeprojectDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/markerInitDataDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/generalDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/substitutiontreeOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/shortcutDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/databaseDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/mergeDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/hyperanchorDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/autocacheDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/metaCaptureDialogOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/pubmedcentralDialogOverlay.xul"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<dialog id="mcSettingWindow"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	title="&markingcollection.tools.settings; - &markingcollection.app.title;"
+	buttons="accept"
+	buttonlabelaccept="&markingcollection.tools.label.accept;"
+	buttonaccesskeyaccept="&markingcollection.tools.key.accept;"
+	onload="mcSettingService.init();"
+	onunload="mcSettingService.done();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/settingDialog.js" />
+	<stringbundleset id="mcSettingStringbundleset">
+		<stringbundle id="mcSettingString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<dialogheader title="&markingcollection.app.title; &markingcollection.tools.settings;" />
+	<tabbox id="mcSettingTabbox" flex="1">
+		<tabs id="mcSettingTabs" orient="horizontal"/>
+		<tabpanels id="mcSettingTabPanels" flex="1"/>
+	</tabbox>
+</dialog>

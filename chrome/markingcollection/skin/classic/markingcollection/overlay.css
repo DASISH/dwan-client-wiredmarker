@@ -1,0 +1,86 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#markingcollection-button {
+  list-style-image: url("chrome://markingcollection/skin/icon_24.gif");
+}
+
+toolbar[iconsize="small"] #markingcollection-button {
+  list-style-image: url("chrome://markingcollection/skin/icon_16.gif");
+}
+
+/*****************************************************************************/
+
+menu[mctype="folder"] #mcToolbarRootFolderButton {
+	list-style-image: url('chrome://markingcollection/skin/treefolder.png') !important;
+}
+
+
+
+/*****************************************************************************/
+menu#MarkingCollectionMenu menuitem {
+	max-width: 250px;
+}
+
+menu#MarkingCollectionMenu menuitem.mc-item {
+	list-style-image: url('chrome://markingcollection/skin/treeitem.png') !important;
+}
+
+menu#MarkingCollectionMenu menuitem.mc-item[sbtype="note"] {
+	list-style-image: url('chrome://markingcollection/skin/treenote.png') !important;
+}
+
+menu#MarkingCollectionMenu menuitem.mc-item[sbtype="marked"] {
+	font-weight: bold;
+}
+
+menu#MarkingCollectionMenu menuitem.mc-item[sbtype="combine"] {
+	color: blue;
+}
+
+menu#MarkingCollectionMenu menuitem.mc-item[sbtype="bookmark"] {
+	color: rgb(32,192,32);
+}
+
+/*****************************************************************************/
+
+/*****************************************************************************/
+.mc-header {
+	color: InfoText;
+	background-color: InfoBackground;
+	border: 1px solid ThreeDShadow;
+	padding: 3px;
+}
+
+.mc-header toolbarbutton {
+	padding: 0px;
+	margin: 0px;
+	-moz-appearance: none;
+}
+
+.mc-header toolbarbutton image {
+	padding: 0px 1px;
+	margin: 0px;
+}
+
+.mc-header-exit {
+	list-style-image: url('chrome://markingcollection/skin/exit.png');
+}
+
+/*****************************************************************************/
+/* サイドバーをウィンドウ右側に表示する  */
+/*
+window > hbox { 
+   direction: rtl; 
+} 
+window > hbox > * { 
+   direction: ltr; 
+}
+*/
+
+.favoritefolder{
+/*
+  list-style-image: url(chrome://markingcollection/skin/folder-item.png);
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+*/
+  list-style-image: url(chrome://markingcollection/skin/folder-star.png);
+}

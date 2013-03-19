@@ -1,0 +1,27 @@
+<!ENTITY markingcollection.markerCustom.preset "Preset style">
+<!ENTITY markingcollection.markerCustom.background "Background">
+<!ENTITY markingcollection.markerCustom.color "Color">
+<!ENTITY markingcollection.markerCustom.text "Text">
+<!ENTITY markingcollection.markerCustom.bold "Bold">
+<!ENTITY markingcollection.markerCustom.italic "Italic">
+<!ENTITY markingcollection.markerCustom.line "Strike through">
+<!ENTITY markingcollection.markerCustom.border "Border">
+<!ENTITY markingcollection.markerCustom.type "Type">
+<!ENTITY markingcollection.markerCustom.box "Box">
+<!ENTITY markingcollection.markerCustom.underline "Underline">
+<!ENTITY markingcollection.markerCustom.style "Style">
+<!ENTITY markingcollection.markerCustom.solid "Solid">
+<!ENTITY markingcollection.markerCustom.dotted "Dotted">
+<!ENTITY markingcollection.markerCustom.dashed "Dashed">
+<!ENTITY markingcollection.markerCustom.double "Double">
+<!ENTITY markingcollection.markerCustom.groove "Groove">
+<!ENTITY markingcollection.markerCustom.ridge "Ridge">
+<!ENTITY markingcollection.markerCustom.inset "Inset">
+<!ENTITY markingcollection.markerCustom.outset "Outset">
+
+<!ENTITY markingcollection.markerCustom.width "Width">
+<!ENTITY markingcollection.markerCustom.thin "Thin">
+<!ENTITY markingcollection.markerCustom.medium "Medium">
+<!ENTITY markingcollection.markerCustom.thick "Thick">
+
+<!ENTITY markingcollection.markerCustom.enabled "Enabled">

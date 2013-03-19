@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://browser/skin/searchbar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/browser.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/places/places.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/sidebar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="tagoutputOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _tagoutputInit(aEvent){
+			window.top.bitsTagOutputService.load(aEvent);
+		}
+		function _tagoutputDone(aEvent){
+			window.top.bitsTagOutputService.unload(aEvent);
+		}
+		window.addEventListener("load", _tagoutputInit, false);
+		window.addEventListener("unload", _tagoutputDone, false);
+	]]>
+	</script>
+	<popupset id="mcPopupSet">
+		<menupopup id="mcPopup">
+			<menuitem
+				id="mcPopupTagOutput"
+				class="menuitem-iconic"
+				label="&markingcollection.tagoutput.menu.title;..."
+				image="chrome://markingcollection/skin/tag_save.png"
+				oncommand="window.top.bitsTagOutputService.onTagOutputRdfCommand({event:event});"
+				insertafter="mcPopupProjectDocumentsMenu"/>
+			<menuseparator
+				id="mcPopupTagOutputMenuseparator"
+				observes="mcPopupTagOutput"
+				insertafter="mcPopupProjectDocumentsMenu"/>
+		</menupopup>
+		<menupopup id="bitsItemTreePopup">
+			<menuseparator id="bitsItemTreePopupTagOutputMenuseparator" observes="bitsItemTreePopupCache" insertafter="bitsItemTreePopupCacheMenuseparator"/>
+			<menuitem
+				id="bitsItemTreePopupTagOutput"
+				class="menuitem-iconic"
+				label="&markingcollection.tagoutput.menu.title;..."
+				image="chrome://markingcollection/skin/tag_save.png"
+				oncommand="window.top.bitsTagOutputService.onTagOutputItemviewCommand({event:event});"
+				insertafter="bitsItemTreePopupCacheMenuseparator"/>
+		</menupopup>
+	</popupset>
+</overlay>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://browser/skin/searchbar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/browser.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/places/places.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/sidebar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="itemviewOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/treefavoritefolder.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/itemview.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+	]]>
+	</script>
+	<box id="bitsSidebarBox">
+		<vbox id="bitsSidebarVBox">
+			<toolbox id="mcToolbox">
+				<toolbar id="mcToolbar">
+					<toolbarbutton
+						id="mcToolbarListStyleButton"
+						type="menu"
+						class="menu-iconic"
+						image="chrome://markingcollection/skin/liststyle_rl.png"
+						insertbefore="mcToolbarCreateFolderButton"
+						tooltiptext="&markingcollection.display.style;"
+						align="end" pack="end"
+						oncommand="bitsItemView.onChangeListStyle(event)"
+					>
+						<menupopup id="mcToolbarListStyleMenuPopup">
+							<menuitem id="mcToolbarListStyleRLItem"   label="&markingcollection.display.itemview.lr;"   class="menuitem-iconic" image="chrome://markingcollection/skin/liststyle_rl.png"/>
+							<menuitem id="mcToolbarListStyleTBItem"   label="&markingcollection.display.itemview.tb;"   class="menuitem-iconic" image="chrome://markingcollection/skin/liststyle_tb.png"/>
+							<menuitem id="mcToolbarListStyleNoneItem" label="&markingcollection.display.itemview.none;" class="menuitem-iconic" image="chrome://markingcollection/skin/liststyle_none.png"/>
+						</menupopup>
+					</toolbarbutton>
+					<toolbarbutton
+							insertafter="mcToolbarMenuButton"
+							id="mcToolbarFavoriteFolderButton"
+							type="menu"
+							tooltiptext="&markingcollection.favorite;"
+							class="menu-iconic"
+							image="chrome://markingcollection/skin/folder-star.png"
+							align="center" pack="end"
+							oncommand="mcTreeFavoriteFolder.onClick(event);">
+						<menupopup
+							id="mcToolbarFavoriteFolderPopup"
+							onpopupshowing="mcTreeFavoriteFolder.onPopupShowing(event,this);"
+							onpopuphiding="mcTreeFavoriteFolder.onPopupHiding(event,this);">
+							<menuitem
+								id="bitsFavoriteFolderSelectMenuitem"
+								label="&markingcollection.favorite.select_folder_add;"
+								class="menuitem-iconic bookmark-item"
+								image="chrome://markingcollection/skin/menu_create.png"/>
+							<menuseparator id="bitsFavoriteFolderSelectSeparator"/>
+							<menuitem
+								id="bitsFavoriteFolderAllMenuitem"
+								label="&markingcollection.defaultFolder;"
+								class="menuitem-iconic"
+								image="chrome://markingcollection/skin/folder.png"/>
+							<menuseparator id="bitsFavoriteFolderAllMenuseparator"/>
+						</menupopup>
+					</toolbarbutton>
+				</toolbar>
+			</toolbox>
+		</vbox>
+		<splitter id="bitsBrowserLeftSplitter" class="chromeclass-extrachrome" hidden="true"/>
+		<vbox id="bitsBrowserLeftVBox" hidden="true" persist="height" flex="1">
+			<toolbox id="bitsItemViewToolbox" class="plain" style="overflow:hidden;min-width:10em;width:18em;">
+				<toolbar id="bitsItemViewToolbar" class="plain">
+					<toolbarbutton id="bitsItemViewTypeToolbarbutton" type="menu" label="Size ">
+						<menupopup id="bitsItemViewTypePopup" oncommand="bitsItemView.onViewTypePopupCommand(event)">
+							<menuitem id="bitsItemViewTypeLargeMenuitem" label="Large" type="radio"/>
+							<menuitem id="bitsItemViewTypeMiddleMenuitem" label="Middle" type="radio"/>
+							<menuitem id="bitsItemViewTypeSmallMenuitem" label="Small" type="radio"/>
+						</menupopup>
+					</toolbarbutton>
+					<toolbarbutton id="bitsItemViewSearchButton" class="search-go-button" tooltiptext="&markingcollection.itemview;" oncommand="bitsItemView.onSearchButtonCommand(event)"/>
+					<textbox id="bitsItemViewSearchMenu" editable="true" flex="1" disabled="true" style="font-size:0.9em;margin-left:0px;" onkeypress="bitsItemView.onSearchKeyPress(event)"/>
+					<spacer flex="1" />
+				</toolbar>
+			</toolbox>
+			<tree
+				id="bitsItemTree"
+				contextmenu="bitsItemTreePopup"
+				tooltip="mcPopupTooltip"
+				onmousedown="bitsItemView.onMousedown(event);"
+				onmousemove="bitsItemView.onMousemove(event);"
+				onmouseout="bitsItemView.onMouseout(event);"
+				onclick="bitsItemView.onClick(event);"
+				ondblclick="bitsItemView.onDblClick(event);"
+				onkeypress="bitsItemView.onKeyPress(event);"
+				onkeydown="bitsItemView.onKeyDown(event);"
+				seltype="multiple"
+				editable="true"
+				class="plain"
+				flex="1">
+				<treecols>
+					<treecol id="bitsItemTreeIFolder" label="Folder" flex="17" ignoreincolumnpicker="true" persist="width"/>
+					<treecol id="bitsItemTreeIFolderStyle" label="" ignoreincolumnpicker="true" style="min-width:16px;min-width:16px;"/>
+					<splitter class="tree-splitter"/>
+					<treecol id="bitsItemTreeIFavicon" label="Favicon" crop="none" flex="1" class="treecol-image" src="chrome://markingcollection/skin/defaultFavicon.png" persist="hidden,width" style="min-width:19px;"/>
+					<splitter class="tree-splitter"/>
+					<treecol id="bitsItemTreeIUrl" label="URL" flex="18" hidden="true" persist="hidden,width"/>
+					<splitter class="tree-splitter"/>
+					<treecol id="bitsItemTreeIDocTitle" label="Document Title" flex="18" hidden="true" persist="hidden,width"/>
+					<splitter class="tree-splitter"/>
+					<treecol id="bitsItemTreeITitle" label="Title" flex="18" persist="hidden,width"/>
+					<splitter class="tree-splitter"/>
+					<treecol id="bitsItemTreeINote" label="Note" flex="18" editable="true" hidden="true" persist="hidden,width"/>
+					<splitter class="tree-splitter"/>
+					<treecol id="bitsItemTreeIDate"  label="Date" flex="7" persist="hidden,width"/>
+				</treecols>
+				<treechildren/>
+			</tree>
+		</vbox>
+	</box>
+	<popupset id="mcPopupSet">
+		<menupopup
+			id="bitsItemTreePopup"
+			onpopupshowing="bitsItemView.onPopupShowing(event);"
+			onpopuphiding="bitsItemView.onPopupHiding(event);"
+			oncommand="bitsItemView.onPopupCommand(event);">
+			<menuitem
+				id="bitsItemTreePopupOpen"
+				label="&markingcollection.open;"
+				default="true"/>
+			<menuitem
+				id="bitsItemTreePopupOpenNewTab"
+				label="&markingcollection.open.newtab;"/>
+			<menuseparator id="bitsItemTreePopupOpenMenuseparator" observes="bitsItemTreePopupOpen"/>
+			<menuitem
+				id="bitsItemTreePopupRemove"
+				class="menuitem-iconic"
+				label="&markingcollection.remove;"
+				image="chrome://markingcollection/skin/menu_remove.png"/>
+			<menuseparator observes="bitsItemTreePopupRemove"/>
+			<menuitem
+				id="bitsItemTreePopupProperty"
+				class="menuitem-iconic"
+				label="&markingcollection.property;"
+				image="chrome://markingcollection/skin/menu_property.png"/>
+		</menupopup>
+		<menupopup id="mcPopupFavorite" onpopupshowing="mcTreeFavoriteFolder.onPopupFShowing(event);">
+			<menuitem class="menuitem-iconic" label="&markingcollection.remove;" image="chrome://markingcollection/skin/menu_remove.png" oncommand="mcTreeFavoriteFolder.removeFavoriteFolder(event);"/>
+			<menuseparator hidden="true"/>
+			<menuitem class="menuitem-iconic" label="&markingcollection.property;" image="chrome://markingcollection/skin/menu_property.png" disabled="true" hidden="true"/>
+		</menupopup>
+	</popupset>
+</overlay>

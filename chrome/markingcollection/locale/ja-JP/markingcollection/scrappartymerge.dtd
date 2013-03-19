@@ -1,0 +1,28 @@
+<!ENTITY scrappartymerge.app.menu.title "BITS">
+<!ENTITY scrappartymerge.app.title "マージ">
+
+<!ENTITY scrappartymerge.menu.title "BITS">
+<!ENTITY scrappartymerge.menu.addon "アドオン">
+<!ENTITY scrappartymerge.menu.option "オプション">
+
+<!ENTITY scrappartymerge.marker.start.label "マーカーの開始位置が同じ場合">
+<!ENTITY scrappartymerge.marker.start.value "1">
+<!ENTITY scrappartymerge.marker.end.label   "マーカーの終了位置が同じ場合">
+<!ENTITY scrappartymerge.marker.end.value   "2">
+<!ENTITY scrappartymerge.marker.all.label   "マーカーの範囲が同じ場合">
+<!ENTITY scrappartymerge.marker.all.value   "0">
+
+<!ENTITY scrappartymerge.condition     "条件">
+<!ENTITY scrappartymerge.confirm       "確認">
+<!ENTITY scrappartymerge.confirm.merge "マージ時に確認する">
+
+<!ENTITY scrappartymerge.mergemode             "マージモード">
+<!ENTITY scrappartymerge.mergemode.merge       "マージ">
+<!ENTITY scrappartymerge.mergemode.overwrite   "上書き">
+<!ENTITY scrappartymerge.mergemode.destruction "破棄">
+
+<!ENTITY scrappartymerge.confirm.title "実行モード確認">
+<!ENTITY scrappartymerge.confirm.mergeobject "マージ先オブジェクト">
+<!ENTITY scrappartymerge.confirm.dropobject  "ドロップオブジェクト">
+
+<!ENTITY scrappartymerge.confirm.same_processing   "同じ処理を次回から適用">

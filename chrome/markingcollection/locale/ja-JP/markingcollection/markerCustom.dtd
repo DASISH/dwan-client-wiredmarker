@@ -1,0 +1,27 @@
+<!ENTITY markingcollection.markerCustom.preset "プリセットスタイル">
+<!ENTITY markingcollection.markerCustom.background "背景">
+<!ENTITY markingcollection.markerCustom.color "色">
+<!ENTITY markingcollection.markerCustom.text "文字">
+<!ENTITY markingcollection.markerCustom.bold "太字">
+<!ENTITY markingcollection.markerCustom.italic "斜体">
+<!ENTITY markingcollection.markerCustom.line "取り消し線">
+<!ENTITY markingcollection.markerCustom.border "枠">
+<!ENTITY markingcollection.markerCustom.type "種類">
+<!ENTITY markingcollection.markerCustom.box "囲み線">
+<!ENTITY markingcollection.markerCustom.underline "下線">
+<!ENTITY markingcollection.markerCustom.style "形式">
+<!ENTITY markingcollection.markerCustom.solid "実線 (Solid)">
+<!ENTITY markingcollection.markerCustom.dotted "点線 (Dotted)">
+<!ENTITY markingcollection.markerCustom.dashed "破線 (Dashed)">
+<!ENTITY markingcollection.markerCustom.double "二重線 (Double)">
+<!ENTITY markingcollection.markerCustom.groove "谷線 (Groove)">
+<!ENTITY markingcollection.markerCustom.ridge "山線 (Ridge)">
+<!ENTITY markingcollection.markerCustom.inset "内線 (Inset)">
+<!ENTITY markingcollection.markerCustom.outset "外線 (Outset)">
+
+<!ENTITY markingcollection.markerCustom.width "太さ">
+<!ENTITY markingcollection.markerCustom.thin "細い">
+<!ENTITY markingcollection.markerCustom.medium "中">
+<!ENTITY markingcollection.markerCustom.thick "太い">
+
+<!ENTITY markingcollection.markerCustom.enabled "使用可能">

@@ -1,0 +1,221 @@
+treechildren::-moz-tree-cell(Marker) { background-color: #ffcccc; border: 1px solid #ffcc00; }
+treechildren::-moz-tree-cell-text(Marker) { color: #0000ff; }
+
+
+#bitsItemTree treechildren::-moz-tree-row {
+  border: 1px solid transparent;
+  border-bottom: 1px solid #e3efff;
+  min-height: 18px;
+}
+#bitsItemTree treechildren::-moz-tree-row(folder) {
+  border: 1px solid transparent;
+  border-bottom: 1px solid #000000;
+  min-height: 0px;
+  height: 0px;
+}
+#bitsItemTree.bitsItemTree-middleicon treechildren::-moz-tree-row {
+  border: 1px solid transparent;
+  border-bottom: 1px solid #e3efff;
+  height: 36px;
+}
+#bitsItemTree.bitsItemTree-largeicon treechildren::-moz-tree-row {
+  border: 1px solid transparent;
+  border-bottom: 1px solid #e3efff;
+  height: 72px;
+}
+
+
+
+#mcTree treechildren::-moz-tree-image(Name,item) {
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+  height : 16px;
+  width  : 16px;
+}
+
+#mcTree treechildren::-moz-tree-image(Name,folder) {
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+  height : 16px;
+  width  : 16px;
+}
+#mcTree treechildren::-moz-tree-image(Name,_uncategorized) {
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+  height : 16px;
+  width  : 16px;
+}
+
+#mcTree treechildren::-moz-tree-cell-text(Shoutcut) {
+  font-size : 9px;
+}
+
+#bitsItemTree treechildren::-moz-tree-image(ItemView) {
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+  max-height : 16px;
+  max-width  : 16px;
+}
+
+#bitsItemTree treechildren::-moz-tree-image(ItemView,folder) {
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+  max-height : 16px;
+  max-width  : 16px;
+}
+
+#bitsItemTree treechildren::-moz-tree-image(ItemView,ItemViewImage) {
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+  height : 16px;
+  width  : 16px;
+}
+#bitsItemTree treechildren::-moz-tree-image(ItemView,ItemViewImage,folder) {
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+  height : 16px;
+  width  : 16px;
+}
+/*
+#bitsItemTree.bitsItemTree-largeicon treechildren::-moz-tree-image(ItemView) {
+  padding-left : 9px;
+  padding-right: 11px;
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+  height : 16px;
+  width  : 16px;
+}
+*/
+#bitsItemTree.bitsItemTree-middleicon treechildren::-moz-tree-image(ItemView,ItemViewImage) {
+  padding-left : 0px;
+  padding-right: 2px;
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+  height : 32px;
+  width  : 32px;
+}
+#bitsItemTree.bitsItemTree-middleicon treechildren::-moz-tree-image(ItemView,ItemViewImage,folder) {
+  padding-left : 0px;
+  padding-right: 2px;
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+  height : 32px;
+  width  : 32px;
+}
+
+#bitsItemTree.bitsItemTree-largeicon treechildren::-moz-tree-image(ItemView,ItemViewImage) {
+  padding-left : 0px;
+  padding-right: 2px;
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 16px, 16px, 0px);
+  height : 68px;
+  width  : 68px;
+}
+#bitsItemTree.bitsItemTree-largeicon treechildren::-moz-tree-image(ItemView,ItemViewImage,folder) {
+  padding-left : 0px;
+  padding-right: 2px;
+  margin: 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+  height : 68px;
+  width  : 68px;
+}
+
+
+#bitsItemTree treechildren::-moz-tree-cell {
+  height: 3.0em;
+  white-space: normal;
+}
+
+#bitsItemTree treechildren::-moz-tree-cell-text {
+  white-space: normal;
+  font-size : 0.9em;
+}
+
+#bitsItemTree treechildren::-moz-tree-cell-text(separator) {
+  color: ThreeDShadow;
+  margin: 0px 5px 0px 5px;
+}
+
+#bitsItemTree treechildren::-moz-tree-cell-text( separator, selected, focus) {
+  color: HighlightText;
+}
+
+
+/* Toolbarbutton */
+#bitsItemViewCloseToolbarbutton.closebutton {
+  list-style-image: url("chrome://markingcollection/skin/yaLR16_07.png");
+  -moz-appearance: none;
+  padding: 4px 2px;
+  margin: 0px;
+  border: none;
+}
+#bitsItemViewCloseToolbarbutton.closebutton:hover {
+  list-style-image: url("chrome://markingcollection/skin/yaNR16_07.png");
+}
+#bitsItemViewCloseToolbarbutton.closebutton:hover:active {
+  list-style-image: url("chrome://markingcollection/skin/yaNR16_08.png");
+}
+
+#bitsItemViewSearchButton  {
+  padding-left: 5px;
+}
+
+.favoritefolder{
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+}
+
+#bitsBrowserLeftSplitter:-moz-system-metric(windows-default-theme) {
+  border: 0;
+  -moz-border-end: 1px solid;
+  -moz-border-right-colors: #A9B7C9;
+  -moz-border-left-colors: #A9B7C9;
+  min-width: 0;
+  width: 0px;
+  background-color: transparent;
+/*  -moz-margin-start: -3px;*/
+  position: relative;
+  z-index: 10;
+}
+
+#mcPropertyViewSplitter:-moz-system-metric(windows-default-theme) {
+  border: 0;
+  -moz-border-end: 1px solid;
+  -moz-border-top-colors: #A9B7C9;
+  -moz-border-bottom-colors: #A9B7C9;
+  min-width: 0;
+  height: 1px;
+  background-color: transparent;
+/*  -moz-margin-start: -3px;*/
+  position: relative;
+  z-index: 10;
+}
+
+toolbarbutton#mcToolbarAutocacheButton
+{
+    list-style-image: url("chrome://markingcollection/skin/autocache.png");
+}
+toolbarbutton#mcToolbarAutocacheButton[disabled="true"]
+{
+    list-style-image: url("chrome://markingcollection/skin/autocache-dis.png");
+}
+
+#bitsTreeDate treechildren::-moz-tree-image(folder) {
+  margin: 0px 4px 0px 2px;
+  list-style-image: url("chrome://markingcollection/skin/folder-item.png") !important;
+  -moz-image-region: rect(0px, 32px, 16px, 16px);
+  height : 16px;
+  width  : 16px;
+}

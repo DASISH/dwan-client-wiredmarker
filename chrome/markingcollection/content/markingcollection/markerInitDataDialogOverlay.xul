@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/marker.dtd" >
+%metaDTD;
+]>
+<overlay
+	id="markerDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+	var def_title_mode;
+	var def_note_mode;
+	function _markerDialogOverlayInit(aEvent){
+		var title_mode = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.title","WM_TITLE");
+		var note_mode = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.note","WM_TEXT");
+		var title_format = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.title_format");
+		var note_format = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.note_format");
+		var edit = nsPreferences.getBoolPref("wiredmarker.marker.initdata.edit", true);
+		document.getElementById("mcMarkerEditCheckbox").checked = edit;
+		document.getElementById("mcMarkerTitleFormatText").disabled = true;
+		document.getElementById("mcMarkerNoteFormatText").disabled = true;
+		switch(title_mode){
+			case "WM_TITLE":
+				document.getElementById("mcMarkerTitleRadiogroup").selectedItem = document.getElementById("mcMarkerTitleTitle");
+				break;
+			case "WM_DATE":
+				document.getElementById("mcMarkerTitleRadiogroup").selectedItem = document.getElementById("mcMarkerTitleDate");
+				break;
+			case "WM_FORMAT":
+				document.getElementById("mcMarkerTitleRadiogroup").selectedItem = document.getElementById("mcMarkerTitleFormat");
+				document.getElementById("mcMarkerTitleFormatText").disabled = false;
+				break;
+		}
+		if(title_format) document.getElementById("mcMarkerTitleFormatText").value = title_format;
+		switch(note_mode){
+			case "WM_TEXT":
+				document.getElementById("mcMarkerNoteRadiogroup").selectedItem = document.getElementById("mcMarkerNoteText");
+				break;
+			case "WM_TITLE":
+				document.getElementById("mcMarkerNoteRadiogroup").selectedItem = document.getElementById("mcMarkerNoteTitle");
+				break;
+			case "WM_DATE":
+				document.getElementById("mcMarkerNoteRadiogroup").selectedItem = document.getElementById("mcMarkerNoteDate");
+				break;
+			case "WM_FORMAT":
+				document.getElementById("mcMarkerNoteRadiogroup").selectedItem = document.getElementById("mcMarkerNoteFormat");
+				document.getElementById("mcMarkerNoteFormatText").disabled = false;
+				break;
+		}
+		if(note_format) document.getElementById("mcMarkerNoteFormatText").value = note_format;
+		var uncategorized = nsPreferences.getBoolPref("wiredmarker.uncategorized.use", true);
+		document.getElementById("mcUncategorizedConfirm").checked = uncategorized;
+		var disptooltip = nsPreferences.getBoolPref("wiredmarker.marker.mouseover.disptooltip", true);
+		document.getElementById("mcObjectTooltipConfirm").checked = disptooltip;
+
+		def_title_mode = title_mode;
+		def_note_mode = note_mode;
+	}
+
+	function _markerDialogOverlayDone(aEvent){
+		var value = document.getElementById("mcMarkerTitleFormatText").value;
+		value = value.replace(/^\s+/g,"").replace(/\s+$/g,"");
+		if(value == "") nsPreferences.setUnicharPref("wiredmarker.marker.initdata.title", def_title_mode);
+
+		var value = document.getElementById("mcMarkerNoteFormatText").value;
+		value = value.replace(/^\s+/g,"").replace(/\s+$/g,"");
+		if(value == "") nsPreferences.setUnicharPref("wiredmarker.marker.initdata.note", def_note_mode);
+	}
+
+	function _markerDialogOverlayTitleCommand(aEvent){
+		if(aEvent.target.id=="mcMarkerTitleFormat"){
+			document.getElementById("mcMarkerTitleFormatText").disabled = false;
+			document.getElementById("mcMarkerTitleFormatText").focus();
+		}else{
+			document.getElementById("mcMarkerTitleFormatText").disabled = true;
+			def_title_mode = aEvent.target.value;
+		}
+		nsPreferences.setUnicharPref("wiredmarker.marker.initdata.title", aEvent.target.value);
+	}
+
+	function _markerDialogOverlayNoteCommand(aEvent){
+		if(aEvent.target.id=="mcMarkerNoteFormat"){
+			document.getElementById("mcMarkerNoteFormatText").disabled = false;
+			document.getElementById("mcMarkerNoteFormatText").focus();
+		}else{
+			document.getElementById("mcMarkerNoteFormatText").disabled = true;
+			def_note_mode = aEvent.target.value;
+		}
+		nsPreferences.setUnicharPref("wiredmarker.marker.initdata.note", aEvent.target.value);
+	}
+
+	function _markerDialogOverlayTitleInput(aEvent){
+		nsPreferences.setUnicharPref("wiredmarker.marker.initdata.title_format", aEvent.target.value);
+	}
+
+	function _markerDialogOverlayNoteInput(aEvent){
+		nsPreferences.setUnicharPref("wiredmarker.marker.initdata.note_format", aEvent.target.value);
+	}
+
+	function _markerDialogOverlayEdit(aEvent){
+		nsPreferences.setBoolPref("wiredmarker.marker.initdata.edit", aEvent.target.checked);
+	}
+
+	function _uncategorizedConfirmCommand(aEvent){
+		nsPreferences.setBoolPref("wiredmarker.uncategorized.use", aEvent.target.checked);
+	}
+
+	function _objecttooltipConfirmCommand(aEvent){
+		nsPreferences.setBoolPref("wiredmarker.marker.mouseover.disptooltip", aEvent.target.checked);
+	}
+
+	window.addEventListener("load", _markerDialogOverlayInit, false);
+	window.addEventListener("unload", _markerDialogOverlayDone, false);
+	]]>
+	</script>
+	<tabbox id="mcSettingTabbox">
+		<tabpanels id="mcSettingTabPanels">
+			<tabbox id="mcMenuTabbox">
+				<tabs id="mcMenuTabs">
+					<tab id="mcMarkerTab" label="&markingcollection.setting.marker;" image="chrome://markingcollection/skin/automarker.png"/>
+				</tabs>
+				<tabpanels id="mcMenuTabPanels">
+					<tabpanel id="mcMarkerTabPanel" orient="vertical" flex="1">
+						<groupbox id="mcMarkerTabGroupBox">
+							<caption label="&marker.initdata.overlay.groupbox.caption;" style="background-color:#fff;"/>
+							<hbox>
+								<groupbox id="mcMarkerTitleGroupBox" flex="1">
+									<caption label="&marker.initdata.overlay.title.groupbox.caption;" style="background-color:#fff;"/>
+									<radiogroup id="mcMarkerTitleRadiogroup" oncommand="_markerDialogOverlayTitleCommand(event);">
+										<grid>
+											<columns>
+												<column />
+												<column flex="1"/>
+											</columns>
+											<rows>
+												<row align="center">
+													<radio id="mcMarkerTitleText" label="&marker.initdata.overlay.radio.label.text;" value="WM_TEXT" selected="true"/>
+													<textbox size="5" readonly="true" onfocus="this.select()" value="WM_TEXT"/>
+												</row>
+												<row align="center">
+													<radio id="mcMarkerTitleTitle" label="&marker.initdata.overlay.radio.label.title;" value="WM_TITLE"/>
+													<textbox size="5" readonly="true" onfocus="this.select()" value="WM_TITLE"/>
+												</row>
+												<row align="center">
+													<radio id="mcMarkerTitleDate" label="&marker.initdata.overlay.radio.label.date;" value="WM_DATE"/>
+													<textbox size="5" readonly="true" onfocus="this.select()" value="WM_DATE"/>
+												</row>
+											</rows>
+										</grid>
+										<vbox>
+											<radio id="mcMarkerTitleFormat" label="&marker.initdata.overlay.radio.label.format;" value="WM_FORMAT"/>
+											<textbox id="mcMarkerTitleFormatText" flex="1" onfocus="this.select()" disabled="true" style="margin-left:2em;" onchange="_markerDialogOverlayTitleInput(event);"/>
+										</vbox>
+									</radiogroup>
+								</groupbox>
+								<groupbox id="mcMarkerNoteGroupBox" flex="1">
+									<caption label="&marker.initdata.overlay.note.groupbox.caption;" style="background-color:#fff;"/>
+									<radiogroup id="mcMarkerNoteRadiogroup" oncommand="_markerDialogOverlayNoteCommand(event);">
+										<grid>
+											<columns>
+												<column />
+												<column flex="1"/>
+											</columns>
+											<rows>
+												<row align="center">
+													<radio id="mcMarkerNoteText" label="&marker.initdata.overlay.radio.label.text;" value="WM_TEXT"/>
+													<textbox size="5" readonly="true" onfocus="this.select()" value="WM_TEXT"/>
+												</row>
+												<row align="center">
+													<radio id="mcMarkerNoteTitle" label="&marker.initdata.overlay.radio.label.title;" value="WM_TITLE"/>
+													<textbox size="5" readonly="true" onfocus="this.select()" value="WM_TITLE"/>
+												</row>
+												<row align="center">
+													<radio id="mcMarkerNoteDate" label="&marker.initdata.overlay.radio.label.date;" value="WM_DATE"/>
+													<textbox size="5" readonly="true" onfocus="this.select()" value="WM_DATE"/>
+												</row>
+												<vbox>
+													<radio id="mcMarkerNoteFormat" label="&marker.initdata.overlay.radio.label.format;" value="WM_FORMAT"/>
+													<textbox id="mcMarkerNoteFormatText" flex="1" onfocus="this.select()" disabled="true" multiline="true" rows="2" style="margin-left:2em;" onchange="_markerDialogOverlayNoteInput(event);"/>
+												</vbox>
+												<row align="center">
+													<radio id="mcMarkerNoteNone" label="&marker.initdata.overlay.radio.label.none;" value="" selected="true"/>
+												</row>
+											</rows>
+										</grid>
+									</radiogroup>
+								</groupbox>
+							</hbox>
+							<checkbox id="mcMarkerEditCheckbox" label="&marker.initdata.overlay.checkbox.edit;" oncommand="_markerDialogOverlayEdit(event);"/>
+							<checkbox id="mcMarkerSubstitution" label="デフォルトなし" oncommand="" hidden="true"/>
+						</groupbox>
+						<hbox flex="1">
+							<vbox>
+								<groupbox id="mcUncategorizedGroupBox">
+									<caption label="&markingcollection.setting.uncategorized;" style="background-color:#fff;"/>
+									<checkbox id="mcUncategorizedConfirm" label="&markingcollection.setting.uncategorized.use;" oncommand="_uncategorizedConfirmCommand(event)"/>
+								</groupbox>
+							</vbox>
+							<vbox>
+								<groupbox id="mcObjectTooltipGroupBox">
+									<caption label="&markingcollection.setting.marker.mouseover;" style="background-color:#fff;"/>
+									<checkbox id="mcObjectTooltipConfirm" label="&markingcollection.setting.marker.mouseover.disptooltip;" oncommand="_objecttooltipConfirmCommand(event)"/>
+								</groupbox>
+							</vbox>
+							<groupbox id="mcProtocolTabGroupBox" flex="1" hidden="true">
+								<caption label="&markingcollection.setting.protocol;" style="background-color:#fff;"/>
+								<hbox flex="1">
+									<tree
+										id="bitsProtocolTree"
+										tooltip="mcPopupTooltip"
+										flex="1"
+										hidecolumnpicker="true"
+										seltype="single"
+										class="tree"
+										onclick="bitsProtocolTreeOverlay.onClick(event);"
+										ondblclick="bitsProtocolTreeOverlay.onDblClick(event);"
+									>
+										<treecols id="bitsProtocolTreeCols">
+											<treecol
+												id="bitsProtocolTreeSrcCol"
+												flex="1"
+												label="&markingcollection.setting.protocol;"/>
+										</treecols>
+										<treechildren/>
+									</tree>
+									<vbox>
+										<toolbarbutton
+											id="bitsProtocolTreeAdd"
+											label="&markingcollection.substitutiontree.add;"
+											image="chrome://markingcollection/skin/menu_create.png"
+											oncommand="bitsProtocolTreeOverlay.onAdd(event);"/>
+										<toolbarbutton
+											id="bitsProtocolTreeEdit"
+											label="&markingcollection.substitutiontree.edit;"
+											image="chrome://markingcollection/skin/menu_property.png"
+											disabled="true"
+											oncommand="bitsProtocolTreeOverlay.onEdit(event);"/>
+										<toolbarbutton
+											id="bitsProtocolTreeDel"
+											label="&markingcollection.substitutiontree.del;"
+											image="chrome://markingcollection/skin/menu_remove.png"
+											disabled="true"
+											oncommand="bitsProtocolTreeOverlay.onDel(event);"/>
+									</vbox>
+								</hbox>
+							</groupbox>
+							<vbox flex="1"/>
+						</hbox>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</tabpanels>
+	</tabbox>
+</overlay>

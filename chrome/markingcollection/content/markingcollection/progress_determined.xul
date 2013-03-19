@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<window
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	hidechrome="true"
+	onload="onLoad();"
+	onblur="onBlur();"
+>
+<script><![CDATA[
+  var gStatus,gStatus2, gProgressMeter, gBlur, gCallback;
+  var maxProgress = 100;
+  function onLoad() {
+    gBlur = false;
+    setWindowSize();
+    gStatus = document.getElementById("status");
+    gProgressMeter = document.getElementById("progressmeter");
+
+    if("arguments" in window && window.arguments.length > 0) {
+      if(window.arguments[0].status) setStatus(window.arguments[0].status);
+      if(window.arguments[0].progress != undefined) setProgress(window.arguments[0].progress);
+      if(window.arguments[0].callback) gCallback = window.arguments[0].callback;
+      if(!gCallback) document.getElementById("cancel").setAttribute("hidden","true");
+    }
+    setWindowSize();
+  }
+
+  function onBlur() {
+    if(!gBlur){
+      window.focus();
+      setWindowSize();
+    }
+  }
+
+  function setProgress(value) {
+    if(!gProgressMeter) return;
+    gProgressMeter.value = value;
+  }
+
+  function setStatus(text) {
+    if(!gStatus) return;
+    gStatus.value = "Status: " + text;
+    setWindowSize();
+  }
+
+  function setCallback(aCallback) {
+    if(!aCallback) return;
+    gCallback = aCallback;
+    var elem = document.getElementById("cancel");
+    if(gCallback)
+      elem.removeAttribute("hidden");
+    else
+      elem.setAttribute("hidden","true");
+    setWindowSize();
+  }
+
+  function commandCallback(aEvent) {
+    document.getElementById("cancel").setAttribute("disabled","true");
+    if(gCallback) setTimeout(function(){ gCallback(aEvent); },0);
+  }
+
+  function setWindowSize(){
+    window.sizeToContent();
+    if(gBlur){
+      var x = screen.width - window.outerWidth;
+      var y = screen.height - window.outerHeight;
+      window.moveTo(x,y);
+    }else{
+      if(window.opener){
+        var x = (window.opener.screenX + (window.opener.outerWidth/2)) - (window.outerWidth/2);
+        var y = (window.opener.screenY + (window.opener.outerHeight/2)) - (window.outerHeight/2);
+        window.moveTo(x,y);
+      }
+    }
+  }
+
+]]></script>
+
+<vbox style="border: 2px solid #c3d1df">
+	<hbox flex="1">
+		<label id="status" value="(No status)"/>
+	</hbox>
+	<hbox flex="1" id="hbox">
+	  <progressmeter id="progressmeter" mode="determined" flex="1"/>
+	</hbox>
+	<hbox flex="1" pack="center">
+		<button id="cancel" label="cancel" oncommand="commandCallback(event);"/>
+	</hbox>
+</vbox>
+</window>

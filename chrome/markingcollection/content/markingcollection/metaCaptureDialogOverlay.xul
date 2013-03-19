@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/meta.dtd" >
+%metaDTD;
+]>
+<overlay
+	id="metaCaptureDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _metaCaptureDialogOverlayInit(aEvent){
+			var confirm = nsPreferences.getBoolPref("wiredmarker.meta.capture.confirm", true);
+			document.getElementById("mcMetaCaptureConfirm").setAttribute("checked",!confirm);
+		}
+		function _metaCaptureDialogOverlayDone(aEvent){
+
+		}
+		function _metaCaptureConfirmCommand(aEvent){
+			nsPreferences.setBoolPref("wiredmarker.meta.capture.confirm", !aEvent.target.checked);
+		}
+		window.addEventListener("load", _metaCaptureDialogOverlayInit, false);
+		window.addEventListener("unload", _metaCaptureDialogOverlayDone, false);
+	]]>
+	</script>
+	<groupbox id="mcMetaCaptureTabGroupBox" hidden="true">
+		<caption label="&meta.dialog.capture.groupbox.caption;" style="background-color:#fff;"/>
+		<checkbox id="mcMetaCaptureConfirm" label="&meta.dialog.capture.groupbox.checkbox.confirm;" oncommand="_metaCaptureConfirmCommand(event)"/>
+	</groupbox>
+</overlay>

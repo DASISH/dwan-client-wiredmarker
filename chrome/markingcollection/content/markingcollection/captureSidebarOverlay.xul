@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="captureOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/capture.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _captureMainInit(){
+			mcCapture.init();
+		}
+		function _captureMainDone(){
+			mcCapture.done();
+		}
+		window.addEventListener("load", _captureMainInit, false);
+		window.addEventListener("unload", _captureMainDone, false);
+	]]>
+	</script>
+	<splitter id="captureMenuSplitter" hidden="true" />
+	<vbox id="captureMenuVBox" hidden="true">
+		<scrollbox width="1" height="1">
+			<html:canvas id="capturecanvas"/>
+		</scrollbox>
+	</vbox>
+	<popupset id="mcPopupSet">
+		<menupopup id="mcPopup">
+			<menu id="mcPopupCaptureMenu" class="menu-iconic" label="&markingcollection.capture;" image="chrome://markingcollection/skin/capture.png" insertafter="mcPopupCreates">
+				<menupopup id="mcPopupCaptureMenuPopup">
+					<menuitem id="mcPopupCaptureView" class="menuitem-iconic" label="&markingcollection.capture.document;" image="chrome://markingcollection/skin/document.png" oncommand="mcCapture.commandCaptureFromDocument(event);" />
+					<menuitem id="mcPopupCaptureView" class="menuitem-iconic" label="&markingcollection.capture.clipboard;" image="chrome://markingcollection/skin/clipboard.png" oncommand="mcCapture.commandCaptureFromClipboard(event);" />
+				</menupopup>
+			</menu>
+		</menupopup>
+	</popupset>
+</overlay>

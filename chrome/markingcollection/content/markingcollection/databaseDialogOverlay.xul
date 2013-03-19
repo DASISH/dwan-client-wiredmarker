@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="databaseDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsDragAndDrop.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/databaseDialog.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _databaseMainInit(aEvent){
+			setTimeout(function(){ mcDatabaseDialog.init(aEvent); },0);
+		}
+		function _databaseMainDone(aEvent){
+			mcDatabaseDialog.done(aEvent);
+		}
+		window.addEventListener("load", _databaseMainInit, false);
+		window.addEventListener("unload", _databaseMainDone, false);
+	]]>
+	</script>
+	<tabbox id="mcSettingTabbox">
+		<tabs id="mcSettingTabs">
+			<tab id="mcDatabaseTab" label="&markingcollection.database;" image="chrome://markingcollection/skin/database.png"/>
+		</tabs>
+		<tabpanels id="mcSettingTabPanels">
+			<tabpanel id="mcDatabaseTabPanel" orient="vertical" flex="1">
+				<hbox>
+					<toolbarbutton id="mcDatabaseAdd" label="&markingcollection.database.add;..." image="chrome://markingcollection/skin/menu_create.png" accesskey="a"/>
+					<toolbarbutton id="mcDatabaseSet" label="&markingcollection.database.set;..." image="chrome://markingcollection/skin/menu_property.png" accesskey="s" disabled="true"/>
+					<toolbarbutton id="mcDatabaseDel" label="&markingcollection.database.del;" image="chrome://markingcollection/skin/menu_remove.png" accesskey="m" disabled="true"/>
+					<toolbarbutton id="mcDatabaseDis" label="&markingcollection.database.dis;" image="chrome://markingcollection/skin/checkbox_on.png" accesskey="d" disabled="true"/>
+				</hbox>
+				<tree id="mcDatabaseTree" seltype="single" flex="1">
+					<treecols>
+						<treecol id="DATABASE_TITLE" label="&markingcollection.database.name;" flex="6"/><splitter class="tree-splitter"/>
+						<treecol id="DATABASE_COMMENT" label="&markingcollection.database.comment;" flex="8"/><splitter class="tree-splitter"/>
+						<treecol id="DATABASE_STATUS" label="&markingcollection.database.status;" flex="4"/>
+					</treecols>
+					<treechildren />
+				</tree>
+				<checkbox id="mcDatabaseStartupAllDBUnused" label="&markingcollection.database.startupalldbunused;"/>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</overlay>

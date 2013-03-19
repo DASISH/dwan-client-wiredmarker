@@ -1,0 +1,7 @@
+<!ENTITY pdf.addtext.dialog.title  "Registration">
+<!ENTITY pdf.addtext.dialog.msg    "Is not marker, or to register the following information?">
+<!ENTITY pdf.addtext.caption.title "Title">
+<!ENTITY pdf.addtext.caption.url   "URL">
+<!ENTITY pdf.addtext.caption.note  "Note">
+<!ENTITY pdf.addtext.caption.pageinfo  "Page info">
+<!ENTITY pdf.addtext.caption.pagetitle "Page title">
