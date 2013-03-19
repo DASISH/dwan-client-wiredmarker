@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="../lib/jquery-1.9.1.js"></script>
+	<script src="../lib/jquery.xml2json.js"></script>
+        <script src="../annotation-service.js"></script>
+	<script src="../../hyperanchor.js"></script>
+        <script src="test-render-annotations.js"></script>
+        <script src="../conversion.utils.js"></script>
+    </head>
+    <body>
+        <div style="float:left;width:40%;">
+            <ul id="annotations"></ul>
+        </div>
+        <div style="float:left;width:40%;">
+            <p>
+                An example text about Douglas Adams; a writer and a cool dude.
+            </p>
+        </div>
+
+        <script>
+            // Enable Universal Browser Read
+          
+            //use remote backend via local proxy
+            var proxyURL = "http://localhost/annotation/annotator-service/test/proxy.php?url="+encodeURIComponent('http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql');
+            annotationFramework.setBackend(proxyURL);
+            
+            //get a specofic annotation
+            annotationFramework.getAnnotations({aid:'AID011'}, listAnnotations);
+        </script>
+    </body>
+</html>
