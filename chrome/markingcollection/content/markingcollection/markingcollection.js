@@ -569,8 +569,8 @@ var bitsMarkingCollection = {
 					var menuseparator = doc.createElement("menuseparator");
 					if(menu && menuseparator){
 						menu.setAttribute("id","bitsExtensionsBookmarksMenu");
-						menu.setAttribute("class","menu-iconic");
-						menu.setAttribute("image","chrome://markingcollection/skin/icon_16.gif");
+						/* menu.setAttribute("class","menu-iconic");
+						menu.setAttribute("image","chrome://markingcollection/skin/icon_16.gif"); */
 						menu.setAttribute("hidden","true");
 						menu.setAttribute("label",this.STRING.getString("APP_DISP_TITLE"));
 						menu.setAttribute("accesskey","M");
