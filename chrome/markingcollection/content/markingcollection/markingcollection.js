@@ -325,6 +325,7 @@ var bitsMarkingCollection = {
 			throw Components.results.NS_NOINTERFACE;
 		},
 		onLocationChange : function(webProgress, aRequest, aURI){
+                        //alert('get all from this url: '+webProgress.DOMWindow.document.URL);
 			if(webProgress.isLoadingDocument) return;
 			bitsMarkingCollection.marking(webProgress.DOMWindow.document);
 			bitsObjectMng.Common.pageshow(webProgress.DOMWindow.document);
@@ -718,14 +719,17 @@ var bitsMarkingCollection = {
 /////////////////////////////////////////////////////////////////////
 	marking : function(aDoc, aContentURLString){
 		var url;
+                
 		if(aContentURLString){
 			url = aContentURLString;
 		}else{
 			url = this.Common.getURLStringFromDocument(aDoc);
 		}
+                
 		if(url.indexOf("chrome:") >= 0 || url.indexOf("about:") >= 0) return;
 		if(bitsObjectMng.getBrowser().contentDocument.location == aDoc.location) bitsMarkingCollection._location = aDoc.location;
 //this._dump("marking():url=["+url+"]");
+                //alert('marking: '+url+' aDoc '+aDoc.location);
 		var rtnObj = bitsMarkingCollection.Database.getAllObjectFormContentURL(url);
 		if(rtnObj){
 			if(this._markingtimer) clearTimeout(this._markingtimer);

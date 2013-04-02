@@ -22,7 +22,7 @@
             // Enable Universal Browser Read
           
             //use remote backend via local proxy
-            var proxyURL = "http://localhost/annotation/annotator-service/test/proxy.php?url="+encodeURIComponent('http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql');
+            var proxyURL = "http://localhost/annotations/annotator-service/test/proxy.php?url="+encodeURIComponent('http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql');
             annotationFramework.setBackend(proxyURL);
             
             //get a specofic annotation

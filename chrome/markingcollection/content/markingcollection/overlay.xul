@@ -42,11 +42,18 @@
     <script type="application/x-javascript" src="chrome://markingcollection/content/metacapture.js"/>
     <script type="application/x-javascript" src="chrome://markingcollection/content/pubmedcentral.js"/>
     <script type="application/x-javascript" src="chrome://markingcollection/content/markerRemap.js"/>
+    
+    <!-- added for annotator-service -->
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/lib/jquery-1.9.1.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/lib/jquery.xml2json.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/annotation-service.js"/>
+    <!-- end -->    
     <script type="application/x-javascript">
 	<![CDATA[
 		function _markingcollectionInit(aEvent){
 			window.setTimeout(
 				function(){
+                                        
 					bitsObjectMng.init(aEvent);
 					bitsMarkingCollection.init(aEvent);
 					bitsArticleNavigation.init(aEvent);
