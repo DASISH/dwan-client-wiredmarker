@@ -13,3 +13,7 @@ caption#selectServerGbCaption {
     border-top-right-radius: 0.6em;
 }
 
+column#textboxColumn {
+    margin-left: 1em;
+}
+
