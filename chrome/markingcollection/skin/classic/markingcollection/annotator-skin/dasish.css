@@ -1,0 +1,15 @@
+/* 
+    Document   : dasish.css
+    Created on : 2013-apr-05, 13:43:15
+    Author     : stephanie
+    Description:
+        Definition of specific styles for DASISH web annotator.
+*/
+
+caption#selectServerGbCaption {
+    background-color:#fff;
+    padding: 5px;
+    border-top-left-radius: 0.6em;
+    border-top-right-radius: 0.6em;
+}
+
