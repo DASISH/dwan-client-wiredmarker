@@ -47,6 +47,8 @@
     <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/lib/jquery-1.9.1.js"/>
     <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/lib/jquery.xml2json.js"/>
     <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/annotation-service.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/annotations.wired.marker.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/conversion.utils.js"/>
     <!-- end -->    
     <script type="application/x-javascript">
 	<![CDATA[

@@ -3625,6 +3625,8 @@ var bitsObjectMng = {
 						var aSql1 = "insert into om_link ("+ lcolumns.join(",") +") values ("+ lvalues.join(",") +")";
 						var aSql2 = "insert into om_object ("+ columns.join(",") +") values ("+ values.join(",") +")";
                                                 //alert("INSERT "+aObject.note);
+                                                
+                                                annotationProxy.putAnnotation(aObject);
 						sqlArr.push(aSql1);
 						sqlArr.push(aSql2);
 						sqlPara.push(lpara);
@@ -4927,6 +4929,7 @@ var bitsObjectMng = {
 				if(rtn && values.length>0){
 					var aSql = 'update om_object set '+ values.join(",") +' where oid="'+ aObject.oid +'"';
                                         //alert("UPDATE oid: "+aObject.oid);
+                                        annotationProxy.updateAnnotation(aObject);
 					rtn = this.cmdB(aMode,aSql,para);
 				}
 				if(rtn) nsPreferences.setUnicharPref("wiredmarker.last_update", bitsObjectMng.Common.getTimeStamp()+"\t"+aMode+"\t"+bitsObjectMng.DataSource.inittime + "\tUPDATE\tOBJECT");

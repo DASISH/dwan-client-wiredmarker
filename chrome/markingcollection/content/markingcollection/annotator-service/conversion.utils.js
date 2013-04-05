@@ -35,13 +35,14 @@ function annotation2om_object(annotation){
 }
 
 function om_object2annotation(om_object){
-    var annotation = {};
+    var note = om_object.oid_property.match(/<NOTE>(.+?)<\/NOTE>/)[1];
+    var d = new Date(om_object.oid_date);
     
+    var annotation = '<?xml version="1.0"?>\n\
+                      <annotation xmlns="http://dasish.eu/ns/addit" timeStamp="'+d.toISOString()+'">\n\
+                        <body type="Note">'+note+'</body>\n\
+                      </annotation>';
     return annotation;
-}
-
-function annotation2xml(annotation){
-    
 }
 
 function hashCode(str){
@@ -55,9 +56,21 @@ function hashCode(str){
       return hash;
 }
 
+function createXpointer(url, bgn_dom, end_dom){
+    
+}
 
-
-
+if (!Date.prototype.toISOString) {
+    Date.prototype.toISOString = function() {
+        function pad(n) { return n < 10 ? '0' + n : n }
+        return this.getUTCFullYear() + '-'
+            + pad(this.getUTCMonth() + 1) + '-'
+            + pad(this.getUTCDate()) + 'T'
+            + pad(this.getUTCHours()) + ':'
+            + pad(this.getUTCMinutes()) + ':'
+            + pad(this.getUTCSeconds()) + 'Z';
+    };
+}
 
 /*
 From SQL-lite for wired-marker

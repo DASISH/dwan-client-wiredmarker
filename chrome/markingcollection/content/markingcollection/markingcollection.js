@@ -325,7 +325,7 @@ var bitsMarkingCollection = {
 			throw Components.results.NS_NOINTERFACE;
 		},
 		onLocationChange : function(webProgress, aRequest, aURI){
-                        //alert('get all from this url: '+webProgress.DOMWindow.document.URL);
+                        annotationProxy.getAnnotations(webProgress.DOMWindow.document.URL);//Get alla remote annotations
 			if(webProgress.isLoadingDocument) return;
 			bitsMarkingCollection.marking(webProgress.DOMWindow.document);
 			bitsObjectMng.Common.pageshow(webProgress.DOMWindow.document);

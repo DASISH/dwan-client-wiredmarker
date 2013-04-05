@@ -7,6 +7,10 @@
       $params .= $key.'='.$value.'&';
     }
   }
+  
+  if($_REQUEST['log']){
+      file_put_contents('log.txt', date("c")."\t".$_REQUEST['message']."\n",  FILE_APPEND);
+  }
 
   $response = file_get_contents($_GET['url'].'?'.$params);
 
