@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- TODO: move stylesheet sourcing to settingDialog.xul (test)  -->
+<?xml-stylesheet href="chrome://markingcollection/skin/annotator-skin/dasish.css" type="text/css"?>
+<!-- uncomment at a later stage, dtd file needs to be used for ENTITY translation -->
+<!-- <!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd"> -->
+<overlay id="serverDialogOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+    
+    <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" /> <!-- Required for access to the Preference Manager component. -->
+    
+    <script type="application/x-javascript">
+    <![CDATA[
+    // var def_title_mode;
+    // var def_serverpathtext_mode;
+    /*
+     * var def_title_mode;
+        var def_note_mode;
+	function _markerDialogOverlayInit(aEvent){ ... }
+	
+	function _markerDialogOverlayDone(aEvent){ ... }
+     */
+    
+    function _serverDialogOverlayServerSelectCommand(aEvent){
+		if(aEvent.target.id=="mcMarkerTitleFormat"){
+			document.getElementById("mcMarkerTitleFormatText").disabled = false;
+			document.getElementById("mcMarkerTitleFormatText").focus();
+		}else{
+			document.getElementById("mcMarkerTitleFormatText").disabled = true;
+			def_title_mode = aEvent.target.value;
+		}
+		nsPreferences.setUnicharPref("wiredmarker.marker.initdata.title", aEvent.target.value);
+    }
+    
+    // window.addEventListener("load", _markerDialogOverlayInit, false);
+    // window.addEventListener("unload", _markerDialogOverlayDone, false); 
+    
+    
+    
+    ]]>
+    </script>
+ 
+    <!-- +++ TODO +++ -->     
+    <!-- TODO (script section above): if default is selected User-spec field cannot be written to; if user spec field radio is selected cursor gets to user spec textbox, textbox becomes writable (like in markerinitDataDialogOverlay.xul) -->    
+    <!-- +++ END: TODO +++ -->  
+  
+    <!-- container used to display a set of tabbed pages of elements -->
+    <tabbox id="mcSettingTabbox">
+    
+        <!-- Create server top level tab in settings window. -->
+        <tabs id="mcSettingTabs">
+            <!-- use <!ENTITY markingcollection.server.tab "Server"> in markingcollection.dtd; i.e. label="&markingcollection.server.tab;"  -->
+            <tab id="mcServerTab" label="Server" image="chrome://markingcollection/skin/annotator-skin/server.png"/>
+        </tabs>		
+    
+        <!-- container to hold the set of pages, i.e. the contents of the pages, in a tabbox -->
+        <tabpanels id="mcSettingTabPanels">
+            
+            <!-- individual panel in a tabpanels element: holds elements in parent tabpanels container -->
+            <tabpanel id="mcServerTabPanel" orient="vertical" flex="1">
+            
+                <!-- use groupbox xul element to group related elements together -->
+                <groupbox id="serverSelectOption" flex="1">
+                    
+                    <!-- caption appears along the top of the parent groupbox -->
+                    <caption label="Select the back-end server for the annotation client" id="selectServerGbCaption"/>
+                        
+                    <!-- hbox element can contain any number of child elements, this container element defaults to horizontal orientation -->
+                    <hbox>
+                        
+                        <!-- <radiogroup id="mcMarkerTitleRadiogroup" oncommand="_markerDialogOverlayTitleCommand(event);"> -->
+                        <!-- radiogroup element comprises a group of radio buttons, only one radio button inside the group can be selected at a time, defaults to vertical orientation -->
+                        <radiogroup flex="1" id="mcServerRadiogroup" oncommand="_serverDialogOverlayServerSelectCommand(event);">
+  
+                            <grid>
+                                
+                                <columns>
+                                    <column/>
+                                    <column flex="1" id="textboxColumn"/>
+                                </columns>
+                                
+                                <rows>
+
+                                    <row>
+                                        <radio id="defaultServerRadio" value="valid" label="Default" selected="true"/>
+                                        <textbox id="defaultServerTextbox" value="http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql" readonly="true" onfocus="this.select()"/>
+                                    </row>
+                                        
+                                    <row>
+                                        <radio id="userSpecifiedServerRadio" value="valid" label="User-specified"/>
+                                        <textbox id="userSpecifiedServerTextbox" onfocus="this.select()"/>
+                                    </row>
+                                    
+                                </rows>
+                                
+                            </grid>
+        
+                        </radiogroup>
+                             
+                    </hbox>
+                              
+                </groupbox>
+                                    
+            </tabpanel>
+                            
+        </tabpanels>
+    
+    </tabbox>
+
+</overlay>
