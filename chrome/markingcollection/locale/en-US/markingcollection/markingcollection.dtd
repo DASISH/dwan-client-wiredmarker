@@ -123,9 +123,12 @@
 <!ENTITY markingcollection.button.update "Update">
 
 <!ENTITY markingcollection.marker "Marker">
-<!ENTITY markingcollection.marker.remove "Clear this marker">
-<!ENTITY markingcollection.marker.remove.all "Clear all markers of this page">
-<!ENTITY markingcollection.marker.remarker "Alter marking range to selected range">
+<!-- <!ENTITY markingcollection.marker.remove "Clear this marker"> -->
+<!ENTITY markingcollection.marker.remove "Clear this annotation">
+<!-- <!ENTITY markingcollection.marker.remove.all "Clear all markers of this page"> -->
+<!ENTITY markingcollection.marker.remove.all "Clear all annotations on this page">
+<!-- <!ENTITY markingcollection.marker.remarker "Alter marking range to selected range"> -->
+<!ENTITY markingcollection.marker.remarker "Alter annotation range to selected range">
 <!ENTITY markingcollection.marker.uncategorized 'Register in "Uncategorized"'>
 
 <!ENTITY markingcollection.icon_size "Icon size">
@@ -148,6 +151,8 @@
 <!ENTITY markingcollection.database.use "Use">
 <!ENTITY markingcollection.database.contextmenu "Display on context menu">
 <!ENTITY markingcollection.database.default "Default">
+
+<!ENTITY markingcollection.server.tab "Server">
 
 <!ENTITY markingcollection.key.sidebar "X">
 <!ENTITY markingcollection.key.menubar "M">
