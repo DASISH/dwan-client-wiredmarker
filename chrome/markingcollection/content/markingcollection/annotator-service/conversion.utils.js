@@ -38,8 +38,28 @@ function om_object2annotation(om_object){
     var note = om_object.oid_property.match(/<NOTE>(.+?)<\/NOTE>/)[1];
     var d = new Date(om_object.oid_date);
     
+    var path = {};
+    
+    om_object.bgn_dom.match(/(.+)\(([0-9]+)\)\(([0-9]+)\)/);
+    path.start = RegExp.$1;
+    path.startOffset = RegExp.$2;
+    path.startType = RegExp.$3;
+
+    om_object.end_dom.match(/(.+)\(([0-9]+)\)\(([0-9]+)\)/);
+    path.end = RegExp.$1;
+    path.endOffset = RegExp.$2;
+    path.endType = RegExp.$3;
+    
+    var xpointer = '';
+    
+    xpointer += "#xpointer(start-point(string-range("+path.start+"/text()[1],'',"+path.startOffset+"))";
+    xpointer += "/range-to(string-range("+path.end+"/text()[1],'',"+path.endOffset+")))";
+    
     var annotation = '<?xml version="1.0"?>\n\
                       <annotation xmlns="http://dasish.eu/ns/addit" timeStamp="'+d.toISOString()+'">\n\
+                        <targetSources>\n\
+                            <targetSource xml:id="" source="'+om_object.doc_url+xpointer+'"/>\n\
+                        </targetSources>\n\
                         <body type="Note">'+note+'</body>\n\
                       </annotation>';
     return annotation;
