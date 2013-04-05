@@ -9,11 +9,17 @@
 <?xul-overlay href="chrome://markingcollection/content/substitutiontreeOverlay.xul"?>
 <?xul-overlay href="chrome://markingcollection/content/shortcutDialogOverlay.xul"?>
 <?xul-overlay href="chrome://markingcollection/content/databaseDialogOverlay.xul"?>
+
+<!-- new tab for choice of server(s) -->
+<?xul-overlay href="chrome://markingcollection/content/serverDialogOverlay.xul"?>
+
 <?xul-overlay href="chrome://markingcollection/content/mergeDialogOverlay.xul"?>
 <?xul-overlay href="chrome://markingcollection/content/hyperanchorDialogOverlay.xul"?>
 <?xul-overlay href="chrome://markingcollection/content/autocacheDialogOverlay.xul"?>
 <?xul-overlay href="chrome://markingcollection/content/metaCaptureDialogOverlay.xul"?>
-<?xul-overlay href="chrome://markingcollection/content/pubmedcentralDialogOverlay.xul"?>
+<!-- PubMedCentral Dialogue not needed for DASISH Web Annotator -->
+<!-- <?xul-overlay href="chrome://markingcollection/content/pubmedcentralDialogOverlay.xul"?> -->
+
 <!DOCTYPE prefwindow SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
 <dialog id="mcSettingWindow"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
@@ -28,7 +34,8 @@
 	<stringbundleset id="mcSettingStringbundleset">
 		<stringbundle id="mcSettingString" src="chrome://markingcollection/locale/markingcollection.properties" />
 	</stringbundleset>
-	<dialogheader title="&markingcollection.app.title; &markingcollection.tools.settings;" />
+	<!-- <dialogheader title="&markingcollection.app.title; &markingcollection.tools.settings;" /> -->
+        <dialogheader title="Correct xul file?" />
 	<tabbox id="mcSettingTabbox" flex="1">
 		<tabs id="mcSettingTabs" orient="horizontal"/>
 		<tabpanels id="mcSettingTabPanels" flex="1"/>
