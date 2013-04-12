@@ -20,6 +20,10 @@ function annotation2om_object(annotation){
                         oid_date        :""
                     };
     
+    //start xpath in xpointer: (?<=start-point\(string-range\()(.*\n?)(?=\,'')
+    //end xpath in xpointer: (?<=range-to\(string-range\()(.*\n?)(?=\,'')
+    
+    
     om_object.oid = hashCode(annotation['xml:id']);
     console.log(annotation.targetSources.targetSource);
     om_object.oid_property = "<PROPERTY><HYPER_ANCHOR>"+annotation.targetSources.targetSource.id+"</HYPER_ANCHOR><NOTE>"+annotation.body+"</NOTE></PROPERTY>";
@@ -34,9 +38,14 @@ function annotation2om_object(annotation){
     return om_object;
 }
 
+/**
+ * converts wired marker annotations to dassish annotations
+ * @param {object} om_object contains wired marker object for annotation
+ * @returns {String} annotation in xml
+ */
 function om_object2annotation(om_object){
     var note = om_object.oid_property.match(/<NOTE>(.+?)<\/NOTE>/)[1];
-    var d = new Date(om_object.oid_date);
+    var timestamp = new Date(om_object.oid_date);
     
     var path = {};
     
@@ -56,7 +65,7 @@ function om_object2annotation(om_object){
     xpointer += "/range-to(string-range("+path.end+"/text()[1],'',"+path.endOffset+")))";
     
     var annotation = '<?xml version="1.0"?>\n\
-                      <annotation xmlns="http://dasish.eu/ns/addit" timeStamp="'+d.toISOString()+'">\n\
+                      <annotation xmlns="http://dasish.eu/ns/addit" timeStamp="'+timestamp.toISOString()+'">\n\
                         <targetSources>\n\
                             <targetSource xml:id="" source="'+om_object.doc_url+xpointer+'"/>\n\
                         </targetSources>\n\
@@ -74,10 +83,6 @@ function hashCode(str){
           hash = hash & hash; // Convert to 32bit integer
       }
       return hash;
-}
-
-function createXpointer(url, bgn_dom, end_dom){
-    
 }
 
 if (!Date.prototype.toISOString) {

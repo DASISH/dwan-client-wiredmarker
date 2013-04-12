@@ -13,8 +13,8 @@ var annotationFramework = (function() {
                     $xml = $(xml);
                     $xml.find('annotation').each(function(){              
                         var annotation = $.xml2json(this);
-                        annotation.type = $(this).find('body').attr('type');
-                        annotation.URI = unescape(annotation.URI);
+                        //annotation.type = $(this).find('body').attr('type');
+                        //annotation.URI = unescape(annotation.URI);
                         annotations.push(annotation);
                     });
 

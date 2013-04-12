@@ -2,7 +2,9 @@ var annotationProxy = (function() {
     return {
         getAnnotations: function(url) {
            this.log('getAnnotations for: '+url);
-           annotationFramework.getAnnotations({url:url}, function(){});
+           annotationFramework.getAnnotations({url:url}, function(annotations){
+               this.log('annotations from backend: '+JSON.stringify(annotations));
+           });
            
         },
         putAnnotation: function(annotation) {
