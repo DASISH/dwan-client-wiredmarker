@@ -51,7 +51,6 @@ function om_object2annotation(om_object){
     
     hyperanchor = unescape(hyperanchor);
     
-    annotationProxy.log('hyperanchor : '+hyperanchor);
     hyperanchor.match(/^(.+\([0-9]+\)\([0-9]+\)\([\s\S]*\))&(.+\([0-9]+\)\([0-9]+\)\([\s\S]*\))&(.+)$/);
     
     style = RegExp.$3;
