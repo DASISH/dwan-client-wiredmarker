@@ -72,7 +72,8 @@
 <!ENTITY markingcollection.addon "Add-ons">
 
 <!ENTITY markingcollection.prop.title "Title">
-<!ENTITY markingcollection.prop.note "Note">
+<!-- <!ENTITY markingcollection.prop.note "Note"> -->
+<!ENTITY markingcollection.prop.note "Annotation">
 <!ENTITY markingcollection.prop.general "Brief overview">
 <!ENTITY markingcollection.prop.tag "Tag">
 <!ENTITY markingcollection.prop.tag.emptytext "Same title">
