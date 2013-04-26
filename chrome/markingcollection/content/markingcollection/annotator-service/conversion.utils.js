@@ -80,7 +80,7 @@ function om_object2annotation(om_object){
                             URI="tempAIDgfgf" \n\
                             timeStamp="'+timestamp.toISOString()+'">\n\
                         <owner ref="http://dasish.eu/users/how_will_this_be_sent_from_the_client"/>\n\
-                        <headline>'+om_object.doc_title+'</headline>\n\
+                        <headline>'+om_object.oid_title+'</headline>\n\
                         <body type="Note">\n\
                             <xhtml:span style="'+style+'">'+note+'</xhtml:span>\n\
                         </body>\n\
