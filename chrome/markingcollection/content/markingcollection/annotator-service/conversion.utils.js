@@ -45,7 +45,16 @@ function annotation2om_object(annotation){
  */
 function om_object2annotation(om_object){
     var note = om_object.oid_property.match(/<NOTE>(.+?)<\/NOTE>/)[1];
+    var hyperanchor = om_object.oid_property.match(/<HYPER_ANCHOR>(.+?)<\/HYPER_ANCHOR>/)[1];
+    var style='';
     var timestamp = new Date(om_object.oid_date);
+    
+    hyperanchor = unescape(hyperanchor);
+    
+    annotationProxy.log('hyperanchor : '+hyperanchor);
+    hyperanchor.match(/^(.+\([0-9]+\)\([0-9]+\)\([\s\S]*\))&(.+\([0-9]+\)\([0-9]+\)\([\s\S]*\))&(.+)$/);
+    
+    style = RegExp.$3;
     
     var path = {};
     
@@ -65,11 +74,21 @@ function om_object2annotation(om_object){
     xpointer += "/range-to(string-range("+path.end+"/text()[1],'',"+path.endOffset+")))";
     
     var annotation = '<?xml version="1.0"?>\n\
-                      <annotation xmlns="http://dasish.eu/ns/addit" timeStamp="'+timestamp.toISOString()+'">\n\
+                      <annotation \n\
+                            xmlns="http://dasish.eu/ns/addit" \n\
+                            xmlns:xhtml="http://www.w3.org/1999/xhtml"\n\
+                            URI="tempAIDgfgf" \n\
+                            timeStamp="'+timestamp.toISOString()+'">\n\
+                        <owner ref="http://dasish.eu/users/how_will_this_be_sent_from_the_client"/>\n\
+                        <headline>'+om_object.doc_title+'</headline>\n\
+                        <body type="Note">\n\
+                            <xhtml:span style="'+style+'">'+note+'</xhtml:span>\n\
+                        </body>\n\
                         <targetSources>\n\
-                            <targetSource xml:id="" source="'+om_object.doc_url+xpointer+'"/>\n\
+                            <action>CREATE_CACHED_REPRESENTATION</action>\n\
+                            <link>'+om_object.doc_url+xpointer+'</link>\n\
+                            <version>'+timestamp.toISOString()+'</version>\n\
                         </targetSources>\n\
-                        <body type="Note">'+note+'</body>\n\
                       </annotation>';
     return annotation;
 }

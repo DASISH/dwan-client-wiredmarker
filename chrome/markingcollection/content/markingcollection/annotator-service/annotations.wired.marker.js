@@ -5,11 +5,10 @@ var annotationProxy = (function() {
            annotationFramework.getAnnotations({url:url}, function(annotations){
                this.log('annotations from backend: '+JSON.stringify(annotations));
            });
-           
         },
-        putAnnotation: function(annotation) {
-            var a = om_object2annotation(annotation);
-            this.log('putAnnotation : '+a);
+        putAnnotation: function(om_object) {
+            var annotation = om_object2annotation(om_object);
+            this.log('putAnnotation : '+annotation);
         },
         updateAnnotation: function(annotation) {
             this.log('updateAnnotation : '+JSON.stringify(annotation));
