@@ -76,6 +76,7 @@ function om_object2annotation(om_object){
                       <annotation \n\
                             xmlns="http://dasish.eu/ns/addit" \n\
                             xmlns:xhtml="http://www.w3.org/1999/xhtml"\n\
+                            xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"\n\
                             URI="tempAIDgfgf" \n\
                             timeStamp="'+timestamp.toISOString()+'">\n\
                         <owner ref="http://dasish.eu/users/how_will_this_be_sent_from_the_client"/>\n\
@@ -84,9 +85,10 @@ function om_object2annotation(om_object){
                             <xhtml:span style="'+style+'">'+note+'</xhtml:span>\n\
                         </body>\n\
                         <targetSources>\n\
-                            <action>CREATE_CACHED_REPRESENTATION</action>\n\
-                            <link>'+om_object.doc_url+xpointer+'</link>\n\
-                            <version>'+timestamp.toISOString()+'</version>\n\
+                            <targetSource xml:id="tmpSIDxyxy">\n\
+                                <link>'+om_object.doc_url+xpointer+'</link>\n\
+                                <version>'+timestamp.toISOString()+'</version>\n\
+                            </targetSource>\n\
                         </targetSources>\n\
                       </annotation>';
     return annotation;
