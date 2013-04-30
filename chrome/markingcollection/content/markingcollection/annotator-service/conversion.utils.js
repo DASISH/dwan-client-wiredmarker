@@ -88,8 +88,14 @@ function om_object2annotation(om_object){
                             <targetSource xml:id="tmpSIDxyxy">\n\
                                 <link>'+om_object.doc_url+xpointer+'</link>\n\
                                 <version>'+timestamp.toISOString()+'</version>\n\
-                            </targetSource>\n\
+                        </targetSource>\n\
                         </targetSources>\n\
+                        <readers>\n\
+                            <reader ref="http://dasish.eu/users/user123"/>\n\
+                        </readers>\n\
+                        <writers>\n\
+                            <writer ref="http://dasish.eu/users/user123"/>\n\
+                        </writers>\n\
                       </annotation>';
     return annotation;
 }
