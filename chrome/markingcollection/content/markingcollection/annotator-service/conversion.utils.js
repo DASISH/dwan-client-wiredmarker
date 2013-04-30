@@ -72,7 +72,7 @@ function om_object2annotation(om_object){
     xpointer += "#xpointer(start-point(string-range("+path.start+"/text()[1],'',"+path.startOffset+"))";
     xpointer += "/range-to(string-range("+path.end+"/text()[1],'',"+path.endOffset+")))";
     
-    var annotation = '<?xml version="1.0"?>\n\
+    var annotation = '<?xml version="1.0" encoding="UTF-8"?>\n\
                       <annotation \n\
                             xmlns="http://dasish.eu/ns/addit" \n\
                             xmlns:xhtml="http://www.w3.org/1999/xhtml"\n\
