@@ -73,7 +73,7 @@ function om_object2annotation(om_object){
     xpointer += "/range-to(string-range("+path.end+"/text()[1],'',"+path.endOffset+")))";
     
     var annotation = '<?xml version="1.0" encoding="UTF-8"?>\n\
-                      <annotation xmlns="http://dasish.eu/ns/addit" \n\
+                      <annotation xmlns="http://www.dasish.eu/ns/addit" \n\
                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n\
                             xmlns:xhtml="http://www.w3.org/1999/xhtml"\n\
                             xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"\n\
