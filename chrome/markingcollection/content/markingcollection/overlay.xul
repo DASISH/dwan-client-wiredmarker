@@ -196,10 +196,12 @@
             id="MarkingCollectionContextMenuUncategorized"
             label="&markingcollection.marker.uncategorized;..."
             oncommand="bitsContextMenu.commandIndexContextMenu(event)"
+            class="menuitem-iconic"
+            image="chrome://markingcollection/skin/annotator-skin/icon_dasish.gif"
             insertbefore="context-bookmarklink"/>
         <menuseparator id="" observes="MarkingCollectionContextMenuUncategorized" insertbefore="context-bookmarklink" />
         <!-- <menu id="MarkingCollectionContextMenu" class="menu-iconic" label="&markingcollection.app.title;" image="chrome://markingcollection/skin/icon_16.gif" insertbefore="context-bookmarklink"> -->
-        <menu id="MarkingCollectionContextMenu" label="&markingcollection.app.title;" insertbefore="context-bookmarklink">
+        <menu id="MarkingCollectionContextMenu" class="menu-iconic" label="&markingcollection.app.title;" image="chrome://markingcollection/skin/annotator-skin/icon_dasish.gif" insertbefore="context-bookmarklink">
             <menupopup
                 id="MarkingCollectionContextMenupopup"
                 onpopupshowing="bitsContextMenu.popupshowingIndexContextMenu(event)"
