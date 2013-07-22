@@ -6,7 +6,8 @@
         Definition of specific styles for DASISH web annotator.
 */
 
-caption#selectServerGbCaption {
+/* ::::: SERVER DIALOG SETTINGS ::::: */
+caption#selectServerURLCaption {
     background-color:#fff;
     padding: 5px;
     border-top-left-radius: 0.6em;
@@ -16,4 +17,4 @@ caption#selectServerGbCaption {
 column#textboxColumn {
     margin-left: 1em;
 }
-
+/* ::::: END: SERVER DIALOG SETTINGS ::::: */
