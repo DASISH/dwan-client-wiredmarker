@@ -1,56 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- TODO: move stylesheet sourcing to settingDialog.xul (test)  -->
-<?xml-stylesheet href="chrome://markingcollection/skin/annotator-skin/dasish.css" type="text/css"?>
-<!-- uncomment at a later stage, dtd file needs to be used for ENTITY translation -->
-<!-- <!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd"> -->
-<overlay id="serverDialogOverlay"
-         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-         xmlns:html="http://www.w3.org/1999/xhtml">
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/marker.dtd" >
+%metaDTD;
+]>
+<overlay
+    id="serverDialogOverlay"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml">
     
     <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" /> <!-- Required for access to the Preference Manager component. -->
     
     <script type="application/x-javascript">
     <![CDATA[
-    // var def_title_mode;
-    // var def_serverpathtext_mode;
-    /*
-     * var def_title_mode;
-        var def_note_mode;
-	function _markerDialogOverlayInit(aEvent){ ... }
-	
-	function _markerDialogOverlayDone(aEvent){ ... }
-     */
-    
-    function _serverDialogOverlayServerSelectCommand(aEvent){
-		if(aEvent.target.id=="mcMarkerTitleFormat"){
-			document.getElementById("mcMarkerTitleFormatText").disabled = false;
-			document.getElementById("mcMarkerTitleFormatText").focus();
-		}else{
-			document.getElementById("mcMarkerTitleFormatText").disabled = true;
-			def_title_mode = aEvent.target.value;
-		}
-		nsPreferences.setUnicharPref("wiredmarker.marker.initdata.title", aEvent.target.value);
+    var def_url_mode;
+    function _serverDialogOverlayInit(aEvent) {
+        var url_mode = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url","WM_REST_DEFAULT");
+        var url_format = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url_format");
+        document.getElementById("mcMarkerURLFormatText").disabled = true;
+        switch(url_mode){
+            case "WM_REST_DEFAULT":
+                    document.getElementById("mcMarkerURLRadiogroup").selectedItem = document.getElementById("mcMarkerURLText");
+                    break;
+            case "WM_REST_UserDefined":
+                    document.getElementById("mcMarkerURLRadiogroup").selectedItem = document.getElementById("mcMarkerURLFormat");
+                    document.getElementById("mcMarkerURLFormatText").disabled = false;
+                    break;
+        }
+        if(url_format) document.getElementById("mcMarkerURLFormatText").value = url_format;
+        
+        def_url_mode = url_mode;
     }
     
-    // window.addEventListener("load", _markerDialogOverlayInit, false);
-    // window.addEventListener("unload", _markerDialogOverlayDone, false); 
+    function _serverDialogOverlayDone(aEvent) {
+        var value = document.getElementById("mcMarkerURLFormatText").value;
+	value = value.replace(/^\s+/g,"").replace(/\s+$/g,"");
+	if(value == "") nsPreferences.setUnicharPref("wiredmarker.marker.initdata.url", def_url_mode);
+    }
     
+    function _markerDialogOverlayURLCommand(aEvent){
+        if(aEvent.target.id=="mcMarkerURLFormat"){
+                document.getElementById("mcMarkerURLFormatText").disabled = false;
+                document.getElementById("mcMarkerURLFormatText").focus();
+        }else{
+                document.getElementById("mcMarkerURLFormatText").disabled = true;
+                def_url_mode = aEvent.target.value;
+        }
+        nsPreferences.setUnicharPref("wiredmarker.marker.initdata.url", aEvent.target.value);
+    }
     
+    function _markerDialogOverlayURLInput(aEvent){
+	nsPreferences.setUnicharPref("wiredmarker.marker.initdata.url_format", aEvent.target.value);
+    }
     
+    window.addEventListener("load", _serverDialogOverlayInit, false);
+    window.addEventListener("unload", _serverDialogOverlayDone, false);
+       
     ]]>
-    </script>
- 
-    <!-- +++ TODO +++ -->     
-    <!-- TODO (script section above): if default is selected User-spec field cannot be written to; if user spec field radio is selected cursor gets to user spec textbox, textbox becomes writable (like in markerinitDataDialogOverlay.xul) -->    
-    <!-- +++ END: TODO +++ -->  
+    </script>  
   
     <!-- container used to display a set of tabbed pages of elements -->
     <tabbox id="mcSettingTabbox">
     
         <!-- Create server top level tab in settings window. -->
-        <tabs id="mcSettingTabs">
-            <!-- use <!ENTITY markingcollection.server.tab "Server"> in markingcollection.dtd; i.e. label="&markingcollection.server.tab;"  -->
-            <tab id="mcServerTab" label="Server" image="chrome://markingcollection/skin/annotator-skin/server.png"/>
+        <tabs id="mcSettingTabs">     
+            <tab id="mcServerTab" label="&markingcollection.server.tab;" image="chrome://markingcollection/skin/annotator-skin/server.png"/>
         </tabs>		
     
         <!-- container to hold the set of pages, i.e. the contents of the pages, in a tabbox -->
@@ -63,15 +78,13 @@
                 <groupbox id="serverSelectOption" flex="1">
                     
                     <!-- caption appears along the top of the parent groupbox -->
-                    <caption label="Select the back-end server for the annotation client" id="selectServerGbCaption"/>
+                    <caption label="&markingcollection.server.groupbox.caption;" id="selectServerURLCaption"/>
                         
                     <!-- hbox element can contain any number of child elements, this container element defaults to horizontal orientation -->
                     <hbox>
                         
-                        <!-- <radiogroup id="mcMarkerTitleRadiogroup" oncommand="_markerDialogOverlayTitleCommand(event);"> -->
                         <!-- radiogroup element comprises a group of radio buttons, only one radio button inside the group can be selected at a time, defaults to vertical orientation -->
-                        <radiogroup flex="1" id="mcServerRadiogroup" oncommand="_serverDialogOverlayServerSelectCommand(event);">
-  
+                        <radiogroup flex="1" id="mcMarkerURLRadiogroup" oncommand="_markerDialogOverlayURLCommand(event);">
                             <grid>
                                 
                                 <columns>
@@ -82,13 +95,13 @@
                                 <rows>
 
                                     <row>
-                                        <radio id="defaultServerRadio" value="valid" label="Default" selected="true"/>
-                                        <textbox id="defaultServerTextbox" value="http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql" readonly="true" onfocus="this.select()"/>
+                                        <radio id="mcMarkerURLText" value="WM_REST_DEFAULT" label="&markingcollection.server.rest.default;" selected="true"/>
+                                        <textbox value="http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql" readonly="true" onfocus="this.select()"/>
                                     </row>
                                         
                                     <row>
-                                        <radio id="userSpecifiedServerRadio" value="valid" label="User-specified"/>
-                                        <textbox id="userSpecifiedServerTextbox" onfocus="this.select()"/>
+                                        <radio id="mcMarkerURLFormat" value="WM_REST_UserDefined" label="&markingcollection.server.rest.userdefined;"/>
+                                        <textbox id="mcMarkerURLFormatText" onfocus="this.select()" disabled="true" onchange="_markerDialogOverlayURLInput(event);"/>
                                     </row>
                                     
                                 </rows>
