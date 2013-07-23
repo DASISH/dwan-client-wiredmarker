@@ -154,6 +154,9 @@
 <!ENTITY markingcollection.database.default "Default">
 
 <!ENTITY markingcollection.server.tab "Server">
+<!ENTITY markingcollection.server.groupbox.caption "Select the back-end server for the annotation client">
+<!ENTITY markingcollection.server.rest.default "Default">
+<!ENTITY markingcollection.server.rest.userdefined "User-specified">
 
 <!ENTITY markingcollection.key.sidebar "X">
 <!ENTITY markingcollection.key.menubar "M">
