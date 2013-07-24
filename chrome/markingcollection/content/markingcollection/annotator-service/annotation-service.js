@@ -7,7 +7,7 @@ var annotationFramework = (function() {
     if (selected_state === "WM_REST_UserDefined") {
         var backend = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url_format","");
     }
-    alert("The following backend is used: " + backend);
+    // alert("The following backend is used: " + backend);
     // TODO: The above code is executed only when restarting the application (or when a new window is opened),
     // however the settings will be changed without calling for a restart (or opening a new window).
     // Solution to get the correct backend URL at any time?
