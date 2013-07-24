@@ -16,6 +16,9 @@
     <![CDATA[
     var def_url_mode;
     function _serverDialogOverlayInit(aEvent) {
+        // TODO: Is it possible to retrieve the default value dynamically from annotation-service.js?
+        // Set the default textbox value to the REST URL default value that is used.
+        document.getElementById("mcMarkerURLTextDefault").value = "http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql";
         var url_mode = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url","WM_REST_DEFAULT");
         var url_format = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url_format");
         document.getElementById("mcMarkerURLFormatText").disabled = true;
@@ -96,7 +99,7 @@
 
                                     <row>
                                         <radio id="mcMarkerURLText" value="WM_REST_DEFAULT" label="&markingcollection.server.rest.default;" selected="true"/>
-                                        <textbox value="http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql" readonly="true" onfocus="this.select()"/>
+                                        <textbox id="mcMarkerURLTextDefault" readonly="true" onfocus="this.select()"/>
                                     </row>
                                         
                                     <row>
