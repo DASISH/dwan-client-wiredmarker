@@ -84,7 +84,7 @@ function om_object2annotation(om_object){
                         <body type="Note" ref="tmp'+om_object.oid+'">\n\
                             <xhtml:span style="'+style+'">'+note+'</xhtml:span>\n\
                         </body>\n\
-                        <targetSources>\n\\n\
+                        <targetSources>\n\
                             <target>\n\
                                 <newSource xml:id="tmp'+om_object.oid+'">\n\
                                     <link>'+om_object.doc_url+xpointer+'</link>\n\
