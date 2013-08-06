@@ -1,0 +1,20 @@
+/* https://github.com/appendto/jquery-mockjax/blob/master/README.md */
+
+/* Set up mocks */
+
+$.mockjax(options); /* Sets up a mockjax handler. */
+
+/* options */
+/* responseXML: A string specifying the mocked XML for the request. */
+/* proxy: A string specifying a path to a file, from which the contents will be returned for the request. */
+/* etag: A string specifying a unique identifier referencing a specific version of the requested data.
+ * This is used by $.ajax to determine if the requested data is new since the last request. (see HTTP_ETag) */
+
+/* Remove mocks */
+
+$.mockjaxClear(); /* Removes all mockjax handlers. */
+
+$.mockjaxClear(id); /* Remove a single mockjax handler. id is the string returned from $.mockjax. */
+
+/* Return mocks */
+$.mockjax.mockedAjaxCalls(); /* Returns all mocked ajax calls so you can e.g. check that expected data is sent to backend. */

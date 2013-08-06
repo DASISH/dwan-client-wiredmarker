@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- list of annotation-infos -->
+<annotations xmlns="http://www.dasish.eu/ns/addit"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd">
+    <annotation ref="http://dasish.eu/annotations/AIDxyxy">
+        <owner ref="http://dasish.eu/users/UIDefef"/>
+        <headline>My client is not in a hurry</headline>
+        <targetSources>
+            <targetSource ref="http://dasish.eu/sources/SIDacdc"/>
+        </targetSources>
+    </annotation>
+    <annotation ref="http://dasish.eu/annotations/AIDzzz">
+        <owner ref="http://dasish.eu/users/UIDe1fe1f"/>
+        <headline>Nativity Facade</headline>
+        <targetSources>
+            <targetSource ref="http://dasish.eu/sources/SIDaacc"/>
+            <targetSource ref="http://dasish.eu/sources/SIDaaaa"/>
+        </targetSources>
+    </annotation>
+    <annotation ref="http://dasish.eu/annotations/AIDzyy">
+        <owner ref="http://dasish.eu/users/UIDefef"/>
+        <headline>Nativity Facade (old site)</headline>
+        <targetSources>
+            <targetSource ref="http://dasish.eu/sources/SIDbbbb"/>
+            <targetSource ref="http://dasish.eu/sources/SIDrrrr"/>
+        </targetSources>
+    </annotation>
+</annotations>
