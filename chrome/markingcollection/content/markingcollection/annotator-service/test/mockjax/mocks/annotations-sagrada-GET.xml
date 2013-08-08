@@ -4,18 +4,17 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd">
     <annotation ref="http://dasish.eu/annotations/AID20130808114716">
-        <owner ref="http://dasish.eu/users/UI0001"/>
+        <owner ref="http://dasish.eu/users/UID0001"/>
         <headline>Background - Sagrada Família - Wikipedia, the free encyclopedia</headline>
         <targetSources>
             <targetSource ref="http://dasish.eu/sources/SID20130808114716"/>
         </targetSources>
     </annotation>
-    <annotation ref="http://dasish.eu/annotations/AIDzzz">
-        <owner ref="http://dasish.eu/users/UIDe1fe1f"/>
-        <headline>Nativity Facade</headline>
+    <annotation ref="http://dasish.eu/annotations/AID20130808124131">
+        <owner ref="http://dasish.eu/users/UID0002"/>
+        <headline>AVE tunnel - Sagrada Família - Wikipedia, the free encyclopedia</headline>
         <targetSources>
-            <targetSource ref="http://dasish.eu/sources/SIDaacc"/>
-            <targetSource ref="http://dasish.eu/sources/SIDaaaa"/>
+            <targetSource ref="http://dasish.eu/sources/SID20130808124131"/>
         </targetSources>
     </annotation>
     <annotation ref="http://dasish.eu/annotations/AIDzyy">
@@ -23,7 +22,6 @@
         <headline>Nativity Facade (old site)</headline>
         <targetSources>
             <targetSource ref="http://dasish.eu/sources/SIDbbbb"/>
-            <targetSource ref="http://dasish.eu/sources/SIDrrrr"/>
         </targetSources>
     </annotation>
 </annotations>

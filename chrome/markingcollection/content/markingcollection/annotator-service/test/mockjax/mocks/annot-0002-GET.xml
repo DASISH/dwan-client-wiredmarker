@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"
     URI="http://dasish.eu/annotations/AID20130808124131"
     timeStamp="2013-08-08T10:41:04.000Z">
-    <owner ref="http://dasish.eu/users/UI0002"/>
+    <owner ref="http://dasish.eu/users/UID0002"/>
     <headline>AVE tunnel - Sagrada Família - Wikipedia, the free encyclopedia</headline>
     <body type="Note">
         <xhtml:span style="background-color:rgb(0,0,153);color:rgb(255,255,255);border: thick solid rgb(0, 0, 153);">High speed train tunnel poses risk to church building?</xhtml:span>

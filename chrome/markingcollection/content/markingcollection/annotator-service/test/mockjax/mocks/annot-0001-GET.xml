@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"
     URI="http://dasish.eu/annotations/AID20130808114716"
     timeStamp="2013-08-08T09:46:06.000Z">
-    <owner ref="http://dasish.eu/users/UI0001"/>
+    <owner ref="http://dasish.eu/users/UID0001"/>
     <headline>Background - Sagrada Família - Wikipedia, the free encyclopedia</headline>
     <body type="Note">
         <xhtml:span style="background-color:rgb(0,0,153);color:rgb(255,255,255);border: thick solid rgb(0, 0, 153);">Some background information on Sagrada Família.</xhtml:span>
