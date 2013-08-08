@@ -3,11 +3,11 @@
 <annotations xmlns="http://www.dasish.eu/ns/addit"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd">
-    <annotation ref="http://dasish.eu/annotations/AIDxyxy">
-        <owner ref="http://dasish.eu/users/UIDefef"/>
-        <headline>My client is not in a hurry</headline>
+    <annotation ref="http://dasish.eu/annotations/AID20130808114716">
+        <owner ref="http://dasish.eu/users/UI0001"/>
+        <headline>Background - Sagrada Família - Wikipedia, the free encyclopedia</headline>
         <targetSources>
-            <targetSource ref="http://dasish.eu/sources/SIDacdc"/>
+            <targetSource ref="http://dasish.eu/sources/SID20130808114716"/>
         </targetSources>
     </annotation>
     <annotation ref="http://dasish.eu/annotations/AIDzzz">
