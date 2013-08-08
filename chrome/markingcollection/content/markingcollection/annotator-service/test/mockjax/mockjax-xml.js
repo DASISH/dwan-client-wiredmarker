@@ -30,17 +30,28 @@ var XMLData = function() {
                 success: function(xml, textStatus, jqXHR) {
                 // success: function(xml) {    
                 // can be used if parameters textStatus and jqXHR are not required within the following code block
-                    console.log('Data: ' + $(xml));
-                    console.log($(xml));
+                    
+                    $xml = $(xml);
+                    
+                    console.log('Data: ' + $xml);
+                    console.log($xml);
                     console.log('Status: ' + textStatus);
                     console.log('XMLHttpRequest object: ' + jqXHR);
                     console.log(jqXHR);
-
-                    var headline = "";
-                    $(xml).find('annotation').each(function() {
-                        headline += '<br />' + $(this).find('headline').text();
+                    
+                    var aidArr = [];
+                    var aid_string = "";
+                    $xml.find('annotations annotation').each(function() {
+                        aidArr.push($(this).attr('ref').substr(29)); // http://dasish.eu/annotations/ is erased
                     });
-                    $('#xmlContents').html('<h4 style="margin-bottom: 0;">Headline:</h4>' + headline);
+  
+                    console.log(aidArr);
+                    
+                    for(var i in aidArr) {
+                        aid_string += '<br />' + aidArr[i];
+                        $('#xmlContents').html('<h4 style="margin-bottom: 0;">List of AIDs returned from REST service address<br />GET api/annotations?link="URI":</h4>' + aid_string);
+                    }
+                    
                 }
             });
         }
