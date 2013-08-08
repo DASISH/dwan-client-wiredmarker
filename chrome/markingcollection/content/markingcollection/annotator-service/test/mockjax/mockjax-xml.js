@@ -17,7 +17,7 @@ $.mockjax({
     /* responseTime: An integer that specifies a simulated network and server latency (in milliseconds). */
     responseTime: 750,
     /* proxy: A string specifying a path to a file, from which the contents will be returned for the request. */
-    proxy: 'mocks/annotations-sagrada.xml'
+    proxy: 'mocks/annotations-sagrada-GET.xml'
 });
 
 var XMLData = function() {
@@ -28,7 +28,8 @@ var XMLData = function() {
                 dataType: 'xml',
                 type: 'GET',
                 success: function(xml, textStatus, jqXHR) {
-
+                // success: function(xml) {    
+                // can be used if parameters textStatus and jqXHR are not required within the following code block
                     console.log('Data: ' + $(xml));
                     console.log($(xml));
                     console.log('Status: ' + textStatus);
