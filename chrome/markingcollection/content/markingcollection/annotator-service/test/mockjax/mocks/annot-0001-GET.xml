@@ -18,5 +18,5 @@
             </source>
         </target>
     </targetSources>
-    <permissions ref="PermissionsListID20130808114716"/>
+    <permissions ref="http://dasish.eu/permissions/PermissionsListID20130808114716"/>
 </annotation>
