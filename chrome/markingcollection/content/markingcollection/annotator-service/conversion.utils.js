@@ -92,12 +92,7 @@ function om_object2annotation(om_object){
                                 </newSource>\n\
                             </target>\n\
                         </targetSources>\n\
-                        <readers>\n\
-                            <reader ref="http://dasish.eu/users/user123"/>\n\
-                        </readers>\n\
-                        <writers>\n\
-                            <writer ref="http://dasish.eu/users/user123"/>\n\
-                        </writers>\n\
+                        <permissions ref="http://dasish.eu/permissions/PermissionsListIDxyz"/>\n\
                       </annotation>';
     return annotation;
 }
