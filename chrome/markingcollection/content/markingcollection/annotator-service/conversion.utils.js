@@ -73,13 +73,13 @@ function om_object2annotation(om_object){
     xpointer += "/range-to(string-range("+path.end+"/text()[1],'',"+path.endOffset+")))";
     
     var annotation = '<?xml version="1.0" encoding="UTF-8"?>\n\
-                      <annotation xmlns="http://www.dasish.eu/ns/addit" \n\
+                      <annotation xmlns="http://www.dasish.eu/ns/addit"\n\
                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n\
                             xmlns:xhtml="http://www.w3.org/1999/xhtml"\n\
                             xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"\n\
-                            URI="temp-annotation-'+om_object.oid+'" \n\
+                            URI="temp-annotation-'+om_object.oid+'"\n\
                             timeStamp="'+timestamp.toISOString()+'">\n\
-                        <owner ref="http://dasish.eu/users/how_will_this_be_sent_from_the_client"/>\n\
+                        <owner ref="http://dasish.eu/users//UIxyz/how_will_this_be_sent_from_the_client"/>\n\
                         <headline>'+om_object.oid_title+'</headline>\n\
                         <body type="Note" ref="tmp'+om_object.oid+'">\n\
                             <xhtml:span style="'+style+'">'+note+'</xhtml:span>\n\
@@ -92,7 +92,7 @@ function om_object2annotation(om_object){
                                 </newSource>\n\
                             </target>\n\
                         </targetSources>\n\
-                        <permissions ref="http://dasish.eu/permissions/PermissionsListIDxyz"/>\n\
+                        <permissions ref="tmpPermissionsListID'+om_object.oid+'"/>\n\
                       </annotation>';
     return annotation;
 }
