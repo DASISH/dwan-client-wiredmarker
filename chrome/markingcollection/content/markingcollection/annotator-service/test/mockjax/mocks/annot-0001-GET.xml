@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"
-    URI="http://dasish/annotations/AID20130808114716"
+    URI="http://dasish.eu/annotations/AID20130808114716"
     timeStamp="2013-08-08T09:46:06.000Z">
     <owner ref="http://dasish.eu/users//UIxyz"/>
     <headline>Background - Sagrada Família - Wikipedia, the free encyclopedia</headline>
