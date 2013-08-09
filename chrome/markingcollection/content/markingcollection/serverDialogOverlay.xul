@@ -11,6 +11,7 @@
     xmlns:html="http://www.w3.org/1999/xhtml">
     
     <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" /> <!-- Required for access to the Preference Manager component. -->
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/annotation-service.js"/>
     
     <script type="application/x-javascript">
     <![CDATA[
@@ -18,7 +19,7 @@
     function _serverDialogOverlayInit(aEvent) {
         // TODO: Is it possible to retrieve the default value dynamically from annotation-service.js?
         // Set the default textbox value to the REST URL default value that is used.
-        document.getElementById("mcMarkerURLTextDefault").value = "http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql";
+        document.getElementById("mcMarkerURLTextDefault").value = annotationFramework.getDefaultBackend();
         var url_mode = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url","WM_REST_DEFAULT");
         var url_format = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url_format");
         document.getElementById("mcMarkerURLFormatText").disabled = true;
