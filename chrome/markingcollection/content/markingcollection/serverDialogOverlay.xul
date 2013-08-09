@@ -17,7 +17,6 @@
     <![CDATA[
     var def_url_mode;
     function _serverDialogOverlayInit(aEvent) {
-        // TODO: Is it possible to retrieve the default value dynamically from annotation-service.js?
         // Set the default textbox value to the REST URL default value that is used.
         document.getElementById("mcMarkerURLTextDefault").value = annotationFramework.getDefaultBackend();
         var url_mode = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url","WM_REST_DEFAULT");
