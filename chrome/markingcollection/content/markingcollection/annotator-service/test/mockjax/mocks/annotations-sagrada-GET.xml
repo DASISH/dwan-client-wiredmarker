@@ -17,6 +17,7 @@
             <targetSource ref="http://dasish.eu/sources/SID20130808124131"/>
         </targetSources>
     </annotation>
+    <!--
     <annotation ref="http://dasish.eu/annotations/AIDzyy">
         <owner ref="http://dasish.eu/users/UIDefef"/>
         <headline>Nativity Facade (old site)</headline>
@@ -24,4 +25,5 @@
             <targetSource ref="http://dasish.eu/sources/SIDbbbb"/>
         </targetSources>
     </annotation>
+    -->
 </annotations>
