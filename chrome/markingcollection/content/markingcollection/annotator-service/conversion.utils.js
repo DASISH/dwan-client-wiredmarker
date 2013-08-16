@@ -48,13 +48,8 @@ function annotation2om_object(annotation){
     var parts = RegExp.$1.split(',');
     om_object.end_dom = parts[0]+'('+parts[2]+')(3)';
     
-    //start xpath in xpointer: (?<=start-point\(string-range\()(.*\n?)(?=\,'')
-    //end xpath in xpointer: (?<=range-to\(string-range\()(.*\n?)(?=\,'')
-    
     //build hyperanchor
     var hyperanchor = '#hyperanchor1.3:'+om_object.bgn_dom+'&'+om_object.end_dom+'&'+style;
-    
-    
     
     om_object.doc_title = title;
     
