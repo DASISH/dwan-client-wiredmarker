@@ -306,4 +306,5 @@
 <!ENTITY markingcollection.setting.marker.mouseover "When mouse over on marker">
 <!ENTITY markingcollection.setting.marker.mouseover.disptooltip "Display object information">
 <!ENTITY markingcollection.setting.marker.mouseover.title "Title">
-<!ENTITY markingcollection.setting.marker.mouseover.note "Note">
+<!-- <!ENTITY markingcollection.setting.marker.mouseover.note "Note"> -->
+<!ENTITY markingcollection.setting.marker.mouseover.note "Annotation">
