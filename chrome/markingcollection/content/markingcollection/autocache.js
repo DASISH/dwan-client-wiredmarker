@@ -3450,8 +3450,9 @@ bitsAutocacheDocument.prototype = {
                                         
                                         /* TODO: Not enough arguments exception issue needs to be addressed */
                                         /* See: https://developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference/nsIWebBrowserPersist */
+                                        /* See even: https://bugzilla.mozilla.org/show_bug.cgi?id=820522 */
                                         
-                                        /* dirty fix, needs to be replaced by clean fix ASAP */
+                                        /* Dirty fix, might need to get replaced by a clean fix in case privacy information leak issues arise. */
                                         var privacyContext = null;
                                         
 					WBP.saveURI(aURL, null, aClass.refURLObj, null, null, targetFile, privacyContext);
