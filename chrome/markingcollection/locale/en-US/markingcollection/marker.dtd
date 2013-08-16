@@ -1,6 +1,7 @@
 <!ENTITY marker.initdata.overlay.groupbox.caption       "Initial input of marker">
 <!ENTITY marker.initdata.overlay.title.groupbox.caption "Title">
-<!ENTITY marker.initdata.overlay.note.groupbox.caption  "Note">
+<!-- <!ENTITY marker.initdata.overlay.note.groupbox.caption  "Note"> -->
+<!ENTITY marker.initdata.overlay.note.groupbox.caption  "Annotation">
 <!ENTITY marker.initdata.overlay.radio.label.text       "Selected Text">
 <!ENTITY marker.initdata.overlay.radio.label.title      "Page Title">
 <!ENTITY marker.initdata.overlay.radio.label.date       "Date">
@@ -10,5 +11,6 @@
 
 <!ENTITY marker.initdata.dialog.title       "Edit Marker information">
 <!ENTITY marker.initdata.dialog.label.title "Title">
-<!ENTITY marker.initdata.dialog.label.note  "Note">
+<!-- <!ENTITY marker.initdata.dialog.label.note  "Note"> -->
+<!ENTITY marker.initdata.dialog.label.note  "Annotation">
 <!ENTITY marker.initdata.dialog.emptytext.title "Please make sure to specify a title">
