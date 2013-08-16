@@ -112,7 +112,8 @@
 					<splitter class="tree-splitter"/>
 					<treecol id="bitsItemTreeITitle" label="Title" flex="18" persist="hidden,width"/>
 					<splitter class="tree-splitter"/>
-					<treecol id="bitsItemTreeINote" label="Note" flex="18" editable="true" hidden="true" persist="hidden,width"/>
+					<!-- <treecol id="bitsItemTreeINote" label="Note" flex="18" editable="true" hidden="true" persist="hidden,width"/> -->
+                                        <treecol id="bitsItemTreeINote" label="Annotation" flex="18" editable="true" hidden="true" persist="hidden,width"/>
 					<splitter class="tree-splitter"/>
 					<treecol id="bitsItemTreeIDate"  label="Date" flex="7" persist="hidden,width"/>
 				</treecols>
