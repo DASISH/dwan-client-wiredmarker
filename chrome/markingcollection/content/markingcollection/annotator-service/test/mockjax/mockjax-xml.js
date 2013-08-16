@@ -87,6 +87,8 @@ var XMLData = function() {
   
                                     $('#xmlContents').append("<br /><br /><strong>Body content of " + aidArr[i] + ":</strong><br /><em>" + body + "</em>");
                                     
+                                    var om_object = annotation2om_object(this);
+                                    $('#xmlContents').append("<br /><strong>om_object:</strong><br/><textarea cols='130' rows='16'>"+JSON.stringify(om_object, null, '  ')+"</textarea>");
                                 });   
                                 
                             }
