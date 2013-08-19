@@ -40,6 +40,33 @@ $.mockjax({
     proxy: 'mocks/annot-0002-GET.xml',
 });
 
+// Mock for Responding GET api/annotations/AID20130809151651 (annot-0003-GET.xml)
+$.mockjax({
+    url: '/api/annotations/AID20130809151651',
+    type: 'GET',
+    dataType: 'xml',
+    responseTime: 750,
+    proxy: 'mocks/annot-0003-GET.xml',
+});
+
+// Mock for Responding GET api/annotations/AID20130816145322 (annot-0004-GET.xml)
+$.mockjax({
+    url: '/api/annotations/AID20130816145322',
+    type: 'GET',
+    dataType: 'xml',
+    responseTime: 750,
+    proxy: 'mocks/annot-0004-GET.xml',
+});
+
+// Mock for Responding GET api/annotations/AID20130816170015 (annot-0005-GET.xml)
+$.mockjax({
+    url: '/api/annotations/AID20130816170015',
+    type: 'GET',
+    dataType: 'xml',
+    responseTime: 750,
+    proxy: 'mocks/annot-0005-GET.xml',
+});
+
 var XMLData = function() {
     return {
         getMockAnnotations: function(url) {
@@ -61,8 +88,10 @@ var XMLData = function() {
                     
                     var aidArr = [];
                     var aid_string = "";
+                    
                     $xml.find('annotations annotation').each(function() {
-                        aidArr.push($(this).attr('ref').substr(29)); // http://dasish.eu/annotations/ is erased
+                        $aid_uri = $(this).attr('ref');
+                        aidArr.push($aid_uri.substr($aid_uri.lastIndexOf('/')+1)); // http://dasish.eu/annotations/ is erased
                     });
 
                     console.log(aidArr);
@@ -82,10 +111,13 @@ var XMLData = function() {
                                 $xml = $(xml);
    
                                 var body = "";
+                                var aid = "";
+                                
                                 $xml.find('annotation').each(function() {
                                     body = $(this).find('body').text();
+                                    aid = $(this).attr('URI').substr($(this).attr('URI').lastIndexOf('/')+1);
   
-                                    $('#xmlContents').append("<br /><br /><strong>Body content of " + aidArr[i] + ":</strong><br /><em>" + body + "</em>");
+                                    $('#xmlContents').append("<br /><br /><strong>Body content of " + aid + ":</strong><br /><em>" + body + "</em>");
                                     
                                     var om_object = annotation2om_object(this);
                                     $('#xmlContents').append("<br /><strong>converted to om_object:</strong><br/><textarea cols='130' rows='16'>"+JSON.stringify(om_object, null, '  ')+"</textarea>");
