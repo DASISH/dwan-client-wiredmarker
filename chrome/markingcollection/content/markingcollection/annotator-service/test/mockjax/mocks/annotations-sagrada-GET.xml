@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- list of annotation-infos -->
 <annotations xmlns="http://www.dasish.eu/ns/addit"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd">
     <annotation ref="http://dasish.eu/annotations/AID20130808114716">
         <owner ref="http://dasish.eu/users/UID0001"/>
         <headline>Background - Sagrada Família - Wikipedia, the free encyclopedia</headline>
@@ -17,13 +17,25 @@
             <targetSource ref="http://dasish.eu/sources/SID20130808124131"/>
         </targetSources>
     </annotation>
-    <!--
-    <annotation ref="http://dasish.eu/annotations/AIDzyy">
-        <owner ref="http://dasish.eu/users/UIDefef"/>
-        <headline>Nativity Facade (old site)</headline>
+    <annotation ref="http://dasish.eu/annotations/AID20130809151651">
+        <owner ref="http://dasish.eu/users/UID0003"/>
+        <headline>Fire - Sagrada Família - Wikipedia, the free encyclopedia</headline>
         <targetSources>
-            <targetSource ref="http://dasish.eu/sources/SIDbbbb"/>
+            <targetSource ref="http://dasish.eu/sources/SID20130809151651"/>
         </targetSources>
     </annotation>
-    -->
+    <annotation ref="http://dasish.eu/annotations/AID20130816145322">
+        <owner ref="http://dasish.eu/users/UID0004"/>
+        <headline>Spires - Sagrada Família - Wikipedia, the free encyclopedia</headline>
+        <targetSources>
+            <targetSource ref="http://dasish.eu/sources/SID20130816145322"/>
+        </targetSources>
+    </annotation>
+    <annotation ref="http://dasish.eu/annotations/AID20130816170015">
+        <owner ref="http://dasish.eu/users/UID0005"/>
+        <headline>Construction - Sagrada Família - Wikipedia, the free encyclopedia</headline>
+        <targetSources>
+            <targetSource ref="http://dasish.eu/sources/SID20130816170015"/>
+        </targetSources>
+    </annotation>
 </annotations>
