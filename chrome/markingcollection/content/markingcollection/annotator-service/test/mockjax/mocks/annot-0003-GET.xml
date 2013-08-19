@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation xmlns="http://www.dasish.eu/ns/addit"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"
+    URI="http://dasish.eu/annotations/AID20130809151651"
+    timeStamp="2013-08-09T13:16:42.000Z">
+    <owner ref="http://dasish.eu/users/UID0003"/>
+    <headline>Fire - Sagrada Família - Wikipedia, the free encyclopedia</headline>
+    <body type="Note">
+        <xhtml:span style="background-color:rgb(0,0,153);color:rgb(255,255,255);border: thick solid rgb(0, 0, 153);">Fire destroyed sacristy in 2011.</xhtml:span>
+    </body>
+    <targetSources>
+        <target>
+            <source ref="http://dasish.eu/sources/SID20130809151651">
+                <link>http://en.wikipedia.org/wiki/Sagrada_Fam%C3%ADlia#xpointer(start-point(string-range(//span[@id="Fire"]/text()[1],'',0))/range-to(string-range(//span[@id="Fire"]/text()[1],'',4)))</link>
+                <version>2013-08-09T13:16:42.000Z</version>
+            </source>
+        </target>
+    </targetSources>
+    <permissions ref="http://dasish.eu/permissions/PermissionsListID20130809151651"/>
+</annotation>
