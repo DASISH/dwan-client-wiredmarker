@@ -120,7 +120,7 @@ var XMLData = function() {
                                     $('#xmlContents').append("<br /><br /><strong>Body content of " + aid + ":</strong><br /><em>" + body + "</em>");
                                     
                                     var om_object = annotation2om_object(this);
-                                    $('#xmlContents').append("<br /><strong>converted to om_object:</strong><br/><textarea cols='130' rows='16'>"+JSON.stringify(om_object, null, '  ')+"</textarea>");
+                                    $('#xmlContents').append("<br /><strong>converted to om_object:</strong><br/><textarea cols='130' rows='16'>"+unescape(JSON.stringify(om_object, null, '  '))+"</textarea>");
                                 });   
                                 
                             }
