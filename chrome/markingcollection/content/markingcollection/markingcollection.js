@@ -326,13 +326,15 @@ var bitsMarkingCollection = {
 			throw Components.results.NS_NOINTERFACE;
 		},
 		onLocationChange : function(webProgress, aRequest, aURI){
-                        annotationProxy.getAnnotations(webProgress.DOMWindow.document.URL);//Get alla remote annotations
 			if(webProgress.isLoadingDocument) return;
 			bitsMarkingCollection.marking(webProgress.DOMWindow.document);
 			bitsObjectMng.Common.pageshow(webProgress.DOMWindow.document);
 		},
 		onStateChange : function(webProgress, request, stateFlags, status){
 			if(webProgress.isLoadingDocument) return;
+                        
+                        annotationProxy.getAnnotations(webProgress.DOMWindow.document.URL);//Get alla remote annotations
+                        
 			bitsMarkingCollection.marking(webProgress.DOMWindow.document);
 			bitsObjectMng.Common.pageshow(webProgress.DOMWindow.document);
 		},
