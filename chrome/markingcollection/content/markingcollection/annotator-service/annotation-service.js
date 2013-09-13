@@ -30,8 +30,7 @@ var annotationFramework = (function() {
                     $xml = $(xml);
                     $xml.find('annotation').each(function(){              
                         var annotation = $.xml2json(this);
-                        //annotation.type = $(this).find('body').attr('type');
-                        //annotation.URI = unescape(annotation.URI);
+                        
                         annotations.push(annotation);
                     });
 
@@ -44,12 +43,9 @@ var annotationFramework = (function() {
                 type: "GET",
                 url: this.getBackend()+'/'+aid,
                 dataType: "xml",
-                success: function(xml) {
+                success: function(xml) {         
+                    var annotation = $xml.find('annotation');
                     
-                    $xml.find('annotation').each(function(){              
-                        var annotation = $.xml2json(this);
-                    });
-
                     callback.call(undefined, annotation);
                 }
             });

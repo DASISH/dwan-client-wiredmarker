@@ -6,6 +6,7 @@
 function annotation2om_object(annotation){
     var om_object = {
                         oid		:"",
+                        pfid            :"0",
                         doc_title	:"http://localhost/annotation/test/test-service.html",
                         doc_url         :"http://localhost/annotation/test/test-service.html",
                         con_url         :"http://localhost/annotation/test/test-service.html",
@@ -17,7 +18,8 @@ function annotation2om_object(annotation){
                         oid_type	:"text",
                         oid_txt         :"An example text about Douglas Adams; a writer",
                         oid_img         :null,
-                        oid_date        :""
+                        oid_date        :"",
+                        pfid_order: 4
                     };
     
     //example anchor:
@@ -31,7 +33,7 @@ function annotation2om_object(annotation){
     var type = $(annotation).find('body').attr('type').toLowerCase();
     var link = $(annotation).find('link').text();
     var time = $(annotation).attr('timeStamp');
-       
+           
     var urlParts = link.split("#xpointer"); 
     
     om_object.doc_url = urlParts[0];
@@ -53,9 +55,12 @@ function annotation2om_object(annotation){
     
     om_object.doc_title = title;
     
-    om_object.oid = hashCode($(annotation).attr('ref'));
+    om_object.oid = hashCode($(annotation).attr('URI'));
+    if(om_object.oid < 0){
+        om_object.oid = om_object.oid * -1;
+    }
     console.log(link);
-    om_object.oid_property = "<PROPERTY><HYPER_ANCHOR>"+om_object.doc_url+hyperanchor+"</HYPER_ANCHOR><NOTE>"+body+"</NOTE></PROPERTY>";
+    om_object.oid_property = "<PROPERTY><HYPER_ANCHOR>"+encodeURI(om_object.doc_url+hyperanchor)+"</HYPER_ANCHOR><NOTE>"+body+"</NOTE></PROPERTY>";
     
     if(type === 'note'){
         om_object.oid_txt = body;
