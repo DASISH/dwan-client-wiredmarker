@@ -56,7 +56,7 @@ var annotationProxy = (function() {
         },
         log: function(message) {
             //log to console
-            if (Firebug.Console) {
+            if (typeof Firebug!='undefined' && Firebug.Console) {
                 Firebug.Console.log(message);
             }
             //log this to the local proxy
