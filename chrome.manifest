@@ -8,4 +8,5 @@ style	chrome://global/content/customizeToolbar.xul	chrome://markingcollection/sk
 style	chrome://browser/content/browser.xul	chrome://markingcollection/skin/overlay.css
 
 locale	markingcollection	en-US	chrome/markingcollection/locale/en-US/markingcollection/
-locale	markingcollection	ja-JP	chrome/markingcollection/locale/ja-JP/markingcollection/
+# no Japanese version
+# locale	markingcollection	ja-JP	chrome/markingcollection/locale/ja-JP/markingcollection/
