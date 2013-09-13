@@ -3,7 +3,8 @@ var bitsMarkingCollection = {
 	_location : null,
 	_init     : false,
 	_removefile : [],
-	_homepage : "http://www.wired-marker.org/index.cgi",
+	// _homepage : "http://www.wired-marker.org/index.cgi",
+        _homepage : "http://dasish.eu/",
 	_version : "",
 	_contentWindow : null,
 	_markingtimer  : null,
@@ -517,7 +518,8 @@ var bitsMarkingCollection = {
 				var textplain_display = nsPreferences.copyUnicharPref("wiredmarker.textplain.display","usually");
 				if(textplain_display != "usually") nsPreferences.setUnicharPref("wiredmarker.textplain.display", "usually");
 			}
-			self.Common.loadURL(self._homepage+"?version="+encodeURIComponent(self._version)+"&locale="+encodeURIComponent(self.DEF_STRING.getString("general.useragent.locale")),true);
+			// self.Common.loadURL(self._homepage+"?version="+encodeURIComponent(self._version)+"&locale="+encodeURIComponent(self.DEF_STRING.getString("general.useragent.locale")),true);
+                        self.Common.loadURL(self._homepage,true);
 			nsPreferences.setUnicharPref("wiredmarker.version", self._version);
 		}
 	},
