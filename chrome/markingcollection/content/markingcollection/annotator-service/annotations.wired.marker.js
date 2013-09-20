@@ -3,30 +3,34 @@ var annotationProxy = (function() {
         getAnnotations: function(url) {
             annotationProxy.log('getAnnotations for: ' + url);
 
+            //temp annotation for testing insert via bitsObjectMng.Database.addObject() 
             var tmp = {
-                oid: "193205378",
-                pdif: "4",
-                doc_title: "Background - Sagrada Família - Wikipedia, the free encyclopedia",
-                doc_url: "http://en.wikipedia.org/wiki/Sagrada_FamÃ­lia",
-                con_url: "http://en.wikipedia.org/wiki/Sagrada_FamÃ­lia",
-                bgn_dom: "//span[@id=\"Background\"]/text()[1](0)(3)",
-                end_dom: "//span[@id=\"Background\"]/text()[1](10)(3)",
-                oid_title: "http://localhost/annotation/test/test-service.html",
-                oid_property: "<PROPERTY><HYPER_ANCHOR>http://en.wikipedia.org/wiki/Sagrada_FamÃ­lia#hyperanchor1.3://span[@id=\"Background\"]/text()[1](0)(3)&//span[@id=\"Background\"]/text()[1](10)(3)&background-color:rgb(0,0,153);color:rgb(255,255,255);border: thick solid rgb(0, 0, 153);</HYPER_ANCHOR><NOTE>Some background information on Sagrada Família.</NOTE></PROPERTY>",
-                oid_mode: "0",
-                oid_type: "text",
-                oid_txt: "Some background information on Sagrada Família.",
-                oid_img: null,
-                oid_date: "8/8/2013 11:46:6",
-                pfid_order: 4
-            };
-            
+                "oid": 1320227156,
+                "pfid": "0",
+                "doc_title": "Svensk nationell datatjänst | Svensk Nationell Datatjänst",
+                "doc_url": "http://snd.gu.se/",
+                "con_url": "http://snd.gu.se/",
+                "bgn_dom": "//div[@id=\"node-170\"]/div[1]/div[1]/div[1]/div[1]/p[1](34)(3)",
+                "end_dom": "//div[@id=\"node-170\"]/div[1]/div[1]/div[1]/div[1]/p[1](54)(3)",
+                "oid_title": "Test test test",
+                "oid_property": "<PROPERTY><HYPER_ANCHOR>http://snd.gu.se/#hyperanchor1.3%3A%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(34)(3)%26%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(54)(3)%26border%3Athin%20dotted%20rgb(255%2C204%2C0)%3Bbackground-color%3Argb(255%2C255%2C204)%3Bcolor%3Argb(0%2C0%2C0)%3B</HYPER_ANCHOR><NOTE>SND is a service organization</NOTE></PROPERTY>",
+                "oid_mode": "0",
+                "oid_type": "text",
+                "oid_txt": "SND is a service organization",
+                "oid_img": null,
+                "oid_date": "2013/9/20 11:0:22",
+                "pfid_order": 4
+              };
+              
+            //insert test via bitsObjectMng (works but the annotation does not show :-( )   
+            bitsObjectMng.Database.addObject(tmp, '_uncategorized', undefined);
+              
 
             //if (bitsObjectMng.Database.existsObject(tmp, undefined)) {
             //    this.log("annotationProxy annotation exists in the database");
             //} else {
             //    this.log("annotationProxy inserting annotation in the database");
-                //bitsObjectMng.Database.addObject(tmp, undefined, undefined);
+            //    bitsObjectMng.Database.addObject(tmp, '_uncategorized', undefined);
             //}
             /*
              annotationFramework.getAnnotations({link: url, access: read}, function(result) {
@@ -46,10 +50,10 @@ var annotationProxy = (function() {
              });
              */
         },
-        putAnnotation: function(om_object) {
+        postAnnotation: function(om_object) {
             var annotation = om_object2annotation(om_object);
-            annotationFramework.putAnnotation(annotation);
-            this.log('putAnnotation : ' + annotation);
+            annotationFramework.postAnnotation(annotation);
+            this.log('postAnnotation : ' + annotation);
         },
         updateAnnotation: function(annotation) {
             this.log('updateAnnotation : ' + JSON.stringify(annotation));

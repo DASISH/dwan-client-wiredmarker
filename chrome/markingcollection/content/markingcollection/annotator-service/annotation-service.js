@@ -50,7 +50,7 @@ var annotationFramework = (function() {
                 }
             });
         },
-        putAnnotation: function(annotation) {
+        postAnnotation: function(annotation) {
             $.ajax({
                 type: "POST",
                 url: this.getBackend()+'?store=true',

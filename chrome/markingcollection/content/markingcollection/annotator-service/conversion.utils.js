@@ -7,19 +7,19 @@ function annotation2om_object(annotation){
     var om_object = {
                         oid		:"",
                         pfid            :"0",
-                        doc_title	:"http://localhost/annotation/test/test-service.html",
-                        doc_url         :"http://localhost/annotation/test/test-service.html",
-                        con_url         :"http://localhost/annotation/test/test-service.html",
+                        doc_title	:"",
+                        doc_url         :"",
+                        con_url         :"",
                         bgn_dom         :"",
                         end_dom         :"",
-                        oid_title	:"http://localhost/annotation/test/test-service.html",
-                        oid_property    :"<PROPERTY><HYPER_ANCHOR>http://localhost/annotation/test/test-service.html#hyperanchor1.3%3A%2Fhtml%5B1%5D%2Fbody%5B1%5D%2Fdiv%5B2%5D%2Fp%5B1%5D(0)(3)(Ane)%26%2Fhtml%5B1%5D%2Fbody%5B1%5D%2Fdiv%5B2%5D%2Fp%5B1%5D(45)(3)(ter)%26background-color%3A%20rgb(%2044%2C%20254%2C%20%2081)%3Bcolor%3Argb(0%2C0%2C0)%3B</HYPER_ANCHOR><NOTE>text om en författare</NOTE></PROPERTY>",
+                        oid_title	:"Test test test",
+                        oid_property    :"<PROPERTY><HYPER_ANCHOR></HYPER_ANCHOR><NOTE></NOTE></PROPERTY>",
                         oid_mode	:"0",
                         oid_type	:"text",
-                        oid_txt         :"An example text about Douglas Adams; a writer",
+                        oid_txt         :"",
                         oid_img         :null,
                         oid_date        :"",
-                        pfid_order: 4
+                        pfid_order      : 4
                     };
     
     //example anchor:
@@ -43,15 +43,18 @@ function annotation2om_object(annotation){
     //start dom
     xpointer.match(/start-point\(string-range\((.+?)\)\)\/range-to\(/);
     var parts = RegExp.$1.split(',');
-    om_object.bgn_dom = parts[0]+'('+parts[2]+')(3)';
+    var parts0 = parts[0].replace('/text()[1]', '');
+    om_object.bgn_dom = parts0+'('+parts[2]+')(3)';
     
     //end dom
     xpointer.match(/range-to\(string-range\((.+?)\)\)\)/);
     var parts = RegExp.$1.split(',');
-    om_object.end_dom = parts[0]+'('+parts[2]+')(3)';
+    var parts0 = parts[0].replace('/text()[1]', '');
+    om_object.end_dom = parts0+'('+parts[2]+')(3)';
     
     //build hyperanchor
-    var hyperanchor = '#hyperanchor1.3:'+om_object.bgn_dom+'&'+om_object.end_dom+'&'+style;
+    console.log('fragment: '+om_object.bgn_dom+'&'+om_object.end_dom+'&'+style);
+    var hyperanchor = '#hyperanchor1.3'+encodeURIComponent(':'+om_object.bgn_dom.replace(/"/g, '&quot;')+'&'+om_object.end_dom.replace(/"/g, '&quot;')+'&'+style);
     
     om_object.doc_title = title;
     
@@ -60,14 +63,14 @@ function annotation2om_object(annotation){
         om_object.oid = om_object.oid * -1;
     }
     console.log(link);
-    om_object.oid_property = "<PROPERTY><HYPER_ANCHOR>"+encodeURI(om_object.doc_url+hyperanchor)+"</HYPER_ANCHOR><NOTE>"+body+"</NOTE></PROPERTY>";
+    om_object.oid_property = "<PROPERTY><HYPER_ANCHOR>"+om_object.doc_url+hyperanchor+"</HYPER_ANCHOR><NOTE>"+body+"</NOTE></PROPERTY>";
     
     if(type === 'note'){
         om_object.oid_txt = body;
         om_object.oid_type = 'text';
     }
     var d = new Date(time);
-    om_object.oid_date = (d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+    om_object.oid_date = (d.getFullYear()+'/'+(parseInt(d.getMonth())+1))+'/'+d.getDate()+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
     
     return om_object;
 }

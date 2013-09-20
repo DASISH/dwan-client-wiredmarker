@@ -4,13 +4,15 @@
  * Scenario - visiting an annotated web page: https://trac.clarin.eu/wiki/DASISH/Scenario)
  */
 
-var url = '/api/annotations?link="http://en.wikipedia.org/wiki/Sagrada_Fam%C3%ADlia"';
+//var url = '/api/annotations?link="http://en.wikipedia.org/wiki/Sagrada_Fam%C3%ADlia"';
+var url = '/api/annotations?link="http://snd.gu.se/"';
+
 
 // Mock for Responding GET api/annotations?link="URI"
 $.mockjax({
     /* url: A string or regular expression specifying the url of the request that the data should be mocked for. */
     // url: '/api/annotations?link="http://en.wikipedia.org/wiki/Sagrada_Fam%C3%ADlia"&access=read',
-    url: url,
+    url: '/api/annotations?link="http://en.wikipedia.org/wiki/Sagrada_Fam%C3%ADlia"',
     // url: '/api/annotations?link="http://en.wikipedia.org/wiki/Sagrada_Fam%C3%ADlia"',
     /* type: Specify what HTTP method to match, usually GET or POST. Case-insensitive, so get and post also work. */
     type: 'GET',
@@ -20,6 +22,21 @@ $.mockjax({
     responseTime: 750,
     /* proxy: A string specifying a path to a file, from which the contents will be returned for the request. */
     proxy: 'mocks/annotations-sagrada-GET.xml',
+});
+
+$.mockjax({
+    /* url: A string or regular expression specifying the url of the request that the data should be mocked for. */
+    // url: '/api/annotations?link="http://snd.gu.se/"&access=read',
+    url: '/api/annotations?link="http://snd.gu.se/"',
+    // url: '/api/annotations?link="http://snd.gu.se/"',
+    /* type: Specify what HTTP method to match, usually GET or POST. Case-insensitive, so get and post also work. */
+    type: 'GET',
+    /* dataType: Allowed data formats are Text, HTML, JSON, Script and XML. */
+    dataType: 'xml',
+    /* responseTime: An integer that specifies a simulated network and server latency (in milliseconds). */
+    responseTime: 750,
+    /* proxy: A string specifying a path to a file, from which the contents will be returned for the request. */
+    proxy: 'mocks/annotations-snd-GET.xml',
 });
 
 // Mock for Responding GET api/annotations/AID20130808114716 (annot-0001-GET.xml)
@@ -65,6 +82,15 @@ $.mockjax({
     dataType: 'xml',
     responseTime: 750,
     proxy: 'mocks/annot-0005-GET.xml',
+});
+
+// Mock for Responding GET api/annotations/AID20130920110032 (annot-0006-GET.xml)
+$.mockjax({
+    url: '/api/annotations/AID20130920110032',
+    type: 'GET',
+    dataType: 'xml',
+    responseTime: 750,
+    proxy: 'mocks/annot-0006-GET.xml',
 });
 
 var XMLData = function() {
@@ -120,7 +146,7 @@ var XMLData = function() {
                                     $('#xmlContents').append("<br /><br /><strong>Body content of " + aid + ":</strong><br /><em>" + body + "</em>");
                                     
                                     var om_object = annotation2om_object(this);
-                                    $('#xmlContents').append("<br /><strong>converted to om_object:</strong><br/><textarea cols='130' rows='16'>"+unescape(JSON.stringify(om_object, null, '  ').replace(/\\"/g,'"'))+"</textarea>");
+                                    $('#xmlContents').append("<br /><strong>converted to om_object:</strong><br/><textarea cols='130' rows='18'>"+JSON.stringify(om_object, null, '  ')+"</textarea>");
                                 });   
                                 
                             }
