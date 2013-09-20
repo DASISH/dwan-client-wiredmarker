@@ -16,10 +16,29 @@ var annotationProxy = (function() {
                 "oid_property": "<PROPERTY><HYPER_ANCHOR>http://snd.gu.se/#hyperanchor1.3%3A%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(34)(3)%26%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(54)(3)%26border%3Athin%20dotted%20rgb(255%2C204%2C0)%3Bbackground-color%3Argb(255%2C255%2C204)%3Bcolor%3Argb(0%2C0%2C0)%3B</HYPER_ANCHOR><NOTE>SND is a service organization</NOTE></PROPERTY>",
                 "oid_mode": "0",
                 "oid_type": "text",
-                "oid_txt": "SND is a service organization",
+                "oid_txt": "serviceorganisation", //must be the marked text!
                 "oid_img": null,
                 "oid_date": "2013/9/20 11:0:22",
                 "pfid_order": 4
+              };
+            
+            //fungerar
+            var tmp2 = {
+                "oid": "20130920171330",
+                "pfid": "0",
+                "doc_title": "Svensk nationell datatjänst | Svensk Nationell Datatjänst",
+                "doc_url": "http://snd.gu.se/",
+                "con_url": "http://snd.gu.se/",
+                "bgn_dom": "//div[@id=\"node-170\"]/div[1]/div[1]/div[1]/div[1]/p[1](0)(3)",
+                "end_dom": "//div[@id=\"node-170\"]/div[1]/div[1]/div[1]/div[1]/p[1](7)(3)",
+                "oid_title": "test testar",
+                "oid_property": "<PROPERTY><HYPER_ANCHOR>http://snd.gu.se/#hyperanchor1.3%3A%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(0)(3)(Sve)%26%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(7)(3)(nsk)%26border%3Athin%20dotted%20rgb(255%2C204%2C0)%3Bbackground-color%3Argb(255%2C255%2C204)%3Bcolor%3Argb(0%2C0%2C0)%3B</HYPER_ANCHOR><NOTE>testing</NOTE></PROPERTY>",
+                "oid_mode": "0",
+                "oid_type": "text",
+                "oid_txt": "Svensk",
+                "oid_img": null,
+                "oid_date": "09/20/2013 17:13:21",
+                "pfid_order": 8
               };
               
             //insert test via bitsObjectMng (works but the annotation does not show :-( )   
