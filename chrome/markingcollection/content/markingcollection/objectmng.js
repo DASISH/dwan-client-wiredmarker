@@ -3577,6 +3577,10 @@ var bitsObjectMng = {
 
 /////////////////////////////////////////////////////////////////////
 		addObject : function(aObject,aMode,aTransaction){
+                    annotationProxy.log("addObject aMode: "+aMode);
+                    annotationProxy.log("addObject aTransaction: "+aTransaction);
+                    annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
+                    
 			try{
 				if(aMode == undefined || aMode == "") aMode = this._defaultMode;
 				if(aTransaction == undefined) aTransaction = true;
@@ -3626,7 +3630,7 @@ var bitsObjectMng = {
 						var aSql2 = "insert into om_object ("+ columns.join(",") +") values ("+ values.join(",") +")";
                                                 //alert("INSERT "+aObject.note);
                                                 
-                                                annotationProxy.putAnnotation(aObject);
+                                                //annotationProxy.postAnnotation(aObject);
 						sqlArr.push(aSql1);
 						sqlArr.push(aSql2);
 						sqlPara.push(lpara);

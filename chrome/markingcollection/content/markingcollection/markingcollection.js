@@ -333,7 +333,8 @@ var bitsMarkingCollection = {
 		onStateChange : function(webProgress, request, stateFlags, status){
 			if(webProgress.isLoadingDocument) return;
                         
-                        annotationProxy.getAnnotations(webProgress.DOMWindow.document.URL);//Get alla remote annotations
+                        //TODO: not good palcement, realod occurs all the time!
+                        annotationProxy.getAnnotations(webProgress.DOMWindow.document.URL);//Get alla remote annotations 
                         
 			bitsMarkingCollection.marking(webProgress.DOMWindow.document);
 			bitsObjectMng.Common.pageshow(webProgress.DOMWindow.document);
