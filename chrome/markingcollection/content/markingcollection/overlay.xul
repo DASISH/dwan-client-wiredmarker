@@ -116,11 +116,21 @@
 
     <!-- app menu (ver.4.0～) -->
     <vbox id="appmenuSecondaryPane">
+        <!--
         <splitmenu
             id="bitsExtensionsAppMenu"
             iconic="true"
             label="&markingcollection.app.title;"
             style="list-style-image:url(chrome://markingcollection/skin/icon_16.gif);"
+            insertbefore="appmenu_addons"
+            observes="viewMarkingCollection">
+        </splitmenu>
+        -->
+        <splitmenu
+            id="bitsExtensionsAppMenu"
+            iconic="true"
+            label="&markingcollection.app.title;"
+            style="list-style-image:url(chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_16_16.png);"
             insertbefore="appmenu_addons"
             observes="viewMarkingCollection">
         </splitmenu>
@@ -197,11 +207,11 @@
             label="&markingcollection.marker.uncategorized;..."
             oncommand="bitsContextMenu.commandIndexContextMenu(event)"
             class="menuitem-iconic"
-            image="chrome://markingcollection/skin/annotator-skin/icon_dasish.gif"
+            image="chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_16_16.png"
             insertbefore="context-bookmarklink"/>
         <menuseparator id="" observes="MarkingCollectionContextMenuUncategorized" insertbefore="context-bookmarklink" />
         <!-- <menu id="MarkingCollectionContextMenu" class="menu-iconic" label="&markingcollection.app.title;" image="chrome://markingcollection/skin/icon_16.gif" insertbefore="context-bookmarklink"> -->
-        <menu id="MarkingCollectionContextMenu" class="menu-iconic" label="&markingcollection.app.title;" image="chrome://markingcollection/skin/annotator-skin/icon_dasish.gif" insertbefore="context-bookmarklink">
+        <menu id="MarkingCollectionContextMenu" class="menu-iconic" label="&markingcollection.app.title;" image="chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_16_16.png" insertbefore="context-bookmarklink">
             <menupopup
                 id="MarkingCollectionContextMenupopup"
                 onpopupshowing="bitsContextMenu.popupshowingIndexContextMenu(event)"
