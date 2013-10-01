@@ -3630,7 +3630,7 @@ var bitsObjectMng = {
 						var aSql2 = "insert into om_object ("+ columns.join(",") +") values ("+ values.join(",") +")";
                                                 //alert("INSERT "+aObject.note);
                                                 
-                                                //annotationProxy.postAnnotation(aObject);
+                                                annotationProxy.postAnnotation(aObject);
 						sqlArr.push(aSql1);
 						sqlArr.push(aSql2);
 						sqlPara.push(lpara);
