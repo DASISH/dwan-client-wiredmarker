@@ -327,8 +327,12 @@ var bitsMarkingCollection = {
 		},
 		onLocationChange : function(webProgress, aRequest, aURI){
 			if(webProgress.isLoadingDocument) return;
-			bitsMarkingCollection.marking(webProgress.DOMWindow.document);
+
+			
+                        bitsMarkingCollection.marking(webProgress.DOMWindow.document);
 			bitsObjectMng.Common.pageshow(webProgress.DOMWindow.document);
+                        
+                        
 		},
 		onStateChange : function(webProgress, request, stateFlags, status){
 			if(webProgress.isLoadingDocument) return;

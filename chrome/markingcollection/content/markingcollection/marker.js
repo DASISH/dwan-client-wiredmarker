@@ -214,7 +214,7 @@ var bitsMarker = {
             endNode = this.XPath.getCurrentNodeFromXPath(doc, aXPath.endPath, aXPath.endOffset, aXPath.endType);
             if (!endNode || !endNode.node)
                 return null;
-            annotationProxy.log('aAttributes.id: ' + aAttributes.id);
+            //annotationProxy.log('aAttributes.id: ' + aAttributes.id);
             if (!aAttributes || !aAttributes.id) {
                 this.updateMarkerWindowCount(doc);
                 this.markerWindow_count++;
@@ -228,14 +228,14 @@ var bitsMarker = {
             }
             var range = doc.createRange();
             try {
-                annotationProxy.log('aAttributes.id startNode.node: ' + startNode.node);
-                annotationProxy.log('aAttributes.id endNode.node: ' + endNode.node);
-                annotationProxy.log('aAttributes.id startNode.offset: ' + endNode.offset);
-                annotationProxy.log('aAttributes.id endNode.offset: ' + endNode.offset);
+                //annotationProxy.log('aAttributes.id startNode.node: ' + startNode.node);
+                //annotationProxy.log('aAttributes.id endNode.node: ' + endNode.node);
+                //annotationProxy.log('aAttributes.id startNode.offset: ' + endNode.offset);
+                //annotationProxy.log('aAttributes.id endNode.offset: ' + endNode.offset);
                 range.setStart(startNode.node, startNode.offset);
                 range.setEnd(endNode.node, endNode.offset);
             } catch (ex2) {
-                annotationProxy.log('FAIL FOR: aAttributes.id: ' + aAttributes.id);
+                //annotationProxy.log('FAIL FOR: aAttributes.id: ' + aAttributes.id);
                 this._dump("bitsMarker.xPathMarker():" + aAttributes.id + "=[" + range.toString() + "]::" + ex2);
                 return null;
             }

@@ -3577,9 +3577,9 @@ var bitsObjectMng = {
 
 /////////////////////////////////////////////////////////////////////
 		addObject : function(aObject,aMode,aTransaction){
-                    annotationProxy.log("addObject aMode: "+aMode);
-                    annotationProxy.log("addObject aTransaction: "+aTransaction);
-                    annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
+                    //annotationProxy.log("addObject aMode: "+aMode);
+                    //annotationProxy.log("addObject aTransaction: "+aTransaction);
+                    //annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
                     
 			try{
 				if(aMode == undefined || aMode == "") aMode = this._defaultMode;
