@@ -43,7 +43,7 @@
         <em:aboutURL>chrome://markingcollection/content/about.xul</em:aboutURL>
         <!-- <em:iconURL>chrome://markingcollection/skin/icon_32.png</em:iconURL> -->
         <!-- Replaced with DASISH icon, needs to be 32x32 -->
-        <em:iconURL>chrome://markingcollection/skin/annotator-skin/icon_dasish_about_32x32.gif</em:iconURL>
+        <em:iconURL>chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_32_32.png</em:iconURL>
         <em:optionsURL>chrome://markingcollection/content/settingDialog.xul</em:optionsURL>
 
         <!-- Firefox -->
