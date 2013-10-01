@@ -43,7 +43,7 @@
 				<text id="aboutTitle" value="Wired-Marker" style="font-weight: bold; font-size: x-large;"/>
 				<spring flex="1"/>
 				<!-- <image src="chrome://markingcollection/skin/icon_32.png"/> -->
-                                <image src="chrome://markingcollection/skin/annotator-skin/icon_dasish_about_32x32.gif"/>                               
+                                <image src="chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_32_32.png"/>                               
 			</hbox>
 			<vbox flex="1" align="right">
 				<text id="aboutVersion" value=""/>
