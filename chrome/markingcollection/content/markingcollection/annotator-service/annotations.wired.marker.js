@@ -42,7 +42,7 @@ var annotationProxy = (function() {
               };
               
             //insert test via bitsObjectMng (works but the annotation does not show :-( )   
-            bitsObjectMng.Database.addObject(tmp, '_uncategorized', undefined);
+            bitsObjectMng.Database.addObject(tmp, 'dasish.remote', undefined);
               
 
             //if (bitsObjectMng.Database.existsObject(tmp, undefined)) {

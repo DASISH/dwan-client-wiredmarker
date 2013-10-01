@@ -3580,6 +3580,12 @@ var bitsObjectMng = {
                     //annotationProxy.log("addObject aMode: "+aMode);
                     //annotationProxy.log("addObject aTransaction: "+aTransaction);
                     //annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
+                    var postToRemote = true;
+                    if(aMode == 'dasish.remote'){
+                        aMode = '_uncategorized';
+                        postToRemote = false;
+                    }
+                    
                     
 			try{
 				if(aMode == undefined || aMode == "") aMode = this._defaultMode;
@@ -3630,7 +3636,9 @@ var bitsObjectMng = {
 						var aSql2 = "insert into om_object ("+ columns.join(",") +") values ("+ values.join(",") +")";
                                                 //alert("INSERT "+aObject.note);
                                                 
-                                                annotationProxy.postAnnotation(aObject);
+                                                if(postToRemote == true) {
+                                                    annotationProxy.postAnnotation(aObject);
+                                                }
 						sqlArr.push(aSql1);
 						sqlArr.push(aSql2);
 						sqlPara.push(lpara);
