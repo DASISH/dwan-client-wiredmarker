@@ -1150,7 +1150,7 @@ var mcMainService = {
                 clone = sidebarthrobber.cloneNode(false);
                 /* clone.setAttribute("src","chrome://markingcollection/skin/icon_16.gif"); */
                 /* DASISH icon set as src (icon shown in top area of left sidebar */
-                clone.setAttribute("src", "chrome://markingcollection/skin/annotator-skin/icon_dasish_bluegrey_bg_32.gif");
+                clone.setAttribute("src", "chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_header_logo.png");
                 clone.setAttribute("id", "mciconimage");
                 clone.setAttribute("crop", "end");
                 sidebartitle.parentNode.setAttribute("style", "background: #d4dde5");
