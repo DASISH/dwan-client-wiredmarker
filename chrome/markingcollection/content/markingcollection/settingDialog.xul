@@ -35,8 +35,8 @@
 	<stringbundleset id="mcSettingStringbundleset">
 		<stringbundle id="mcSettingString" src="chrome://markingcollection/locale/markingcollection.properties" />
 	</stringbundleset>
-	<!-- <dialogheader title="&markingcollection.app.title; &markingcollection.tools.settings;" /> -->
-        <dialogheader title="Correct xul file?" />
+	<dialogheader title="&markingcollection.app.title; &markingcollection.tools.settings;" hidden="true" />
+
 	<tabbox id="mcSettingTabbox" flex="1">
 		<tabs id="mcSettingTabs" orient="horizontal"/>
 		<tabpanels id="mcSettingTabPanels" flex="1"/>
