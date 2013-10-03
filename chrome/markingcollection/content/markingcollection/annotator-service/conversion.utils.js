@@ -118,15 +118,15 @@ function om_object2annotation(om_object){
                             timeStamp="'+timestamp.toISOString()+'">\n\
                         <owner ref="http://dasish.eu/users/UIxyz/how_will_this_be_sent_from_the_client"/>\n\
                         <headline>'+om_object.oid_title+'</headline>\n\
-                        <body type="Note" ref="tmp'+om_object.oid+'">\n\
-                            <xhtml:span style="'+style+'">'+note+'</xhtml:span>\n\
+                        <body type="application/xml+xhtml">\n\
+                            <![CDATA[<xhtml:span style="'+style+'">'+note+'</xhtml:span>]]>\n\
                         </body>\n\
                         <targetSources>\n\
                             <target>\n\
-                                <newSource xml:id="tmp'+om_object.oid+'">\n\
+                                <source xml:id="tmp'+om_object.oid+'">\n\
                                     <link>'+om_object.doc_url+xpointer+'</link>\n\
                                     <version>'+timestamp.toISOString()+'</version>\n\
-                                </newSource>\n\
+                                </source>\n\
                             </target>\n\
                         </targetSources>\n\
                         <permissions ref="tmpPermissionsListID'+om_object.oid+'"/>\n\
