@@ -112,24 +112,25 @@ function om_object2annotation(om_object){
     var annotation = '<?xml version="1.0" encoding="UTF-8"?>\n\
                       <annotation xmlns="http://www.dasish.eu/ns/addit"\n\
                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n\
-                            xmlns:xhtml="http://www.w3.org/1999/xhtml"\n\
                             xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"\n\
+                            xmlns:xhtml="http://www.w3.org/1999/xhtml"\n\
+                            lastModified="'+timestamp.toISOString()+'"\n\
                             URI="tempAID'+om_object.oid+'"\n\
-                            timeStamp="'+timestamp.toISOString()+'">\n\
-                        <owner ref="http://dasish.eu/users/UIxyz/how_will_this_be_sent_from_the_client"/>\n\
-                        <headline>'+om_object.oid_title+'</headline>\n\
-                        <body type="application/xml+xhtml">\n\
-                            <![CDATA[<xhtml:span style="'+style+'">'+note+'</xhtml:span>]]>\n\
+                            ownerRef="tempownerRef'+om_object.oid+'"\n\
+                            headline="'+om_object.oid_title+'">\n\
+                        <body>\n\
+                            <xmlBody mimeType="application/xml+xhtml">\n\
+                                <xhtml:span style="'+style+'">'+note+'</xhtml:span>\n\
+                            </xmlBody>\n\
                         </body>\n\
-                        <targetSources>\n\
-                            <target>\n\
-                                <source xml:id="tmp'+om_object.oid+'">\n\
-                                    <link>'+om_object.doc_url+xpointer+'</link>\n\
-                                    <version>'+timestamp.toISOString()+'</version>\n\
-                                </source>\n\
-                            </target>\n\
-                        </targetSources>\n\
-                        <permissions ref="tmpPermissionsListID'+om_object.oid+'"/>\n\
+                            <targets>\n\
+                                <targetInfo ref="'+annotationFramework.getBackend()+'/api/targets/00000000-0000-0000-'+om_object.oid.substring(0,4)+'-'+om_object.oid.substring(4,14)+'"\n\
+                                    link="'+om_object.doc_url/*+xpointer*/+'"\n\
+                                    version="'+timestamp.toISOString()+'"/>\n\
+                            </targets>\n\
+                            <permissions>\n\
+                                <userWithPermission permission="owner" ref="tmpPermissionsListID'+om_object.oid+'"/>\n\
+                            </permissions>\n\
                       </annotation>';
     return annotation;
 }
