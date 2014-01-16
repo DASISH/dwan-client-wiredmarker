@@ -55,11 +55,24 @@ var annotationFramework = (function() {
                 dataType: "xml",
                 data: annotation,
                 contentType: "application/xml",
+                error: function(jqXHR, status, thrownError) {
+                    // Handle any errors
+                    if (typeof Firebug !== 'undefined' && Firebug.Console) {
+                        Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                        Firebug.Console.log("Status Code: " + jqXHR.status);
+                        Firebug.Console.log("Error : " + thrownError);
+                    }
+                },
                 complete: function(jqXHR, status, responseText) {
+                    var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
+                    var aid = response[response.length - 1];
+
                     if (typeof Firebug !== 'undefined' && Firebug.Console) {
                         Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
                         Firebug.Console.log("Status Code: " + jqXHR.status);
                         Firebug.Console.log("Response Body: " + jqXHR.responseText);
+                        Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                        Firebug.Console.log("AID: " + aid);
                     }
                 }
             });
