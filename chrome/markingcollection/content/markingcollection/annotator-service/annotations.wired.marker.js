@@ -83,11 +83,13 @@ var annotationProxy = (function() {
                 Firebug.Console.log(message);
             }
             //log this to the local proxy
+            /*
             $.ajax({
                 type: "POST",
                 url: 'http://localhost/annotations/annotator-service/test/proxy.php',
                 data: {log: 'true', message: message}
             });
+            */
         }
     }
 }());
