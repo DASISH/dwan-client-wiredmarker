@@ -1,6 +1,9 @@
 var annotationFramework = (function() {
     // default value for REST service
-    var default_backend = "http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql";
+    // SND backend for first tests
+    // var default_backend = "http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql";
+    // MPI backend
+    var default_backend = "https://lux17.mpi.nl/ds/webannotator";
 
     return {
         getDefaultBackend: function() {
