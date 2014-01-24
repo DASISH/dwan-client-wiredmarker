@@ -2868,6 +2868,7 @@ var bitsObjectMng = {
 							"  oid_txt      TEXT," +
 							"  oid_img      BLOB DEFAULT NULL,"+
 							"  oid_date     TEXT," +
+                                                        "  dasish_aid   TEXT," + // annotation id from DASISH REST backend response
 							"PRIMARY KEY (oid)"+
 							")"
 						);
