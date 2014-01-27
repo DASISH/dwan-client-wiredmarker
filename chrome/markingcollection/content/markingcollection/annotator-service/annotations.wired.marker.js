@@ -71,7 +71,7 @@ var annotationProxy = (function() {
         },
         postAnnotation: function(om_object) {
             var annotation = om_object2annotation(om_object);
-            annotationFramework.postAnnotation(annotation);
+            annotationFramework.postAnnotation(annotation, om_object.oid);
             this.log('postAnnotation : ' + annotation);
         },
         updateAnnotation: function(annotation) {
