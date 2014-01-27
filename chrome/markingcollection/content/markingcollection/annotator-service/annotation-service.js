@@ -51,7 +51,35 @@ var annotationFramework = (function() {
                 }
             });
         },
-        postAnnotation: function(annotation) {
+        deleteAnnotationByOid: function(oid) {
+            var aid;
+            var aSql = 'select dasish_aid from om_object where oid="' + oid + '"';
+            var rtn = bitsObjectMng.Database.selectB("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+
+            aid = rtn[0].dasish_aid;
+
+            if (aid) { // ajax request only for annotations posted to and available in backend database
+                return $.ajax({
+                    url: this.getBackend() + '/api/annotations/' + aid,
+                    type: 'DELETE',
+                    error: function(jqXHR, status, thrownError) {
+                        // Handle any errors
+                        if (typeof Firebug !== 'undefined' && Firebug.Console) {
+                            Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                            Firebug.Console.log("Status Code (DELETE request): " + jqXHR.status);
+                            Firebug.Console.log("Error DELETE request: " + thrownError);
+                        }
+                    },
+                    success: function(result) {
+                        if (typeof Firebug !== 'undefined' && Firebug.Console) {
+                            Firebug.Console.log("DELETE request was successful.");
+                            Firebug.Console.log(result);
+                        }
+                    }
+                });
+            }
+        },
+        postAnnotation: function(annotation, oid) {
             return $.ajax({
                 type: "POST",
                 url: this.getBackend() + '/api/annotations?store=true',
@@ -72,11 +100,21 @@ var annotationFramework = (function() {
 
                     if (typeof Firebug !== 'undefined' && Firebug.Console) {
                         Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                        Firebug.Console.log("Status Code: " + jqXHR.status);
+                        Firebug.Console.log("Status Code POST request: " + jqXHR.status);
                         Firebug.Console.log("Response Body: " + jqXHR.responseText);
                         Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                        Firebug.Console.log("AID: " + aid);
                     }
+                    // Firebug.Console.log("OID: " + oid);
+                    // Firebug.Console.log("AID: " + aid);
+                    // Firebug.Console.log(bitsObjectMng.Database.getObject({oid: oid}));
+
+                    var aSql = 'update om_object set dasish_aid = "' + aid + '" where oid="' + oid + '"';
+                    // insert request to local sqlite database where aid gets inserted
+                    rtn = bitsObjectMng.Database.cmd("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+
+                    // Database insert request is true if successful
+                    // Firebug.Console.log(rtn);
+
                 }
             });
         },
