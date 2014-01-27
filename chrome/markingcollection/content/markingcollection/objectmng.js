@@ -4773,6 +4773,10 @@ var bitsObjectMng = {
 				if(aObject && aObject.oid){
 					rtn = this.removeLink(aObject,aMode,false);
 					if(rtn && this._oidCount(aMode,aObject.oid,false) == 0){
+                                            
+                                                // send DELETE request to MPI REST server  
+                                                annotationFramework.deleteAnnotationByOid(aObject.oid);
+                                                
 						var aSql = "delete from om_object";
 						aSql += ' where oid="'+ aObject.oid +'"';
 						rtn = this.cmd(aMode,aSql,false);
