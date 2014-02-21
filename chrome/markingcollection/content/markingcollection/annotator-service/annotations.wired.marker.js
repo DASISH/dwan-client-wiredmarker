@@ -3,7 +3,35 @@ var annotationProxy = (function() {
         getAnnotations: function(url) {
             annotationProxy.log('getAnnotations for: ' + url);
 
-            //temp annotation for testing insert via bitsObjectMng.Database.addObject() 
+
+              
+
+            //if (bitsObjectMng.Database.existsObject(tmp, undefined)) {
+            //    this.log("annotationProxy annotation exists in the database");
+            //} else {
+            //    this.log("annotationProxy inserting annotation in the database");
+            //    bitsObjectMng.Database.addObject(tmp, '_uncategorized', undefined);
+            //}
+            /*
+             annotationFramework.getAnnotations({link: url, access: read}, function(result) {
+             var annotations = $(result);
+             
+             annotations.find('annotation').each(function() {
+             var aid = $(this).attr('ref').substr($(this).attr('ref').lastIndexOf('/') + 1);
+             
+             annotationFramework.getAnnotation(aid, function(annotation){
+             annotation.find('annotation').each(function() {
+             var om_object = annotation2om_object(this);
+             
+             //bitsObjectMng.Database.addObject
+             });
+             });
+             });
+             });
+             */
+        },
+        insertTestAnnotation: function(){
+             //temp annotation for testing insert via bitsObjectMng.Database.addObject() 
             var tmp = {
                 "oid": 1320227156,
                 "pfid": "0",
@@ -42,32 +70,7 @@ var annotationProxy = (function() {
               };
               
             //insert test via bitsObjectMng (works but the annotation does not show :-( )   
-            bitsObjectMng.Database.addObject(tmp, 'dasish.remote', undefined);
-              
-
-            //if (bitsObjectMng.Database.existsObject(tmp, undefined)) {
-            //    this.log("annotationProxy annotation exists in the database");
-            //} else {
-            //    this.log("annotationProxy inserting annotation in the database");
-            //    bitsObjectMng.Database.addObject(tmp, '_uncategorized', undefined);
-            //}
-            /*
-             annotationFramework.getAnnotations({link: url, access: read}, function(result) {
-             var annotations = $(result);
-             
-             annotations.find('annotation').each(function() {
-             var aid = $(this).attr('ref').substr($(this).attr('ref').lastIndexOf('/') + 1);
-             
-             annotationFramework.getAnnotation(aid, function(annotation){
-             annotation.find('annotation').each(function() {
-             var om_object = annotation2om_object(this);
-             
-             //bitsObjectMng.Database.addObject
-             });
-             });
-             });
-             });
-             */
+            bitsObjectMng.Database.addObject(tmp, 'dasish.remote', undefined);           
         },
         postAnnotation: function(om_object) {
             var annotation = om_object2annotation(om_object);
