@@ -19,45 +19,67 @@ var annotationFramework = (function() {
                 return default_backend;
             }
         },
-        getAnnotations: function(params, callback) {
+        getAnnotations: function(url, callback) {
+            annotationProxy.log('calling the annotation backend ');
+            
             $.ajax({
                 type: "GET",
-                url: this.getBackend() + '/annotations',
-                data: params,
+                url: this.getBackend() + '/api/annotations?link='+url,
                 dataType: "xml",
-                success: function(xml) {
+                beforeSend: function(xhr){xhr.setRequestHeader('Content-Type', 'application/xml');},
+                success: function(xml, textStatus, jqXHR) {
+                                    
+                    
                     var annotations = Array();
-
-                    $xml = $(xml);
-                    $xml.find('annotation').each(function() {
-                        var annotation = $.xml2json(this);
-
-                        annotations.push(annotation);
+                    
+                    $xml = $.parseXML(jqXHR.responseText);
+                    annotationProxy.log($xml);
+                    
+                    jQuery($xml).find('annotationInfo').each(function() {
+                        annotationProxy.log(this);
+                        annotationProxy.log(this.getAttribute('ref'));
+                        
+                        
+                        annotations.push(this.getAttribute('ref'));
                     });
+                    
 
                     callback.call(undefined, annotations);
+                },
+                error: function(result){
+                    annotationProxy.log('ERROR calling the annotation backend '+result);
+                    Firebug.Console.log(result);
                 }
             });
         },
-        getAnnotation: function(aid, callback) {
+        getAnnotation: function(annotationURL, callback) {
+            annotationProxy.log('getAnnotation '+annotationURL);
             $.ajax({
                 type: "GET",
-                url: this.getBackend() + '/' + aid,
+                url: annotationURL,
                 dataType: "xml",
-                success: function(xml) {
-                    var annotation = $xml.find('annotation');
-
-                    callback.call(undefined, annotation);
+                success: function(xml, textStatus, jqXHR) {
+                    $xml = $.parseXML(jqXHR.responseText);
+                    annotationProxy.log('GOT annotation in getAnnotation ');    
+                    annotationProxy.log($xml);
+                    var om_object = annotation2om_object($xml);
+                    
+                    callback.call(undefined, om_object);
+                },
+                error: function(error) {
+                    annotationProxy.log('ERROR in getAnnotation ');
+                    annotationProxy.log(error);
                 }
             });
         },
         deleteAnnotationByOid: function(oid) {
+            Firebug.Console.log('entering DELETE for oid: '+oid);
             var aid;
             var aSql = 'select dasish_aid from om_object where oid="' + oid + '"';
             var rtn = bitsObjectMng.Database.selectB("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
-
+            
             aid = rtn[0].dasish_aid;
-
+            Firebug.Console.log('Resolved the AID for DELETE for aid: '+aid);
             if (aid) { // ajax request only for annotations posted to and available in backend database
                 return $.ajax({
                     url: this.getBackend() + '/api/annotations/' + aid,
@@ -104,14 +126,16 @@ var annotationFramework = (function() {
                         Firebug.Console.log("Response Body: " + jqXHR.responseText);
                         Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
                     }
-                    // Firebug.Console.log("OID: " + oid);
-                    // Firebug.Console.log("AID: " + aid);
+                    Firebug.Console.log("OID: " + oid);
+                    Firebug.Console.log("AID: " + aid);
                     // Firebug.Console.log(bitsObjectMng.Database.getObject({oid: oid}));
 
                     var aSql = 'update om_object set dasish_aid = "' + aid + '" where oid="' + oid + '"';
+                    Firebug.Console.log(aSql);
                     // insert request to local sqlite database where aid gets inserted
-                    rtn = bitsObjectMng.Database.cmd("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
-
+                    var rtn = bitsObjectMng.Database.cmd("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+                    Firebug.Console.log('UPDATE of AID done');
+                    Firebug.Console.log(rtn);
                     // Database insert request is true if successful
                     // Firebug.Console.log(rtn);
 

@@ -4,7 +4,19 @@ var annotationProxy = (function() {
             annotationProxy.log('getAnnotations for: ' + url);
 
 
-              
+            annotationFramework.getAnnotations(url, 
+                function(annotations){
+                    annotationProxy.log('got annotations ');
+                    Firebug.Console.log(annotations);
+                    
+                    $.each(annotations, function(index, annotationURL){
+                       annotationFramework.getAnnotation(annotationURL, function(result){
+                           annotationProxy.log('got Annotation ');
+                           annotationProxy.log(result);
+                       });
+                    });
+                }
+            );
 
             //if (bitsObjectMng.Database.existsObject(tmp, undefined)) {
             //    this.log("annotationProxy annotation exists in the database");

@@ -30,9 +30,9 @@ function annotation2om_object(annotation) {
     var title = $(annotation).find('headline').text().trim();
     var body = $(annotation).find('body').text().trim();
     var style = $(annotation).find('body').find('xhtml\\:span').attr('style');
-    var type = $(annotation).find('body').attr('type').toLowerCase();
+    var type = $(annotation).find('mimeType').text();
     var link = $(annotation).find('link').text();
-    var time = $(annotation).attr('timeStamp');
+    var time = $(annotation).find('lastModified').text();
 
     var urlParts = link.split("#xpointer");
 
@@ -65,7 +65,7 @@ function annotation2om_object(annotation) {
     console.log(link);
     om_object.oid_property = "<PROPERTY><HYPER_ANCHOR>" + om_object.doc_url + hyperanchor + "</HYPER_ANCHOR><NOTE>" + body + "</NOTE></PROPERTY>";
 
-    if (type === 'note') {
+    if (type === 'application/xml+xhtml') { //TODO: better handeling of the body
         om_object.oid_txt = body;
         om_object.oid_type = 'text';
     }
