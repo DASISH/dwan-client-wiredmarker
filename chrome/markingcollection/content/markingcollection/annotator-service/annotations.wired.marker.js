@@ -13,7 +13,11 @@ var annotationProxy = (function() {
                        annotationFramework.getAnnotation(annotationURL, function(result){
                            annotationProxy.log('got Annotation ');
                            annotationProxy.log(result);
-                           bitsObjectMng.Database.addObject(result, 'dasish.remote', undefined);     
+                           if(bitsObjectMng.Database._dasish_aid_exists('_uncategorized', result.dasish_aid, true)){
+                               annotationProxy.log('AID already in database : ' + result.dasish_aid);
+                           }else{
+                                bitsObjectMng.Database.addObject(result, 'dasish.remote', undefined);  
+                           }
                        });
                     });
                 }
