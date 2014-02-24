@@ -62,7 +62,7 @@ function annotation2om_object(annotation) {
     om_object.doc_title = title;
     om_object.oid_title = title;
 
-    om_object.oid = hashCode($(annotation).attr('URI'));
+    om_object.oid = hashCode(om_object.dasish_aid);
     if (om_object.oid < 0) {
         om_object.oid = om_object.oid * -1;
     }
