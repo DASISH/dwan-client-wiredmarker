@@ -79,7 +79,7 @@ var annotationFramework = (function() {
             var rtn = bitsObjectMng.Database.selectB("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
             
             aid = rtn[0].dasish_aid;
-            Firebug.Console.log('Resolved the AID for DELETE for aid: '+aid);
+            Firebug.Console.log('Resolved the AID for oid: '+oid+' for aid: '+aid);
             if (aid) { // ajax request only for annotations posted to and available in backend database
                 return $.ajax({
                     url: this.getBackend() + '/api/annotations/' + aid,

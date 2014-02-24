@@ -28,11 +28,14 @@ function annotation2om_object(annotation) {
     // border:thin dotted rgb(255,204,0);background-color:rgb(255,255,204);color:rgb(0,0,0); 
 
     var title = $(annotation).find('headline').text().trim();
-    var body = $(annotation).find('body').text().trim();
+    var body = $(annotation).find('body').find('xhtml\\:span').text().trim();
     var style = $(annotation).find('body').find('xhtml\\:span').attr('style');
     var type = $(annotation).find('mimeType').text();
     var link = $(annotation).find('link').text();
     var time = $(annotation).find('lastModified').text();
+
+    var URI = $(annotation).find('annotation').attr('URI');
+    om_object.dasish_aid = URI.split('/annotations/')[1];
 
     var urlParts = link.split("#xpointer");
 
@@ -57,6 +60,7 @@ function annotation2om_object(annotation) {
     var hyperanchor = '#hyperanchor1.3' + encodeURIComponent(':' + om_object.bgn_dom.replace(/"/g, '&quot;') + '&' + om_object.end_dom.replace(/"/g, '&quot;') + '&' + style);
 
     om_object.doc_title = title;
+    om_object.oid_title = title;
 
     om_object.oid = hashCode($(annotation).attr('URI'));
     if (om_object.oid < 0) {
@@ -66,7 +70,7 @@ function annotation2om_object(annotation) {
     om_object.oid_property = "<PROPERTY><HYPER_ANCHOR>" + om_object.doc_url + hyperanchor + "</HYPER_ANCHOR><NOTE>" + body + "</NOTE></PROPERTY>";
 
     if (type === 'application/xml+xhtml') { //TODO: better handeling of the body
-        om_object.oid_txt = body;
+        om_object.oid_txt = $(annotation).find('body').find('xhtml\\:span').attr('title');
         om_object.oid_type = 'text';
     }
     var d = new Date(time);
@@ -121,7 +125,7 @@ function om_object2annotation(om_object) {
                         <body>\n\
                             <xmlBody>\n\
                                 <mimeType>application/xml+xhtml</mimeType>\n\
-                                <xhtml:span style="' + style + '">' + note + '</xhtml:span>\n\
+                                <xhtml:span title="'+om_object.oid_txt+'" style="' + style + '">' + note + '</xhtml:span>\n\
                             </xmlBody>\n\
                         </body>\n\
                             <targets>\n\

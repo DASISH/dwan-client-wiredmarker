@@ -13,6 +13,7 @@ var annotationProxy = (function() {
                        annotationFramework.getAnnotation(annotationURL, function(result){
                            annotationProxy.log('got Annotation ');
                            annotationProxy.log(result);
+                           bitsObjectMng.Database.addObject(result, 'dasish.remote', undefined);     
                        });
                     });
                 }
