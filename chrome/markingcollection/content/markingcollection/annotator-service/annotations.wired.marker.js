@@ -1,8 +1,21 @@
 var annotationProxy = (function() {
     return {
+        /***
+         * Get current user info
+         * @returns {undefined} false if user in not loged in. user object if loged in
+         */
+        getLoggedInInfo: function(){
+            var user_placeholder = {
+                URI: 'https://lux17.mpi.nl/ds/webannotator/api/users/00000000-0000-0000-0000-0000000009999',
+                uid : '00000000-0000-0000-0000-0000000009999',
+                dislayName: 'Test Testsson',
+                eMail: 'test@test.com'
+            };
+            
+            return user_placeholder;
+        },
         getAnnotations: function(url) {
             annotationProxy.log('getAnnotations for: ' + url);
-
 
             annotationFramework.getAnnotations(url, 
                 function(annotations){
@@ -13,11 +26,13 @@ var annotationProxy = (function() {
                        annotationFramework.getAnnotation(annotationURL, function(result){
                            annotationProxy.log('got Annotation ');
                            annotationProxy.log(result);
+                           
                            if(bitsObjectMng.Database._dasish_aid_exists('_uncategorized', result.dasish_aid, true)){
                                annotationProxy.log('AID already in database : ' + result.dasish_aid);
                            }else{
                                 bitsObjectMng.Database.addObject(result, 'dasish.remote', undefined);  
                            }
+                           
                        });
                     });
                 }
@@ -46,48 +61,6 @@ var annotationProxy = (function() {
              });
              });
              */
-        },
-        insertTestAnnotation: function(){
-             //temp annotation for testing insert via bitsObjectMng.Database.addObject() 
-            var tmp = {
-                "oid": 1320227156,
-                "pfid": "0",
-                "doc_title": "Svensk nationell datatjänst | Svensk Nationell Datatjänst",
-                "doc_url": "http://snd.gu.se/",
-                "con_url": "http://snd.gu.se/",
-                "bgn_dom": "//div[@id=\"node-170\"]/div[1]/div[1]/div[1]/div[1]/p[1](34)(3)",
-                "end_dom": "//div[@id=\"node-170\"]/div[1]/div[1]/div[1]/div[1]/p[1](54)(3)",
-                "oid_title": "Test test test",
-                "oid_property": "<PROPERTY><HYPER_ANCHOR>http://snd.gu.se/#hyperanchor1.3%3A%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(34)(3)%26%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(54)(3)%26border%3Athin%20dotted%20rgb(255%2C204%2C0)%3Bbackground-color%3Argb(255%2C255%2C204)%3Bcolor%3Argb(0%2C0%2C0)%3B</HYPER_ANCHOR><NOTE>SND is a service organization</NOTE></PROPERTY>",
-                "oid_mode": "0",
-                "oid_type": "text",
-                "oid_txt": "serviceorganisation", //must be the marked text!
-                "oid_img": null,
-                "oid_date": "2013/9/20 11:0:22",
-                "pfid_order": 4
-              };
-            
-            //fungerar
-            var tmp2 = {
-                "oid": "20130920171330",
-                "pfid": "0",
-                "doc_title": "Svensk nationell datatjänst | Svensk Nationell Datatjänst",
-                "doc_url": "http://snd.gu.se/",
-                "con_url": "http://snd.gu.se/",
-                "bgn_dom": "//div[@id=\"node-170\"]/div[1]/div[1]/div[1]/div[1]/p[1](0)(3)",
-                "end_dom": "//div[@id=\"node-170\"]/div[1]/div[1]/div[1]/div[1]/p[1](7)(3)",
-                "oid_title": "test testar",
-                "oid_property": "<PROPERTY><HYPER_ANCHOR>http://snd.gu.se/#hyperanchor1.3%3A%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(0)(3)(Sve)%26%2F%2Fdiv%5B%40id%3D%26quot%3Bnode-170%26quot%3B%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fdiv%5B1%5D%2Fp%5B1%5D(7)(3)(nsk)%26border%3Athin%20dotted%20rgb(255%2C204%2C0)%3Bbackground-color%3Argb(255%2C255%2C204)%3Bcolor%3Argb(0%2C0%2C0)%3B</HYPER_ANCHOR><NOTE>testing</NOTE></PROPERTY>",
-                "oid_mode": "0",
-                "oid_type": "text",
-                "oid_txt": "Svensk",
-                "oid_img": null,
-                "oid_date": "09/20/2013 17:13:21",
-                "pfid_order": 8
-              };
-              
-            //insert test via bitsObjectMng (works but the annotation does not show :-( )   
-            bitsObjectMng.Database.addObject(tmp, 'dasish.remote', undefined);           
         },
         postAnnotation: function(om_object) {
             var annotation = om_object2annotation(om_object);

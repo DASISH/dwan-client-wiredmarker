@@ -3505,8 +3505,9 @@ var bitsObjectMng = {
 			var fRtn = this.selectCount(aMode,fSql,aTransaction);
 			return (fRtn>0);
 		},
-                /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 		_dasish_aid_exists : function(aMode,dasish_aid,aTransaction){
+                        //helper function for finding existing annotations
 			if(aMode == undefined || aMode == "") aMode = this._defaultMode;
 			if(aTransaction == undefined) aTransaction = true;
 			var oSql = 'select count(dasish_aid) from om_object where dasish_aid="'+dasish_aid+'"';

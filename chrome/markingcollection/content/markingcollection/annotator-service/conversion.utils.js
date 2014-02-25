@@ -12,7 +12,7 @@ function annotation2om_object(annotation) {
         con_url: "",
         bgn_dom: "",
         end_dom: "",
-        oid_title: "Test test test",
+        oid_title: "",
         oid_property: "<PROPERTY><HYPER_ANCHOR></HYPER_ANCHOR><NOTE></NOTE></PROPERTY>",
         oid_mode: "0",
         oid_type: "text",
@@ -34,6 +34,7 @@ function annotation2om_object(annotation) {
     var link = $(annotation).find('link').text();
     var time = $(annotation).find('lastModified').text();
 
+    //get aid
     var URI = $(annotation).find('annotation').attr('URI');
     om_object.dasish_aid = URI.split('/annotations/')[1];
 
@@ -56,23 +57,26 @@ function annotation2om_object(annotation) {
     om_object.end_dom = parts0 + '(' + parts[2] + ')(3)';
 
     //build hyperanchor
-    console.log('fragment: ' + om_object.bgn_dom + '&' + om_object.end_dom + '&' + style);
     var hyperanchor = '#hyperanchor1.3' + encodeURIComponent(':' + om_object.bgn_dom.replace(/"/g, '&quot;') + '&' + om_object.end_dom.replace(/"/g, '&quot;') + '&' + style);
 
     om_object.doc_title = title;
     om_object.oid_title = title;
 
+    //generate oid from aid (hash)
     om_object.oid = hashCode(om_object.dasish_aid);
     if (om_object.oid < 0) {
         om_object.oid = om_object.oid * -1;
     }
-    console.log(link);
+    
+    //construct annotation structure
     om_object.oid_property = "<PROPERTY><HYPER_ANCHOR>" + om_object.doc_url + hyperanchor + "</HYPER_ANCHOR><NOTE>" + body + "</NOTE></PROPERTY>";
 
     if (type === 'application/xml+xhtml') { //TODO: better handeling of the body
         om_object.oid_txt = $(annotation).find('body').find('xhtml\\:span').attr('title');
         om_object.oid_type = 'text';
     }
+    
+    //reformat date
     var d = new Date(time);
     om_object.oid_date = (d.getFullYear() + '/' + (parseInt(d.getMonth()) + 1)) + '/' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
 
