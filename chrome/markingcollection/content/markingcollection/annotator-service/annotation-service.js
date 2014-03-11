@@ -28,8 +28,6 @@ var annotationFramework = (function() {
                 dataType: "xml",
                 beforeSend: function(xhr){xhr.setRequestHeader('Content-Type', 'application/xml');},
                 success: function(xml, textStatus, jqXHR) {
-                                    
-                    
                     var annotations = Array();
                     
                     $xml = $.parseXML(jqXHR.responseText);
@@ -39,16 +37,13 @@ var annotationFramework = (function() {
                         annotationProxy.log(this);
                         annotationProxy.log(this.getAttribute('ref'));
                         
-                        
                         annotations.push(this.getAttribute('ref'));
                     });
                     
-
                     callback.call(undefined, annotations);
                 },
                 error: function(result){
                     annotationProxy.log('ERROR calling the annotation backend '+result);
-                    Firebug.Console.log(result);
                 }
             });
         },
@@ -73,7 +68,7 @@ var annotationFramework = (function() {
             });
         },
         deleteAnnotationByOid: function(oid) {
-            Firebug.Console.log('entering DELETE for oid: '+oid);
+            annotationProxy.log('entering DELETE for oid: '+oid);
             var aid;
             var aSql = 'select dasish_aid from om_object where oid="' + oid + '"';
             var rtn = bitsObjectMng.Database.selectB("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
@@ -86,17 +81,15 @@ var annotationFramework = (function() {
                     type: 'DELETE',
                     error: function(jqXHR, status, thrownError) {
                         // Handle any errors
-                        if (typeof Firebug !== 'undefined' && Firebug.Console) {
-                            Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                            Firebug.Console.log("Status Code (DELETE request): " + jqXHR.status);
-                            Firebug.Console.log("Error DELETE request: " + thrownError);
-                        }
+
+                        annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                        annotationProxy.log("Status Code (DELETE request): " + jqXHR.status);
+                        annotationProxy.log("Error DELETE request: " + thrownError);
                     },
                     success: function(result) {
-                        if (typeof Firebug !== 'undefined' && Firebug.Console) {
-                            Firebug.Console.log("DELETE request was successful.");
-                            Firebug.Console.log(result);
-                        }
+                        
+                            annotationProxy.log("DELETE request was successful.");
+                            annotationProxy.log(result);
                     }
                 });
             }
@@ -134,8 +127,8 @@ var annotationFramework = (function() {
                     Firebug.Console.log(aSql);
                     // insert request to local sqlite database where aid gets inserted
                     var rtn = bitsObjectMng.Database.cmd("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
-                    Firebug.Console.log('UPDATE of AID done');
-                    Firebug.Console.log(rtn);
+                    annotationProxy.log('UPDATE of AID done');
+                    annotationProxy.log(rtn);
                     // Database insert request is true if successful
                     // Firebug.Console.log(rtn);
 
