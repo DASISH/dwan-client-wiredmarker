@@ -101,11 +101,11 @@ var annotationFramework = (function() {
                 contentType: "application/xml",
                 error: function(jqXHR, status, thrownError) {
                     // Handle any errors
-                    if (typeof Firebug !== 'undefined' && Firebug.Console) {
-                        annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                        annotationProxy.log("Status Code: " + jqXHR.status);
-                        annotationProxy.log("Error : " + thrownError);
-                    }
+                    
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                    annotationProxy.log("Status Code: " + jqXHR.status);
+                    annotationProxy.log("Error : " + thrownError);
+                    
                 },
                 complete: function(jqXHR, status, responseText) {
                     var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');

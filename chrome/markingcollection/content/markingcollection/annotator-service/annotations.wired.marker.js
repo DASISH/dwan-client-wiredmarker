@@ -20,7 +20,7 @@ var annotationProxy = (function() {
             annotationFramework.getAnnotations(url, 
                 function(annotations){
                     annotationProxy.log('got annotations ');
-                    Firebug.Console.log(annotations);
+                    annotationProxy.log(annotations);
                     
                     $.each(annotations, function(index, annotationURL){
                        annotationFramework.getAnnotation(annotationURL, function(result){
@@ -72,6 +72,14 @@ var annotationProxy = (function() {
             this.log('UPDATED ANNOTATION AS XML: ');
             var xml = om_object2annotation(annotation);
             this.log(xml);
+        },
+        getAidFromOid: function(oid){
+            var aid;
+            var aSql = 'SELECT dasish_aid FROM om_object WHERE oid="' + oid + '"';
+            var rtn = bitsObjectMng.Database.selectB("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+            
+            aid = rtn[0].dasish_aid;
+            return aid;
         },
         log: function(message) {
             //log to console

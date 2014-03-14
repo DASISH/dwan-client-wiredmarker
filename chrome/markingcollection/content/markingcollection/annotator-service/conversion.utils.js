@@ -146,6 +146,35 @@ function om_object2annotation(om_object) {
     return annotation;
 }
 
+function om_object_annotation_body(om_object){
+    /*{
+       "oid":"1145293257",
+       "oid_title":"erfer der dd",
+       "oid_property":"<PROPERTY><HYPER_ANCHOR>http://snd.gu.se/#hyperanchor1.3%3A%2F%2Fdiv%5B%40id%3D%26quot%3BprofilComp%26quot%3B%5D%2Ffollowing-sibling%3A%3Adiv%5B1%5D%2Fh1%5B1%5D(0)(3)%26%2F%2Fdiv%5B%40id%3D%26quot%3BprofilComp%26quot%3B%5D%2Ffollowing-sibling%3A%3Adiv%5B1%5D%2Fh1%5B1%5D(10)(3)%26border%3Athin%20dotted%20rgb(255%2C204%2C0)%3Bbackground-color%3Argb(255%2C255%2C204)%3Bcolor%3Argb(0%2C0%2C0)%3B</HYPER_ANCHOR><NOTE>Svensk nod</NOTE></PROPERTY>"
+    }*/
+    var note = om_object.oid_property.match(/<NOTE>(.+?)<\/NOTE>/)[1];
+    var hyperanchor = om_object.oid_property.match(/<HYPER_ANCHOR>(.+?)<\/HYPER_ANCHOR>/)[1];
+    var style = '';
+
+    hyperanchor = unescape(hyperanchor);
+    hyperanchor.match(/^(.+\([0-9]+\)\([0-9]+\)\([\s\S]*\))&(.+\([0-9]+\)\([0-9]+\)\([\s\S]*\))&(.+)$/);
+
+    style = RegExp.$3;
+    //TODO: missing om_object.oid_txt
+    
+    
+    var annotationBody = 
+        '<?xml version="1.0" encoding="UTF-8"?>\n\
+            <body>\n\
+             <xmlBody>\n\
+                <mimeType>application/xml+xhtml</mimeType>\n\
+                <xhtml:span title="'+om_object.oid_txt+'" style="' + style + '">' + note + '</xhtml:span>\n\
+             </xmlBody>\n\
+         </body>';
+    
+    return annotationBody;
+}
+
 function hashCode(str) {
     var hash = 0;
     if (str == undefined || str.length == 0)
