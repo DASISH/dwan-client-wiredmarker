@@ -69,6 +69,9 @@ var annotationProxy = (function() {
         },
         updateAnnotation: function(annotation) {
             this.log('updateAnnotation : ' + JSON.stringify(annotation));
+            this.log('UPDATED ANNOTATION AS XML: ');
+            var xml = om_object2annotation(annotation);
+            this.log(xml);
         },
         log: function(message) {
             //log to console

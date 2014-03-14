@@ -74,22 +74,20 @@ var annotationFramework = (function() {
             var rtn = bitsObjectMng.Database.selectB("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
             
             aid = rtn[0].dasish_aid;
-            Firebug.Console.log('Resolved the AID for oid: '+oid+' for aid: '+aid);
+            annotationProxy.log('Resolved the AID for oid: '+oid+' for aid: '+aid);
             if (aid) { // ajax request only for annotations posted to and available in backend database
                 return $.ajax({
                     url: this.getBackend() + '/api/annotations/' + aid,
                     type: 'DELETE',
                     error: function(jqXHR, status, thrownError) {
-                        // Handle any errors
-
+                        // Log any errors to debug console
                         annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
                         annotationProxy.log("Status Code (DELETE request): " + jqXHR.status);
                         annotationProxy.log("Error DELETE request: " + thrownError);
                     },
-                    success: function(result) {
-                        
-                            annotationProxy.log("DELETE request was successful.");
-                            annotationProxy.log(result);
+                    success: function(result) {            
+                        annotationProxy.log("DELETE request was successful.");
+                        annotationProxy.log(result);
                     }
                 });
             }
@@ -104,34 +102,32 @@ var annotationFramework = (function() {
                 error: function(jqXHR, status, thrownError) {
                     // Handle any errors
                     if (typeof Firebug !== 'undefined' && Firebug.Console) {
-                        Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                        Firebug.Console.log("Status Code: " + jqXHR.status);
-                        Firebug.Console.log("Error : " + thrownError);
+                        annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                        annotationProxy.log("Status Code: " + jqXHR.status);
+                        annotationProxy.log("Error : " + thrownError);
                     }
                 },
                 complete: function(jqXHR, status, responseText) {
                     var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
                     var aid = response[response.length - 1];
 
-                    if (typeof Firebug !== 'undefined' && Firebug.Console) {
-                        Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                        Firebug.Console.log("Status Code POST request: " + jqXHR.status);
-                        Firebug.Console.log("Response Body: " + jqXHR.responseText);
-                        Firebug.Console.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                    }
-                    Firebug.Console.log("OID: " + oid);
-                    Firebug.Console.log("AID: " + aid);
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                    annotationProxy.log("Status Code POST request: " + jqXHR.status);
+                    annotationProxy.log("Response Body: " + jqXHR.responseText);
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+
+                    annotationProxy.log("OID: " + oid);
+                    annotationProxy.log("AID: " + aid);
                     // Firebug.Console.log(bitsObjectMng.Database.getObject({oid: oid}));
 
                     var aSql = 'update om_object set dasish_aid = "' + aid + '" where oid="' + oid + '"';
-                    Firebug.Console.log(aSql);
+                    annotationProxy.log(aSql);
                     // insert request to local sqlite database where aid gets inserted
                     var rtn = bitsObjectMng.Database.cmd("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
                     annotationProxy.log('UPDATE of AID done');
                     annotationProxy.log(rtn);
                     // Database insert request is true if successful
                     // Firebug.Console.log(rtn);
-
                 }
             });
         },
