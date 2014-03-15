@@ -131,6 +131,34 @@ var annotationFramework = (function() {
                 }
             });
         },
+        putAnnotation: function(aid, annotation) {
+            return $.ajax({
+                type: "PUT",
+                url: this.getBackend() + '/api/annotations/'+aid+'/body',
+                dataType: "xml",
+                data: annotation,
+                contentType: "application/xml",
+                error: function(jqXHR, status, thrownError) {
+                    // Handle any errors
+                    
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                    annotationProxy.log("Faild to PUT updated annotation: " + aid);
+                    annotationProxy.log("Status Code: " + jqXHR.status);
+                    annotationProxy.log("Error : " + thrownError);
+                    
+                },
+                complete: function(jqXHR, status, responseText) {
+                    var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
+                    var aid = response[response.length - 1];
+
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                    annotationProxy.log("Status Code PUT request: " + jqXHR.status);
+                    annotationProxy.log("Response Body: " + jqXHR.responseText);
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+
+                }
+            });
+        },
         setBackend: function(url) {
             this.backend = url;
         }

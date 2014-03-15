@@ -67,19 +67,21 @@ var annotationProxy = (function() {
             annotationFramework.postAnnotation(annotation, om_object.oid);
             this.log('postAnnotation : ' + annotation);
         },
-        updateAnnotation: function(annotation) {
-            this.log('updateAnnotation : ' + JSON.stringify(annotation));
-            this.log('UPDATED ANNOTATION AS XML: ');
-            var xml = om_object2annotation(annotation);
+        updateAnnotation: function(om_object) {
+            var aid = this.getAidFromOid(om_object.oid);
+            this.log('updateAnnotation : ' + JSON.stringify(om_object));
+            this.log('UPDATED ANNOTATION AS XML (aid: '+aid+')');
+            var xml = om_object_annotation_body(om_object);
+            
             this.log(xml);
+            
+            annotationFramework.putAnnotation(aid, xml);
         },
         getAidFromOid: function(oid){
-            var aid;
             var aSql = 'SELECT dasish_aid FROM om_object WHERE oid="' + oid + '"';
             var rtn = bitsObjectMng.Database.selectB("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
             
-            aid = rtn[0].dasish_aid;
-            return aid;
+            return rtn[0].dasish_aid;
         },
         log: function(message) {
             //log to console
