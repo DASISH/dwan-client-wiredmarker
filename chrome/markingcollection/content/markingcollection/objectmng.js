@@ -3508,11 +3508,11 @@ var bitsObjectMng = {
 /////////////////////////////////////////////////////////////////////
 		_dasish_aid_exists : function(aMode,dasish_aid,aTransaction){
                         //helper function for finding existing annotations
-			if(aMode == undefined || aMode == "") aMode = this._defaultMode;
+			if(aMode == undefined || aMode == "") aMode = '_uncategorized';
 			if(aTransaction == undefined) aTransaction = true;
-			var oSql = 'select count(dasish_aid) from om_object where dasish_aid="'+dasish_aid+'"';
+			var oSql = 'SELECT COUNT(dasish_aid) FROM om_object WHERE dasish_aid="'+dasish_aid+'"';
 			var oRtn = this.selectCount(aMode,oSql,aTransaction);
-			if(oRtn>0){ 
+			if(oRtn > 0){ 
                             return true;
                         }else{
                             return false;
@@ -3592,11 +3592,11 @@ var bitsObjectMng = {
 
 /////////////////////////////////////////////////////////////////////
 		addObject : function(aObject,aMode,aTransaction){
-                    //annotationProxy.log("addObject aMode: "+aMode);
-                    //annotationProxy.log("addObject aTransaction: "+aTransaction);
-                    //annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
+                    annotationProxy.log("addObject aMode: "+aMode);
+                    annotationProxy.log("addObject aTransaction: "+aTransaction);
+                    annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
                     var postToRemote = true;
-                    if(aMode == 'dasish.remote'){
+                    if(aMode == 'dasish.remote' || aMode == ''){
                         aMode = '_uncategorized';
                         postToRemote = false;
                     }
@@ -3660,9 +3660,12 @@ var bitsObjectMng = {
 						sqlPara.push(para);
 						rtn = this.cmdArrayB(aMode,sqlArr,sqlPara,aTransaction);
 						if(!rtn){
+                                                    annotationProxy.log('added to the database: oid: '+aObject.oid);
 							bitsObjectMng._dump("bitsObjectMng.Database.addObject():aSql1="+aSql1);
 							bitsObjectMng._dump("bitsObjectMng.Database.addObject():aSql2="+aSql2);
-						}
+						}else{
+                                                    annotationProxy.log('not added to the database: oid: '+aObject.oid);
+                                                }
 					}
 				}
 				if(!rtn) rtn = this._oidExists(aMode,aObject.oid,aTransaction);

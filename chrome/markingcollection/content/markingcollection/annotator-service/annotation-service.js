@@ -121,7 +121,7 @@ var annotationFramework = (function() {
                     var aSql = 'UPDATE om_object SET dasish_aid = "' + aid + '" WHERE oid="' + oid + '"';
                     annotationProxy.log(aSql);
                     // insert request to local sqlite database where aid gets inserted
-                    var rtn = bitsObjectMng.Database.cmd('', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+                    var rtn = bitsObjectMng.Database.cmd('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
                     annotationProxy.log('UPDATE of AID done');
                     annotationProxy.log(rtn);
                     // Database insert request is true if successful
