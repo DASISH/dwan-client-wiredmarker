@@ -90,8 +90,8 @@ var annotationFramework = (function() {
                 });
             }
         },
-        postAnnotation: function(annotation, oid) {
-            return $.ajax({
+        postAnnotation: function(annotation, oid, callback) {
+            $.ajax({
                 type: "POST",
                 url: this.getBackend() + '/api/annotations?store=true',
                 dataType: "xml",
@@ -126,6 +126,8 @@ var annotationFramework = (function() {
                     annotationProxy.log(rtn);
                     // Database insert request is true if successful
                     // Firebug.Console.log(rtn);
+                    callback.call(undefined, aid);  
+                    annotationProxy.log('called cache stuff');
                 }
             });
         },
@@ -156,6 +158,55 @@ var annotationFramework = (function() {
 
                 }
             });
+        },
+        postCache: function(targetURL, cacheMetadata, cache){
+            var data = new FormData();
+            data.append('metadata', cacheMetadata);
+            data.append('cache', cache);
+            annotationProxy.log('-POST '+targetURL+'/cached');
+            $.ajax({
+                type: "POST",
+                url: targetURL,
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,               
+                success: function(xml, textStatus, jqXHR) {
+                    annotationProxy.log('RESULT FROM CACHE STUFF');
+                    annotationProxy.log("Status Code POST request: " + jqXHR.status);
+                    annotationProxy.log("Response Body: " + jqXHR.responseText);
+                },
+                error: function(jqXHR, status, thrownError) {
+                    // Handle any errors
+                    
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                    annotationProxy.log("Faild to POST cache for : " + targetURL);
+                    annotationProxy.log("Status Code: " + jqXHR.status);
+                    annotationProxy.log("Error : " + thrownError);
+                    
+                }
+            });
+        },
+        getTargets : function(aid, callback){
+            $.ajax({
+                type: "GET",
+                url: this.getBackend() + '/api/annotations/'+aid,
+                dataType: "xml",
+                success: function(xml, textStatus, jqXHR) {
+                    var targets = Array();
+                    
+                    $xml = $.parseXML(jqXHR.responseText);
+                    annotationProxy.log($xml);
+                    
+                    jQuery($xml).find('targetInfo').each(function() {
+                        annotationProxy.log(this);
+                        annotationProxy.log(this.getAttribute('ref'));
+                        
+                        targets.push(this.getAttribute('ref'));
+                    });
+                    callback.call(undefined, targets);                
+                }
+            });         
         },
         setBackend: function(url) {
             this.backend = url;

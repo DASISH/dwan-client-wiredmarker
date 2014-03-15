@@ -63,7 +63,29 @@ var annotationProxy = (function() {
         },
         postAnnotation: function(om_object) {
             var annotation = om_object2annotation(om_object);
-            annotationFramework.postAnnotation(annotation, om_object.oid);
+            annotationFramework.postAnnotation(annotation, om_object.oid, 
+                function(aid){
+                    annotationProxy.log('Annotation posted and returned AID: '+aid);
+                    annotationProxy.log('Geting target list for posting cache...');
+                    annotationFramework.getTargets(aid, 
+                        function(targets){
+                            var htmlDump = annotationProxy.getCurrentHtmlDocument();
+                            var cacheMetadata = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n\
+                                                 <cashedRepresentationInfo xmlns="http://www.dasish.eu/ns/addit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" URI="https://lux17.mpi.nl/ds/webannotator/api/cached/00000000-0000-0000-0000-000000000051" xsi:schemaLocation="http://www.dasish.eu/ns/addit https://svn.clarin.eu/DASISH/t5.6/schema/trunk/annotator-schema/src/main/resources/DASISH-schema.xsd">\n\
+                                                    <mimeType>text/plain</mimeType>\n\
+                                                    <tool>DWAN</tool>\n\
+                                                    <type>html</type>\n\
+                                                 </cashedRepresentationInfo>';
+                            annotationProxy.log(cacheMetadata);
+                            $.each(targets, function(index, targetURL){
+                                var xpointer = encodeURIComponent(om_object_xpointer(om_object));
+                                targetURL += '/fragment/placeholderForFragment/cached';
+                                
+                                annotationFramework.postCache(targetURL, htmlDump, cacheMetadata);
+                            });
+                    });
+                });
+            
         },
         updateAnnotation: function(om_object) {
             var aid = this.getAidFromOid(om_object.oid);
@@ -80,6 +102,12 @@ var annotationProxy = (function() {
             var rtn = bitsObjectMng.Database.selectB('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
             
             return rtn[0].dasish_aid;
+        },
+        getCurrentHtmlDocument : function(){
+            var xmlS = new XMLSerializer();
+            var temp = xmlS.serializeToString(document);
+            return temp;
+            
         },
         log: function(message) {
             //log to console

@@ -146,6 +146,25 @@ function om_object2annotation(om_object) {
     return annotation;
 }
 
+function om_object_xpointer(om_object){
+    var path = {};
+
+    om_object.bgn_dom.match(/(.+)\(([0-9]+)\)\(([0-9]+)\)/);
+    path.start = RegExp.$1;
+    path.startOffset = RegExp.$2;
+    path.startType = RegExp.$3;
+
+    om_object.end_dom.match(/(.+)\(([0-9]+)\)\(([0-9]+)\)/);
+    path.end = RegExp.$1;
+    path.endOffset = RegExp.$2;
+    path.endType = RegExp.$3;
+
+    var xpointer = "xpointer(start-point(string-range(" + path.start + "/text()[1],''," + path.startOffset + "))";
+    xpointer    += "/range-to(string-range(" + path.end + "/text()[1],''," + path.endOffset + ")))";    
+    
+    return xpointer;
+}
+
 function om_object_annotation_body(om_object){
     /*{
        "oid":"1145293257",
