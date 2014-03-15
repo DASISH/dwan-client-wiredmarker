@@ -55,10 +55,11 @@ var annotationFramework = (function() {
                 dataType: "xml",
                 success: function(xml, textStatus, jqXHR) {
                     $xml = $.parseXML(jqXHR.responseText);
-                    annotationProxy.log('GOT annotation in getAnnotation ');    
-                    annotationProxy.log($xml);
+                    annotationProxy.log('GOT annotation in getAnnotation :'+xml);    
+                    annotationProxy.log(xml);
                     var om_object = annotation2om_object($xml);
-                    
+                    annotationProxy.log('converted to om_object');
+                    annotationProxy.log(om_object);
                     callback.call(undefined, om_object);
                 },
                 error: function(error) {
@@ -69,11 +70,8 @@ var annotationFramework = (function() {
         },
         deleteAnnotationByOid: function(oid) {
             annotationProxy.log('entering DELETE for oid: '+oid);
-            var aid;
-            var aSql = 'select dasish_aid from om_object where oid="' + oid + '"';
-            var rtn = bitsObjectMng.Database.selectB("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+            var aid = annotationProxy.getAidFromOid(oid);
             
-            aid = rtn[0].dasish_aid;
             annotationProxy.log('Resolved the AID for oid: '+oid+' for aid: '+aid);
             if (aid) { // ajax request only for annotations posted to and available in backend database
                 return $.ajax({
@@ -120,10 +118,10 @@ var annotationFramework = (function() {
                     annotationProxy.log("AID: " + aid);
                     // Firebug.Console.log(bitsObjectMng.Database.getObject({oid: oid}));
 
-                    var aSql = 'update om_object set dasish_aid = "' + aid + '" where oid="' + oid + '"';
+                    var aSql = 'UPDATE om_object SET dasish_aid = "' + aid + '" WHERE oid="' + oid + '"';
                     annotationProxy.log(aSql);
                     // insert request to local sqlite database where aid gets inserted
-                    var rtn = bitsObjectMng.Database.cmd("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+                    var rtn = bitsObjectMng.Database.cmd('', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
                     annotationProxy.log('UPDATE of AID done');
                     annotationProxy.log(rtn);
                     // Database insert request is true if successful

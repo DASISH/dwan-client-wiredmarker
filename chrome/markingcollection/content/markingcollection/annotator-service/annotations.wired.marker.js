@@ -6,10 +6,10 @@ var annotationProxy = (function() {
          */
         getLoggedInInfo: function(){
             var user_placeholder = {
-                URI: 'https://lux17.mpi.nl/ds/webannotator/api/users/00000000-0000-0000-0000-0000000009999',
+                URI : 'https://lux17.mpi.nl/ds/webannotator/api/users/00000000-0000-0000-0000-0000000009999',
                 uid : '00000000-0000-0000-0000-0000000009999',
-                dislayName: 'Test Testsson',
-                eMail: 'test@test.com'
+                dislayName : 'Test Testsson',
+                eMail : 'test@test.com'
             };
             
             return user_placeholder;
@@ -24,15 +24,14 @@ var annotationProxy = (function() {
                     
                     $.each(annotations, function(index, annotationURL){
                        annotationFramework.getAnnotation(annotationURL, function(result){
-                           annotationProxy.log('got Annotation ');
+                           annotationProxy.log('checking if annotation exist in DB:');
                            annotationProxy.log(result);
-                           
-                           if(bitsObjectMng.Database._dasish_aid_exists('_uncategorized', result.dasish_aid, true)){
-                               annotationProxy.log('AID already in database : ' + result.dasish_aid);
-                           }else{
-                                bitsObjectMng.Database.addObject(result, 'dasish.remote', undefined);  
-                           }
-                           
+                           if(bitsObjectMng.Database._dasish_aid_exists('', result.dasish_aid, true)){
+                                annotationProxy.log('AID already in database : ' + result.dasish_aid);
+                            }else{
+                                annotationProxy.log('Adding annotation to database : ' + result.dasish_aid);
+                                bitsObjectMng.Database.addObject(result, '', undefined);  
+                            }   
                        });
                     });
                 }
@@ -65,7 +64,6 @@ var annotationProxy = (function() {
         postAnnotation: function(om_object) {
             var annotation = om_object2annotation(om_object);
             annotationFramework.postAnnotation(annotation, om_object.oid);
-            this.log('postAnnotation : ' + annotation);
         },
         updateAnnotation: function(om_object) {
             var aid = this.getAidFromOid(om_object.oid);
@@ -79,7 +77,7 @@ var annotationProxy = (function() {
         },
         getAidFromOid: function(oid){
             var aSql = 'SELECT dasish_aid FROM om_object WHERE oid="' + oid + '"';
-            var rtn = bitsObjectMng.Database.selectB("", aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+            var rtn = bitsObjectMng.Database.selectB('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
             
             return rtn[0].dasish_aid;
         },
