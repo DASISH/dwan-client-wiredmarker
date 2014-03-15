@@ -161,16 +161,31 @@ function om_object_annotation_body(om_object){
 
     style = RegExp.$3;
     //TODO: missing om_object.oid_txt
-    
-    
-    var annotationBody = 
-        '<?xml version="1.0" encoding="UTF-8"?>\n\
-            <body>\n\
-             <xmlBody>\n\
-                <mimeType>application/xml+xhtml</mimeType>\n\
-                <xhtml:span title="'+om_object.oid_txt+'" style="' + style + '">' + note + '</xhtml:span>\n\
-             </xmlBody>\n\
-         </body>';
+    /*
+<?xml version="1.0" encoding="UTF-8"?>
+<annotationBody xmlns="http://www.dasish.eu/ns/addit"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml/" 
+    xsi:schemaLocation="http://www.dasish.eu/ns/addit file:/Users/olhsha/repositories/DASISH/t5.6/schema/trunk/annotator-schema/src/main/resources/DASISH-schema.xsd">
+    <xmlBody mimeType="application/xml">
+        <any>
+            <xhtml:span style="background-color:rgb(0,0,153);color:rgb(255,255,255);border: thick solid rgb(0, 0, 153);">Some background information on Sagrada Família. attempt # 1</xhtml:span>
+        </any>
+    </xmlBody>
+</annotationBody>
+     */
+        
+    var annotationBody='<?xml version="1.0" encoding="UTF-8"?>\n\
+<annotationBody xmlns="http://www.dasish.eu/ns/addit"\n\
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n\
+    xmlns:xhtml="http://www.w3.org/1999/xhtml/" \n\
+    xsi:schemaLocation="http://www.dasish.eu/ns/addit file:/Users/olhsha/repositories/DASISH/t5.6/schema/trunk/annotator-schema/src/main/resources/DASISH-schema.xsd">\n\
+    <xmlBody mimeType="application/xml">\n\
+        <any>\n\
+            <xhtml:span title="'+om_object.oid_txt+'" style="' + style + '">' + note + '</xhtml:span>\n\
+        </any>\n\
+    </xmlBody>\n\
+</annotationBody>';
     
     return annotationBody;
 }
