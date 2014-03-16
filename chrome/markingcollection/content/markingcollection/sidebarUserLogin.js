@@ -1,10 +1,7 @@
 var UserLogin = {
     checkUserLogin: function() {
-        // var user = annotationProxy.getLoggedInInfo();
-        // alert("THIS is: " + user.dislayName + " with email: " + user.eMail);
-        var user = false;
-
-        if (user !== false) {
+        var user = annotationProxy.getLoggedInInfo(function(result) {
+            if(result === "401") {
             value = "You are logged in as " + user.dislayName + ".";
             var loginInfo = document.getElementById("loginInfo");
             var newLabel = document.createElement("label");
@@ -17,12 +14,10 @@ var UserLogin = {
             var newLabel = document.createElement("label");
             newLabel.setAttribute("value", value);
             newLabel.setAttribute("class", "loginLabel");
-
             newLabel.setAttribute("onclick", "UserLogin.openPopup()");
-
-
             loginInfo.appendChild(newLabel);
         }
+        });
     },
     openPopup: function() {
         var target = document.getElementById("loginInfo"); // description element id in sidebar.xul
