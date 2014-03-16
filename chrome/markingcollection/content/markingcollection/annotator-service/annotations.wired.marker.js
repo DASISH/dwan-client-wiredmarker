@@ -57,30 +57,6 @@ var annotationProxy = (function() {
                         });
                     }
             );
-
-            //if (bitsObjectMng.Database.existsObject(tmp, undefined)) {
-            //    this.log("annotationProxy annotation exists in the database");
-            //} else {
-            //    this.log("annotationProxy inserting annotation in the database");
-            //    bitsObjectMng.Database.addObject(tmp, '_uncategorized', undefined);
-            //}
-            /*
-             annotationFramework.getAnnotations({link: url, access: read}, function(result) {
-             var annotations = $(result);
-             
-             annotations.find('annotation').each(function() {
-             var aid = $(this).attr('ref').substr($(this).attr('ref').lastIndexOf('/') + 1);
-             
-             annotationFramework.getAnnotation(aid, function(annotation){
-             annotation.find('annotation').each(function() {
-             var om_object = annotation2om_object(this);
-             
-             //bitsObjectMng.Database.addObject
-             });
-             });
-             });
-             });
-             */
         },
         postAnnotation: function(om_object) {
             var annotation = om_object2annotation(om_object);

@@ -338,7 +338,7 @@ var bitsMarkingCollection = {
 			if(webProgress.isLoadingDocument) return;
                         
                         //TODO: not good palcement, realod occurs all the time!
-                        annotationProxy.getAnnotations(webProgress.DOMWindow.document.URL);//Get alla remote annotations 
+                        annotationProxy.getAnnotations(webProgress.DOMWindow.document.URL);//Get all annotations on a specific url
                         
 			bitsMarkingCollection.marking(webProgress.DOMWindow.document);
 			bitsObjectMng.Common.pageshow(webProgress.DOMWindow.document);
@@ -683,6 +683,8 @@ var bitsMarkingCollection = {
 			}
 			bitsMarkingCollection._init = true;
 			bitsMarkingCollection.Common.addPrefListener(bitsMarkingCollection.Observer);
+                        
+                        annotationProxy.getAnnotations('');//Get all annotations
 		}catch(ex){
 			this.Common.alert("bitsMarkingCollection.init():"+ex);
 		}

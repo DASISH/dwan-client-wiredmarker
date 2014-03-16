@@ -22,6 +22,12 @@ var annotationFramework = (function() {
         getAnnotations: function(url, callback) {
             annotationProxy.log('calling the annotation backend ');
             
+            //default get all
+            var requestURL = this.getBackend() + '/api/annotations';
+            if(url != '' || url === undefined){
+                requestURL += '?link='+url;
+            }
+            
             $.ajax({
                 type: "GET",
                 url: this.getBackend() + '/api/annotations?link='+url,
@@ -131,7 +137,7 @@ var annotationFramework = (function() {
                     // insert request to local sqlite database where aid gets inserted
                     if(bitsObjectMng.Database._idExists('local', oid, true)){
                         var rtn = bitsObjectMng.Database.cmd('local', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
-                        annotationProxy.log('UPDATE of AID done in '+annotationProxy.defaltDatabase);
+                        annotationProxy.log('UPDATE of AID done in local');
                     }else if(bitsObjectMng.Database._idExists('_uncategorized', oid, true)){
                          var rtn = bitsObjectMng.Database.cmd('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
                          annotationProxy.log('UPDATE of AID done in _uncategorized');
@@ -186,7 +192,7 @@ var annotationFramework = (function() {
                 data: data,
                 async: false,
                 cache: false,
-                contentType: false,
+                contentType: "application/xml",
                 processData: false,              
                 success: function(xml, textStatus, jqXHR) {
                     annotationProxy.log('RESULT FROM CACHE STUFF');

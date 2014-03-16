@@ -3596,7 +3596,7 @@ var bitsObjectMng = {
 		addObject : function(aObject,aMode,aTransaction){
                     annotationProxy.log("addObject aMode: "+aMode);
                     annotationProxy.log("addObject aTransaction: "+aTransaction);
-                    annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
+                    //annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
                     var postToRemote = true;
                     if(aMode == 'dwan' || aMode == ''){
                         aMode = '_uncategorized';
