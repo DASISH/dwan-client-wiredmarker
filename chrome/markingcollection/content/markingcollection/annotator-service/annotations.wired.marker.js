@@ -43,15 +43,14 @@ var annotationProxy = (function() {
                             annotationFramework.getAnnotation(annotationURL, function(result) {
                                 annotationProxy.log('checking if annotation exist in DB:');
                                 annotationProxy.log(result);
-                                if (bitsObjectMng.Database._dasish_aid_exists('', result.dasish_aid, true)) {
-                                    annotationProxy.log('AID already in database : ' + result.dasish_aid);
+                                
+                                //check if this annotation is already in the one of the local databases
+                                if (bitsObjectMng.Database._dasish_aid_exists(annotationProxy.defaltDatabase, result.dasish_aid, true)) {
+                                    annotationProxy.log('AID already in database '+annotationProxy.defaltDatabase+': ' + result.dasish_aid);
+                                }else if(bitsObjectMng.Database._dasish_aid_exists('_uncategorized', result.dasish_aid, true)){
+                                    annotationProxy.log('AID already in database _uncategorized: ' + result.dasish_aid);
                                 } else {
                                     annotationProxy.log('Adding annotation to database : ' + result.dasish_aid);
-                                    
-                                    var aSql = 'SELECT pfid, pfid_order, fid_title FROM om_folder WHERE fid_title = "Marker"';
-                                    var rtn = bitsObjectMng.Database.selectB(annotationProxy.defaltDatabase, aSql);
-                                    //var folder = rtn[0].fid_title;
-                                    
                                     bitsObjectMng.Database.addObject(result, annotationProxy.defaltDatabase, undefined);
                                 }
                             });
@@ -120,8 +119,14 @@ var annotationProxy = (function() {
         },
         getAidFromOid: function(oid) {
             var aSql = 'SELECT dasish_aid FROM om_object WHERE oid="' + oid + '"';
-            var rtn = bitsObjectMng.Database.selectB(annotationProxy.defaltDatabase, aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+            var rtn; 
 
+            if(bitsObjectMng.Database._idExists('local', oid, true)){
+                rtn = bitsObjectMng.Database.selectB('local', aSql);
+            }else if(bitsObjectMng.Database._idExists('_uncategorized', oid, true)){
+                 rtn = bitsObjectMng.Database.selectB('_uncategorized', aSql);
+            }
+            
             return rtn[0].dasish_aid;
         },
         getCurrentHtmlDocument : function(){

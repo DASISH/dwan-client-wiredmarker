@@ -3508,7 +3508,9 @@ var bitsObjectMng = {
 /////////////////////////////////////////////////////////////////////
 		_dasish_aid_exists : function(aMode,dasish_aid,aTransaction){
                         //helper function for finding existing annotations
-			if(aMode == undefined || aMode == "") aMode = 'local';
+                        var found = false;
+                        
+			if(aMode == undefined || aMode == "" || aMode == "dwan") aMode = 'local';
 			if(aTransaction == undefined) aTransaction = true;
 			var oSql = 'SELECT COUNT(dasish_aid) FROM om_object WHERE dasish_aid="'+dasish_aid+'"';
 			var oRtn = this.selectCount(aMode,oSql,aTransaction);
@@ -3596,8 +3598,11 @@ var bitsObjectMng = {
                     annotationProxy.log("addObject aTransaction: "+aTransaction);
                     annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
                     var postToRemote = true;
-                    if(aMode == 'dwan' || aMode == 'dasish.remote' || aMode == ''){
-                        aMode = 'local';
+                    if(aMode == 'dwan' || aMode == ''){
+                        aMode = '_uncategorized';
+                        postToRemote = false;
+                    }
+                    if(aObject.hasOwnProperty('dasish_aid')){
                         postToRemote = false;
                     }
                     
@@ -3961,6 +3966,7 @@ var bitsObjectMng = {
 									',om_object.oid_type' +
 									',om_object.oid_txt' +
 									',om_object.oid_date' +
+                                                                        ',om_object.dasish_aid' +
 									',"'+aMode+'" as dbtype' +
 									',om_folder.fid_style' +
 									',om_folder.fid_title' +
@@ -4216,6 +4222,7 @@ var bitsObjectMng = {
 									',om_object.oid_type' +
 									',om_object.oid_txt' +
 									',om_object.oid_date' +
+                                                                        ',om_object.dasish_aid' +
 									',"'+aMode+'" as dbtype' +
 									',om_folder.fid_style' +
 									',om_folder.fid_title' +
@@ -4280,6 +4287,7 @@ var bitsObjectMng = {
 									',om_object.oid_type' +
 									',om_object.oid_txt' +
 									',om_object.oid_date' +
+                                                                        ',om_object.dasish_aid' +
 									',"'+aMode+'" as dbtype' +
 									',om_folder.fid_style' +
 									' from om_object' +
