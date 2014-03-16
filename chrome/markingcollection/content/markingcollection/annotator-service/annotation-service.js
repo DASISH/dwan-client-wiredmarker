@@ -47,6 +47,14 @@ var annotationFramework = (function() {
                 }
             });
         },
+        logout : function(){
+          $.ajax({
+                type: "GET",
+                url: this.getBackend() + '/api/authentication/logout',
+                success: function(xml, textStatus, jqXHR) {},
+                error: function(jqXHR, status, thrownError) {}
+            });
+        },
         getAnnotation: function(annotationURL, callback) {
             annotationProxy.log('getAnnotation '+annotationURL);
             $.ajax({
@@ -163,14 +171,17 @@ var annotationFramework = (function() {
             var data = new FormData();
             data.append('metadata', cacheMetadata);
             data.append('cache', cache);
-            annotationProxy.log('-POST '+targetURL+'/cached');
+            annotationProxy.log('POST cache to '+targetURL);
+            annotationProxy.log(data);
+            
             $.ajax({
                 type: "POST",
                 url: targetURL,
                 data: data,
+                async: false,
                 cache: false,
                 contentType: false,
-                processData: false,               
+                processData: false,              
                 success: function(xml, textStatus, jqXHR) {
                     annotationProxy.log('RESULT FROM CACHE STUFF');
                     annotationProxy.log("Status Code POST request: " + jqXHR.status);
