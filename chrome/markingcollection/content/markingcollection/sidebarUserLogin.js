@@ -1,22 +1,22 @@
 var UserLogin = {
     checkUserLogin: function() {
         var user = annotationProxy.getLoggedInInfo(function(result) {
-            if(result === "401") {
-            value = "You are logged in as " + user.dislayName + ".";
-            var loginInfo = document.getElementById("loginInfo");
-            var newLabel = document.createElement("label");
-            newLabel.setAttribute("value", value);
-            newLabel.setAttribute("class", "loggedIn");
-            loginInfo.appendChild(newLabel);
-        } else {
-            value = "Please sign in to the DASISH annotation server.";
-            var loginInfo = document.getElementById("loginInfo");
-            var newLabel = document.createElement("label");
-            newLabel.setAttribute("value", value);
-            newLabel.setAttribute("class", "loginLabel");
-            newLabel.setAttribute("onclick", "UserLogin.openPopup()");
-            loginInfo.appendChild(newLabel);
-        }
+            if (result !== 401) {
+                value = "You are logged in as " + user.dislayName + ".";
+                var loginInfo = document.getElementById("loginInfo");
+                var newLabel = document.createElement("label");
+                newLabel.setAttribute("value", value);
+                newLabel.setAttribute("class", "loggedIn");
+                loginInfo.appendChild(newLabel);
+            } else {
+                value = "Please sign in to the DASISH annotation server.";
+                var loginInfo = document.getElementById("loginInfo");
+                var newLabel = document.createElement("label");
+                newLabel.setAttribute("value", value);
+                newLabel.setAttribute("class", "loginLabel");
+                newLabel.setAttribute("onclick", "UserLogin.openPopup()");
+                loginInfo.appendChild(newLabel);
+            }
         });
     },
     openPopup: function() {
