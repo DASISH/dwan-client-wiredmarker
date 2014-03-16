@@ -19,7 +19,7 @@ function annotation2om_object(annotation) {
         oid_txt: "", //must be the marked text!
         oid_img: null,
         oid_date: "",
-        pfid_order: 4
+        pfid_order: 8
     };
 
     //example anchor:

@@ -1,5 +1,6 @@
 var annotationProxy = (function() {
     return {
+        defaltDatabase : 'dwan',
         /***
          * Get current user info
          * @returns {undefined} false if user in not loged in. user object if loged in
@@ -18,6 +19,7 @@ var annotationProxy = (function() {
                     // alert("statusCode in ajax error method: " + jqXHR.status);
                     callback.call(undefined, jqXHR.status);
                 }
+                
             });
             
             var user_placeholder = {
@@ -45,7 +47,12 @@ var annotationProxy = (function() {
                                     annotationProxy.log('AID already in database : ' + result.dasish_aid);
                                 } else {
                                     annotationProxy.log('Adding annotation to database : ' + result.dasish_aid);
-                                    bitsObjectMng.Database.addObject(result, '', undefined);
+                                    
+                                    var aSql = 'SELECT pfid, pfid_order, fid_title FROM om_folder WHERE fid_title = "Marker"';
+                                    var rtn = bitsObjectMng.Database.selectB(annotationProxy.defaltDatabase, aSql);
+                                    //var folder = rtn[0].fid_title;
+                                    
+                                    bitsObjectMng.Database.addObject(result, annotationProxy.defaltDatabase, undefined);
                                 }
                             });
                         });
@@ -100,7 +107,6 @@ var annotationProxy = (function() {
                             });
                     });
                 });
-            
         },
         updateAnnotation: function(om_object) {
             var aid = this.getAidFromOid(om_object.oid);
@@ -114,7 +120,7 @@ var annotationProxy = (function() {
         },
         getAidFromOid: function(oid) {
             var aSql = 'SELECT dasish_aid FROM om_object WHERE oid="' + oid + '"';
-            var rtn = bitsObjectMng.Database.selectB('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+            var rtn = bitsObjectMng.Database.selectB(annotationProxy.defaltDatabase, aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
 
             return rtn[0].dasish_aid;
         },

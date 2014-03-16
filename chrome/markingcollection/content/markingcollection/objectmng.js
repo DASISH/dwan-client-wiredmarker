@@ -3508,7 +3508,7 @@ var bitsObjectMng = {
 /////////////////////////////////////////////////////////////////////
 		_dasish_aid_exists : function(aMode,dasish_aid,aTransaction){
                         //helper function for finding existing annotations
-			if(aMode == undefined || aMode == "") aMode = '_uncategorized';
+			if(aMode == undefined || aMode == "") aMode = 'local';
 			if(aTransaction == undefined) aTransaction = true;
 			var oSql = 'SELECT COUNT(dasish_aid) FROM om_object WHERE dasish_aid="'+dasish_aid+'"';
 			var oRtn = this.selectCount(aMode,oSql,aTransaction);
@@ -3596,8 +3596,8 @@ var bitsObjectMng = {
                     annotationProxy.log("addObject aTransaction: "+aTransaction);
                     annotationProxy.log("addObject aObject: "+JSON.stringify(aObject, null, '  '));
                     var postToRemote = true;
-                    if(aMode == 'dasish.remote' || aMode == ''){
-                        aMode = '_uncategorized';
+                    if(aMode == 'dwan' || aMode == 'dasish.remote' || aMode == ''){
+                        aMode = 'local';
                         postToRemote = false;
                     }
                     
