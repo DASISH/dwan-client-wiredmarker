@@ -4,37 +4,52 @@ var annotationProxy = (function() {
          * Get current user info
          * @returns {undefined} false if user in not loged in. user object if loged in
          */
-        getLoggedInInfo: function(){
-            var user_placeholder = {
-                URI : 'https://lux17.mpi.nl/ds/webannotator/api/users/00000000-0000-0000-0000-0000000009999',
-                uid : '00000000-0000-0000-0000-0000000009999',
-                dislayName : 'Test Testsson',
-                eMail : 'test@test.com'
-            };
+        getLoggedInInfo: function(callback) {  
+            var authURL = annotationFramework.getBackend() + "/api/authentication/user";
+            $.ajax({
+                type: 'GET',
+                url: authURL,
+                dataType: "xml",
+                success: function(xml ,textStatus, jqXHR) {
+                   $xml = $.parseXML(jqXHR.responseText);
+                   // alert(JSON.stringify($xml));
+                },
+                error: function(jqXHR, status, thrownError) {
+                    // alert("statusCode in ajax error method: " + jqXHR.status);
+                    callback.call(undefined, jqXHR.status);
+                }
+            });
             
+            var user_placeholder = {
+                URI: 'https://lux17.mpi.nl/ds/webannotator/api/users/00000000-0000-0000-0000-0000000009999',
+                uid: '00000000-0000-0000-0000-0000000009999',
+                dislayName: 'Test Testsson',
+                eMail: 'test@test.com'
+            }; 
+
             return user_placeholder;
         },
         getAnnotations: function(url) {
             annotationProxy.log('getAnnotations for: ' + url);
 
-            annotationFramework.getAnnotations(url, 
-                function(annotations){
-                    annotationProxy.log('got annotations ');
-                    annotationProxy.log(annotations);
-                    
-                    $.each(annotations, function(index, annotationURL){
-                       annotationFramework.getAnnotation(annotationURL, function(result){
-                           annotationProxy.log('checking if annotation exist in DB:');
-                           annotationProxy.log(result);
-                           if(bitsObjectMng.Database._dasish_aid_exists('', result.dasish_aid, true)){
-                                annotationProxy.log('AID already in database : ' + result.dasish_aid);
-                            }else{
-                                annotationProxy.log('Adding annotation to database : ' + result.dasish_aid);
-                                bitsObjectMng.Database.addObject(result, '', undefined);  
-                            }   
-                       });
-                    });
-                }
+            annotationFramework.getAnnotations(url,
+                    function(annotations) {
+                        annotationProxy.log('got annotations ');
+                        annotationProxy.log(annotations);
+
+                        $.each(annotations, function(index, annotationURL) {
+                            annotationFramework.getAnnotation(annotationURL, function(result) {
+                                annotationProxy.log('checking if annotation exist in DB:');
+                                annotationProxy.log(result);
+                                if (bitsObjectMng.Database._dasish_aid_exists('', result.dasish_aid, true)) {
+                                    annotationProxy.log('AID already in database : ' + result.dasish_aid);
+                                } else {
+                                    annotationProxy.log('Adding annotation to database : ' + result.dasish_aid);
+                                    bitsObjectMng.Database.addObject(result, '', undefined);
+                                }
+                            });
+                        });
+                    }
             );
 
             //if (bitsObjectMng.Database.existsObject(tmp, undefined)) {
@@ -90,17 +105,17 @@ var annotationProxy = (function() {
         updateAnnotation: function(om_object) {
             var aid = this.getAidFromOid(om_object.oid);
             this.log('updateAnnotation : ' + JSON.stringify(om_object));
-            this.log('UPDATED ANNOTATION AS XML (aid: '+aid+')');
+            this.log('UPDATED ANNOTATION AS XML (aid: ' + aid + ')');
             var xml = om_object_annotation_body(om_object);
-            
+
             this.log(xml);
-            
+
             annotationFramework.putAnnotation(aid, xml);
         },
-        getAidFromOid: function(oid){
+        getAidFromOid: function(oid) {
             var aSql = 'SELECT dasish_aid FROM om_object WHERE oid="' + oid + '"';
             var rtn = bitsObjectMng.Database.selectB('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
-            
+
             return rtn[0].dasish_aid;
         },
         getCurrentHtmlDocument : function(){
@@ -111,17 +126,17 @@ var annotationProxy = (function() {
         },
         log: function(message) {
             //log to console
-            if (typeof Firebug!='undefined' && Firebug.Console) {
+            if (typeof Firebug != 'undefined' && Firebug.Console) {
                 Firebug.Console.log(message);
             }
             //log this to the local proxy
             /*
-            $.ajax({
-                type: "POST",
-                url: 'http://localhost/annotations/annotator-service/test/proxy.php',
-                data: {log: 'true', message: message}
-            });
-            */
+             $.ajax({
+             type: "POST",
+             url: 'http://localhost/annotations/annotator-service/test/proxy.php',
+             data: {log: 'true', message: message}
+             });
+             */
         }
     }
 }());
