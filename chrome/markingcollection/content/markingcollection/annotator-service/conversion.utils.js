@@ -137,11 +137,7 @@ function om_object2annotation(om_object) {
                                     <version>' + timestamp.toISOString() + '</version>\n\
                                 </targetInfo>\n\
                             </targets>\n\
-                            <permissions>\n\
-                                <userWithPermission ref="' + annotationFramework.getBackend() + '/api/users/00000000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00">\n\
-                                    <permission>owner</permission>\n\
-                                </userWithPermission>\n\
-                            </permissions>\n\
+                            <permissions/>\n\
                       </annotation>';
     return annotation;
 }
