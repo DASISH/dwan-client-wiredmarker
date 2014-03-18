@@ -82,6 +82,7 @@ var annotationProxy = (function() {
                                 annotationProxy.log(xpointer);
                                 targetURL += '/fragment/'+xpointer+'/cached';
                                 
+                                //cache html-dump
                                 annotationFramework.postCache(targetURL, cacheMetadata, htmlDump, cacheMimeType);
                             });
                     });

@@ -71,6 +71,7 @@
 	]]>
     </script>
     <description id="loginInfo"></description>
+    <button label="Login" oncommand='window.openDialog("chrome://markingcollection/content/loginDialog.xul", "", "chrome,centerscreen,modal", {});'/>
     <stringbundleset id="mcStringBundles">
         <stringbundle id="mcMainString" src="chrome://markingcollection/locale/markingcollection.properties" />
     </stringbundleset>

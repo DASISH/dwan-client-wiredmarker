@@ -1,5 +1,5 @@
 var bitsAutocacheObserver = {
-	domain  : 'wiredmarker', //"objectmng.xxx"という名前の設定が変更された場合全てで処理を行う
+	domain  : 'wiredmarker', //"objectmng.xxx"という名前の設定が変更された場合全てで処理を行う //I do treatment at all if the setting named has changed
 	observe : function(aSubject, aTopic, aPrefstring) {
 		try{
 			if (aTopic == 'nsPref:changed') {
@@ -204,6 +204,7 @@ var bitsAutocacheService = {
 
 /////////////////////////////////////////////////////////////////////
 // 指定URLがキャッシュドキュメントへのURLか
+// Specified URL is the URL of the document for the cache
 /////////////////////////////////////////////////////////////////////
 	isCacheURL : function(aURLString){
 		if(!aURLString || !aURLString.match(/^file:/)) return false;
@@ -220,6 +221,7 @@ var bitsAutocacheService = {
 
 /////////////////////////////////////////////////////////////////////
 // キャッシュドキュメントの場合、マーキングするか
+// If the cache document or marking
 /////////////////////////////////////////////////////////////////////
 	isMarking : function(aURLString){
 		
@@ -263,6 +265,7 @@ var bitsAutocacheService = {
 
 /////////////////////////////////////////////////////////////////////
 // 指定した日時のキャッシュが存在するか
+// Cache of a specified date and time exists
 /////////////////////////////////////////////////////////////////////
 	existsCache : function(aURLString,aTimeStamp){
 		if(!aURLString){
@@ -287,10 +290,12 @@ var bitsAutocacheService = {
 
 /////////////////////////////////////////////////////////////////////
 // ドキュメントを開いた日時
+// Date and time the document is opened
 /////////////////////////////////////////////////////////////////////
 	getURLTimeStamp : function(aURLString){
 		if(!aURLString) return undefined;
 		// キャッシュの場合、キャッシュした日時を返す
+                // The case of a cache, I return the date and time for which the cache
 		if(this.isCacheURL(aURLString)){
 			var file = this.getSaveCacheInfoFile(aURLString);
 			if(file && file.parent) return file.parent.leafName;
@@ -312,6 +317,7 @@ var bitsAutocacheService = {
 
 /////////////////////////////////////////////////////////////////////
 // キャッシュURLをオリジナルのURLへ変換
+// The conversion to the URL of the original cache URL
 /////////////////////////////////////////////////////////////////////
 	convertCacheURLToOriginalURL : function(aURLString){
 		if(!aURLString) return undefined;
@@ -345,6 +351,7 @@ var bitsAutocacheService = {
 
 /////////////////////////////////////////////////////////////////////
 // URLとタイムスタンプでフォルダ
+// Folder timestamp and URL
 /////////////////////////////////////////////////////////////////////
 	getURLCacheDirFromTimeStamp : function(aURLString,aTimeStamp){
 		if(!aURLString || !aTimeStamp) return undefined;
@@ -441,6 +448,7 @@ var bitsAutocacheService = {
 
 /////////////////////////////////////////////////////////////////////
 // 指定した日時の直前のタイムスタンプ
+// Time stamp just before the specified date and time
 /////////////////////////////////////////////////////////////////////
 	getApproximateCacheTimeStamp : function(aURLString,aTimeStamp){
 		if(!aURLString || !aTimeStamp) return undefined;
@@ -3569,5 +3577,3 @@ bitsAutocacheDocument.prototype = {
 		window.top.bitsMarkingCollection._dump(aString);
 	},
 };
-
-
