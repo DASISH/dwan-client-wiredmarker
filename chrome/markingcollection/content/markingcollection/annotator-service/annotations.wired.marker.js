@@ -111,7 +111,7 @@ var annotationProxy = (function() {
         },
         getCurrentHtmlDocument : function(){
             var xmlS = new XMLSerializer();
-            var temp = xmlS.serializeToString(document);
+            var temp = xmlS.serializeToString(bitsAutocacheService.gBrowser.contentDocument);
             return temp;
         },
         log: function(message) {
