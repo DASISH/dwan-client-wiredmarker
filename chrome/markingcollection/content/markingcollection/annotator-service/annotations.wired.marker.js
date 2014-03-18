@@ -19,7 +19,6 @@ var annotationProxy = (function() {
                     // alert("statusCode in ajax error method: " + jqXHR.status);
                     callback.call(undefined, jqXHR.status);
                 }
-                
             });
             
             var user_placeholder = {
@@ -35,27 +34,27 @@ var annotationProxy = (function() {
             annotationProxy.log('getAnnotations for: ' + url);
 
             annotationFramework.getAnnotations(url,
-                    function(annotations) {
-                        annotationProxy.log('got annotations ');
-                        annotationProxy.log(annotations);
+                function(annotations) {
+                    annotationProxy.log('got annotations ');
+                    annotationProxy.log(annotations);
 
-                        $.each(annotations, function(index, annotationURL) {
-                            annotationFramework.getAnnotation(annotationURL, function(result) {
-                                annotationProxy.log('checking if annotation exist in DB:');
-                                annotationProxy.log(result);
-                                
-                                //check if this annotation is already in the one of the local databases
-                                if (bitsObjectMng.Database._dasish_aid_exists(annotationProxy.defaltDatabase, result.dasish_aid, true)) {
-                                    annotationProxy.log('AID already in database '+annotationProxy.defaltDatabase+': ' + result.dasish_aid);
-                                }else if(bitsObjectMng.Database._dasish_aid_exists('_uncategorized', result.dasish_aid, true)){
-                                    annotationProxy.log('AID already in database _uncategorized: ' + result.dasish_aid);
-                                } else {
-                                    annotationProxy.log('Adding annotation to database : ' + result.dasish_aid);
-                                    bitsObjectMng.Database.addObject(result, annotationProxy.defaltDatabase, undefined);
-                                }
-                            });
+                    $.each(annotations, function(index, annotationURL) {
+                        annotationFramework.getAnnotation(annotationURL, function(result) {
+                            annotationProxy.log('checking if annotation exist in DB:');
+                            annotationProxy.log(result);
+
+                            //check if this annotation is already in the one of the local databases
+                            if (bitsObjectMng.Database._dasish_aid_exists(annotationProxy.defaltDatabase, result.dasish_aid, true)) {
+                                annotationProxy.log('AID already in database '+annotationProxy.defaltDatabase+': ' + result.dasish_aid);
+                            }else if(bitsObjectMng.Database._dasish_aid_exists('_uncategorized', result.dasish_aid, true)){
+                                annotationProxy.log('AID already in database _uncategorized: ' + result.dasish_aid);
+                            } else {
+                                annotationProxy.log('Adding annotation to database : ' + result.dasish_aid);
+                                bitsObjectMng.Database.addObject(result, annotationProxy.defaltDatabase, undefined);
+                            }
                         });
-                    }
+                    });
+                }
             );
         },
         postAnnotation: function(om_object) {
@@ -66,19 +65,24 @@ var annotationProxy = (function() {
                     annotationProxy.log('Geting target list for posting cache...');
                     annotationFramework.getTargets(aid, 
                         function(targets){
+                            //POST cache representation for HTML
                             var htmlDump = annotationProxy.getCurrentHtmlDocument();
-                            var cacheMetadata = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n\
-                                                 <cashedRepresentationInfo xmlns="http://www.dasish.eu/ns/addit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" URI="https://lux17.mpi.nl/ds/webannotator/api/cached/00000000-0000-0000-0000-000000000051" xsi:schemaLocation="http://www.dasish.eu/ns/addit https://svn.clarin.eu/DASISH/t5.6/schema/trunk/annotator-schema/src/main/resources/DASISH-schema.xsd">\n\
-                                                    <mimeType>text/plain</mimeType>\n\
-                                                    <tool>DWAN</tool>\n\
-                                                    <type>html</type>\n\
-                                                 </cashedRepresentationInfo>';
-                            annotationProxy.log(cacheMetadata);
+                            var cacheMetadata = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'+
+                                                '<cashedRepresentationInfo xmlns="http://www.dasish.eu/ns/addit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n'+
+                                                '    URI="tmpNewCacheURI" xsi:schemaLocation="http://www.dasish.eu/ns/addit https://svn.clarin.eu/DASISH/t5.6/schema/trunk/annotator-schema/src/main/resources/DASISH-schema.xsd">\n'+
+                                                '    <mimeType>text/html</mimeType>\n'+
+                                                '    <tool>DWAN</tool>\n'+
+                                                '    <type>html</type>\n'+
+                                                '</cashedRepresentationInfo>';
+                            var cacheMimeType = 'text/html';
                             $.each(targets, function(index, targetURL){
                                 var xpointer = encodeURIComponent(om_object_xpointer(om_object));
-                                targetURL += '/fragment/placeholderForFragment/cached';
                                 
-                                annotationFramework.postCache(targetURL, htmlDump, cacheMetadata);
+                                var xpointer = xpointer.replace(/%/g,'--');
+                                annotationProxy.log(xpointer);
+                                targetURL += '/fragment/'+xpointer+'/cached';
+                                
+                                annotationFramework.postCache(targetURL, cacheMetadata, htmlDump, cacheMimeType);
                             });
                     });
                 });
@@ -109,7 +113,6 @@ var annotationProxy = (function() {
             var xmlS = new XMLSerializer();
             var temp = xmlS.serializeToString(document);
             return temp;
-            
         },
         log: function(message) {
             //log to console

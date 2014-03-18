@@ -179,36 +179,25 @@ var annotationFramework = (function() {
                 }
             });
         },
-        postCache: function(targetURL, cacheMetadata, cache){
-            var data = new FormData();
-            data.append('metadata', cacheMetadata);
-            data.append('cache', cache);
-            annotationProxy.log('POST cache to '+targetURL);
-            annotationProxy.log(data);
+        postCache: function(targetURL, cacheMetadata, cache, cacheMimeType){
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                annotationProxy.log("Cache POST status: "+xhr.status);
+            };
+            xhr.open("POST", targetURL, true);
             
-            $.ajax({
-                type: "POST",
-                url: targetURL,
-                data: data,
-                async: false,
-                cache: false,
-                contentType: "application/xml",
-                processData: false,              
-                success: function(xml, textStatus, jqXHR) {
-                    annotationProxy.log('RESULT FROM CACHE STUFF');
-                    annotationProxy.log("Status Code POST request: " + jqXHR.status);
-                    annotationProxy.log("Response Body: " + jqXHR.responseText);
-                },
-                error: function(jqXHR, status, thrownError) {
-                    // Handle any errors
-                    
-                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                    annotationProxy.log("Faild to POST cache for : " + targetURL);
-                    annotationProxy.log("Status Code: " + jqXHR.status);
-                    annotationProxy.log("Error : " + thrownError);
-                    
-                }
-            });
+            xhr.setRequestHeader("Content-Type","multipart/mixed; boundary="+boundary);
+            
+            //build the multipart body
+            var boundary = '---------------------------'+Date.now();
+            var postBody = '--'+boundary+'\n' +
+                           'Content-Type:application/xml\n\n' +
+                           cacheMetadata+'\n\n' +
+                           '--'+boundary+'\n' +
+                           'Content-Type:'+cacheMimeType+'\n\n' +
+                           cache+'\n\n' +
+                           '--'+boundary+'--';
+            xhr.send(postBody);
         },
         getTargets : function(aid, callback){
             $.ajax({
