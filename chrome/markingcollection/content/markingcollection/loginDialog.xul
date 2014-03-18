@@ -5,15 +5,8 @@
 	id="tagoutputDialog"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	xmlns:html="http://www.w3.org/1999/xhtml"
-	title="Login"
-	onload="tagoutputDialog.init();"
-	ondialogaccept="return tagoutputDialog.accept();"
-	ondialogcancel="return tagoutputDialog.cancel();">
+	title="Login">
     
-	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
-	<script type="application/x-javascript" src="chrome://markingcollection/content/tagoutputDialog.js"/>
-	<stringbundleset id="tagoutputDialogStringBundles">
-		<stringbundle id="tagoutputDialogString" src="chrome://markingcollection/locale/markingcollection.properties" />
-	</stringbundleset>
+
 	<iframe height="500" width="650" type="content" src="https://lux17.mpi.nl/ds/webannotator/api/authentication/login" flex="2" id="browserTable" name="table_frame"/>
 </dialog>
