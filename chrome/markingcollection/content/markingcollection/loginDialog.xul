@@ -2,11 +2,34 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
 <!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
 <dialog
-	id="tagoutputDialog"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	xmlns:html="http://www.w3.org/1999/xhtml"
-	title="Login">
-    
-
-	<iframe height="500" width="650" type="content" src="https://lux17.mpi.nl/ds/webannotator/api/authentication/login" flex="2" id="browserTable" name="table_frame"/>
+    id="tagoutputDialog"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    title="Login"
+    onload="loginLoad()">
+    <script type="application/x-javascript">
+            <![CDATA[       
+                function loginLoad() {
+                    //navigate to login page from the params
+                    document.getElementById("loginIframe").setAttribute("src", window.arguments[0].backend+"/api/authentication/login");                   
+                }
+               
+                window.addEventListener("load",Listen,false);
+                
+                function Listen(){
+                    var frame = document.getElementById("loginIframe");
+                    frame.addEventListener("DOMContentLoaded", DomLoadedEventHandler, true);                                             
+                }
+ 
+                function DomLoadedEventHandler() {
+                    var frame = document.getElementById("loginIframe");
+                    alert("Current url: "+frame.contentDocument.location.href);
+                    alert("target url: "+window.arguments[0].backend+'/api');
+                    if(frame.contentDocument.location.href == window.arguments[0].backend+'/api'){
+                        alert("login done");
+                    }
+                }
+            ]]>
+    </script>
+    <iframe id="loginIframe" height="500" width="650" type="content" src="" flex="2" />
 </dialog>
