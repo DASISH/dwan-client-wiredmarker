@@ -183,13 +183,14 @@ var annotationFramework = (function() {
             var xhr = new XMLHttpRequest();
             xhr.onload = function() {
                 annotationProxy.log("Cache POST status: "+xhr.status);
+                annotationProxy.log("Cache POST status: "+xhr.responseText);
             };
             xhr.open("POST", targetURL, true);
             
+            var boundary = '---------------------------'+Date.now();
             xhr.setRequestHeader("Content-Type","multipart/mixed; boundary="+boundary);
             
             //build the multipart body
-            var boundary = '---------------------------'+Date.now();
             var postBody = '--'+boundary+'\n' +
                            'Content-Type:application/xml\n\n' +
                            cacheMetadata+'\n\n' +
