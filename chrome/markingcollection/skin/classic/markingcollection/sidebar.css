@@ -7,15 +7,32 @@ treechildren::-moz-tree-cell-text(Marker) { color: #0000ff; }
   border-bottom: 1px solid #e3efff;
   min-height: 18px;
 }
+
 /* ::::: DASISH LOGIN LABEL ::::: */
-.loginLabel, .loggedIn {
+
+#loginInfo {
+    border-top: 1px solid #F89015;
+    border-bottom: 1px solid #F89015;
+}
+
+.notLoggedIn {
     background-color: #F89015;
     color: #1B76BC;
     border-radius: 5px;
     box-shadow: 0px 0px 2px 2px #aaa;
     margin: 15px 7px;
+    margin-bottom: 5px;
     padding: 10px;
     font-size: 12px;
+    width: auto;
+}
+
+.loginButton {
+    margin-bottom: 15px;
+}
+
+.loginButton:hover {
+    cursor: pointer;
 }
 
 .loggedIn {
@@ -23,12 +40,15 @@ treechildren::-moz-tree-cell-text(Marker) { color: #0000ff; }
     color: #ffffff;
 }
 
-.loginLabel:hover {
+/*
+#loginLabel:hover {
     cursor: pointer;
     background-color: #1B76BC;
     color: #ffffff;
     box-shadow: inset -2px -2px 2px #999;
 }
+*/
+
 /* ::::: END: DASISH LOGIN LABEL ::::: */
 
 #bitsItemTree treechildren::-moz-tree-row(folder) {
