@@ -19,16 +19,16 @@ var UserLogin = {
                 loginStatus.setAttribute("value", result.user.dislayName);
 
                 // Hide login button
-                document.getElementById("loginButton").hidden = true; 
-                document.getElementById("logoutButton").hidden = false; 
-                     
-                
-             
+                document.getElementById("loginButton").hidden = true;
+                document.getElementById("logoutButton").hidden = false;
+
+
+
                 // user is not logged in
             } else if (result.status === 401) {
-                document.getElementById("loginButton").hidden = false; 
-                document.getElementById("logoutButton").hidden = true; 
-                     
+                document.getElementById("loginButton").hidden = false;
+                document.getElementById("logoutButton").hidden = true;
+
                 // Label element with status information
                 var loginStatus = document.getElementById("loginStatus");
                 var value = "Please sign in to the DASISH annotation server.";
@@ -43,11 +43,23 @@ var UserLogin = {
                 loginButton.setAttribute("class", "loginButton");
                 loginButton.setAttribute("width", "300");
 
-                // Logout button hidden
-                var logoutButton = document.getElementById("logoutButton");
-                logoutButton.setAttribute("hidden", true);
-
             } else { // server connection timeout, server error 500+, or other
+                document.getElementById("loginButton").hidden = false;
+                document.getElementById("logoutButton").hidden = true;
+
+                // Label element with status information
+                var loginStatus = document.getElementById("loginStatus");
+                var value = "Please sign in to the DASISH annotation server.";
+                loginStatus.setAttribute("value", value);
+                loginStatus.setAttribute("class", "notLoggedIn");
+                // TODO: Flexible width style or other solution?
+                loginStatus.setAttribute("width", "300");
+
+                // Button for login into backend
+                var loginButton = document.getElementById("loginButton");
+                loginButton.setAttribute("label", "Login");
+                loginButton.setAttribute("class", "loginButton");
+                loginButton.setAttribute("width", "300");
                 // TODO: Refine alert. Maybe some type of XUL window? Should the server admin mail address be given?
                 alert("There might be some trouble with the server connection for " + annotationFramework.getBackend() + ". Please try again later or ask your server administrator for assistance.");
             }
