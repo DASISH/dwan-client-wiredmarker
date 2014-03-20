@@ -95,8 +95,8 @@
     <description id="loginInfo">
         <label id="loginStatus"/>
         <!-- TODO: Check on performance: opening dialogue takes too long at times. -->
-        <button id="loginButton" oncommand="openLoginDialog();"/>
-        <button id="logoutButton" label="Logout" oncommand="logout();"/>
+        <button id="loginButton"  label="Login" oncommand="openLoginDialog();"/>
+        <button id="logoutButton" label="Logout" oncommand="logout();" hidden="true"/>
     </description>
     
     <stringbundleset id="mcStringBundles">

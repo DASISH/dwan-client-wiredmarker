@@ -28,6 +28,7 @@
                     if(frame.contentDocument.location.href == window.arguments[0].backend+'/api'){
                         var p = window.arguments[0];
                         p.callback(); 
+                        window.close();
                     }
                 }
                 
