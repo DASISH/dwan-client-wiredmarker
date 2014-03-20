@@ -26,7 +26,9 @@ var UserLogin = {
              
                 // user is not logged in
             } else if (result.status === 401) {
-
+                document.getElementById("loginButton").hidden = false; 
+                document.getElementById("logoutButton").hidden = true; 
+                     
                 // Label element with status information
                 var loginStatus = document.getElementById("loginStatus");
                 var value = "Please sign in to the DASISH annotation server.";
