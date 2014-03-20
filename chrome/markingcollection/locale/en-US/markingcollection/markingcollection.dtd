@@ -257,6 +257,7 @@
 <!ENTITY markingcollection.autocache.tooltiptext "Caching">
 <!ENTITY markingcollection.autocache.open "Open cache">
 <!ENTITY markingcollection.autocache.open.newtab "Open a new tab">
+<!ENTITY markingcollection.autocache.open.remotenewtab "Open remote cache">
 <!ENTITY markingcollection.autocache.past "Cache list">
 <!ENTITY markingcollection.autocache.disabled "Disabled">
 <!ENTITY markingcollection.autocache.switching "Manually">

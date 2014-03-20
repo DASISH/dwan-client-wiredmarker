@@ -58,7 +58,9 @@ var annotationFramework = (function() {
                 type: "GET",
                 url: this.getBackend() + '/api/authentication/logout',
                 success: function(xml, textStatus, jqXHR) {},
-                error: function(jqXHR, status, thrownError) {}
+                error: function(jqXHR, status, thrownError) {
+                    alert('Logout failed. Status code: '+jqXHR.status);
+                }
             });
         },
         getAnnotation: function(annotationURL, callback) {
@@ -124,7 +126,7 @@ var annotationFramework = (function() {
                     var aid = response[response.length - 1];
 
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                    annotationProxy.log("Status Code POST request: " + jqXHR.status);
+                    annotationProxy.log("Status Code POST annotation request: " + jqXHR.status);
                     annotationProxy.log("Response Body: " + jqXHR.responseText);
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
 
@@ -143,7 +145,6 @@ var annotationFramework = (function() {
                          annotationProxy.log('UPDATE of AID done in _uncategorized');
                     }
                     
-                    annotationProxy.log(rtn);
                     // Database insert request is true if successful
                     // Firebug.Console.log(rtn);
                     callback.call(undefined, aid);  
@@ -183,7 +184,6 @@ var annotationFramework = (function() {
             var xhr = new XMLHttpRequest();
             xhr.onload = function() {
                 annotationProxy.log("Cache POST status: "+xhr.status);
-                annotationProxy.log("Cache POST status: "+xhr.responseText);
             };
             xhr.open("POST", targetURL, true);
             
@@ -209,7 +209,6 @@ var annotationFramework = (function() {
                     var targets = Array();
                     
                     $xml = $.parseXML(jqXHR.responseText);
-                    annotationProxy.log($xml);
                     
                     jQuery($xml).find('targetInfo').each(function() {
                         annotationProxy.log(this);

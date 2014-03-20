@@ -23,12 +23,20 @@
  
                 function DomLoadedEventHandler() {
                     var frame = document.getElementById("loginIframe");
-                    alert("Current url: "+frame.contentDocument.location.href);
-                    alert("target url: "+window.arguments[0].backend+'/api');
+                    //alert("Current url: "+frame.contentDocument.location.href);
+                    //alert("target url: "+window.arguments[0].backend+'/api');
                     if(frame.contentDocument.location.href == window.arguments[0].backend+'/api'){
-                        alert("login done");
+                        var p = window.arguments[0];
+                        p.callback(); 
                     }
                 }
+                
+                window.addEventListener("unload", function(){
+                        var p = window.arguments[0];
+                        p.callback();
+
+                }, false)
+                
             ]]>
     </script>
     <iframe id="loginIframe" height="500" width="650" type="content" src="" flex="2" />

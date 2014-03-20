@@ -4,7 +4,7 @@ var UserLogin = {
             // TODO: Do we need to refine the status code checks?
 
             // user is logged in
-            if (result === 200) {
+            if (result.status === 200) {
 
                 /*
                  value = "You are logged in as " + user.dislayName + ".";
@@ -14,9 +14,18 @@ var UserLogin = {
                  newLabel.setAttribute("id", "loggedIn");
                  loginInfo.appendChild(newLabel);
                  */
+                var loginStatus = document.getElementById("loginStatus");
+                loginStatus.setAttribute("class", "loggedIn");
+                loginStatus.setAttribute("value", result.user.dislayName);
 
+                // Hide login button
+                document.getElementById("loginButton").hidden = true; 
+                document.getElementById("logoutButton").hidden = false; 
+                     
+                
+             
                 // user is not logged in
-            } else if (result === 401) {
+            } else if (result.status === 401) {
 
                 // Label element with status information
                 var loginStatus = document.getElementById("loginStatus");
@@ -60,4 +69,3 @@ var UserLogin = {
         });
     }
 };
-

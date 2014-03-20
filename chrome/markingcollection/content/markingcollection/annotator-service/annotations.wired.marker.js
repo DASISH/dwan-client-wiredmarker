@@ -14,11 +14,15 @@ var annotationProxy = (function() {
                 timeout: 5000, // In order to be able to catch server inaccessibility, e.g. due to security restrictions.
                 success: function(xml ,textStatus, jqXHR) {
                    $xml = $.parseXML(jqXHR.responseText);
-                   // alert(JSON.stringify($xml));
+                   var user = new Object();
+                   user.dislayName = jQuery($xml).find('displayName').text();
+                   
+                   user.email = jQuery($xml).find('eMail').text();
+                   callback.call(undefined, {status:jqXHR.status, user:user});
                 },
                 error: function(jqXHR, status, thrownError) {
                     // alert("statusCode in ajax error method: " + jqXHR.status);
-                    callback.call(undefined, jqXHR.status);
+                    callback.call(undefined, {status: jqXHR.status});
                 }
             });
             
@@ -29,7 +33,7 @@ var annotationProxy = (function() {
                 eMail: 'test@test.com'
             }; 
 
-            return user_placeholder;
+            //return user_placeholder;
         },
         getAnnotations: function(url) {
             annotationProxy.log('getAnnotations for: ' + url);
