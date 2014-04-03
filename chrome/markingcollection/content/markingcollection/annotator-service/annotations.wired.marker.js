@@ -103,6 +103,21 @@ var annotationProxy = (function() {
 
             annotationFramework.putAnnotation(aid, xml);
         },
+        updateFullAnnotation: function(om_object) {
+            var aid = this.getAidFromOid(om_object.oid);
+            this.log('updateFullAnnotation : ' + JSON.stringify(om_object));
+            annotationFramework.getAnnotationXml(aid, function(annotation){
+                this.log('Got the annotation to update : ');
+                this.log(annotation);
+                //update the annotation
+                var note = om_object.oid_property.match(/<NOTE>(.+?)<\/NOTE>/)[1];
+                $(annotation).find('headline').text(om_object.doc_title);
+                $(annotation).find('body').find('xhtml\\:span').text(note);
+                this.log('THE RAW annotation : ');
+                this.log(annotation);
+                annotationFramework.putFullAnnotation(aid, annotation);
+            });
+        },        
         getAidFromOid: function(oid) {
             var aSql = 'SELECT dasish_aid FROM om_object WHERE oid="' + oid + '"';
             var rtn; 

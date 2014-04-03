@@ -4971,7 +4971,7 @@ var bitsObjectMng = {
 				if(rtn && values.length>0){
 					var aSql = 'update om_object set '+ values.join(",") +' where oid="'+ aObject.oid +'"';
                                         //alert("UPDATE oid: "+aObject.oid);
-                                        annotationProxy.updateAnnotation(aObject);
+                                        annotationProxy.updateFullAnnotation(aObject);
 					rtn = this.cmdB(aMode,aSql,para);
 				}
 				if(rtn) nsPreferences.setUnicharPref("wiredmarker.last_update", bitsObjectMng.Common.getTimeStamp()+"\t"+aMode+"\t"+bitsObjectMng.DataSource.inittime + "\tUPDATE\tOBJECT");

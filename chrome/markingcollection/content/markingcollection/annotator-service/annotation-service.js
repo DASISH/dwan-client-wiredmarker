@@ -84,6 +84,21 @@ var annotationFramework = (function() {
                 }
             });
         },
+        getAnnotationXml: function(aid, callback) {
+            annotationProxy.log('getAnnotationXml '+aid);
+            $.ajax({
+                type: "GET",
+                url: this.getBackend() + '/api/annotations/' + aid,
+                dataType: "xml",
+                success: function(xml, textStatus, jqXHR) {
+                    callback.call(undefined, jqXHR.responseText);
+                },
+                error: function(error) {
+                    annotationProxy.log('ERROR in getAnnotation ');
+                    annotationProxy.log(error);
+                }
+            });
+        },        
         deleteAnnotationByOid: function(oid) {
             annotationProxy.log('entering DELETE for oid: '+oid);
             var aid = annotationProxy.getAidFromOid(oid);
@@ -156,6 +171,34 @@ var annotationFramework = (function() {
             return $.ajax({
                 type: "PUT",
                 url: this.getBackend() + '/api/annotations/'+aid+'/body',
+                dataType: "xml",
+                data: annotation,
+                contentType: "application/xml",
+                error: function(jqXHR, status, thrownError) {
+                    // Handle any errors
+                    
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                    annotationProxy.log("Faild to PUT updated annotation: " + aid);
+                    annotationProxy.log("Status Code: " + jqXHR.status);
+                    annotationProxy.log("Error : " + thrownError);
+                    
+                },
+                complete: function(jqXHR, status, responseText) {
+                    var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
+                    var aid = response[response.length - 1];
+
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                    annotationProxy.log("Status Code PUT request: " + jqXHR.status);
+                    annotationProxy.log("Response Body: " + jqXHR.responseText);
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+
+                }
+            });
+        },
+        putFullAnnotation: function(aid, annotation) {
+            return $.ajax({
+                type: "PUT",
+                url: this.getBackend() + '/api/annotations/'+aid,
                 dataType: "xml",
                 data: annotation,
                 contentType: "application/xml",
