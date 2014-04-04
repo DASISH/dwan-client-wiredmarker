@@ -105,17 +105,16 @@ var annotationProxy = (function() {
         },
         updateFullAnnotation: function(om_object) {
             var aid = this.getAidFromOid(om_object.oid);
-            this.log('updateFullAnnotation : ' + JSON.stringify(om_object));
             annotationFramework.getAnnotationXml(aid, function(annotation){
-                this.log('Got the annotation to update : ');
-                this.log(annotation);
                 //update the annotation
                 var note = om_object.oid_property.match(/<NOTE>(.+?)<\/NOTE>/)[1];
-                $(annotation).find('headline').text(om_object.doc_title);
+                annotation = $.parseXML(annotation);
+                $(annotation).find('headline').text(om_object.oid_title);
                 $(annotation).find('body').find('xhtml\\:span').text(note);
-                this.log('THE RAW annotation : ');
-                this.log(annotation);
-                annotationFramework.putFullAnnotation(aid, annotation);
+                
+                var xmlString = (new XMLSerializer()).serializeToString(annotation);
+
+                annotationFramework.putFullAnnotation(aid, xmlString);
             });
         },        
         getAidFromOid: function(oid) {
