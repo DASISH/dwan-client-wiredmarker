@@ -268,7 +268,7 @@
 <!ENTITY markingcollection.autocache.marking.valid "Enable">
 <!ENTITY markingcollection.autocache.manually.caption "Run manually">
 <!ENTITY markingcollection.autocache.manually.confirm "Check on runtime">
-<!ENTITY markingcollection.autocache.cache "Cache">
+<!ENTITY markingcollection.autocache.cache "Local Cache">
 <!ENTITY markingcollection.autocache.list "Cache list">
 <!ENTITY markingcollection.autocache.list.open "Open">
 <!ENTITY markingcollection.autocache.list.close "Close">
