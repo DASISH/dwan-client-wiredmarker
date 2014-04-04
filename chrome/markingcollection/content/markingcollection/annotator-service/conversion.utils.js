@@ -131,13 +131,13 @@ function om_object2annotation(om_object) {
                                 <xhtml:span title="'+om_object.oid_txt+'" style="' + style + '">' + note + '</xhtml:span>\n\
                             </xmlBody>\n\
                         </body>\n\
-                            <targets>\n\
-                                <targetInfo ref="' + annotationFramework.getBackend() + '/api/targets/00000000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00">\n\
-                                    <link>' + om_object.doc_url + xpointer + '</link>\n\
-                                    <version>' + timestamp.toISOString() + '</version>\n\
-                                </targetInfo>\n\
-                            </targets>\n\
-                            <permissions/>\n\
+                        <targets>\n\
+                            <targetInfo ref="' + annotationFramework.getBackend() + '/api/targets/00000000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00">\n\
+                                <link>' + om_object.doc_url + xpointer + '</link>\n\
+                                <version>' + timestamp.toISOString() + '</version>\n\
+                            </targetInfo>\n\
+                        </targets>\n\
+                        <permissions public="read"/>\n\
                       </annotation>';
     return annotation;
 }
