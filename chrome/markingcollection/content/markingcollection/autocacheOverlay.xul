@@ -39,10 +39,7 @@
 						id="bitsMenuTreeObjectContextmenuCacheOpenNewtab"
 						label="&markingcollection.autocache.open.newtab;"
 						oncommand="window.top.bitsAutocacheService.openCache(event,true);"/>
-					<menuitem
-						id="bitsMenuTreeObjectContextmenuCacheOpenRemoteNewtab"
-						label="&markingcollection.autocache.open.remotenewtab;"
-						oncommand="alert('TODO remote cache')"/>
+					
 					<menuseparator observes="bitsMenuTreeObjectContextmenuCachePast"/>
 					<menuitem
 						id="bitsMenuTreeObjectContextmenuCachePast"
