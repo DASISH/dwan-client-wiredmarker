@@ -255,9 +255,12 @@
 <!ENTITY markingcollection.autocache.tab "Auto-caching">
 <!ENTITY markingcollection.autocache.caption "Auto-caching">
 <!ENTITY markingcollection.autocache.tooltiptext "Caching">
-<!ENTITY markingcollection.autocache.open "Open cache">
-<!ENTITY markingcollection.autocache.open.newtab "Open a new tab">
-<!ENTITY markingcollection.autocache.open.remotenewtab "Open remote cache">
+<!-- <!ENTITY markingcollection.autocache.open "Open cache"> -->
+<!ENTITY markingcollection.autocache.open "Open local cache">
+<!-- <!ENTITY markingcollection.autocache.open.newtab "Open a new tab"> -->
+<!ENTITY markingcollection.autocache.open.newtab "Open local cache in new tab">
+<!ENTITY markingcollection.autocache.open.remote "Open remote cache">
+<!ENTITY markingcollection.autocache.open.remotenewtab "Open remote cache in new tab">
 <!ENTITY markingcollection.autocache.past "Cache list">
 <!ENTITY markingcollection.autocache.disabled "Disabled">
 <!ENTITY markingcollection.autocache.switching "Manually">
@@ -268,7 +271,8 @@
 <!ENTITY markingcollection.autocache.marking.valid "Enable">
 <!ENTITY markingcollection.autocache.manually.caption "Run manually">
 <!ENTITY markingcollection.autocache.manually.confirm "Check on runtime">
-<!ENTITY markingcollection.autocache.cache "Local Cache">
+<!-- <!ENTITY markingcollection.autocache.cache "Local Cache"> -->
+<!ENTITY markingcollection.autocache.cache "Cached Representations">
 <!ENTITY markingcollection.autocache.list "Cache list">
 <!ENTITY markingcollection.autocache.list.open "Open">
 <!ENTITY markingcollection.autocache.list.close "Close">
