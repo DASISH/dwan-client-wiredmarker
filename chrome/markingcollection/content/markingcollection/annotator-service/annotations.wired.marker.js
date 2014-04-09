@@ -6,12 +6,12 @@ var annotationProxy = (function() {
          * @returns {undefined} false if user in not loged in. user object if loged in
          */
         getLoggedInInfo: function(callback) {  
-            var authURL = annotationFramework.getBackend() + "/api/authentication/user";
+            var authURL = annotationFramework.getBackend() + "/api/authentication/login";
             $.ajax({
                 type: 'GET',
                 url: authURL,
                 dataType: "xml",
-                timeout: 1000, // In order to be able to catch server inaccessibility, e.g. due to security restrictions.
+                timeout: 4000, // In order to be able to catch server inaccessibility, e.g. due to security restrictions.
                 success: function(xml ,textStatus, jqXHR) {
                    $xml = $.parseXML(jqXHR.responseText);
                    var user = new Object();
@@ -116,7 +116,10 @@ var annotationProxy = (function() {
 
                 annotationFramework.putFullAnnotation(aid, xmlString);
             });
-        },        
+        },
+        getCacheURL: function(om_object){
+            
+        },
         getAidFromOid: function(oid) {
             var aSql = 'SELECT dasish_aid FROM om_object WHERE oid="' + oid + '"';
             var rtn; 
