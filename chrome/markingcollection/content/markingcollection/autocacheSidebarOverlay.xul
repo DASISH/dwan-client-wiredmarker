@@ -142,22 +142,7 @@
                 </menupopup>
             </menu>
         </menupopup>
-        <menulist>
-            <menupopup>
-                <menuitem label="Mozilla" value="http://mozilla.org"/>
-                <menuitem label="Slashdot" value="http://slashdot.org"/>
-                <menuitem label="Sourceforge" value="http://sf.net"/>
-                <menuitem label="Freshmeat" value="http://freshmeat.net"/>
-            </menupopup>
-        </menulist>
-        <popupset>
-            <menupopup id="clipmenu">
-                <menuitem label="Cut"/>
-                <menuitem label="Copy"/>
-                <menuitem label="Paste"/>
-            </menupopup>
-        </popupset>
-        <label value="Right click for popup" context="clipmenu"/>
+        
         <menupopup
             id="bitsAutocacheTreeContextmenu"
             onpopupshowing="window.top.bitsAutocacheService.popupshowingTreeContextmenu(event);"
