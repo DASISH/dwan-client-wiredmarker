@@ -6,7 +6,7 @@ var annotationProxy = (function() {
          * @returns {undefined} false if user in not loged in. user object if loged in
          */
         getLoggedInInfo: function(callback) {  
-            var authURL = annotationFramework.getBackend() + "/api/authentication/login";
+            var authURL = annotationFramework.getBackend() + "/api/authentication/principal";
             $.ajax({
                 type: 'GET',
                 url: authURL,
