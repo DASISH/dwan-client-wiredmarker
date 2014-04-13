@@ -122,7 +122,7 @@ function om_object2annotation(om_object) {
                             xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"\n\
                             xmlns:xhtml="http://www.w3.org/1999/xhtml"\n\
                             URI="' + annotationFramework.getBackend() + '/api/annotations/00000000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00"\n\
-                            ownerRef="' + annotationFramework.getBackend() + '/api/users/00000000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00">\n\
+                            ownerRef="' + annotationFramework.getBackend() + '/api/principals/00000000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00">\n\
                         <headline>' + om_object.oid_title + '</headline>\n\
                         <lastModified>' + timestamp.toISOString() + '</lastModified>\n\
                         <body>\n\
