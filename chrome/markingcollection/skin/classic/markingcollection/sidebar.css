@@ -27,27 +27,26 @@ treechildren::-moz-tree-cell-text(Marker) { color: #0000ff; }
     width: auto;
 }
 
-.loginButton {
+#loginButton, #logoutButton {
     margin-bottom: 15px;
+    width: 300px;
 }
 
-.loginButton:hover {
+#loginButton:hover, #logoutButton:hover {
     cursor: pointer;
 }
 
 .loggedIn {
     background-color: #1B76BC;
     color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 2px #aaa;
+    margin: 15px 7px;
+    margin-bottom: 5px;
+    padding: 10px;
+    font-size: 12px;
+    width: auto;
 }
-
-/*
-#loginLabel:hover {
-    cursor: pointer;
-    background-color: #1B76BC;
-    color: #ffffff;
-    box-shadow: inset -2px -2px 2px #999;
-}
-*/
 
 /* ::::: END: DASISH LOGIN LABEL ::::: */
 
