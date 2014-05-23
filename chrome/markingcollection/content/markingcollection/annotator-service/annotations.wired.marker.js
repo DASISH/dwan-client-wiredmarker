@@ -117,7 +117,27 @@ var annotationProxy = (function() {
                 annotationFramework.putFullAnnotation(aid, xmlString);
             });
         },
-        getCacheURL: function(om_object){
+        openRemoteCache: function(event){
+            this.log(event);
+            var oid = bitsAutocacheService.bitsItemView.object.oid;
+            var cacheUrl = this.getCacheURL(oid);
+            
+            
+        },
+        getCacheURL: function(oid, tabbed){
+            var aid = this.getAidFromOid(oid);
+            annotationFramework.getTargets(aid, function(targets){
+                var targetURL = targets[0];
+                annotationProxy.log('targets');
+                annotationProxy.log(targets[0]);
+                annotationFramework.getCacheURL(targetURL, function(cacheURL){
+                    cacheURL += '/stream';
+                    annotationProxy.log('cacheURL');
+                    annotationProxy.log(cacheURL);
+                    
+                    bitsAutocacheService.Common.loadURL(cacheURL,tabbed);
+                });
+            });
             
         },
         getAidFromOid: function(oid) {

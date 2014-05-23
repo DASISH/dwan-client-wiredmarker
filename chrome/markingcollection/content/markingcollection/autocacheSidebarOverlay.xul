@@ -121,11 +121,11 @@
                     <menuitem
                         id="bitsItemTreePopupCacheOpenRemote"
                         label="&markingcollection.autocache.open.remote;"
-                        oncommand="alert('TODO remote cache')"/>
+                        oncommand="window.top.annotationProxy.openRemoteCache(event, false);"/>
                     <menuitem
                         id="bitsItemTreePopupCacheOpenRemoteNewTab"
                         label="&markingcollection.autocache.open.remotenewtab;"
-                        oncommand="alert('TODO remote cache in new tab')"/>
+                        oncommand="window.top.annotationProxy.openRemoteCache(event, true);"/>
                     <menuitem
                         id="bitsItemTreePopupCacheOpen"
                         label="&markingcollection.autocache.open;"

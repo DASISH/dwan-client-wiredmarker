@@ -162,8 +162,9 @@ var annotationFramework = (function() {
                     
                     // Database insert request is true if successful
                     // Firebug.Console.log(rtn);
-                    callback.call(undefined, aid);  
                     annotationProxy.log('called cache stuff');
+                    callback.call(undefined, aid);  
+                    
                 }
             });
         },
@@ -226,7 +227,8 @@ var annotationFramework = (function() {
         postCache: function(targetURL, cacheMetadata, cache, cacheMimeType){
             var xhr = new XMLHttpRequest();
             xhr.onload = function() {
-                annotationProxy.log("Cache POST status: "+xhr.status);
+                annotationProxy.log("Cache POST status for "+targetURL+": "+xhr.status);
+                annotationProxy.log(xhr.statusText);
             };
             xhr.open("POST", targetURL, true);
             
@@ -241,6 +243,7 @@ var annotationFramework = (function() {
                            'Content-Type:'+cacheMimeType+'\n\n' +
                            cache+'\n\n' +
                            '--'+boundary+'--';
+            annotationProxy.log(postBody);       
             xhr.send(postBody);
         },
         getTargets : function(aid, callback){
@@ -262,6 +265,23 @@ var annotationFramework = (function() {
                     callback.call(undefined, targets);                
                 }
             });         
+        },
+        getCacheURL: function (targetURL, callback){
+            $.ajax({
+                type: "GET",
+                url: targetURL,
+                dataType: "xml",
+                success: function(xml, textStatus, jqXHR) {
+                    $xml = $.parseXML(jqXHR.responseText);
+                    
+                    jQuery($xml).find('cached').each(function() {
+                        var cacheURL = this.getAttribute('ref');
+                        callback.call(undefined, cacheURL);
+                    });
+                    
+                                 
+                }
+            });               
         },
         setBackend: function(url) {
             this.backend = url;
