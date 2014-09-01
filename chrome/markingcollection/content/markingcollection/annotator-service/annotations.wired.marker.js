@@ -170,6 +170,27 @@ var annotationProxy = (function() {
              data: {log: 'true', message: message}
              });
              */
+        },
+        showError: function(message) {
+            
+            if(typeof message != 'object') {
+                var tmp = new Object();
+                tmp.info = message;
+                message = tmp;
+            }
+            
+            message.info = message.info.substring(message.info.lastIndexOf("<body>")+6,message.info.lastIndexOf("</body>"));
+            message.info = message.info.replace("<p>", "\n");
+            message.info = message.info.replace("<h1>", "\n");
+            message.info = message.info.replace("<h3>", "\n");
+            message.info = message.info.replace("</p>", "\n");
+            message.info = message.info.replace(/<(?:.|\n)*?>/gm, '');
+            
+            window.openDialog("chrome://markingcollection/content/infoDialog.xul", "", 
+                              "chrome,centerscreen,modal", 
+                              message);
+            
+            //alert(body);
         }
     }
 }());

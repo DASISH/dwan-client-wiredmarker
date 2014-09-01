@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<dialog
+    id="infoDialog"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    title="Info from annotator backend"
+    buttons="accept"
+    defaultButton="false"
+    onload="infoDialogLoad()">
+    <script type="application/x-javascript">
+            <![CDATA[       
+                function infoDialogLoad() {
+                    //set info
+                    document.getElementById("info").value = window.arguments[0].info;  
+                    
+                    if(window.arguments[0].title){
+                        document.title = window.arguments[0].title;
+                    }                 
+                }
+                
+            ]]>
+    </script>
+    <textbox  id="info" width="350" height="400" style="background-color: transparent;" flex="1"
+        multiline="true" readonly="true"
+        onoverflow="this.height = this.inputField.scrollHeight;" />
+</dialog>

@@ -137,34 +137,40 @@ var annotationFramework = (function() {
                     
                 },
                 complete: function(jqXHR, status, responseText) {
-                    var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
-                    var aid = response[response.length - 1];
-
+                    
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
                     annotationProxy.log("Status Code POST annotation request: " + jqXHR.status);
                     annotationProxy.log("Response Body: " + jqXHR.responseText);
-                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
+                    annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");                    
+                    
+                    if(jqXHR.status === "200") {
+                        var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
+                        var aid = response[response.length - 1];
 
-                    annotationProxy.log("OID: " + oid);
-                    annotationProxy.log("AID: " + aid);
-                    // Firebug.Console.log(bitsObjectMng.Database.getObject({oid: oid}));
 
-                    var aSql = 'UPDATE om_object SET dasish_aid = "' + aid + '" WHERE oid="' + oid + '"';
-                    annotationProxy.log(aSql);
-                    // insert request to local sqlite database where aid gets inserted
-                    if(bitsObjectMng.Database._idExists('local', oid, true)){
-                        var rtn = bitsObjectMng.Database.cmd('local', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
-                        annotationProxy.log('UPDATE of AID done in local');
-                    }else if(bitsObjectMng.Database._idExists('_uncategorized', oid, true)){
-                         var rtn = bitsObjectMng.Database.cmd('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
-                         annotationProxy.log('UPDATE of AID done in _uncategorized');
+
+                        annotationProxy.log("OID: " + oid);
+                        annotationProxy.log("AID: " + aid);
+                        // Firebug.Console.log(bitsObjectMng.Database.getObject({oid: oid}));
+
+                        var aSql = 'UPDATE om_object SET dasish_aid = "' + aid + '" WHERE oid="' + oid + '"';
+                        annotationProxy.log(aSql);
+                        // insert request to local sqlite database where aid gets inserted
+                        if(bitsObjectMng.Database._idExists('local', oid, true)){
+                            var rtn = bitsObjectMng.Database.cmd('local', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+                            annotationProxy.log('UPDATE of AID done in local');
+                        }else if(bitsObjectMng.Database._idExists('_uncategorized', oid, true)){
+                             var rtn = bitsObjectMng.Database.cmd('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+                             annotationProxy.log('UPDATE of AID done in _uncategorized');
+                        }
+
+                        // Database insert request is true if successful
+                        // Firebug.Console.log(rtn);
+                        annotationProxy.log('called cache stuff');
+                        callback.call(undefined, aid);  
+                    }else{
+                        annotationProxy.showError({title:"Error posting annotation",info:jqXHR.responseText});
                     }
-                    
-                    // Database insert request is true if successful
-                    // Firebug.Console.log(rtn);
-                    annotationProxy.log('called cache stuff');
-                    callback.call(undefined, aid);  
-                    
                 }
             });
         },
@@ -182,6 +188,8 @@ var annotationFramework = (function() {
                     annotationProxy.log("Faild to PUT updated annotation: " + aid);
                     annotationProxy.log("Status Code: " + jqXHR.status);
                     annotationProxy.log("Error : " + thrownError);
+                    
+                    annotationProxy.showError(jqXHR.responseText);
                     
                 },
                 complete: function(jqXHR, status, responseText) {
@@ -211,6 +219,7 @@ var annotationFramework = (function() {
                     annotationProxy.log("Status Code: " + jqXHR.status);
                     annotationProxy.log("Error : " + thrownError);
                     
+                    annotationProxy.showError({title:"HTTP: "+jqXHR.status+" - Update annotation error", info:thrownError});
                 },
                 complete: function(jqXHR, status, responseText) {
                     var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
@@ -243,7 +252,12 @@ var annotationFramework = (function() {
                            'Content-Type:'+cacheMimeType+'\n\n' +
                            cache+'\n\n' +
                            '--'+boundary+'--';
-            annotationProxy.log(postBody);       
+            annotationProxy.log(postBody);    
+            
+            xhr.addEventListener("error", function(errorSendingEvent) {
+                annotationProxy.showError({title:"Cache Error", info:"Error sending cached representation to backend"});
+            }, false);
+            
             xhr.send(postBody);
         },
         getTargets : function(aid, callback){
@@ -263,6 +277,9 @@ var annotationFramework = (function() {
                         targets.push(this.getAttribute('ref'));
                     });
                     callback.call(undefined, targets);                
+                },
+                error: function(jqXHR, status, thrownError) {
+                    annotationProxy.showError({title:"Resolving targets", info:"Error resolving targets for\n AID "+aid});
                 }
             });         
         },
