@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://browser/skin/searchbar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/overlay.css" type="text/css"?>
+<?xml-stylesheet title="bitsMarkingCollectionCSS" href="data:text/css,window{}" type="text/css"?>
+<?xul-overlay href="chrome://markingcollection/content/autocacheOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/tagoutputOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/treelistOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/objecttooltipOverlay.xul"?>
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % scrappartymergeDTD SYSTEM "chrome://markingcollection/locale/scrappartymerge.dtd" >
+%scrappartymergeDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/meta.dtd" >
+%metaDTD;
+]>
+<overlay
+    id="markingcollectiontasksOverlay"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+>
+    <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+    <script type="application/x-javascript" src="chrome://markingcollection/content/objectmng.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/markingcollection.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/articlenavigation.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/scrappartymerge.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/marker.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/contextmenu.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/html2xhtml.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/md5.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/addon.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/hyperanchor.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/menutree.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/menufavoritefolder.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/treelist.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/treeexport.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/imagetooltip.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/substitutiontree.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/importtag.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/treeproject.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/shortcut.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/metacapture.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/pubmedcentral.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/markerRemap.js"/>
+    
+    <!-- added for annotator-service -->
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/lib/jquery-1.9.1.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/lib/jquery.xml2json.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/annotation-service.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/annotations.wired.marker.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/conversion.utils.js"/>
+    <!-- end -->    
+    <script type="application/x-javascript">
+	<![CDATA[        
+		function _markingcollectionInit(aEvent){
+			window.setTimeout(
+				function(){
+                                        
+					bitsObjectMng.init(aEvent);
+					bitsMarkingCollection.init(aEvent);
+					bitsArticleNavigation.init(aEvent);
+					bitsScrapPartyMergeService.init(aEvent);
+					bitsFavoriteFolder.init(aEvent);
+				},0);
+		}
+		function _markingcollectionDone(aEvent){
+			bitsFavoriteFolder.done(aEvent);
+			bitsScrapPartyMergeService.done(aEvent);
+			bitsArticleNavigation.done(aEvent);
+			bitsMarkingCollection.done(aEvent);
+			bitsObjectMng.done(aEvent);
+		}
+		window.addEventListener("load", _markingcollectionInit, false);
+		window.addEventListener("unload", _markingcollectionDone, false);
+	]]>
+    </script>
+    <stringbundleset id="stringbundleset">
+        <stringbundle id="ObjectManagerOverlayString"     src="chrome://markingcollection/locale/objectmng.properties" />
+        <stringbundle id="MarkingCollectionOverlayString" src="chrome://markingcollection/locale/markingcollection.properties" />
+        <stringbundle id="ArticleNavigationOverlayString" src="chrome://markingcollection/locale/articlenavigation.properties" />
+        <stringbundle id="bitsScrapPartyMergeString"      src="chrome://markingcollection/locale/scrappartymerge.properties" />
+        <stringbundle id="bitsMarkerRemapString"          src="chrome://markingcollection/locale/remap.properties" />
+        <stringbundle id="bitsDefaultString"              src="chrome://global/locale/intl.properties" />
+    </stringbundleset>
+    <broadcasterset id="mainBroadcasterSet">
+        <!--
+            <broadcaster id="viewMarkingCollection"
+                    autoCheck="false"
+                    label="&markingcollection.app.title;"
+                    type="checkbox" group="sidebar"
+                    sidebarurl="chrome://markingcollection/content/sidebar.xul"
+                    sidebartitle="&markingcollection.app.title;"
+                    oncommand="toggleSidebar('viewMarkingCollection');"/>
+        -->
+        <broadcaster id="viewMarkingCollection"
+                     autoCheck="false"
+                     label="&markingcollection.app.title;"
+                     type="checkbox" group="sidebar"
+                     sidebarurl="chrome://markingcollection/content/sidebar.xul"
+                     sidebartitle="My Annotations"
+                     oncommand="toggleSidebar('viewMarkingCollection'); document.getElementById('sidebar-title').setAttribute('style','font-size: 1.2em; text-align: center; margin: 2pt 28pt 2pt 0; vertical-align: middle; height: 30px;');"/>
+    </broadcasterset>
+    <toolbarpalette id="BrowserToolbarPalette">
+        <toolbarbutton
+            id="markingcollection-button"
+            tooltiptext="&markingcollection.app.title;"
+            observes="viewMarkingCollection"
+            class="toolbarbutton-1"
+            label="&markingcollection.app.title;"
+            ondragover="toggleSidebar('viewMarkingCollection',true);" />
+    </toolbarpalette>
+    <menupopup id="viewSidebarMenu">
+        <menuitem id="viewSidebarMenu_bitsExecMenu" observes="viewMarkingCollection" key="bits_key_openMarkingCollection" />
+    </menupopup>
+    <keyset id="mainKeyset"/>
+
+    <!-- app menu (ver.4.0～) -->
+    <vbox id="appmenuSecondaryPane">
+        <!--
+        <splitmenu
+            id="bitsExtensionsAppMenu"
+            iconic="true"
+            label="&markingcollection.app.title;"
+            style="list-style-image:url(chrome://markingcollection/skin/icon_16.gif);"
+            insertbefore="appmenu_addons"
+            observes="viewMarkingCollection">
+        </splitmenu>
+        -->
+        <splitmenu
+            id="bitsExtensionsAppMenu"
+            iconic="true"
+            label="&markingcollection.app.title;"
+            style="list-style-image:url(chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_16_16.png);"
+            insertbefore="appmenu_addons"
+            observes="viewMarkingCollection">
+        </splitmenu>
+    </vbox>
+
+    <menubar id="main-menubar">
+        <menu id="bitsExtensionsMainMenu" label="&markingcollection.app.title;" accesskey="&markingcollection.key.menubar;" insertafter="bookmarks-menu bookmarksMenu" hidden="true">
+            <menupopup
+                id="bitsExtensionsMenuPopup"
+                onpopupshowing="bitsMenuTree.popupshowing(event);"
+                onpopuphiding="bitsMenuTree.popuphiding(event);"
+            >
+                <menuitem id="bitsExecMenu" observes="viewMarkingCollection" key="bits_key_openMarkingCollection" />
+                <menuitem
+                    id="bitsScrappartyOptionMenuitem"
+                    label="&markingcollection.tools.settings;..."
+                    class="menuitem-iconic"
+                    image="chrome://markingcollection/skin/icon_option.gif"
+                    insertafter="bitsExecMenu"
+                    oncommand="bitsMarkingCollection.openPrefWindow();"/>
+                <menu id="bitsOptionMenu" label="&markingcollection.menu.addon;&markingcollection.tools.settings;" class="menu-iconic" image="chrome://markingcollection/skin/extensions_16.png" accesskey="a" hidden="true"/>
+                <menuseparator />
+                <menu
+                    id="bitsFavoriteFolderMenu"
+                    type="menu"
+                    label="&markingcollection.favorite; "
+                    class="menu-iconic favoritefolder"
+                    oncommand="bitsFavoriteFolder.onClick(event);">
+                    <menupopup
+                        id="bitsFavoriteFolderPopupmenu"
+                        onpopupshowing="bitsFavoriteFolder.onPopupShowing(event,this);"
+                        onpopuphiding="bitsFavoriteFolder.onPopupHiding(event,this);">
+                        <menuitem id="bitsFavoriteFolderAllMenuitem" label="&markingcollection.defaultFolder;" class="menuitem-iconic" image="chrome://markingcollection/skin/folder.png"/>
+                        <menuseparator id="bitsFavoriteFolderAllMenuseparator"/>
+                    </menupopup>
+                </menu>
+                <menuseparator id="bitsFavoriteFolderMenuseparator"/>
+            </menupopup>
+        </menu>
+        <menu id="tools-menu">
+            <menupopup id="menu_ToolsPopup">
+                <!-- Wired-Marker icon not used for DASISH Web Annotator  -->
+                <!--
+            <menu
+                id="bitsExtensionsToolsMenu"
+                label="&markingcollection.app.title;"
+                accesskey="&markingcollection.key.menubar;"
+                class="menu-iconic"
+                image="chrome://markingcollection/skin/icon_16.gif"
+                insertafter="devToolsSeparator"
+                hidden="true"/> -->
+                <menu
+                    id="bitsExtensionsToolsMenu"
+                    label="&markingcollection.app.title;"
+                    accesskey="&markingcollection.key.menubar;"
+                    insertafter="devToolsSeparator"
+                    hidden="true"/>                
+            </menupopup>
+        </menu>
+    </menubar>
+    <menupopup id="contentAreaContextMenu">
+        <!-- Wired-Marker icon not used for DASISH Web Annotator  -->    
+        <!--
+<menuitem
+        id="MarkingCollectionContextMenuUncategorized"
+        label="&markingcollection.marker.uncategorized;..."
+        oncommand="bitsContextMenu.commandIndexContextMenu(event)"
+        class="menuitem-iconic"
+        image="chrome://markingcollection/skin/icon_16.gif"
+        insertbefore="context-bookmarklink"/>
+        -->
+        <menuitem
+            id="MarkingCollectionContextMenuUncategorized"
+            label="&markingcollection.marker.uncategorized;..."
+            oncommand="bitsContextMenu.commandIndexContextMenu(event)"
+            class="menuitem-iconic"
+            image="chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_16_16.png"
+            insertbefore="context-bookmarklink"/>
+        <menuseparator id="" observes="MarkingCollectionContextMenuUncategorized" insertbefore="context-bookmarklink" />
+        <!-- <menu id="MarkingCollectionContextMenu" class="menu-iconic" label="&markingcollection.app.title;" image="chrome://markingcollection/skin/icon_16.gif" insertbefore="context-bookmarklink"> -->
+        <menu id="MarkingCollectionContextMenu" class="menu-iconic" label="&markingcollection.app.title;" image="chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_16_16.png" insertbefore="context-bookmarklink">
+            <menupopup
+                id="MarkingCollectionContextMenupopup"
+                onpopupshowing="bitsContextMenu.popupshowingIndexContextMenu(event)"
+                onpopuphidden="bitsContextMenu.popuphiddenIndexContextMenu(event)"
+                oncommand="bitsContextMenu.commandIndexContextMenu(event)"
+                onclick="bitsContextMenu.clickIndexContextMenu(event)"
+            >
+                <menuitem id="MarkingCollectionContextMenuItemMarkerCopyToClipboard" label="&markingcollection.hyperanchor.copy_to_clipboard;" class="menuitem-iconic"  image="chrome://markingcollection/skin/marker_copy.png" />
+                <menuseparator id="MarkingCollectionContextMenuSeparatorMarkerCopyToClipboard" />
+                <menuitem id="MarkingCollectionContextMenuItemMarkerProperty" label="&markingcollection.property;" class="menuitem-iconic"  image="chrome://markingcollection/skin/menu_property.png" />
+                <menuseparator id="MarkingCollectionContextMenuSeparatorMarkerProperty" />
+                <menuitem id="MarkingCollectionContextMenuItemMarkerRemarker" label="&markingcollection.marker.remarker;" class="menuitem-iconic"  image="chrome://markingcollection/skin/remove_marker.png" />
+                <menuitem id="MarkingCollectionContextMenuItemMarkerRemove" label="&markingcollection.marker.remove;" class="menuitem-iconic"  image="chrome://markingcollection/skin/remove_marker.png" />
+                <menuitem id="MarkingCollectionContextMenuItemMarkerRemoveAll" label="&markingcollection.marker.remove.all;" class="menuitem-iconic"  image="chrome://markingcollection/skin/remove_marker.png" />
+                <menuseparator id="MarkingCollectionContextMenuSeparatorMarkerRemove" />
+            </menupopup>
+        </menu>
+        <menuseparator id="MarkingCollectionContextMenuSeparator" observes="MarkingCollectionContextMenu" insertbefore="context-bookmarklink" />
+    </menupopup>
+    <hbox id="browser">
+        <splitter id="bitsBrowserLeftSplitter" class="chromeclass-extrachrome" hidden="true"/>
+        <vbox id="appcontent">
+            <browser id="MarkingCollectionBrowser" collapsed="true" type="content"/>
+        </vbox>
+        <hbox id="ArticleNavigationConcordance" style="width:15px;" persist="width"  hidden="true">
+            <html:div id="ArticleNavigationConcordanceArea"  style="position:relative;left:0px;top:0px;border:1px solid #999999;background-color:#ffffff;overflow:hidden;" flex="1">
+                <html:div id="ArticleNavigationConcordanceBaseLine" style="position:absolute;left:0px;top:0px;width:100%;height:100%;background-color:#999999;overflow:hidden;"/>
+                <html:div id="ArticleNavigationConcordanceItemSection"  style="display:none;position:absolute;left:0px; top:1%;width:16px;height:1px;background-color:#000000;z-index:5;"/>
+                <html:div id="ArticleNavigationConcordanceItemSentence" style="display:none;position:absolute;left:7px; top:1%;width:4px;height:2px; background-color:#ffeeee;border:1px solid #ffbbbb;z-index:10;"/>
+                <html:div id="ArticleNavigationConcordanceItemMapping"  style="display:none;position:absolute;left:1px;top:10%;width:6px;height:2px; background-color:#ffff00;z-index:20;"/>
+                <html:div id="ArticleNavigationConcordanceDispPos"  style="display:none;position:absolute; background-color:#ffffff;z-index:500;opacity:0.5;"/>
+            </html:div>
+        </hbox>
+    </hbox>
+    <statusbar id="status-bar">
+        <statusbarpanel id="MarkingCollectionProgressPanel" insertbefore="statusbar-progresspanel" hidden="true">
+            <progressmeter id="MarkingCollectionProgressmeter" mode="normal" value="50"/>
+        </statusbarpanel>
+    </statusbar>
+    <popupset id="mainPopupSet">
+        <tooltip id="MarkingCollectionImageTooltip">
+            <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:html="http://www.w3.org/1999/xhtml" flex="0">
+                <html:canvas id="MarkingCollectionImageTooltipCanvas"/>
+            </window>
+        </tooltip>
+        <menupopup
+            id="bitsItemTreePopup"
+            onpopupshowing="bitsItemView.onPopupShowing(event);"
+            onpopuphiding="bitsItemView.onPopupHiding(event);"
+            oncommand="bitsItemView.onPopupCommand(event);">
+            <menuitem
+                id="bitsItemTreePopupOpen"
+                label="&markingcollection.open;"
+                default="true"/>
+            <menuitem
+                id="bitsItemTreePopupOpenNewTab"
+                label="&markingcollection.open.newtab;"/>
+            <menuseparator observes="bitsItemTreePopupOpen"/>
+            <menuitem
+                id="bitsItemTreePopupRemove"
+                class="menuitem-iconic"
+                label="&markingcollection.remove;"
+                image="chrome://markingcollection/skin/menu_remove.png"/>
+            <menuseparator observes="bitsItemTreePopupRemove"/>
+            <menuitem
+                id="bitsItemTreePopupProperty"
+                class="menuitem-iconic"
+                label="&markingcollection.property;"
+                image="chrome://markingcollection/skin/menu_property.png"/>
+        </menupopup>
+        <menupopup
+            id="bitsFavoriteFolderContextmenu"
+            onpopupshowing="bitsFavoriteFolder.onPopupFShowing(event);">
+            <menuitem
+                class="menuitem-iconic"
+                label="&markingcollection.remove;"
+                image="chrome://markingcollection/skin/menu_remove.png"
+                oncommand="bitsFavoriteFolder.removeFavoriteFolder(event);"/>
+            <menuseparator hidden="true"/>
+            <menuitem
+                class="menuitem-iconic"
+                label="&markingcollection.property;"
+                image="chrome://markingcollection/skin/menu_property.png"
+                disabled="true" hidden="true"/>
+        </menupopup>
+        <menupopup
+            id="bitsMenuTreeFolderContextmenu"
+            onpopupshowing="bitsMenuTree.onPopupFShowing(event);"
+            oncommand="bitsMenuTree.onPopupCommand(event);">
+            <menuitem
+                id="bitsFavoriteFolderAddMenuitem"
+                label="&markingcollection.favorite.add;"
+                class="menuitem-iconic bookmark-item"
+                image="chrome://markingcollection/skin/menu_create.png"/>
+            <menuseparator observes="bitsMenuTreeFolderRemoveMenuitem"/>
+            <menuitem
+                id="bitsMenuTreeFolderRemoveMenuitem"
+                class="menuitem-iconic"
+                label="&markingcollection.remove;"
+                image="chrome://markingcollection/skin/menu_remove.png"/>
+            <menuseparator/>
+            <menuitem
+                id="bitsMenuTreeFolderPropertyMenuitem"
+                class="menuitem-iconic"
+                label="&markingcollection.property;"
+                image="chrome://markingcollection/skin/menu_property.png"
+                disabled="true"/>
+        </menupopup>
+        <menupopup
+            id="bitsMenuTreeObjectContextmenu"
+            onpopupshowing="bitsMenuTree.onPopupFShowing(event);"
+            oncommand="bitsMenuTree.onPopupCommand(event);">
+            <menuitem
+                id="bitsMenuTreeObjectOpenMenuitem"
+                label="&markingcollection.open;"
+                default="true"/>
+            <menuitem
+                id="bitsMenuTreeObjectOpenNewTabMenuitem"
+                label="&markingcollection.open.newtab;"/>
+            <!--
+                                    <menuseparator id="bitsMenuTreeObjectHyperAnchorCopyToClipboardMenuseparator" observes="bitsMenuTreeObjectHyperAnchorCopyToClipboard"/>
+                                    <menu
+                                            id="bitsMenuTreeObjectHyperAnchorCopyToClipboard"
+                                            label="&markingcollection.hyperanchor.sidebar_copy_to_clipboard;"
+                                            class="menu-iconic"
+                                            image="chrome://markingcollection/skin/marker_copy.png">
+                                            <menupopup>
+                                                    <menuitem
+                                                            label="&meta.menuitem.hyperanchor.copy_to_clipboard;"
+                                                            class="menuitem-iconic"
+                                                            image="chrome://markingcollection/skin/marker_copy.png"
+                                                            oncommand="mcController.copy('copy');"/>
+                                                    <menuitem
+                                                            label="&meta.menuitem.hyperanchor.copytitle_to_clipboard;"
+                                                            class="menuitem-iconic"
+                                                            image="chrome://markingcollection/skin/marker_copytext.png"
+                                                            oncommand="mcController.copy('title');"/>
+                                                    <menuitem
+                                                            label="&meta.menuitem.hyperanchor.copynote_to_clipboard;"
+                                                            class="menuitem-iconic"
+                                                            image="chrome://markingcollection/skin/marker_copytext.png"
+                                                            oncommand="mcController.copy('note');"/>
+                                                    <menuitem
+                                                            label="&meta.menuitem.hyperanchor.copymeta_to_clipboard;"
+                                                            class="menuitem-iconic"
+                                                            image="chrome://markingcollection/skin/marker_copytext.png"
+                                                            oncommand="mcController.copy('pagetitle');"/>
+                                            </menupopup>
+                                    </menu>
+                                    <menuitem
+                                            id="bitsMenuTreeObjectHyperAnchorCopyFormatToClipboard"
+                                            label="&meta.menuitem.hyperanchor.copyformat_to_clipboard;"
+                                            class="menuitem-iconic"
+                                            image="chrome://markingcollection/skin/marker_copy.png"
+                                            oncommand="mcController.copy('format');" />
+                                    <menuitem
+                                            id="bitsMenuTreeObjectHyperAnchorCopyFormatSetting"
+                                            label="&meta.menuitem.hyperanchor.copyformatsetting;..."
+                                            class="menuitem-iconic"
+                                            image="chrome://markingcollection/skin/marker_copy.png"
+                                            oncommand="mcController.copy('setting');"/>
+                                    <menuseparator
+                                            id="bitsMenuTreeObjectTagOutputMenuseparator"
+                                            observes="bitsMenuTreeObjectTagOutput"/>
+                                    <menuitem
+                                            id="bitsMenuTreeObjectTagOutput"
+                                            class="menuitem-iconic"
+                                            label="&markingcollection.tagoutput.menu.title;..."
+                                            image="chrome://markingcollection/skin/tag_save.png"
+                                            oncommand="window.top.bitsTagOutputService.onTagOutputRdfCommand({event:event});"/>
+            -->
+            <menuseparator observes="bitsItemTreePopupOpen"/>
+            <menuitem
+                id="bitsMenuTreeObjectRemoveMenuitem"
+                class="menuitem-iconic"
+                label="&markingcollection.remove;"
+                image="chrome://markingcollection/skin/menu_remove.png"/>
+            <menuseparator observes="bitsItemTreePopupRemove"/>
+            <menuitem
+                id="bitsMenuTreeObjectPropertyMenuitem"
+                class="menuitem-iconic"
+                label="&markingcollection.property;"
+                image="chrome://markingcollection/skin/menu_property.png"
+                disabled="true"/>
+        </menupopup>
+    </popupset>
+</overlay>

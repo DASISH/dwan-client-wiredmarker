@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<!DOCTYPE dialog [
+<!ENTITY % pdfDTD   SYSTEM "chrome://markingcollection/locale/pdf.dtd" >
+%pdfDTD;
+<!ENTITY % markerDTD SYSTEM "chrome://markingcollection/locale/marker.dtd" >
+%markerDTD;
+]>
+
+<dialog
+	id="wmConfirmAddTextDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	title="&pdf.addtext.dialog.title;"
+	buttons="accept,cancel"
+	defaultButton="accept"
+	onload="wmConfirmAddTextDialog.init();"
+	ondialogaccept="return wmConfirmAddTextDialog.accept();"
+	ondialogcancel="wmConfirmAddTextDialog.cancel();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/confirmAddTextDialog.js" />
+	<stringbundleset id="wmStringBundles">
+		<stringbundle id="wmConfirmAddTextDialogString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<description>&pdf.addtext.dialog.msg;</description>
+	<groupbox flex="1">
+		<caption label="&pdf.addtext.caption.url;"/>
+		<textbox id="wmUrl" style="plain" readonly="true" onfocus="this.select()"/>
+	</groupbox>
+	<groupbox flex="1">
+		<caption label="&pdf.addtext.caption.pagetitle;"/>
+		<textbox id="wmPageTitle" style="plain" onfocus="this.select()"/>
+	</groupbox>
+	<groupbox flex="1">
+		<caption label="&pdf.addtext.caption.title;"/>
+		<hbox id="wmTitleHBox" style="border:2px solid transparent;">
+			<textbox
+				id="wmTitle"
+				flex="1"
+				style="plain"
+				emptytext="&marker.initdata.dialog.emptytext.title;"
+				placeholder="&marker.initdata.dialog.emptytext.title;"
+				onfocus="this.select()"
+				oninput="wmConfirmAddTextDialog.inputTitle(event);"
+				onblur="wmConfirmAddTextDialog.inputTitle(event);"
+				onchange="wmConfirmAddTextDialog.changeTitle(event);"/>
+		</hbox>
+	</groupbox>
+	<groupbox flex="1">
+		<caption label="&pdf.addtext.caption.note;"/>
+		<textbox id="wmNote"  multiline="true"  style="plain" onfocus="this.select()"/>
+	</groupbox>
+	<groupbox flex="1">
+		<caption label="&pdf.addtext.caption.pageinfo;"/>
+		<hbox align="center">
+			<label value="Logical Page :" control="wmLogicalPage"/>
+			<textbox id="wmLogicalPage" size="1" style="plain" onfocus="this.select()"/>
+			<label value="Physical Page :" control="wmPhysicalPage"/>
+			<textbox id="wmPhysicalPage" size="1" style="plain" onfocus="this.select()"/>
+		</hbox>
+	</groupbox>
+</dialog>

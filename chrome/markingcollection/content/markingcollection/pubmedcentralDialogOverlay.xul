@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/meta.dtd" >
+%metaDTD;
+]>
+<overlay
+	id="pubmedcentralDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _pubmedcentralDialogOverlayInit(aEvent){
+
+			var info = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
+			this._app_version = parseInt(info.version);
+			if(this._app_version>=3){
+				var confirm = nsPreferences.getBoolPref("wiredmarker.pubmedcentral.capture.confirm", true);
+				document.getElementById("mcPubmedCentralConfirm").checked = confirm;
+
+				var substitution = nsPreferences.getBoolPref("wiredmarker.pubmedcentral.capture.substitution.confirm", true);
+				document.getElementById("mcPubmedCentralSubstitution").checked = substitution;
+
+				document.getElementById("mcPubmedCentralSubstitutionText").value = nsPreferences.copyUnicharPref("wiredmarker.pubmedcentral.capture.substitution.format");
+			}else{
+				document.getElementById("mcPubmedCentralConfirm").disabled = true;
+				document.getElementById("mcPubmedCentralConfirm").checked = false;
+				document.getElementById("mcPubmedCentralSubstitution").checked = false;
+				document.getElementById("mcPubmedCentralSubstitutionText").value = "";
+			}
+			_pubmedcentralConfirmCommand();
+		}
+		function _pubmedcentralDialogOverlayDone(aEvent){
+
+		}
+		function _pubmedcentralConfirmCommand(aEvent){
+			var checked = document.getElementById("mcPubmedCentralConfirm").checked;
+			nsPreferences.setBoolPref("wiredmarker.pubmedcentral.capture.confirm", checked);
+
+			document.getElementById("mcPubmedCentralSubstitution").disabled = !checked;
+			_pubmedcentralSubstitutionCommand();
+		}
+
+		function _pubmedcentralSubstitutionCommand(aEvent){
+			var checked = document.getElementById("mcPubmedCentralSubstitution").checked;
+			var disabled = document.getElementById("mcPubmedCentralSubstitution").disabled;
+			nsPreferences.setBoolPref("wiredmarker.pubmedcentral.capture.substitution.confirm", checked);
+
+			document.getElementById("mcPubmedCentralSubstitutionTokensPMCIDTextbox").disabled = (!checked || disabled);
+			document.getElementById("mcPubmedCentralSubstitutionTokensPMIDTextbox").disabled = (!checked || disabled);
+			document.getElementById("mcPubmedCentralSubstitutionTokensSOTextbox").disabled = (!checked || disabled);
+			document.getElementById("mcPubmedCentralSubstitutionText").disabled = (!checked || disabled);
+		}
+
+		function _pubmedcentralSubstitutionTextChange(aEvent){
+			nsPreferences.setUnicharPref("wiredmarker.pubmedcentral.capture.substitution.format", aEvent.target.value);
+		}
+
+		window.addEventListener("load", _pubmedcentralDialogOverlayInit, false);
+		window.addEventListener("unload", _pubmedcentralDialogOverlayDone, false);
+	]]>
+	</script>
+	<tabbox id="mcSettingTabbox">
+		<tabpanels id="mcSettingTabPanels">
+			<tabbox id="mcMenuTabbox">
+				<tabs id="mcMenuTabs">
+					<tab id="mcPubmedCentralTab" label="&markingcollection.setting.pubmedcentral;" image="chrome://markingcollection/skin/PMC.png"/>
+				</tabs>
+				<tabpanels id="mcMenuTabPanels">
+					<tabpanel id="mcPubmedCentralTabPanel" orient="vertical" flex="1">
+						<groupbox id="mcPubmedCentralTabGroupBox">
+							<caption label="&meta.dialog.pubmedcentral.pdf.groupbox.caption;" style="background-color:#fff;"/>
+							<checkbox id="mcPubmedCentralConfirm" label="&meta.dialog.pubmedcentral.pdf.capture.checkbox.confirm;" oncommand="_pubmedcentralConfirmCommand(event)"/>
+							<checkbox id="mcPubmedCentralSubstitution" label="&meta.dialog.pubmedcentral.pdf.substitution.checkbox.confirm;" oncommand="_pubmedcentralSubstitutionCommand(event)"/>
+							<hbox>
+								<groupbox id="mcPubmedCentralSubstitutionTokensGroupBox" flex="1">
+									<caption label="Tokes of MEDLINE:" style="background-color:#fff;"/>
+									<grid>
+										<columns>
+											<column />
+											<column flex="1"/>
+											<column />
+											<column flex="1"/>
+										</columns>
+										<rows>
+											<row align="center">
+												<hbox flex="1" pack="end">
+													<label value="PubMed Central ID:" style="color:#666;" />
+												</hbox>
+												<textbox id="mcPubmedCentralSubstitutionTokensPMCIDTextbox" readonly="true" size="7" onfocus="this.select()" value="MEDLINE.PMCID"/>
+												<hbox flex="1" pack="end">
+													<label value="PubMed ID:" style="color:#666;" />
+												</hbox>
+												<textbox id="mcPubmedCentralSubstitutionTokensPMIDTextbox" readonly="true" size="7" onfocus="this.select()" value="MEDLINE.PMID"/>
+											</row>
+											<row align="center">
+											</row>
+											<row align="center">
+												<label/>
+												<label/>
+												<hbox flex="1" pack="end">
+													<label value="Source:" style="color:#666;" />
+												</hbox>
+												<textbox id="mcPubmedCentralSubstitutionTokensSOTextbox" readonly="true" size="7" onfocus="this.select()" value="MEDLINE.SO"/>
+											</row>
+										</rows>
+									</grid>
+								</groupbox>
+							</hbox>
+							<hbox align="center">
+								<label   id="mcPubmedCentralSubstitutionLabel" value="Format :"/>
+								<textbox id="mcPubmedCentralSubstitutionText"  value="" flex="1" onchange="_pubmedcentralSubstitutionTextChange(event)"/>
+							</hbox>
+						</groupbox>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</tabpanels>
+	</tabbox>
+</overlay>

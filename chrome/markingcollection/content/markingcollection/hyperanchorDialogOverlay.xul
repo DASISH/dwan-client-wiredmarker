@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="hyperanchorDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _hyperanchorInit(aEvent){
+			var hyperanchor = nsPreferences.copyUnicharPref("wiredmarker.hyperanchor.icon_display");
+			switch(hyperanchor){
+				case "icon_display_left":
+					document.getElementById("mcHyperAnchorIconLeftRadio").setAttribute("selected","true");
+					document.getElementById("mcHyperAnchorIconRightRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconLeftPopupRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconRightPopupRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconNoneRadio").removeAttribute("selected");
+					break;
+				case "icon_display_right":
+					document.getElementById("mcHyperAnchorIconLeftRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconRightRadio").setAttribute("selected","true");
+					document.getElementById("mcHyperAnchorIconLeftPopupRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconRightPopupRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconNoneRadio").removeAttribute("selected");
+					break;
+				case "icon_display_left_popup":
+					document.getElementById("mcHyperAnchorIconLeftRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconRightRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconLeftPopupRadio").setAttribute("selected","true");
+					document.getElementById("mcHyperAnchorIconRightPopupRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconNoneRadio").removeAttribute("selected");
+					break;
+				case "icon_display_right_popup":
+					document.getElementById("mcHyperAnchorIconLeftRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconRightRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconLeftPopupRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconRightPopupRadio").setAttribute("selected","true");
+					document.getElementById("mcHyperAnchorIconNoneRadio").removeAttribute("selected");
+					break;
+				case "icon_none":
+					document.getElementById("mcHyperAnchorIconLeftRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconRightRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconLeftPopupRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconRightPopupRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconNoneRadio").setAttribute("selected","true");
+					break;
+				default:
+					document.getElementById("mcHyperAnchorIconLeftRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconRightRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconLeftPopupRadio").setAttribute("selected","true");
+					document.getElementById("mcHyperAnchorIconRightPopupRadio").removeAttribute("selected");
+					document.getElementById("mcHyperAnchorIconNoneRadio").removeAttribute("selected");
+					nsPreferences.setUnicharPref("wiredmarker.hyperanchor.icon_display", "icon_display_left_popup");
+					break;
+			}
+
+			var alignment = nsPreferences.getIntPref("wiredmarker.hyperanchor.alignment");
+			document.getElementById("mcHyperAnchorAlignmentTextbox").value = alignment;
+		}
+
+		function _hyperanchorCommand(aEvent){
+			nsPreferences.setUnicharPref("wiredmarker.hyperanchor.icon_display", aEvent.target.value);
+		}
+
+		function _hyperanchorChange(aEvent){
+			nsPreferences.setIntPref("wiredmarker.hyperanchor.alignment", aEvent.target.value);
+		}
+
+		window.addEventListener("load", _hyperanchorInit, false);
+	]]>
+	</script>
+	<tabbox id="mcSettingTabbox">
+		<tabs id="mcSettingTabs">
+			<tab id="mcHyperAnchorTab" label=" HYPER-ANCHOR" image="chrome://markingcollection/skin/hyperanchor.png"/>
+		</tabs>
+		<tabpanels id="mcSettingTabPanels">
+			<tabpanel id="mcHyperAnchorTabPanel" orient="vertical" flex="1">
+				<groupbox>
+					<caption label="&markingcollection.hyperanchor.alignment_caption;" style="background-color:#fff;"/>
+					<hbox align="center">
+						<label value="&markingcollection.hyperanchor.alignment_length;:"/>
+						<textbox id="mcHyperAnchorAlignmentTextbox" max="100" maxlength="3" min="0" size="1" type="number" wraparound="false" onchange="_hyperanchorChange(event);"/>
+					</hbox>
+					<description style="-moz-appearance: none;color:#ff0000;">&markingcollection.hyperanchor.alignment_attention;</description>
+				</groupbox>
+				<groupbox>
+					<caption label="&markingcollection.hyperanchor.icon_caption;" style="background-color:#fff;"/>
+					<radiogroup  id="mcHyperAnchorRadiogroup" oncommand="_hyperanchorCommand(event);">
+						<radio id="mcHyperAnchorIconLeftRadio" label="&markingcollection.hyperanchor.icon_display_left;" value="icon_display_left"/>
+						<radio id="mcHyperAnchorIconRightRadio" label="&markingcollection.hyperanchor.icon_display_right;" value="icon_display_right"/>
+						<radio id="mcHyperAnchorIconLeftPopupRadio" label="&markingcollection.hyperanchor.icon_display_left_popup;" value="icon_display_left_popup"/>
+						<radio id="mcHyperAnchorIconRightPopupRadio" label="&markingcollection.hyperanchor.icon_display_right_popup;" value="icon_display_right_popup"/>
+						<radio id="mcHyperAnchorIconNoneRadio" label="&markingcollection.hyperanchor.icon_none;" value="icon_none"/>
+					</radiogroup>
+				</groupbox>
+				<description style="-moz-appearance: none;color:#ff0000;">&markingcollection.hyperanchor.icon_attention;</description>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</overlay>

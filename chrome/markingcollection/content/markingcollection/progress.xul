@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<window
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	hidechrome="true"
+	onload="onLoad();"
+	onblur="onBlur();"
+>
+<script><![CDATA[
+  var gStatus,gStatus2, gProgressMeter, gBlur;
+  var maxProgress = 100;
+  function onLoad() {
+    gBlur = false;
+    setWindowSize();
+    gStatus = document.getElementById("status");
+    gProgressMeter = document.getElementById("progressmeter");
+
+    if("arguments" in window && window.arguments.length > 0) {
+      setStatus(window.arguments[0].status);
+    }
+    setWindowSize();
+  }
+
+  function onBlur() {
+    if(!gBlur){
+      window.focus();
+      setWindowSize();
+    }
+  }
+
+  function setProgress(value) {
+    if(!gProgressMeter) return;
+    gProgressMeter.value = 100 * value / maxProgress;
+  }
+
+  function setStatus(text) {
+    if(!gStatus) return;
+    gStatus.value = "Status: " + text;
+    setWindowSize();
+  }
+
+  function setWindowSize(){
+    try{ window.sizeToContent(); }catch(e){}
+    if(gBlur){
+      var x = screen.width - window.outerWidth;
+      var y = screen.height - window.outerHeight;
+      window.moveTo(x,y);
+    }else{
+      if(window.opener){
+        var x = (window.opener.screenX + (window.opener.outerWidth/2)) - (window.outerWidth/2);
+        var y = (window.opener.screenY + (window.opener.outerHeight/2)) - (window.outerHeight/2);
+        window.moveTo(x,y);
+      }
+    }
+  }
+
+]]></script>
+<vbox style="border: 2px solid #c3d1df">
+	<hbox flex="1">
+		<label id="status" value="(No status)"/>
+	</hbox>
+	<hbox flex="1" id="hbox">
+	  <progressmeter id="progressmeter" mode="undetermined" flex="1"/>
+	</hbox>
+</vbox>
+</window>

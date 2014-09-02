@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- list of annotation-infos -->
+<annotations xmlns="http://www.dasish.eu/ns/addit"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd">
+    <annotation ref="http://dasish.eu/annotations/AID20130920110032">
+        <owner ref="http://dasish.eu/users/UID0005"/>
+        <headline>Svensk nationell datatjänst | Svensk Nationell Datatjänst</headline>
+        <targetSources>
+            <targetSource ref="http://dasish.eu/sources/SID20130920110032"/>
+        </targetSources>
+    </annotation>
+</annotations>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://browser/skin/searchbar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/browser.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/places/places.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/sidebar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="treeprojectDicPropOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _treeprojectDicPropOverlayInit(aEvent){
+			var elem = document.getElementById("mcPropTagTextbox");
+			if(elem){
+				var parser = new DOMParser();
+				var xmldoc;
+				if(mcPropService.property != "") xmldoc = parser.parseFromString(mcPropService.property, "text/xml");
+				parser = undefined;
+				if(xmldoc){
+					var tag_elem = xmldoc.getElementsByTagName("DICTIONARY_TAG")[0];
+					if(tag_elem && tag_elem.textContent != ""){
+						var textContent = tag_elem.textContent.replace(/^\s*/g,"").replace(/\s*$/g,"");
+						if(textContent != "") elem.value = textContent;
+					}
+				}
+			}else{
+				window.setTimeout(_treeprojectDicPropOverlayInit,500);
+			}
+		}
+		function _treeprojectDicPropOverlayDone(aEvent){
+			var elem = document.getElementById("mcPropTagTextbox");
+			if(!elem) return;
+
+			var parser = new DOMParser();
+			var xmldoc;
+			if(mcPropService.property != "") xmldoc = parser.parseFromString(mcPropService.property, "text/xml");
+			if(!xmldoc) xmldoc = parser.parseFromString("<PROPERTY/>", "text/xml");
+			parser = undefined;
+			var tag_elem = xmldoc.getElementsByTagName("DICTIONARY_TAG")[0];
+
+			var tag = elem.value.replace(/[\r\n]/mg, " ");
+			tag = tag.replace(/\t/mg,"        ");
+			tag = tag.replace(/[\cA\cB\cC\cD\cE\cF\cG\cH\cI\cJ\cK\cL\cM\cN\cO\cP\cQ\cR\cS\cT\cU\cV\cW\cX\cY\cZ\c[\c\\\c]\c^\c_]/mg," ");
+			tag = tag.replace(/[\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f]/mg," ");
+			tag = tag.replace(/[\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f]/mg," ");
+			tag = tag.replace(/[\x7f]/mg," ");
+			tag = tag.replace(/^\s*/g,"").replace(/\s*$/g,"");
+
+			if(tag != ""){
+				if(!tag_elem || tag_elem.textContent != tag){
+					if(!tag_elem){
+						tag_elem = xmldoc.createElement("DICTIONARY_TAG");
+						xmldoc.documentElement.appendChild(tag_elem);
+					}
+					while(tag_elem.hasChildNodes()){ tag_elem.removeChild(tag_elem.lastChild); }
+					tag_elem.appendChild(xmldoc.createTextNode(tag));
+				}
+			}else if(tag_elem){
+				tag_elem.parentNode.removeChild(tag_elem);
+			}
+
+			var s = new XMLSerializer();
+			mcPropService.property = s.serializeToString(xmldoc);
+			s = undefined;
+
+			var dbitem = {};
+			dbitem.fid = mcPropService.id;
+			dbitem.fid_property = mcPropService.property;
+
+			var changed = mcPropService.Database.updateFolder(dbitem,mcPropService.dbtype);
+		}
+//		window.addEventListener("load", _treeprojectDicPropOverlayInit, false);
+		window.addEventListener("dialogaccept", _treeprojectDicPropOverlayDone, false);
+		window.setTimeout(_treeprojectDicPropOverlayInit,0);
+	]]>
+	</script>
+	<tabbox id="mcPropTabbox">
+		<tabpanels id="mcPropTabpanels">
+			<tabpanel id="mcPropGeneralTabpanel">
+				<groupbox id="mcPropTagGroup" flex="1">
+					<caption label="&markingcollection.prop.tag;" />
+					<textbox
+						id="mcPropTagTextbox"
+						flex="1"
+						emptytext="&markingcollection.prop.tag.emptytext;"
+						placeholder="&markingcollection.prop.tag.emptytext;"
+						newlines="replacewithspaces"
+						onfocus="this.select()"
+						onchange=""/>
+				</groupbox>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</overlay>

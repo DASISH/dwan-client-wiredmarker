@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/scrappartymerge.dtd">
+<overlay
+	id="mergeDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/optionsDialog.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _mergeMainInit(aEvent){
+			setTimeout(function(){ spmOptionsDialog.init(aEvent); },0);
+		}
+		function _mergeMainDone(aEvent){
+			spmOptionsDialog.accept(aEvent);
+		}
+		window.addEventListener("load", _mergeMainInit, false);
+		window.addEventListener("unload", _mergeMainDone, false);
+	]]>
+	</script>
+	<stringbundleset id="spmStringBundles">
+		<stringbundle id="spmOptionsDialogString" src="chrome://markingcollection/locale/scrappartymerge.properties" />
+	</stringbundleset>
+	<tabbox id="mcSettingTabbox">
+		<tabs id="mcSettingTabs">
+			<tab id="mcMergeTab" label="&scrappartymerge.app.title;" image="chrome://markingcollection/skin/merge.png"/>
+		</tabs>
+		<tabpanels id="mcSettingTabPanels">
+			<tabpanel id="mcMergeTabPanel" orient="vertical" flex="1">
+				<groupbox>
+					<caption label="&scrappartymerge.condition;" style="background-color:#fff;"/>
+					<radiogroup  id="spmConditionMarker" oncommand="spmOptionsDialog.commandCondition(event);">
+						<radio id="spmConditionMarkerAll" label="&scrappartymerge.marker.all.label;"   value="&scrappartymerge.marker.all.value;"/>
+						<radio id="spmConditionMarkerSt"  label="&scrappartymerge.marker.start.label;" value="&scrappartymerge.marker.start.value;"/>
+						<radio id="spmConditionMarkerEn"  label="&scrappartymerge.marker.end.label;"   value="&scrappartymerge.marker.end.value;"/>
+					</radiogroup>
+				</groupbox>
+				<groupbox>
+					<caption label="&scrappartymerge.confirm;" style="background-color:#fff;"/>
+					<checkbox id="spmConfirmMerge" label="&scrappartymerge.confirm.merge;" oncommand="spmOptionsDialog.commandConfirm(event);"/>
+				</groupbox>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</overlay>

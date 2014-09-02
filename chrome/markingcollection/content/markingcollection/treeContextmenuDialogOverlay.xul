@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="treeContextmenuDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript">
+	<![CDATA[
+		var _bitsTreeContextmenuDialogOverlayObserver = {
+			timerid : null,
+			domain  : 'wiredmarker', //"objectmng.xxx"という名前の設定が変更された場合全てで処理を行う
+			observe : function(aSubject, aTopic, aPrefstring) {
+				try{
+					if (aTopic == 'nsPref:changed') {
+						switch (aPrefstring){
+							case "wiredmarker.contextmenu.mode":
+								document.getElementById("mcMenuContextmenu").disabled = true;
+								var contextmenu_mode = nsPreferences.copyUnicharPref("wiredmarker.contextmenu.mode");
+								if(contextmenu_mode == "legacy"){
+									document.getElementById("mcMenuContextmenu").disabled = false;
+									document.getElementById("mcMenuContextmenuMode").selectedItem = document.getElementById("mcMenuContextmenuModeLegacy");
+								}else if(contextmenu_mode != null){
+									document.getElementById("mcMenuContextmenuMode").selectedItem = document.getElementById("mcMenuContextmenuModeNormal");
+								}else{
+									document.getElementById("mcMenuContextmenuMode").selectedItem = null;
+								}
+								break;
+							case "wiredmarker.contextmenu.type":
+								var contextmenu_type = nsPreferences.copyUnicharPref("wiredmarker.contextmenu.type","");
+								switch(contextmenu_type){
+									case "simple":
+										document.getElementById("mcMenuContextmenuSimple").setAttribute("selected","true");
+										document.getElementById("mcMenuContextmenuFull").removeAttribute("selected");
+										break;
+									default:
+										document.getElementById("mcMenuContextmenuSimple").removeAttribute("selected");
+										document.getElementById("mcMenuContextmenuFull").setAttribute("selected","true");
+										break;
+								}
+								break;
+							default:
+								break;
+						}
+					}
+				}catch(ex){
+				}
+			}
+		};
+
+		function addPrefListener(aObserver){
+			try {
+				var pbi = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranchInternal);
+				pbi.addObserver(aObserver.domain, aObserver, false);
+			} catch(e) {}
+		}
+
+		function removePrefListener(aObserver) {
+			try {
+				var pbi = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranchInternal);
+				pbi.removeObserver(aObserver.domain, aObserver);
+			} catch(e) {}
+		}
+
+		function _treeContextmenuDialogOverlayInit(aEvent){
+			addPrefListener(_bitsTreeContextmenuDialogOverlayObserver);
+			var contextmenu_type = nsPreferences.copyUnicharPref("wiredmarker.contextmenu.type","");
+			switch(contextmenu_type){
+				case "simple":
+					document.getElementById("mcMenuContextmenuSimple").setAttribute("selected","true");
+					document.getElementById("mcMenuContextmenuFull").removeAttribute("selected");
+					break;
+				default:
+					document.getElementById("mcMenuContextmenuSimple").removeAttribute("selected");
+					document.getElementById("mcMenuContextmenuFull").setAttribute("selected","true");
+					break;
+			}
+			document.getElementById("mcMenuContextmenu").disabled = true;
+			var contextmenu_mode = nsPreferences.copyUnicharPref("wiredmarker.contextmenu.mode");
+			if(contextmenu_mode == "legacy"){
+				document.getElementById("mcMenuContextmenu").disabled = false;
+				document.getElementById("mcMenuContextmenuMode").selectedItem = document.getElementById("mcMenuContextmenuModeLegacy");
+			}else if(contextmenu_mode != null){
+				document.getElementById("mcMenuContextmenuMode").selectedItem = document.getElementById("mcMenuContextmenuModeNormal");
+			}else{
+				document.getElementById("mcMenuContextmenuMode").selectedItem = null;
+			}
+		}
+		function _treeContextmenuDialogOverlayDone(aEvent){
+			removePrefListener(_bitsTreeContextmenuDialogOverlayObserver);
+		}
+
+		function _contextmenuModeCommand(aEvent){
+			if(aEvent.target.id == "mcMenuContextmenuModeLegacy"){
+				nsPreferences.setUnicharPref("wiredmarker.contextmenu.mode", "legacy");
+				document.getElementById("mcMenuContextmenu").disabled = false;
+			}else{
+				nsPreferences.setUnicharPref("wiredmarker.contextmenu.mode", "");
+				document.getElementById("mcMenuContextmenu").disabled = true;
+			}
+		}
+
+		function _contextmenuCommand(aEvent){
+			nsPreferences.setUnicharPref("wiredmarker.contextmenu.type", aEvent.target.value);
+		}
+
+		window.addEventListener("load", _treeContextmenuDialogOverlayInit, false);
+		window.addEventListener("unload", _treeContextmenuDialogOverlayDone, false);
+	]]>
+	</script>
+	<vbox id="mcMenuContextmenuVBox">
+		<radiogroup id="mcMenuContextmenuMode" oncommand="_contextmenuModeCommand(event)">
+			<radio id="mcMenuContextmenuModeNormal" label="Standard Mode"/>
+			<radio id="mcMenuContextmenuModeLegacy" label="Legacy Mode"/>
+		</radiogroup>
+		<radiogroup id="mcMenuContextmenu" oncommand="_contextmenuCommand(event)" style="padding-left:1em;">
+			<radio id="mcMenuContextmenuFull"   value="full"   label="&markingcollection.contextmenu.type.full;"/>
+			<radio id="mcMenuContextmenuSimple" value="simple" label="&markingcollection.contextmenu.type.simple;"/>
+		</radiogroup>
+	</vbox>
+</overlay>

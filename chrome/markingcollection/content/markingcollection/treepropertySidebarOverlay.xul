@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://browser/skin/" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="propertyOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/treeproperty.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _propertyOverlayInit(){
+			mcPropertyView.init();
+		}
+		function _propertyOverlayDone(){
+			mcPropertyView.done();
+		}
+		window.addEventListener("load", _propertyOverlayInit, false);
+		window.addEventListener("unload", _propertyOverlayDone, false);
+	]]>
+	</script>
+	<splitter id="mcPropertyViewSplitter" class="chromeclass-extrachrome" hidden="true" />
+	<vbox id="mcPropertyViewVBox" hidden="true" persist="height" style="height:300px;" flex="1">
+		<toolbox class="plain">
+			<toolbar id="MarkingCollectionListHeader" class="plain">
+				<label id="MarkingCollectionListLabel" value="&markingcollection.property;" flex="1" crop="end" />
+				<spacer flex="1" />
+				<toolbarbutton class="tabs-closebutton" oncommand="mcPropertyView.onClick(event);" />
+			</toolbar>
+		</toolbox>
+		<vbox style="overflow:auto;" flex="1">
+			<vbox style="background:white;">
+				<groupbox >
+					<caption label="&markingcollection.prop.title;" style="background:white;" />
+					<textbox
+						id="mcPropTitleTextbox"
+						multiline="true"
+						rows="2"
+						readonly="true"
+						oninput="mcPropertyView.updateTitle(this.value);"
+						onfocus="this.select();"
+						onchange="mcPropertyView.update(event,this);"/>
+				</groupbox>
+			</vbox>
+			<vbox  style="background:white;">
+				<groupbox >
+					<caption label="&markingcollection.prop.note;" style="background:white;" />
+					<textbox
+						id="mcPropNoteTextbox"
+						multiline="true"
+						rows="2"
+						readonly="true"
+						oninput="mcPropertyView.updateNote(this.value);"
+						onfocus="this.select();"
+						onchange="mcPropertyView.update(event,this);"/>
+				</groupbox>
+			</vbox>
+			<vbox id="mcPropertyExtendedMessageVBox" style="background:white;" hidden="true">
+				<groupbox id="mcPropertyExtendedMessageGBox">
+					<caption label="&markingcollection.prop.extended_message;" style="background:white;" />
+					<grid>
+						<columns>
+							<column />
+							<column />
+						</columns>
+						<rows>
+							<row align="center">
+								<hbox flex="1" pack="end">
+									<label value="Logical Page:" />
+								</hbox>
+								<textbox id="mcPropExtendedMessageLogicalPageTextbox" size="1"   onfocus="this.select();" onblur="mcPropertyView.update(event,this);"/>
+							</row>
+							<row align="center">
+								<hbox flex="1" pack="end">
+									<label value="Physical Page:" />
+								</hbox>
+								<textbox id="mcPropExtendedMessagePhysicalPageTextbox" size="1"  onfocus="this.select();" onblur="mcPropertyView.update(event,this);"/>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+			</vbox>
+			<vbox id="mcPropertyExtendedMessageMedlineVBox" style="background:white;" hidden="true">
+				<groupbox id="mcPropertyExtendedMessageMedlineGBox">
+					<caption label="PubMed Central" style="background:white;" align="center" flex="1">
+						<label value="PubMed Central"/>
+						<hbox align="center" pack="end" flex="1">
+							<label value="PMCID:" hidden="false"/>
+							<textbox
+								id="mcPropertyExtendedMessageMedlinePMCIDTextbox"
+								size="1"
+								flex="1"
+								style="-moz-appearance:none !important;border:none;background:white !important;" onfocus="this.select();"
+								readonly="true"/>
+						</hbox>
+					</caption>
+					<grid>
+						<columns>
+							<column pack="end" />
+							<column pack="start" flex="1"/>
+						</columns>
+						<rows>
+							<row align="center">
+								<hbox flex="1" pack="end">
+									<label value="PubMed ID:" />
+								</hbox>
+								<textbox
+									id="mcPropertyExtendedMessageMedlinePMIDTextbox"
+									size="1"
+									style="-moz-appearance:none !important;border:none;background:white !important;"
+									onfocus="this.select();"
+									readonly="true"/>
+							</row>
+							<row align="start">
+								<hbox flex="1" pack="end">
+									<label value="Source:"/>
+								</hbox>
+								<textbox
+									id="mcPropertyExtendedMessageMedlineSOTextbox"
+									rows="2"
+									multiline="true"
+									style="-moz-appearance:none !important;border:none;background:white !important;" onfocus="this.select();"
+									readonly="true"/>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+			</vbox>
+			<vbox style="background:white;">
+				<groupbox id="mcPropMarkerGroup" flex="1">
+					<caption label="&markingcollection.marker;" style="background:white;" />
+						<vbox flex="1" style="background:white;padding:10px;border:1px solid ThreeDShadow;text-align:center;" align="center">
+							<label id="mcPropSampleLabel" value="Firefox, rediscover the web" />
+						</vbox>
+						<vbox >
+							<hbox flex="1">
+								<spacer flex="1" />
+								<button id="mcPropMarkerCustomButton" label="&markingcollection.button.customize;..." oncommand="mcPropertyView.openDialog();" />
+							</hbox>
+						</vbox>
+				</groupbox>
+			</vbox>
+			<vbox id="mcPropertyURLVBox" style="background:white;" hidden="true">
+				<groupbox>
+					<caption label="HYPER-ANCHOR Code" style="background:white;"/>
+					<textbox
+						id="mcPropURLTextbox"
+						multiline="true"
+						style="-moz-appearance:none !important;border:none;background:white !important;"
+						onfocus="this.select();"
+						readonly="true"/>
+				</groupbox>
+			</vbox>
+			<vbox id="mcPropertyMetaCaptureVBox" style="background:white;" hidden="true">
+				<groupbox id="mcPropertyMetaCaptureGBox">
+					<caption label="&markingcollection.prop.metacapture;" style="background:white;" />
+					<textbox
+						id="mcPropertyMetaCaptureTextbox"
+						multiline="true"
+						style="-moz-appearance:none !important;border:none;background:white !important;"
+						onfocus="this.select();"
+						readonly="true"/>
+				</groupbox>
+			</vbox>
+			<vbox flex="1" style="background:white;">
+				<hbox flex="1">
+					<spacer flex="1" />
+					<button
+						id="mcPropMarkerUpdateButton"
+						label="&markingcollection.button.update;"
+						oncommand="mcPropertyView.update();"
+						disabled="true"
+						hidden="true" />
+				</hbox>
+			</vbox>
+		</vbox>
+	</vbox>
+</overlay>

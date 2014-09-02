@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<dialog
+	id="autocacheDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	title="&markingcollection.autocache.list;"
+	buttons="accept,cancel"
+	buttonlabelaccept="&markingcollection.autocache.list.open;"
+	buttonlabelcancel="&markingcollection.autocache.list.close;"
+	defaultButton="accept"
+	buttondisabledaccept="true"
+	onload="autocacheDialog.init();"
+	ondialogaccept="autocacheDialog.accept();"
+	ondialogcancel="autocacheDialog.cancel();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/autocacheDialog.js"/>
+	<stringbundleset id="autocacheDialogStringBundles">
+		<stringbundle id="autocacheDialogString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<hbox>
+		<toolbarbutton id="autocacheDialogRemove" label="&markingcollection.autocache.remove;" image="chrome://markingcollection/skin/menu_remove.png" disabled="true" oncommand="autocacheDialog.remove(event);"/>
+	</hbox>
+	<listbox id="autocacheListbox" seltype="multiple" onselect="autocacheDialog.select(event);">
+		<listhead>
+			<listheader label="&markingcollection.autocache.timestamp;"/>
+			<listheader label="&markingcollection.autocache.filesize;"/>
+		</listhead>
+		<listcols>
+			<listcol flex="1"/>
+			<listcol/>
+		</listcols>
+	</listbox>
+</dialog>

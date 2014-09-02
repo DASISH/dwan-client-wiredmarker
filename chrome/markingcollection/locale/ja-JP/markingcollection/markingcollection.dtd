@@ -1,0 +1,299 @@
+<!ENTITY markingcollection.app.menu.title "BITS">
+<!ENTITY markingcollection.app.title "Wired-Marker">
+
+<!ENTITY markingcollection.general "一般">
+<!ENTITY markingcollection.concordance "コンコーダンス">
+<!ENTITY markingcollection.concordance.sidebar "サイドバーと連動させる">
+<!ENTITY markingcollection.concordance.display "常に表示する">
+<!ENTITY markingcollection.concordance.none "表示しない">
+
+<!ENTITY markingcollection.display.style "サイドバー表示形式（※要再起動）">
+<!ENTITY markingcollection.display.itemview      "フォルダとオブジェクトの表示">
+<!ENTITY markingcollection.display.itemview.lr   "左右に表示">
+<!ENTITY markingcollection.display.itemview.tb   "上下に表示">
+<!ENTITY markingcollection.display.itemview.none "一緒に表示">
+
+<!ENTITY markingcollection.contextmenu.type "コンテキストメニュー表示形式">
+<!ENTITY markingcollection.contextmenu.type.full   "標準メニュー">
+<!ENTITY markingcollection.contextmenu.type.simple "簡易メニュー">
+
+<!ENTITY markingcollection.menu "メニュー">
+<!ENTITY markingcollection.menu.title "BITS">
+<!ENTITY markingcollection.menu.addon "アドオン">
+<!ENTITY markingcollection.menu.option "オプション">
+<!ENTITY markingcollection.menu.disptopmenu "Wired-Markerメニューをトップメニューに表示する">
+<!ENTITY markingcollection.menu.project "ドキュメントインデックス">
+<!ENTITY markingcollection.menu.documents "ファイル一括登録">
+<!ENTITY markingcollection.menu.dictionary "辞書メニュー">
+<!ENTITY markingcollection.menu.anchor "アンカーメニュー">
+<!ENTITY markingcollection.menu.caption "メニュー表示位置">
+<!ENTITY markingcollection.menu.appmenu "アプリメニュー">
+<!ENTITY markingcollection.menu.topmenu "トップメニュー">
+<!ENTITY markingcollection.menu.bookmarks "ブックマークメニュー">
+<!ENTITY markingcollection.menu.tools "ツールメニュー">
+
+<!ENTITY markingcollection.new.folder "新規作成">
+<!ENTITY markingcollection.new.defaultFolder "空フォルダ">
+<!ENTITY markingcollection.new.templateFolder "テンプレート">
+<!ENTITY markingcollection.new.projectFolder "プロジェクトフォルダ">
+<!ENTITY markingcollection.new.dictionaryFolder "辞書フォルダ">
+<!ENTITY markingcollection.new.documentsFolder "ドキュメントフォルダ">
+
+<!ENTITY markingcollection.toggle.all "すべてのフォルダを広げる／たたむ">
+<!ENTITY markingcollection.tools.settings "設定">
+<!ENTITY markingcollection.tools.label.accept "閉じる">
+<!ENTITY markingcollection.tools.key.accept "C">
+
+<!ENTITY markingcollection.open "開く">
+<!ENTITY markingcollection.open.newtab "新しいタブで開く">
+
+<!ENTITY markingcollection.export "エクスポート">
+<!ENTITY markingcollection.remove "削除">
+<!ENTITY markingcollection.remove.folder "フォルダ">
+<!ENTITY markingcollection.remove.folderall "配下の全フォルダ">
+<!ENTITY markingcollection.remove.itemall "配下の全オブジェクト">
+
+<!ENTITY markingcollection.edit.replacedURL "URL置換">
+<!ENTITY markingcollection.edit.searched "検索">
+<!ENTITY markingcollection.edit.replaced "置換">
+<!ENTITY markingcollection.edit.getURL "URL取得">
+<!ENTITY markingcollection.edit.displayURL "表示中のURLを取得">
+<!ENTITY markingcollection.edit.folderURL "フォルダのURLを取得">
+<!ENTITY markingcollection.edit.replacedTarget "置換対象">
+<!ENTITY markingcollection.edit.replacedTarget.directory "ディレクトリ">
+<!ENTITY markingcollection.edit.replacedTarget.file "ファイル">
+
+<!ENTITY markingcollection.property "プロパティ">
+<!ENTITY markingcollection.itemview "アイテムビュー">
+<!ENTITY markingcollection.listview "リストビュー">
+<!ENTITY markingcollection.treelistview "階層リストビュー">
+<!ENTITY markingcollection.treelistview.defaults "デフォルト">
+<!ENTITY markingcollection.addon "アドオン">
+
+<!ENTITY markingcollection.prop.title "タイトル">
+<!ENTITY markingcollection.prop.note "ノート">
+<!ENTITY markingcollection.prop.general "概要">
+<!ENTITY markingcollection.prop.tag "タグ">
+<!ENTITY markingcollection.prop.tag.emptytext "タイトルと同じ">
+<!ENTITY markingcollection.prop.extended_message "拡張メッセージ">
+<!ENTITY markingcollection.prop.metacapture "ページタイトル">
+
+<!ENTITY markingcollection.folder.openall "すべてタブで開く">
+
+
+<!ENTITY markingcollection.defaultFolder "全表示">
+<!ENTITY markingcollection.rootFolder "このフォルダ以下を表示">
+<!ENTITY markingcollection.rootTree "Tree">
+<!ENTITY markingcollection.rootSelectFolder "選択フォルダ以下を表示">
+
+<!ENTITY markingcollection.templateFolder "テンプレート">
+<!ENTITY markingcollection.templateFolder.create "作成">
+<!ENTITY markingcollection.templateFolder.remove "削除">
+<!ENTITY markingcollection.filter "フィルター">
+<!ENTITY markingcollection.import "インポート">
+<!ENTITY markingcollection.importTagAll "指定タグ全取込">
+<!ENTITY markingcollection.export "エクスポート">
+<!ENTITY markingcollection.sharedFolder "共有先フォルダ変更">
+<!ENTITY markingcollection.mergeFolder "マージフォルダ変更">
+<!ENTITY markingcollection.folderAutoOpen "ドロップ時にフォルダを開かない">
+
+<!ENTITY markingcollection.repository "リポジトリ">
+<!ENTITY markingcollection.repository.folder "フォルダ">
+<!ENTITY markingcollection.repository.user "ユーザ">
+<!ENTITY markingcollection.repository.merge "マージ">
+<!ENTITY markingcollection.repository.settings "設定">
+<!ENTITY markingcollection.repository.folderall "配下の全フォルダ">
+<!ENTITY markingcollection.repository.itemall "配下の全オブジェクト">
+<!ENTITY markingcollection.repository.import "取り込み">
+
+<!ENTITY markingcollection.viewMode "表示モード">
+<!ENTITY markingcollection.viewMode.single "Single">
+<!ENTITY markingcollection.viewMode.all "All">
+<!ENTITY markingcollection.viewMode.each "Each">
+
+<!ENTITY markingcollection.analyze "自動認識">
+
+<!ENTITY markingcollection.newDatabase "新規データベース">
+<!ENTITY markingcollection.newDatabase.newLocalDatabase "ローカルデータベース">
+
+
+<!ENTITY markingcollection.pref.edit "編集機能">
+<!ENTITY markingcollection.button.customize "カスタマイズ">
+<!ENTITY markingcollection.button.update "更新">
+
+<!ENTITY markingcollection.marker "マーカー">
+<!ENTITY markingcollection.marker.remove "このマーカーをクリア">
+<!ENTITY markingcollection.marker.remove.all "このページの全てのマーカーをクリア">
+<!ENTITY markingcollection.marker.remarker "マーカーの範囲を選択範囲に変更する">
+<!ENTITY markingcollection.marker.uncategorized "未分類で登録">
+
+<!ENTITY markingcollection.icon_size "アイコンサイズ">
+<!ENTITY markingcollection.icon_size.large "Large">
+<!ENTITY markingcollection.icon_size.small "Small">
+
+<!ENTITY markingcollection.shortcut "ショートカット">
+
+<!ENTITY markingcollection.database "データファイル">
+<!ENTITY markingcollection.database.vacuum "最適化">
+<!ENTITY markingcollection.database.name "タイトル">
+<!ENTITY markingcollection.database.filename "ファイル名前">
+<!ENTITY markingcollection.database.comment "コメント">
+<!ENTITY markingcollection.database.status "状況">
+<!ENTITY markingcollection.database.add "追加">
+<!ENTITY markingcollection.database.set "設定">
+<!ENTITY markingcollection.database.del "リストから削除">
+<!ENTITY markingcollection.database.dis "使用／未使用">
+<!ENTITY markingcollection.database.startupalldbunused "起動時に全て未使用にする">
+<!ENTITY markingcollection.database.use "使用する">
+<!ENTITY markingcollection.database.contextmenu "コンテキストメニューに表示する">
+<!ENTITY markingcollection.database.default "デフォルトにする">
+
+<!ENTITY markingcollection.key.sidebar "X">
+<!ENTITY markingcollection.key.menubar "M">
+
+
+<!ENTITY markingcollection.filter "フィルター">
+<!ENTITY markingcollection.filter.availableness "有効">
+<!ENTITY markingcollection.filter.invalidation "無効">
+<!ENTITY markingcollection.filter.keyword "キーワード">
+<!ENTITY markingcollection.filter.casesensitive "大文字と小文字を区別する">
+
+<!ENTITY markingcollection.capture "キャプチャ">
+<!ENTITY markingcollection.capture.all "全ドキュメント">
+<!ENTITY markingcollection.capture.cut "切り出し">
+<!ENTITY markingcollection.capture.document "ドキュメント">
+<!ENTITY markingcollection.capture.clipboard "クリップボード">
+<!ENTITY markingcollection.capture.title "タイトル">
+<!ENTITY markingcollection.capture.document_link "カレントのドキュメントとリンクする">
+<!ENTITY markingcollection.capture.all_select "全て選択">
+
+<!ENTITY markingcollection.hyperanchor.icon_caption "HYPER-ANCHOR形式のリンクがドキュメント中に存在する場合">
+<!ENTITY markingcollection.hyperanchor.icon_display_left "常にアイコンをリンクの左側に表示する">
+<!ENTITY markingcollection.hyperanchor.icon_display_right "常にアイコンをリンクの右側に表示する">
+<!ENTITY markingcollection.hyperanchor.icon_display_left_popup "マウスオーバーでアイコンをリンクの左側に表示する">
+<!ENTITY markingcollection.hyperanchor.icon_display_right_popup "マウスオーバーでアイコンをリンクの右側に表示する">
+<!ENTITY markingcollection.hyperanchor.icon_none "何もしない">
+<!ENTITY markingcollection.hyperanchor.icon_attention "※既にドキュメントを開いている場合、変更した内容は反映されません。リロードして下さい。">
+
+<!ENTITY markingcollection.hyperanchor.alignment_caption "ドキュメントの更新により、マーカーの位置がずれた場合">
+<!ENTITY markingcollection.hyperanchor.alignment_length "指定文字数以内、マークアップ位置を補正します">
+<!ENTITY markingcollection.hyperanchor.alignment_attention "※０文字の場合、位置の補正は行いません。">
+
+<!ENTITY markingcollection.hyperanchor.copy_to_clipboard "マーカー位置をコピー(HYPER-ANCHOR形式)">
+<!ENTITY markingcollection.hyperanchor.sidebar_copy_to_clipboard "コピー">
+
+<!ENTITY markingcollection.favorite "フォルダ">
+<!ENTITY markingcollection.favorite.add "フォルダに追加">
+<!ENTITY markingcollection.favorite.select_folder_add "選択フォルダを追加">
+
+<!ENTITY markingcollection.substitutiontree.add  "追加">
+<!ENTITY markingcollection.substitutiontree.edit "編集">
+<!ENTITY markingcollection.substitutiontree.del  "削除">
+<!ENTITY markingcollection.substitutiontree.src  "ファイル名">
+<!ENTITY markingcollection.substitutiontree.alt  "代替テキスト">
+<!ENTITY markingcollection.substitutiontree.table  "置換表">
+<!ENTITY markingcollection.substitutiontree.confirm  "置換表に存在しない場合は確認する">
+
+<!ENTITY markingcollection.selectimportimage  "選択範囲の取込時の画像の扱い">
+<!ENTITY markingcollection.selectimportimage.none  "無視">
+<!ENTITY markingcollection.selectimportimage.alt  "ALT属性から代替テキストを取得">
+<!ENTITY markingcollection.selectimportimage.substitution  "置換表から代替テキストを取得">
+<!ENTITY markingcollection.selectimportimage.substitution_alt  "置換表とALT属性から代替テキストを取得（※置換表優先）">
+<!ENTITY markingcollection.selectimportimage.alt_substitution  "ALT属性と置換表から代替テキストを取得（※ALT属性優先）">
+
+<!ENTITY markingcollection.project.documents.select.folder  "フォルダ指定">
+<!ENTITY markingcollection.project.documents.select.file  "ファイル指定">
+<!ENTITY markingcollection.project.dictionary.read "辞書読み込み">
+<!ENTITY markingcollection.project.dictionary.save "辞書書き出し">
+<!ENTITY markingcollection.project.dictionary.management "辞書管理">
+<!ENTITY markingcollection.project.dictionary.apply "辞書を当てる">
+<!ENTITY markingcollection.project.dictionary.edit "辞書に入れる">
+<!ENTITY markingcollection.project.dictionary.item.add "追加">
+<!ENTITY markingcollection.project.dictionary.item.del "無効">
+<!ENTITY markingcollection.project.dictionary.item.search "検索">
+<!ENTITY markingcollection.project.index.menu.caption "索引表示">
+<!ENTITY markingcollection.project.index.menu.display "表示">
+<!ENTITY markingcollection.project.index.menu.save "保存">
+<!ENTITY markingcollection.project.index.menu.display.normal "デフォルト">
+<!ENTITY markingcollection.project.index.menu.display.url "URL表示">
+
+<!ENTITY markingcollection.tagoutput.menu.title "タグ付き出力">
+<!ENTITY markingcollection.tagoutput.menu.save "出力">
+<!ENTITY markingcollection.tagoutput.menu.with_style "出力(スタイル付き)">
+<!ENTITY markingcollection.tagoutput.output.caption "タグの出力形式">
+<!ENTITY markingcollection.tagoutput.style.caption "タグのスタイルシート">
+<!ENTITY markingcollection.tagoutput.style.no_style "スタイルなし">
+<!ENTITY markingcollection.tagoutput.style.with_style "スタイル付き">
+<!ENTITY markingcollection.tagoutput.visibility.caption "ブラウザでの参照時">
+<!ENTITY markingcollection.tagoutput.visibility.visible "タグを見えるようにする">
+<!ENTITY markingcollection.tagoutput.visibility.hidden "タグを隠す">
+<!ENTITY markingcollection.tagoutput.visibility.description1 "タグ名が英字以外から始まっている場合、">
+<!ENTITY markingcollection.tagoutput.visibility.description2 "タグは隠れませんのでご注意ください。">
+<!ENTITY markingcollection.tagoutput.format.caption "ファイル出力形式">
+<!ENTITY markingcollection.tagoutput.html.caption "対象ファイルがHTML形式の場合">
+<!ENTITY markingcollection.tagoutput.html.path "画像、リンク先の相対パスを絶対パスに変換する">
+
+<!ENTITY markingcollection.textplain "MIMEタイプ(text/plain)表示形式">
+<!ENTITY markingcollection.textplain.usually  "通常形式 (自動改行なし)">
+<!ENTITY markingcollection.textplain.confirm  "表示時に自動改行表示するか確認する">
+<!ENTITY markingcollection.textplain.wrapping "常にブラウザ内の表示領域内に納まるように自動改行する">
+<!ENTITY markingcollection.textplain.attr             "自動改行後の表示属性">
+<!ENTITY markingcollection.textplain.background-color "背景色">
+<!ENTITY markingcollection.textplain.font-family      "フォント">
+<!ENTITY markingcollection.textplain.font-size        "サイズ">
+
+<!ENTITY markingcollection.autocache.tab "オートキャッシュ">
+<!ENTITY markingcollection.autocache.caption "オートキャッシュ機能">
+<!ENTITY markingcollection.autocache.tooltiptext "キャッシュ作成">
+<!ENTITY markingcollection.autocache.open "開く">
+<!ENTITY markingcollection.autocache.open.newtab "新しいタブで開く">
+<!ENTITY markingcollection.autocache.past "キャッシュ一覧">
+<!ENTITY markingcollection.autocache.disabled "無効">
+<!ENTITY markingcollection.autocache.switching "手動で実行">
+<!ENTITY markingcollection.autocache.valid "有効">
+<!ENTITY markingcollection.autocache.marking "キャッシュドキュメントへのマーキング">
+<!ENTITY markingcollection.autocache.marking.disabled "禁止する">
+<!ENTITY markingcollection.autocache.marking.confirm "マーキング時に確認する">
+<!ENTITY markingcollection.autocache.marking.valid "有効にする">
+<!ENTITY markingcollection.autocache.manually.caption "手動で実行する">
+<!ENTITY markingcollection.autocache.manually.confirm "実行時に確認する">
+<!ENTITY markingcollection.autocache.cache "キャッシュ">
+<!ENTITY markingcollection.autocache.list "キャッシュ一覧">
+<!ENTITY markingcollection.autocache.list.open "開く">
+<!ENTITY markingcollection.autocache.list.close "閉じる">
+<!ENTITY markingcollection.autocache.remove "キャッシュを削除">
+<!ENTITY markingcollection.autocache.timestamp "キャッシュ日時">
+<!ENTITY markingcollection.autocache.filesize "サイズ">
+<!ENTITY markingcollection.autocache.open.all "このキャッシュを全て開く">
+<!ENTITY markingcollection.autocache.remove.all "このキャッシュを全て削除">
+<!ENTITY markingcollection.autocache.view "キャッシュリスト">
+<!ENTITY markingcollection.autocache.view.tooltiptext "キャッシュリスト (表示/非表示)">
+<!ENTITY markingcollection.autocache.save.folder "保存場所">
+<!ENTITY markingcollection.autocache.save.user "ユーザ指定">
+<!ENTITY markingcollection.autocache.save.default "デフォルト">
+<!ENTITY markingcollection.autocache.topmenu.caption "トップメニュー">
+<!ENTITY markingcollection.autocache.topmenu.display "表示する">
+<!ENTITY markingcollection.autocache.topmenu.number "表示件数">
+<!ENTITY markingcollection.autocache.topmenu.attention "※件数０の場合、全てのキャッシュを表示します。">
+
+<!ENTITY markingcollection.shortcut.tab "ショートカット">
+<!ENTITY markingcollection.shortcut.add  "追加">
+<!ENTITY markingcollection.shortcut.edit "編集">
+<!ENTITY markingcollection.shortcut.del  "削除">
+<!ENTITY markingcollection.shortcut.disptree  "フォルダへのショートカットキーをツリーに表示する">
+<!ENTITY markingcollection.shortcut.attention1 "※フォルダへのショートカットは、各フォルダのプロパティ画面から設定して下さい">
+<!ENTITY markingcollection.shortcut.attention2 "※ショートカットキーが重複した場合、上位の定義を使用します">
+<!ENTITY markingcollection.shortcut.attention_modifiers "※修飾 (modifier) キーと任意のキーを押して指定して下さい">
+
+<!ENTITY markingcollection.setting.view "表示">
+<!ENTITY markingcollection.setting.marker "マーカー">
+<!ENTITY markingcollection.setting.markerinitdata "マーカー初期入力データ">
+<!ENTITY markingcollection.setting.imagecapture "画像取込">
+<!ENTITY markingcollection.setting.pubmedcentral "PubMed Central">
+<!ENTITY markingcollection.setting.uncategorized "未分類フォルダ">
+<!ENTITY markingcollection.setting.uncategorized.use "使用する">
+<!ENTITY markingcollection.setting.protocol "プロトコル">
+<!ENTITY markingcollection.setting.marker.mouseover "マーカーへのマウスオーバー時">
+<!ENTITY markingcollection.setting.marker.mouseover.disptooltip "オブジェクト情報を表示する">
+<!ENTITY markingcollection.setting.marker.mouseover.title "タイトル">
+<!ENTITY markingcollection.setting.marker.mouseover.note "ノート">

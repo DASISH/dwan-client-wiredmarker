@@ -1,0 +1,28 @@
+<!ENTITY scrappartymerge.app.menu.title "BITS">
+<!ENTITY scrappartymerge.app.title "Merge">
+
+<!ENTITY scrappartymerge.menu.title "BITS">
+<!ENTITY scrappartymerge.menu.addon "Add-ons">
+<!ENTITY scrappartymerge.menu.option "Option">
+
+<!ENTITY scrappartymerge.marker.start.label "When the start position of the marker is the same">
+<!ENTITY scrappartymerge.marker.start.value "1">
+<!ENTITY scrappartymerge.marker.end.label   "When the end position of the marker is the same">
+<!ENTITY scrappartymerge.marker.end.value   "2">
+<!ENTITY scrappartymerge.marker.all.label   "When the range of the marker is the same">
+<!ENTITY scrappartymerge.marker.all.value   "0">
+
+<!ENTITY scrappartymerge.condition     "Condition">
+<!ENTITY scrappartymerge.confirm       "Confirm">
+<!ENTITY scrappartymerge.confirm.merge "Confirm when merging.">
+
+<!ENTITY scrappartymerge.mergemode             "Merge Mode">
+<!ENTITY scrappartymerge.mergemode.merge       "Merge">
+<!ENTITY scrappartymerge.mergemode.overwrite   "Overwrite">
+<!ENTITY scrappartymerge.mergemode.destruction "Destroy">
+
+<!ENTITY scrappartymerge.confirm.title "Processing mode confirmation">
+<!ENTITY scrappartymerge.confirm.mergeobject "Merge target object">
+<!ENTITY scrappartymerge.confirm.dropobject  "Dropped object">
+
+<!ENTITY scrappartymerge.confirm.same_processing "Apply same processing to subsequent objects.">

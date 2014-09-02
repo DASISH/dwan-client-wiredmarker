@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="menuDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		var itemview = {};
+		function _menuMainInit(aEvent){
+			var disp = nsPreferences.getBoolPref("wiredmarker.menu.topmenu", true);
+			document.getElementById("mcMenuDispTopMenu").checked = disp;
+
+			var app_version = 0;
+			try{
+				var info = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
+				app_version = parseInt(info.version);
+			}catch(e){}
+			var def_position = app_version<4?"topmenu":"appmenu";
+			var isXp = false;
+			var res = window.navigator.oscpu.match(/Windows NT (.+)/);
+			if(res && res[1]<6) isXp = true;
+			if(app_version>=4 && isXp) def_position = "topmenu";
+			var position = nsPreferences.copyUnicharPref("wiredmarker.menu.position",def_position);
+			if(app_version<4){
+				document.getElementById("mcMenuDispMenuApp").setAttribute("hidden",true);
+				if(position=="appmenu"){
+					position=def_position;
+					nsPreferences.setUnicharPref("wiredmarker.menu.position", position);
+				}
+			}else{
+				document.getElementById("mcMenuDispMenuApp").removeAttribute("hidden");
+			}
+
+			if(Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULRuntime).OS != "WINNT"){
+				document.getElementById("mcMenuDispMenuApp").setAttribute("hidden",true);
+				if(position == "appmenu"){
+					position = "topmenu";
+					nsPreferences.setUnicharPref("wiredmarker.menu.position", position);
+				}
+			}
+			
+			switch(position){
+				case "bookmarks":
+					document.getElementById("mcMenuDispMenuApp").removeAttribute("selected");
+					document.getElementById("mcMenuDispMenuTop").removeAttribute("selected");
+					document.getElementById("mcMenuDispMenuBookmarks").setAttribute("selected","true");
+					document.getElementById("mcMenuDispMenuTools").removeAttribute("selected");
+					break;
+				case "tools":
+					document.getElementById("mcMenuDispMenuApp").removeAttribute("selected");
+					document.getElementById("mcMenuDispMenuTop").removeAttribute("selected");
+					document.getElementById("mcMenuDispMenuBookmarks").removeAttribute("selected");
+					document.getElementById("mcMenuDispMenuTools").setAttribute("selected","true");
+					break;
+				case "appmenu":
+					document.getElementById("mcMenuDispMenuApp").setAttribute("selected","true");
+					document.getElementById("mcMenuDispMenuTop").removeAttribute("selected");
+					document.getElementById("mcMenuDispMenuBookmarks").removeAttribute("selected");
+					document.getElementById("mcMenuDispMenuTools").removeAttribute("selected");
+					break;
+				default:
+					document.getElementById("mcMenuDispMenuApp").removeAttribute("selected");
+					document.getElementById("mcMenuDispMenuTop").setAttribute("selected","true");
+					document.getElementById("mcMenuDispMenuBookmarks").removeAttribute("selected");
+					document.getElementById("mcMenuDispMenuTools").removeAttribute("selected");
+					break;
+			}
+
+			var concordance = nsPreferences.copyUnicharPref("wiredmarker.concordance","");
+			switch(concordance){
+				case "display":
+					document.getElementById("mcMenuConcordanceSidebar").removeAttribute("selected");
+					document.getElementById("mcMenuConcordanceDisplay").setAttribute("selected","true");
+					document.getElementById("mcMenuConcordanceNone").removeAttribute("selected");
+					break;
+				case "none":
+					document.getElementById("mcMenuConcordanceSidebar").removeAttribute("selected");
+					document.getElementById("mcMenuConcordanceDisplay").removeAttribute("selected");
+					document.getElementById("mcMenuConcordanceNone").setAttribute("selected","true");
+					break;
+				default:
+					document.getElementById("mcMenuConcordanceSidebar").setAttribute("selected","true");
+					document.getElementById("mcMenuConcordanceDisplay").removeAttribute("selected");
+					document.getElementById("mcMenuConcordanceNone").removeAttribute("selected");
+					break;
+			}
+
+			var contentWindow = window.opener.bitsMarkingCollection._contentWindow;
+			var bitsItemView = null;
+			if(contentWindow && contentWindow.bitsItemView) bitsItemView = contentWindow.bitsItemView;
+
+			if(bitsItemView){
+				itemview.isChecked = bitsItemView.isChecked;
+				itemview.position = bitsItemView.position;
+			}else{
+				itemview.isChecked = nsPreferences.getBoolPref("wiredmarker.itemview.disp", false);
+				itemview.position = nsPreferences.copyUnicharPref("wiredmarker.itemview.position");
+			}
+			if(itemview.isChecked){
+				if(itemview.position == "tree_right"){
+					document.getElementById("mcMenuItemViewLR").setAttribute("selected","true");
+					document.getElementById("mcMenuItemViewTB").removeAttribute("selected");
+					document.getElementById("mcMenuItemViewNONE").removeAttribute("selected");
+				}else{
+					document.getElementById("mcMenuItemViewLR").removeAttribute("selected");
+					document.getElementById("mcMenuItemViewTB").setAttribute("selected","true");
+					document.getElementById("mcMenuItemViewNONE").removeAttribute("selected");
+				}
+			}else{
+				document.getElementById("mcMenuItemViewLR").removeAttribute("selected");
+				document.getElementById("mcMenuItemViewTB").removeAttribute("selected");
+				document.getElementById("mcMenuItemViewNONE").setAttribute("selected","true");
+			}
+		}
+
+		function _menuCommand(aEvent){
+			nsPreferences.setUnicharPref("wiredmarker.menu.position", aEvent.target.value);
+		}
+
+		function _concordanceCommand(aEvent){
+			nsPreferences.setUnicharPref("wiredmarker.concordance", aEvent.target.value);
+		}
+
+		function _itemviewCommand(aEvent){
+			var val = document.getElementById("mcMenuItemView").value;
+			if(val == "ItemView_LR"){
+				nsPreferences.setBoolPref("wiredmarker.itemview.disp", true);
+				nsPreferences.setUnicharPref("wiredmarker.itemview.position", "tree_right");
+			}else if(val == "ItemView_TB"){
+				nsPreferences.setBoolPref("wiredmarker.itemview.disp", true);
+				nsPreferences.setUnicharPref("wiredmarker.itemview.position", "tree_bottom");
+			}else if(val == "ItemView_NONE"){
+				nsPreferences.setBoolPref("wiredmarker.itemview.disp", false);
+			}
+			try{
+				if(mcSettingService){
+					if(itemview.isChecked == nsPreferences.getBoolPref("wiredmarker.itemview.disp") &&
+						 itemview.position  == nsPreferences.copyUnicharPref("wiredmarker.itemview.position")){
+						mcSettingService.rebootFlag = false;
+					}else{
+						mcSettingService.rebootFlag = true;
+					}
+				}
+			}catch(e){}
+		}
+
+		function _menuSetPos(aEvent){
+		}
+
+		window.addEventListener("load", _menuMainInit, false);
+	]]>
+	</script>
+	<tabbox id="mcSettingTabbox">
+		<tabs id="mcSettingTabs">
+			<tab id="mcMenuTab" label="&markingcollection.general;" image="chrome://markingcollection/skin/icon_option.gif"/>
+		</tabs>
+		<tabpanels id="mcSettingTabPanels">
+			<tabbox id="mcMenuTabbox">
+				<tabs id="mcMenuTabs">
+					<tab label="&markingcollection.setting.view;" image="chrome://markingcollection/skin/view.png"/>
+				</tabs>
+				<tabpanels id="mcMenuTabPanels">
+					<tabpanel id="mcMenuTabPanel" orient="vertical" flex="1">
+						<groupbox>
+							<caption label="&markingcollection.menu.caption;" style="background-color:#fff;"/>
+							<checkbox id="mcMenuDispTopMenu" label="&markingcollection.menu.disptopmenu;" oncommand="_menuCommand(event)" hidden="true"/>
+							<radiogroup oncommand="_menuCommand(event);" orient="horizontal">
+								<radio id="mcMenuDispMenuApp"       label="&markingcollection.menu.appmenu;"   value="appmenu"/>
+								<radio id="mcMenuDispMenuTop"       label="&markingcollection.menu.topmenu;"   value="topmenu"/>
+								<radio id="mcMenuDispMenuBookmarks" label="&markingcollection.menu.bookmarks;" value="bookmarks"/>
+								<radio id="mcMenuDispMenuTools"     label="&markingcollection.menu.tools;"     value="tools"/>
+							</radiogroup>
+						</groupbox>
+						<groupbox>
+							<caption label="&markingcollection.concordance;" style="background-color:#fff;"/>
+							<radiogroup  id="mcMenuConcordance" oncommand="_concordanceCommand(event);" orient="horizontal">
+								<radio id="mcMenuConcordanceSidebar" label="&markingcollection.concordance.sidebar;" value=""/>
+								<radio id="mcMenuConcordanceDisplay" label="&markingcollection.concordance.display;" value="display"/>
+								<radio id="mcMenuConcordanceNone"    label="&markingcollection.concordance.none;"    value="none"/>
+							</radiogroup>
+						</groupbox>
+						<hbox id="mcMenuTabPanelRow3" flex="1" align="start">
+							<groupbox id="mcMenuItemViewGroup" flex="1">
+								<caption label="&markingcollection.display.style;" style="background-color:#fff;"/>
+								<label value="&markingcollection.display.itemview;"/>
+								<radiogroup id="mcMenuItemView" oncommand="_itemviewCommand(event)" style="padding-left:1em;">
+									<radio id="mcMenuItemViewLR"   value="ItemView_LR"   label="&markingcollection.display.itemview.lr;"/>
+									<radio id="mcMenuItemViewTB"   value="ItemView_TB"   label="&markingcollection.display.itemview.tb;"/>
+									<radio id="mcMenuItemViewNONE" value="ItemView_NONE" label="&markingcollection.display.itemview.none;"/>
+								</radiogroup>
+							</groupbox>
+							<groupbox id="mcMenuContextmenuGroup" flex="1">
+								<caption label="&markingcollection.contextmenu.type;" style="background-color:#fff;"/>
+								<vbox id="mcMenuContextmenuVBox"/>
+							</groupbox>
+						</hbox>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</tabpanels>
+	</tabbox>
+</overlay>

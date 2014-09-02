@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/setting.css" type="text/css" ?>
+<!DOCTYPE dialog [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/meta.dtd" >
+%metaDTD;
+]>
+<dialog
+	id="bitsMetaCaptureDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	title="&meta.menuitem.hyperanchor.copyformatsetting;"
+	buttons="accept,cancel"
+	buttondisabledaccept="true"
+	style="width:600px;height:550px;"
+	persist="width,height"
+	onload="bitsMetaCaptureDialog.init();"
+	onunload="bitsMetaCaptureDialog.done();"
+	ondialogaccept="bitsMetaCaptureDialog.accept();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/metaCaptureDialog.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/metaCaptureDialogOutputTree.js" />
+	<stringbundleset id="bitsMetaCaptureStringbundleset">
+		<stringbundle id="bitsMetaCaptureString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<vbox
+		flex="1"
+		oncommand="bitsMetaCaptureDialog.itemChecked(event)"
+		style="overflow:auto;">
+		<hbox>
+			<groupbox flex="1">
+				<caption label="Tokens for Output Format"/>
+				<hbox flex="1">
+
+					<checkbox id="bitsMetaCopyItemHyperAnchor"       label="HYPER-ANCHOR Code" checked="true" hidden="true"/>
+					<radiogroup orient="horizontal" id="bitsMetaCopyItemHyperAnchorTagGroup" hidden="true">
+						<radio id="bitsMetaCopyItemHyperAnchorTag"     label="&meta.dialog.copyformat.radio.tag;"     value="true"/>
+						<radio id="bitsMetaCopyItemHyperAnchorTagNone" label="&meta.dialog.copyformat.radio.nonetag;" value="false" selected="true"/>
+					</radiogroup>
+					<checkbox id="bitsMetaCopyItemTitle"      label="&meta.dialog.copyformat.checkbox.title;" checked="true" hidden="true"/>
+					<radiogroup orient="horizontal" id="bitsMetaCopyItemTitleTagGroup" hidden="true">
+						<radio id="bitsMetaCopyItemTitleTag"     label="&meta.dialog.copyformat.radio.tag;"     value="true"/>
+						<radio id="bitsMetaCopyItemTitleTagNone" label="&meta.dialog.copyformat.radio.nonetag;" value="false" selected="true"/>
+					</radiogroup>
+					<checkbox id="bitsMetaCopyItemNote"       label="&meta.dialog.copyformat.checkbox.note;" checked="true" hidden="true"/>
+					<radiogroup orient="horizontal" id="bitsMetaCopyItemNoteTagGroup" hidden="true">
+						<radio id="bitsMetaCopyItemNoteTag"     label="&meta.dialog.copyformat.radio.tag;"     value="true"/>
+						<radio id="bitsMetaCopyItemNoteTagNone" label="&meta.dialog.copyformat.radio.nonetag;" value="false" selected="true"/>
+					</radiogroup>
+					<checkbox id="bitsMetaCopyItemMeta"       label="&meta.dialog.copyformat.checkbox.meta;" checked="true" hidden="true"/>
+					<radiogroup orient="horizontal" id="bitsMetaCopyItemMetaTagGroup" hidden="true">
+						<radio id="bitsMetaCopyItemMetaTag"     label="&meta.dialog.copyformat.radio.tag;"     value="true"/>
+						<radio id="bitsMetaCopyItemMetaTagNone" label="&meta.dialog.copyformat.radio.nonetag;" value="false" selected="true"/>
+					</radiogroup>
+
+					<grid flex="1">
+						<columns>
+							<column/>
+							<column flex="1"/>
+						</columns>
+						<rows>
+							<row align="center">
+								<hbox pack="end">
+									<label value="HYPER-ANCHOR Code" style="color:#666;"/>
+								</hbox>
+								<textbox id="bitsMetaCopyItemHyperAnchorText" readonly="true" size="7" onfocus="this.select()" value="HYPER_ANCHOR"/>
+							</row>
+							<row align="center">
+								<hbox pack="end">
+									<label value="&meta.dialog.copyformat.checkbox.title;" style="color:#666;"/>
+								</hbox>
+								<textbox id="bitsMetaCopyItemTitleText" readonly="true" size="7" onfocus="this.select()" value="WM_TITLE"/>
+							</row>
+							<row id="bitsMetaCopyItemMedlinePMCIDRow" align="center">
+								<hbox pack="end">
+									<label value="Pubmed Central ID" style="color:#666;"/>
+								</hbox>
+								<textbox id="bitsMetaCopyItemMedlinePMCIDText" readonly="true" flex="1" onfocus="this.select()" value="MEDLINE.PMCID"/>
+							</row>
+						</rows>
+					</grid>
+					<grid flex="1">
+						<columns>
+							<column/>
+							<column flex="1"/>
+						</columns>
+						<rows>
+							<row align="center">
+								<hbox pack="end">
+									<label value="&meta.dialog.copyformat.checkbox.note;" style="color:#666;"/>
+								</hbox>
+								<textbox id="bitsMetaCopyItemNoteText" readonly="true" size="7" onfocus="this.select()" value="WM_NOTE"/>
+							</row>
+							<row align="center">
+								<hbox pack="end">
+									<label value="&meta.dialog.copyformat.checkbox.meta;" style="color:#666;"/>
+								</hbox>
+								<textbox id="bitsMetaCopyItemMetaText" readonly="true" size="7" onfocus="this.select()" value="WM_META"/>
+							</row>
+							<row id="bitsMetaCopyItemMedlinePMIDRow" align="center">
+								<hbox pack="end">
+									<label value="PubMed ID" style="color:#666;"/>
+								</hbox>
+								<textbox id="bitsMetaCopyItemMedlinePMIDText" readonly="true" size="7" onfocus="this.select()" value="MEDLINE.PMID"/>
+							</row>
+							<row id="bitsMetaCopyItemMedlineSORow" align="center">
+								<hbox pack="end">
+									<label value="Source" style="color:#666;"/>
+								</hbox>
+								<textbox id="bitsMetaCopyItemMedlineSOText" readonly="true" flex="1" onfocus="this.select()" value="MEDLINE.SO"/>
+							</row>
+						</rows>
+					</grid>
+				</hbox>
+			</groupbox>
+		</hbox>
+		<groupbox id="bitsMetaCopyTagRxgexpTreeGroupBox" flex="1" hidden="true" style="margin-left:2em;width:550px;min-height:230px;">
+			<caption label="Regular Expressions" align="center">
+				<label value="&meta.dialog.copyformat.checkbox.meta; [ Regular Expressions ]"/>
+				<checkbox id="bitsMetaCopyTagRxgexpEdit" label="Edit"/>
+			</caption>
+			<hbox>
+				<menulist
+					id="bitsMetaCopyTagRxgexpTreeAddTagMenulist"
+					flex="0">
+					<menupopup/>
+				</menulist>
+				<textbox
+					id="bitsMetaCopyTagRxgexpTreeAddRxgexpTextbox"
+					flex="1"
+					oninput="bitsMetaCaptureDialog.regexpInput(event)"
+					onfocus="this.select()" />
+				<textbox
+					id="bitsMetaCopyTagRxgexpTreeAddFormatTextbox"
+					flex="1"
+					oninput="bitsMetaCaptureDialog.regexpInput(event)"
+					onfocus="this.select()" />
+				<toolbarbutton
+					id="bitsMetaCopyTagRxgexpTreeAdd"
+					label="&markingcollection.substitutiontree.add;"
+					image="chrome://markingcollection/skin/menu_create.png"
+					oncommand="bitsMetaCaptureDialog.onAdd(event);"/>
+			</hbox>
+			<hbox flex="1">
+				<tree
+					id="bitsMetaCopyTagRxgexpTree"
+					hidecolumnpicker="true"
+					seltype="single"
+					class="tree"
+					disabled="true"
+					flex="1"
+					editable="true"
+					onclick="bitsMetaCaptureDialog.onClick(event);"
+				>
+					<treecols id="bitsMetaCopyTagRxgexpTreeCols">
+						<treecol
+							id="bitsMetaCopyTagRxgexpTreeUseCol"
+							fixed="true"
+							src="chrome://markingcollection/skin/cbox-check.gif"
+							class="treecol-image"
+							type="checkbox"
+							editable="true"
+							width="30"/>
+						<treecol
+							id="bitsMetaCopyTagRxgexpTreeTagCol"
+							fixed="true"
+							label="HTML Tag"
+							width="70"/>
+						<treecol
+							id="bitsMetaCopyTagRxgexpTreeNameCol"
+							flex="1"
+							label="Attribute name"
+							hidden="true"
+							persist="width"/>
+						<splitter class="tree-splitter"/>
+						<treecol
+							id="bitsMetaCopyTagRxgexpTreeRxgexpCol"
+							flex="1"
+							fixed="false"
+							label="Regular Expressions"
+							persist="width"/>
+						<splitter class="tree-splitter"/>
+						<treecol
+							id="bitsMetaCopyTagRxgexpTreeFormatCol"
+							flex="1"
+							fixed="false"
+							label="Substituted form"
+							persist="width"/>
+						<splitter class="tree-splitter"/>
+					</treecols>
+					<treechildren/>
+				</tree>
+				<vbox>
+					<toolbarbutton
+						id="bitsMetaCopyTagRxgexpTreeDel"
+						label="&markingcollection.substitutiontree.del;"
+						image="chrome://markingcollection/skin/menu_remove.png"
+						disabled="true"
+						oncommand="bitsMetaCaptureDialog.onDel(event);"/>
+				</vbox>
+			</hbox>
+			<groupbox id="bitsMetaCopySampleGroupBox"  style="height:80px;">
+				<caption label="Sample"/>
+				<vbox flex="1" style="overflow:auto;">
+					<description id="bitsMetaCopySampleHyperAnchor" hidden="true"/>
+					<description id="bitsMetaCopySampleTitle" hidden="true"/>
+					<description id="bitsMetaCopySampleNote" hidden="true"/>
+					<description id="bitsMetaCopySampleMeta"/>
+				</vbox>
+			</groupbox>
+		</groupbox>
+		<groupbox id="bitsMetaCopyOutputGroupBox" flex="1">
+			<caption label="Output format" align="center">
+				<label value="Output format"/>
+				<checkbox id="bitsMetaCopyOutputEditCheckbox" label="Edit" oncommand="bitsMetaCaptureDialogOutputTree.onEdit(event);"/>
+			</caption>
+			<vbox>
+				<grid id="bitsMetaCopyOutputEditGrid" hidden="true">
+					<columns>
+						<column/>
+						<column flex="1"/>
+					</columns>
+					<rows>
+						<row align="start">
+							<label value="Format :"/>
+							<textbox
+								id="bitsMetaCopyOutputFormatTextbox"
+								multiline="true"
+								flex="1"
+								oninput="bitsMetaCaptureDialogOutputTree.outputInput(event)"
+								onfocus="this.select()" />
+						</row>
+						<row align="center">
+							<label value="Replace :"/>
+							<textbox
+								id="bitsMetaCopyOutputRegExpTextbox"
+								multiline="false"
+								flex="1"
+								oninput="bitsMetaCaptureDialogOutputTree.regexpInput(event)"
+								onfocus="this.select()" />
+						</row>
+						<row align="center">
+							<label value="To :"/>
+							<textbox
+								id="bitsMetaCopyOutputReplaceTextbox"
+								multiline="false"
+								flex="1"
+								oninput="bitsMetaCaptureDialogOutputTree.regexpInput(event)"
+								onfocus="this.select()" />
+						</row>
+						<row align="center">
+							<label/>
+							<vbox>
+								<hbox id="bitsMetaCopyHyperanchorGroupBox" align="center" pack="end">
+									<checkbox id="bitsMetaCopyHyperanchorInURLHash" label="&meta.dialog.copyformat.checkbox.hash;"/>
+								</hbox>
+								<hbox align="center" pack="end">
+									<checkbox id="bitsMetaCopyOutputRegExpI" label="Case sensitive(i)"/>
+									<checkbox id="bitsMetaCopyOutputRegExpG" label="Repeat(g)"/>
+									<checkbox id="bitsMetaCopyOutputRegExpM" label="Multiple lines(m)"/>
+								</hbox>
+							</vbox>
+						</row>
+					</rows>
+				</grid>
+			</vbox>
+			<hbox id="bitsMetaCopyOutputHBox" flex="1">
+				<tree
+					id="bitsMetaCopyOutputTree"
+					hidecolumnpicker="true"
+					seltype="single"
+					class="tree"
+					flex="1"
+					onclick="bitsMetaCaptureDialogOutputTree.onClick(event);"
+					style="min-height:82px;"
+				>
+					<treecols id="bitsMetaCopyOutputTreeCols">
+						<treecol
+							id="bitsMetaCopyOutputTreeFormatCol"
+							flex="1"
+							label="Format"
+							persist="width"/>
+						<splitter class="tree-splitter"/>
+						<treecol
+							id="bitsMetaCopyOutputTreeRxgexpCol"
+							flex="1"
+							label="RegExp"
+							persist="width"/>
+						<splitter class="tree-splitter"/>
+						<treecol
+							id="bitsMetaCopyOutputTreeReplaceCol"
+							flex="1"
+							label="Replace"
+							persist="width"/>
+						<treecol
+							id="bitsMetaCopyOutputTreeRxgexpFlagCol"
+							fixed="true"
+							label="Flag"
+							width="54"/>
+					</treecols>
+					<treechildren/>
+				</tree>
+				<vbox id="bitsMetaCopyOutputEditVBox" hidden="true">
+					<toolbarbutton
+						id="bitsMetaCopyOutputTreeAdd"
+						label="&markingcollection.substitutiontree.add;"
+						image="chrome://markingcollection/skin/menu_create.png"
+						oncommand="bitsMetaCaptureDialogOutputTree.onAdd(event);"/>
+					<toolbarbutton
+						id="bitsMetaCopyOutputTreeDel"
+						label="&markingcollection.substitutiontree.del;"
+						image="chrome://markingcollection/skin/menu_remove.png"
+						disabled="true"
+						oncommand="bitsMetaCaptureDialogOutputTree.onDel(event);"/>
+				</vbox>
+			</hbox>
+		</groupbox>
+		<groupbox flex="1">
+			<caption label="Sample"  align="center">
+				<label value="Sample"/>
+				<hbox flex="1" align="center" pack="end">
+					<checkbox id="bitsMetaCopyOutputItemAnchor" label="Add Anchor tag"/>
+				</hbox>
+			</caption>
+			<vbox id="bitsMetaOutputSample" flex="1" style="overflow:auto;"/>
+		</groupbox>
+	</vbox>
+</dialog>

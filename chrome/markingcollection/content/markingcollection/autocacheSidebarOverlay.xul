@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/autocache.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+    id="autocacheSidebarOverlay"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml">
+    <script type="application/x-javascript">
+	<![CDATA[
+		function _autocacheMainInit(aEvent){
+			window.top.bitsAutocacheService.load(aEvent);
+		}
+		function _autocacheMainDone(aEvent){
+			window.top.bitsAutocacheService.unload(aEvent);
+		}
+		window.addEventListener("load", _autocacheMainInit, false);
+		window.addEventListener("unload", _autocacheMainDone, false);
+	]]>
+    </script>
+    <box id="bitsSidebarBox">
+        <vbox id="bitsSidebarVBox">
+            <toolbox id="mcToolbox">
+                <toolbar id="mcToolbar">
+                    <hbox id="mcToolbarAddonHBox">
+                        <toolbarbutton
+                            id="mcToolbarAutocacheButton"
+                            tooltiptext="&markingcollection.autocache.tooltiptext;"
+                            oncommand="window.top.bitsAutocacheService.manuallyCache(event);"
+                            hidden="true"/>
+                        <toolbarbutton
+                            id="mcToolbarAutocacheView"
+                            tooltiptext="&markingcollection.autocache.view.tooltiptext;"
+                            image="chrome://markingcollection/skin/autocache_list.png"
+                            type="checkbox"
+                            autoCheck="true"
+                            oncommand="window.top.bitsAutocacheService.toggleCacheView(event);"
+                            hidden="true"/>
+                    </hbox>
+                </toolbar>
+            </toolbox>
+        </vbox>
+    </box>
+    <splitter id="bitsBrowserAutocacheSplitter" class="chromeclass-extrachrome" hidden="true"/>
+    <vbox id="bitsBrowserAutocacheVBox" flex="1" hidden="true" persist="height" style="height:300px;">
+        <toolbox id="bitsAutocacheToolbox" class="plain" style="overflow:hidden;min-width:10em;width:18em;">
+            <toolbar id="bitsAutocacheToolbar" class="plain">
+                <toolbarbutton
+                    id="bitsAutocacheSearchButton"
+                    class="search-go-button"
+                    tooltiptext="&markingcollection.autocache.view;"
+                    type="checkbox"
+                    autoCheck="true"
+                    oncommand="window.top.bitsAutocacheService.onSearchButtonCommand(event)"/>
+                <textbox
+                    id="bitsAutocacheSearchTextbox"
+                    editable="true"
+                    flex="1"
+                    disabled="true"
+                    style="font-size:0.9em;-moz-appearance: none !important;border: none;"
+                    onkeypress="window.top.bitsAutocacheService.onSearchKeyPress(event)"/>
+                <spacer flex="1" />
+                <toolbarbutton class="tabs-closebutton" oncommand="{var elem = document.getElementById('mcToolbarAutocacheView');if(elem){ elem.checked = false;window.top.bitsAutocacheService.toggleCacheView(event);}}" />
+            </toolbar>
+        </toolbox>
+        <tree
+            id="bitsAutocacheTree"
+            contextmenu="bitsAutocacheTreeContextmenu"
+            tooltip="mcPopupTooltip"
+            onclick="window.top.bitsAutocacheService.onClick(event);"
+            ondblclick="window.top.bitsAutocacheService.onDblClick(event);"
+            onkeypress="window.top.bitsAutocacheService.onKeyPress(event);"
+            onkeydown="window.top.bitsAutocacheService.onKeyDown(event);"
+            seltype="multiple"
+            class="plain"
+            flex="1">
+            <treecols>
+                <treecol id="bitsAutocacheIFavicon"   label="Favicon" crop="none" flex="1" class="treecol-image" src="chrome://markingcollection/skin/defaultFavicon.png" persist="hidden,width" style="min-width:19px;"/>
+                <splitter class="tree-splitter"/>
+                <treecol id="bitsAutocacheIUrl"       label="URL" crop="none" flex="30" hidden="true" persist="hidden,width"/>
+                <splitter class="tree-splitter"/>
+                <treecol id="bitsAutocacheITitle"     label="Title" crop="none" flex="30" persist="hidden,width"/>
+                <splitter class="tree-splitter"/>
+                <treecol id="bitsAutocacheIDate"      label="Date" flex="10" persist="hidden,width"/>
+                <splitter class="tree-splitter"/>
+                <treecol id="bitsAutocacheICache"     label="#Cache" flex="1" class="treecol-image" src="chrome://markingcollection/skin/autocache.png" persist="hidden,width"/>
+                <splitter class="tree-splitter"/>
+                <treecol id="bitsAutocacheIMarker"    label="#Marker" flex="1" class="treecol-image" src="chrome://markingcollection/skin/icon_16.png" persist="hidden,width"/>
+                <splitter class="tree-splitter"/>
+                <treecol id="bitsAutocacheICacheSize" label="#CacheSize" flex="7" class="treecol-image" src="chrome://markingcollection/skin/autocache_save.png" persist="hidden,width"/>
+            </treecols>
+            <treechildren/>
+        </tree>
+    </vbox>
+    <popupset id="mcPopupSet">
+        <menupopup id="mcPopup">
+            <menu id="mcPopupCache" class="menu-iconic" label="&markingcollection.autocache.cache;" image="chrome://markingcollection/skin/autocache.png" insertafter="mcPopupOpenNewTab" hidden="true">
+                <menupopup>
+                    <menuitem
+                        id="mcPopupCacheOpen"
+                        label="&markingcollection.autocache.open;"
+                        observes="mcPopupOpenSeparator"
+                        oncommand="window.top.bitsAutocacheService.openCache(event);"/>
+                    <menuitem
+                        id="mcPopupCacheOpenNewtab"
+                        label="&markingcollection.autocache.open.newtab;"
+                        observes="mcPopupOpenSeparator"
+                        oncommand="window.top.bitsAutocacheService.openCache(event,true);"/>
+                    <menuseparator observes="mcPopupCachePast"/>
+                    <menuitem
+                        id="mcPopupCachePast"
+                        label="&markingcollection.autocache.past;..."
+                        oncommand="window.top.bitsAutocacheService.pastCache(event);" hidden="true"/>
+                </menupopup>
+            </menu>
+            <menuseparator observes="mcPopupCache" insertafter="mcPopupOpenNewTab"/>
+        </menupopup>
+        <menupopup id="bitsItemTreePopup">
+            <menuseparator id="bitsItemTreePopupCacheMenuseparator" observes="bitsItemTreePopupCache" insertafter="bitsItemTreePopupOpenMenuseparator"/>
+            <menu id="bitsItemTreePopupCache" class="menu-iconic" label="&markingcollection.autocache.cache;" image="chrome://markingcollection/skin/autocache.png" insertafter="bitsItemTreePopupOpenMenuseparator" hidden="true">
+                <menupopup>
+                    <menuitem
+                        id="bitsItemTreePopupCacheOpenRemote"
+                        label="&markingcollection.autocache.open.remote;"
+                        oncommand="window.top.annotationProxy.openRemoteCache(event, false);"/>
+                    <menuitem
+                        id="bitsItemTreePopupCacheOpenRemoteNewTab"
+                        label="&markingcollection.autocache.open.remotenewtab;"
+                        oncommand="window.top.annotationProxy.openRemoteCache(event, true);"/>
+                    <menuitem
+                        id="bitsItemTreePopupCacheOpen"
+                        label="&markingcollection.autocache.open;"
+                        oncommand="window.top.bitsAutocacheService.openCache(event);"/>
+                    <menuitem
+                        id="bitsItemTreePopupCacheOpenNewtab"
+                        label="&markingcollection.autocache.open.newtab;"
+                        oncommand="window.top.bitsAutocacheService.openCache(event,true);"/>
+                    <menuseparator observes="bitsItemTreePopupCachePast"/>
+                    <menuitem
+                        id="bitsItemTreePopupCachePast"
+                        label="&markingcollection.autocache.past;..."
+                        oncommand="window.top.bitsAutocacheService.pastCache(event);" hidden="true"/>
+                </menupopup>
+            </menu>
+        </menupopup>
+        
+        <menupopup
+            id="bitsAutocacheTreeContextmenu"
+            onpopupshowing="window.top.bitsAutocacheService.popupshowingTreeContextmenu(event);"
+            onpopuphiding="window.top.bitsAutocacheService.popuphidingTreeContextmenu(event);">
+            <menuitem
+                id="bitsAutocacheTreeContextmenuCacheOpenAll"
+                label="&markingcollection.autocache.open.all;"
+                oncommand="window.top.bitsAutocacheService.openCacheAll(event);"/>
+            <menuseparator observes="bitsAutocacheTreeContextmenuCacheOpenAll"/>
+            <menuitem
+                id="bitsAutocacheTreeContextmenuCacheRemoveAll"
+                label="&markingcollection.autocache.remove.all;"
+                class="menuitem-iconic"
+                image="chrome://markingcollection/skin/menu_remove.png"
+                oncommand="window.top.bitsAutocacheService.removeCacheAll(event);"/>
+            <menuseparator observes="bitsAutocacheTreeContextmenuCacheOpenAll"/>
+        </menupopup>
+        <menupopup
+            id="bitsAutocacheTreeItemContextmenu"
+            onpopupshowing="window.top.bitsAutocacheService.popupshowingTreeContextmenu(event);"
+            onpopuphiding="window.top.bitsAutocacheService.popuphidingTreeContextmenu(event);">
+            <menuitem
+                id="bitsAutocacheTreeContextmenuOpen"
+                label="&markingcollection.autocache.open;"
+                oncommand="window.top.bitsAutocacheService.openCache(event);"/>
+            <menuitem
+                id="bitsAutocacheTreeContextmenuNewtab"
+                label="&markingcollection.autocache.open.newtab;"
+                oncommand="window.top.bitsAutocacheService.openCache(event,true);"/>
+            <menuseparator/>
+            <menuitem
+                id="bitsAutocacheTreeContextmenuRemove"
+                label="&markingcollection.autocache.remove;"
+                class="menuitem-iconic"
+                image="chrome://markingcollection/skin/menu_remove.png"
+                oncommand="window.top.bitsAutocacheService.removeCache(event);"/>
+        </menupopup>
+    </popupset>
+</overlay>

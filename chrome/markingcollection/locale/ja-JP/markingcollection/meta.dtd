@@ -1,0 +1,23 @@
+<!ENTITY meta.dialog.capture.groupbox.caption          "ドキュメントのメタデータの取込">
+<!ENTITY meta.dialog.capture.groupbox.checkbox.confirm "マーカー時にメタデータを取り込まない">
+<!ENTITY meta.dialog.capture.tag.groupbox.caption      "取込対象タグ">
+
+<!ENTITY meta.menuitem.hyperanchor.copy_to_clipboard       "HYPER-ANCHOR Code">
+<!ENTITY meta.menuitem.hyperanchor.copyformat_to_clipboard "コピー (ユーザ形式)">
+<!ENTITY meta.menuitem.hyperanchor.copytitle_to_clipboard  "タイトル">
+<!ENTITY meta.menuitem.hyperanchor.copynote_to_clipboard   "ノート">
+<!ENTITY meta.menuitem.hyperanchor.copymeta_to_clipboard   "ページタイトル">
+<!ENTITY meta.menuitem.hyperanchor.copyformatsetting       "コピー形式の設定">
+
+<!ENTITY meta.dialog.copyformat.checkbox.hyperanchor "アンカータグ">
+<!ENTITY meta.dialog.copyformat.checkbox.title       "タイトル">
+<!ENTITY meta.dialog.copyformat.checkbox.note        "ノート">
+<!ENTITY meta.dialog.copyformat.checkbox.meta        "ページタイトル">
+<!ENTITY meta.dialog.copyformat.checkbox.hash        "HYPER-ANCHOR CodeにオリジナルURLのアンカー情報を含める(URLの#以降の文字列)">
+
+<!ENTITY meta.dialog.copyformat.radio.tag     "タグあり">
+<!ENTITY meta.dialog.copyformat.radio.nonetag "タグなし">
+
+<!ENTITY meta.dialog.pubmedcentral.pdf.groupbox.caption              "PubMed Centralのドキュメント処理時">
+<!ENTITY meta.dialog.pubmedcentral.pdf.capture.checkbox.confirm      "NCBIからMEDLINEを取得する">
+<!ENTITY meta.dialog.pubmedcentral.pdf.substitution.checkbox.confirm "取得したMEDLINEの情報でページタイトルを置換する">

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="autocacheOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://markingcollection/content/autocache.js"/>
+	<menubar id="main-menubar">
+		<menu id="bitsExtensionsMainMenu">
+			<menupopup id="bitsExtensionsMenuPopup">
+				<menu
+						id="bitsCacheMenu"
+						label="&markingcollection.autocache.cache;"
+						class="menu-iconic"
+						image="chrome://markingcollection/skin/autocache.png"
+						oncommand="window.top.bitsAutocacheService.commandMainmenu(event);"
+						insertbefore="bitsFavoriteFolderMenu"
+						hidden="true"
+				>
+					<menupopup
+							id="bitsCacheMenuPopup"
+							onpopupshowing="window.top.bitsAutocacheService.popupshowingMainmenu(event);"
+							onpopuphiding="window.top.bitsAutocacheService.popuphidingMainmenu(event);"
+					/>
+				</menu>
+				<menuseparator observes="bitsCacheMenu" insertbefore="bitsFavoriteFolderMenu"/>
+			</menupopup>
+		</menu>
+	</menubar>
+	<popupset id="mainPopupSet">
+		<menupopup id="bitsMenuTreeObjectContextmenu">
+			<menu id="bitsMenuTreeObjectContextmenuCache" class="menu-iconic" label="&markingcollection.autocache.cache;" image="chrome://markingcollection/skin/autocache.png" insertafter="bitsMenuTreeObjectOpenNewTabMenuitem">
+				<menupopup>
+					<menuitem
+						id="bitsMenuTreeObjectContextmenuCacheOpen"
+						label="&markingcollection.autocache.open;"
+						oncommand="window.top.bitsAutocacheService.openCache(event);"/>
+					<menuitem
+						id="bitsMenuTreeObjectContextmenuCacheOpenNewtab"
+						label="&markingcollection.autocache.open.newtab;"
+						oncommand="window.top.bitsAutocacheService.openCache(event,true);"/>
+					
+					<menuseparator observes="bitsMenuTreeObjectContextmenuCachePast"/>
+					<menuitem
+						id="bitsMenuTreeObjectContextmenuCachePast"
+						label="&markingcollection.autocache.past;..."
+						oncommand="window.top.bitsAutocacheService.pastCache(event);" hidden="true"/>
+				</menupopup>
+			</menu>
+			<menuseparator observes="bitsMenuTreeObjectContextmenuCache" insertafter="bitsMenuTreeObjectOpenNewTabMenuitem"/>
+		</menupopup>
+		<menupopup id="bitsCacheMenuPopup">
+			<menu id="bitsCacheMenuPopupMenu" class="menu-iconic" label="&markingcollection.autocache.cache;" image="chrome://markingcollection/skin/autocache.png">
+				<menupopup id="bitsCacheMenuPopupMenupopup">
+					<menuitem
+						id="bitsCacheMenuPopupCacheOpen"
+						label="&markingcollection.autocache.open;"
+						oncommand="window.top.bitsAutocacheService.openCache(event);"/>
+					<menuitem
+						id="bitsCacheMenuPopupCacheOpenNewtab"
+						label="&markingcollection.autocache.open.newtab;"
+						oncommand="window.top.bitsAutocacheService.openCache(event,true);"/>
+					<menuseparator/>
+					<menuitem
+						id="bitsCacheMenuPopupCacheRemove"
+						label="&markingcollection.autocache.remove;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/menu_remove.png"
+						oncommand="window.top.bitsAutocacheService.removeCache(event);"/>
+				</menupopup>
+			</menu>
+		</menupopup>
+		<menupopup
+			id="bitsCacheContextmenuPopup"
+			onpopupshowing="window.top.bitsAutocacheService.popupshowingMainContextmenu(event);">
+			<menuitem
+				id="bitsCacheContextmenuMenuitemCacheOpenAll"
+				label="&markingcollection.autocache.open.all;"
+				oncommand="window.top.bitsAutocacheService.openCacheAll(event);"/>
+			<menuseparator/>
+			<menuitem
+				id="bitsCacheContextmenuMenuitemCacheRemoveAll"
+				label="&markingcollection.autocache.remove.all;"
+				class="menuitem-iconic"
+				image="chrome://markingcollection/skin/menu_remove.png"
+				oncommand="window.top.bitsAutocacheService.removeCacheAll(event);"/>
+		</menupopup>
+	</popupset>
+</overlay>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<annotation xmlns="http://www.dasish.eu/ns/addit"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"
+    URI="tempAID20130920110032"
+    timeStamp="2013-09-20T09:00:22.000Z">
+    <owner ref="http://dasish.eu/users/UIxyz/how_will_this_be_sent_from_the_client"/>
+    <headline>Svensk nationell datatjänst | Svensk Nationell Datatjänst</headline>
+    <body type="Note" ref="tmp20130920110032">
+        <xhtml:span style="border:thin dotted rgb(255,204,0);background-color:rgb(255,255,204);color:rgb(0,0,0);">serviceorganisation </xhtml:span>
+    </body>
+    <targetSources>
+        <target>
+            <newSource xml:id="tmp20130920110032">
+                <link>http://snd.gu.se/#xpointer(start-point(string-range(//div[@id="node-170"]/div[1]/div[1]/div[1]/div[1]/p[1]/text()[1],'',34))/range-to(string-range(//div[@id="node-170"]/div[1]/div[1]/div[1]/div[1]/p[1]/text()[1],'',54)))</link>
+                <version>2013-09-20T09:00:22.000Z</version>
+            </newSource>
+        </target>
+    </targetSources>
+    <permissions ref="tmpPermissionsListID20130920110032"/>
+</annotation>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/sidebar.css" type="text/css"?>
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/meta.dtd" >
+%metaDTD;
+<!ENTITY % searchacrossDTD SYSTEM "chrome://markingcollection/locale/searchacross.dtd" >
+%searchacrossDTD;
+]>
+<overlay
+	id="searchacrossOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/searchacross.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _searchacrossOverlayInit(e){
+			bitsSearchAcross.init(e);
+		}
+		function _searchacrossOverlayDone(e){
+			bitsSearchAcross.done(e);
+		}
+		window.addEventListener("load", _searchacrossOverlayInit, false);
+		window.addEventListener("unload", _searchacrossOverlayDone, false);
+	]]>
+	</script>
+	<box id="bitsSidebarBox">
+		<vbox id="bitsSidebarVBox">
+			<toolbox id="mcToolbox">
+				<toolbar id="mcToolbar">
+					<hbox insertbefore="mcToolbarAddonHBox" flex="1">
+						<toolbarbutton id="bitsSearchAcrossButton" class="search-go-button" tooltiptext="" oncommand="bitsSearchAcross.onSearchButtonCommand(event)" hidden="true"/>
+						<textbox
+							id="bitsSearchAcrossTextbox"
+							emptytext="&searchacross.search.textbox.emptytext;"
+							placeholder="&searchacross.search.textbox.emptytext;"
+							newlines="replacewithspaces"
+							type="autocomplete"
+							autocompletesearch="form-history"
+							completedefaultindex="false"
+							flex="1"
+							style="font-size:0.9em;margin-left:0px;"
+							onfocus="this.select();"
+							oninput="bitsSearchAcross.onSearchKeyInput(event)"
+							onkeypress="bitsSearchAcross.onSearchKeyPress(event)"/>
+					</hbox>
+				</toolbar>
+			</toolbox>
+		</vbox>
+	</box>
+</overlay>

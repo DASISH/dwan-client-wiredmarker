@@ -1,0 +1,14 @@
+<!ENTITY marker.initdata.overlay.groupbox.caption       "マーカー初期入力データ">
+<!ENTITY marker.initdata.overlay.title.groupbox.caption "タイトル">
+<!ENTITY marker.initdata.overlay.note.groupbox.caption  "ノート">
+<!ENTITY marker.initdata.overlay.radio.label.text       "マーク文">
+<!ENTITY marker.initdata.overlay.radio.label.title      "ページタイトル">
+<!ENTITY marker.initdata.overlay.radio.label.date       "日付">
+<!ENTITY marker.initdata.overlay.radio.label.format     "フォーマット指定">
+<!ENTITY marker.initdata.overlay.radio.label.none       "未入力">
+<!ENTITY marker.initdata.overlay.checkbox.edit          "マーカー登録時に編集する">
+
+<!ENTITY marker.initdata.dialog.title       "マーカー情報編集">
+<!ENTITY marker.initdata.dialog.label.title "タイトル">
+<!ENTITY marker.initdata.dialog.label.note  "ノート">
+<!ENTITY marker.initdata.dialog.emptytext.title "タイトルは必ず指定して下さい">

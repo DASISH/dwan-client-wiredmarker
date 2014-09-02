@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xul-overlay href="chrome://markingcollection/content/treeContextmenuDialogOverlay.xul"?>
+<!DOCTYPE dialog [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/marker.dtd" >
+%metaDTD;
+]>
+<dialog
+	id="bitsTreeContextmenuDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	title="&markingcollection.app.title;"
+	buttons="accept"
+	buttonpack="center"
+	buttondisabledaccept="true"
+	>
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		var _bitsTreeContextmenuDialogObserver = {
+			timerid : null,
+			domain  : 'wiredmarker', //"objectmng.xxx"という名前の設定が変更された場合全てで処理を行う
+			observe : function(aSubject, aTopic, aPrefstring) {
+				try{
+					if (aTopic == 'nsPref:changed') {
+						switch (aPrefstring){
+							case "wiredmarker.contextmenu.mode":
+								document.getElementById("bitsTreeContextmenuDialog").removeAttribute("buttondisabledaccept");
+								break;
+							case "wiredmarker.contextmenu.init":
+								//他のウィンドウの初期設定ダイアログがクローズされた場合
+								window.close();
+								break;
+							default:
+								break;
+						}
+					}
+				}catch(ex){
+				}
+			}
+		};
+
+		function addPrefListener(aObserver){
+			try {
+				var pbi = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranchInternal);
+				pbi.addObserver(aObserver.domain, aObserver, false);
+			} catch(e) {}
+		}
+
+		function removePrefListener(aObserver) {
+			try {
+				var pbi = Components.classes['@mozilla.org/preferences;1'].getService(Components.interfaces.nsIPrefBranchInternal);
+				pbi.removeObserver(aObserver.domain, aObserver);
+			} catch(e) {}
+		}
+
+		function _bitsTreeContextmenuDialogInit(aEvent){
+
+			addPrefListener(_bitsTreeContextmenuDialogObserver);
+			setTimeout(function(){nsPreferences.setUnicharPref("wiredmarker.contextmenu.mode", "");},500);
+			window.sizeToContent();
+		}
+		function _bitsTreeContextmenuDialogDone(aEvent){
+			removePrefListener(_bitsTreeContextmenuDialogObserver);
+		}
+		function _bitsTreeContextmenuDialogAccept(aEvent){
+			nsPreferences.setBoolPref("wiredmarker.contextmenu.init", true);
+		}
+
+		window.addEventListener("load", _bitsTreeContextmenuDialogInit, false);
+		window.addEventListener("unload", _bitsTreeContextmenuDialogDone, false);
+		window.addEventListener("dialogaccept", _bitsTreeContextmenuDialogAccept, false);
+	]]>
+	</script>
+	<dialogheader title="&markingcollection.contextmenu.type;" hidden="true"/>
+	<groupbox>
+		<caption label="&markingcollection.contextmenu.type;"/>
+		<vbox id="mcMenuContextmenuVBox"/>
+	</groupbox>
+</dialog>

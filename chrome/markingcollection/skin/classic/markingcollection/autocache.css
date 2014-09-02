@@ -1,0 +1,8 @@
+#bitsAutocacheTree treechildren::-moz-tree-checkbox(checked){
+  /* css for checked cells */
+  list-style-image: url("chrome://markingcollection/skin/cbox-check.gif");
+}
+#bitsAutocacheTree treechildren::-moz-tree-checkbox(checked,disabled){
+  /* css for checked cells */
+  list-style-image: url("chrome://markingcollection/skin/cbox-check-dis.gif");
+}

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % metaDTD SYSTEM "chrome://markingcollection/locale/marker.dtd" >
+%metaDTD;
+]>
+<overlay
+    id="serverDialogOverlay"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml">
+    
+    <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" /> <!-- Required for access to the Preference Manager component. -->
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/annotation-service.js"/>
+    
+    <script type="application/x-javascript">
+    <![CDATA[
+    var def_url_mode;
+    function _serverDialogOverlayInit(aEvent) {
+        // Set the default textbox value to the REST URL default value that is used.
+        document.getElementById("mcMarkerURLTextDefault").value = annotationFramework.getDefaultBackend();
+        var url_mode = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url","WM_REST_DEFAULT");
+        var url_format = nsPreferences.copyUnicharPref("wiredmarker.marker.initdata.url_format");
+        document.getElementById("mcMarkerURLFormatText").disabled = true;
+        switch(url_mode){
+            case "WM_REST_DEFAULT":
+                    document.getElementById("mcMarkerURLRadiogroup").selectedItem = document.getElementById("mcMarkerURLText");
+                    break;
+            case "WM_REST_UserDefined":
+                    document.getElementById("mcMarkerURLRadiogroup").selectedItem = document.getElementById("mcMarkerURLFormat");
+                    document.getElementById("mcMarkerURLFormatText").disabled = false;
+                    break;
+        }
+        if(url_format) document.getElementById("mcMarkerURLFormatText").value = url_format;
+        
+        def_url_mode = url_mode;
+    }
+    
+    function _serverDialogOverlayDone(aEvent) {
+        var value = document.getElementById("mcMarkerURLFormatText").value;
+	value = value.replace(/^\s+/g,"").replace(/\s+$/g,"");
+	if(value == "") nsPreferences.setUnicharPref("wiredmarker.marker.initdata.url", def_url_mode);
+    }
+    
+    function _markerDialogOverlayURLCommand(aEvent){
+        if(aEvent.target.id=="mcMarkerURLFormat"){
+                document.getElementById("mcMarkerURLFormatText").disabled = false;
+                document.getElementById("mcMarkerURLFormatText").focus();
+        }else{
+                document.getElementById("mcMarkerURLFormatText").disabled = true;
+                def_url_mode = aEvent.target.value;
+        }
+        nsPreferences.setUnicharPref("wiredmarker.marker.initdata.url", aEvent.target.value);
+    }
+    
+    function _markerDialogOverlayURLInput(aEvent){
+	nsPreferences.setUnicharPref("wiredmarker.marker.initdata.url_format", aEvent.target.value);
+    }
+    
+    window.addEventListener("load", _serverDialogOverlayInit, false);
+    window.addEventListener("unload", _serverDialogOverlayDone, false);
+       
+    ]]>
+    </script>  
+  
+    <!-- container used to display a set of tabbed pages of elements -->
+    <tabbox id="mcSettingTabbox">
+    
+        <!-- Create server top level tab in settings window. -->
+        <tabs id="mcSettingTabs">     
+            <tab id="mcServerTab" label="&markingcollection.server.tab;" image="chrome://markingcollection/skin/annotator-skin/server.png"/>
+        </tabs>		
+    
+        <!-- container to hold the set of pages, i.e. the contents of the pages, in a tabbox -->
+        <tabpanels id="mcSettingTabPanels">
+            
+            <!-- individual panel in a tabpanels element: holds elements in parent tabpanels container -->
+            <tabpanel id="mcServerTabPanel" orient="vertical" flex="1">
+            
+                <!-- use groupbox xul element to group related elements together -->
+                <groupbox id="serverSelectOption" flex="1">
+                    
+                    <!-- caption appears along the top of the parent groupbox -->
+                    <caption label="&markingcollection.server.groupbox.caption;" id="selectServerURLCaption"/>
+                        
+                    <!-- hbox element can contain any number of child elements, this container element defaults to horizontal orientation -->
+                    <hbox>
+                        
+                        <!-- radiogroup element comprises a group of radio buttons, only one radio button inside the group can be selected at a time, defaults to vertical orientation -->
+                        <radiogroup flex="1" id="mcMarkerURLRadiogroup" oncommand="_markerDialogOverlayURLCommand(event);">
+                            <grid>
+                                
+                                <columns>
+                                    <column/>
+                                    <column flex="1" id="textboxColumn"/>
+                                </columns>
+                                
+                                <rows>
+
+                                    <row>
+                                        <radio id="mcMarkerURLText" value="WM_REST_DEFAULT" label="&markingcollection.server.rest.default;" selected="true"/>
+                                        <textbox id="mcMarkerURLTextDefault" readonly="true" onfocus="this.select()"/>
+                                    </row>
+                                        
+                                    <row>
+                                        <radio id="mcMarkerURLFormat" value="WM_REST_UserDefined" label="&markingcollection.server.rest.userdefined;"/>
+                                        <textbox id="mcMarkerURLFormatText" onfocus="this.select()" disabled="true" onchange="_markerDialogOverlayURLInput(event);"/>
+                                    </row>
+                                    
+                                </rows>
+                                
+                            </grid>
+        
+                        </radiogroup>
+                             
+                    </hbox>
+                              
+                </groupbox>
+                                    
+            </tabpanel>
+                            
+        </tabpanels>
+    
+    </tabbox>
+
+</overlay>

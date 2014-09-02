@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://browser/content/browser.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/places/places.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/sidebar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/overlay.css" type="text/css"?>
+<?xul-overlay href="chrome://markingcollection/content/captureSidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/itemviewSidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/treepropertySidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/autocacheSidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/treeprojectSidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/tagoutputSidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/hyperanchorSidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/treeContextmenuSidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/treedateSidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/searchacrossSidebarOverlay.xul"?>
+<?xul-overlay href="chrome://markingcollection/content/markerRemapSidebarOverlay.xul"?>
+<!DOCTYPE window [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % treecontextmenuDTD SYSTEM "chrome://markingcollection/locale/treecontextmenu.dtd" >
+%treecontextmenuDTD;
+]>
+<window
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    title=""
+    id="MarkingCollectionWindow"
+>
+
+    <script type="application/x-javascript" src="chrome://global/content/nsDragAndDrop.js"/>
+    <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+    <script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+    <script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/tree.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/treerootfolder.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/marker.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/templatefolder.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/xmlimport.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/treefolderfilter.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/database.js"/>
+        
+    <!-- added for extended part on login information -->
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/lib/jquery-1.9.1.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/lib/jquery.popupWindow.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/annotations.wired.marker.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/annotator-service/annotation-service.js"/>
+    <script type="application/x-javascript" src="chrome://markingcollection/content/sidebarUserLogin.js"/>
+        
+    <script type="application/x-javascript">
+	<![CDATA[
+		function quitApp(){
+			var nsIAppStartup = Components.interfaces.nsIAppStartup;
+			Components.classes["@mozilla.org/toolkit/app-startup;1"].getService(nsIAppStartup).quit(nsIAppStartup.eAttemptQuit);
+		}
+		function restartApp(){
+			var nsIAppStartup = Components.interfaces.nsIAppStartup;
+			Components.classes["@mozilla.org/toolkit/app-startup;1"].getService(nsIAppStartup).quit(nsIAppStartup.eRestart | nsIAppStartup.eAttemptQuit);
+		}
+		function _MarkingCollectionWindowInit(aEvent){
+			mcMainService.init(aEvent);
+                        // Extra hook for DWAN user login information
+                        UserLogin.checkUserLogin();
+		}
+		function _MarkingCollectionWindowDone(aEvent){
+			mcMainService.done(aEvent);
+		}
+                
+                function loginDone(){
+                    UserLogin.checkUserLogin();
+                }
+                
+                function openLoginDialog(){
+                    var params = new Object();;
+                    params.callback = function(){loginDone();};
+                    params.backend = annotationFramework.getBackend();
+                    window.openDialog("chrome://markingcollection/content/loginDialog.xul", "", 
+                                      "chrome,centerscreen,modal", 
+                                      params);
+                }
+                
+                function logout(){
+                    annotationFramework.logout();
+
+                    UserLogin.checkUserLogin();           
+                }
+                
+		window.addEventListener("load", _MarkingCollectionWindowInit, false);
+		window.addEventListener("unload", _MarkingCollectionWindowDone, false);
+	]]>
+    </script>
+    
+    <!-- TODO: Better to use another container instead, e.g. (vbox, box)? -->
+    <description id="loginInfo">
+        <label id="loginStatus"/>
+        <!-- TODO: Check on performance: opening dialogue takes too long at times. -->
+        <button id="loginButton"  label="Login" oncommand="openLoginDialog();"/>
+        <button id="logoutButton" label="Logout" oncommand="logout();" hidden="true"/>
+    </description>
+    
+    <stringbundleset id="mcStringBundles">
+        <stringbundle id="mcMainString" src="chrome://markingcollection/locale/markingcollection.properties" />
+    </stringbundleset>
+    <box id="bitsSidebarBox" orient="horizontal" flex="1">
+        <vbox id="bitsSidebarVBox" persist="height" flex="1">
+            <toolbox id="mcToolbox" class="plain" style="overflow:hidden;min-width:10em;">
+                <toolbar id="mcToolbar" class="plain">
+                    <toolbarbutton id="mcToolbarCreateFolderButton" image="chrome://markingcollection/skin/toolbar_create.png" oncommand="mcTreeHandler.create(-1);" checked="false" hidden="true"/>
+                    <toolbarbutton id="mcToolbarToggle" tooltiptext="&markingcollection.toggle.all;" image="chrome://markingcollection/skin/toolbar_toggle.png" oncommand="mcTreeHandler.toggleAllFolders();" hidden="true"/>
+                    <toolbarbutton id="mcToolbarMenuButton" type="menu" label="menu " hidden="true">
+                        <menupopup id="mcToolbarMenuPopup">
+                            <menuitem id="mcToolbarQuitButton"    label="Quit  "    oncommand="quitApp();"/>
+                            <menuitem id="mcToolbarRestartButton" label="Restart  " oncommand="restartApp();"/>
+                        </menupopup>
+                    </toolbarbutton>
+                    <spacer flex="1"/>
+                    <hbox id="mcToolbarAddonHBox"  flex="1">
+                        <spacer flex="1"/>
+                    </hbox>
+                    <separator orient="vertical" class="thin"/>
+                    <toolbarbutton id="mcToolbarPropertyViewButton" image="chrome://markingcollection/skin/menu_property.png" tooltiptext="&markingcollection.property;" oncommand="mcPropertyView.onClick(event)" checked="false"/>
+                    <toolbarbutton
+                        id="mcToolbarViewModeButton"
+                        type="menu"
+                        label="&markingcollection.viewMode; "
+                        tooltiptext="&markingcollection.viewMode;"
+                        oncommand="mcTreeViewModeService.onClick(event);">
+                        <menupopup id="mcToolbarViewModePopup">
+                            <menuitem id="mcToolbarViewModeItemSingle" label="&markingcollection.viewMode.single;" value="single" type="radio" />
+                            <menuitem id="mcToolbarViewModeItemAll"    label="&markingcollection.viewMode.all;"    value="all"    type="radio" />
+                        </menupopup>
+                    </toolbarbutton>
+                </toolbar>
+            </toolbox>
+            <vbox id="mcTreeVBox" flex="1">
+                <tabbox id="mcTreeTabbox" flex="1">
+                    <tabs id="mcTreeTabs">
+                        <tab id="mcTreeTabCustom" label="Custom"/>
+                    </tabs>
+                    <tabpanels id="mcTreeTabpanels" flex="1">
+                        <tabpanel id="mcTreeTabpanelCustom">
+                            <tree
+                                id="mcTree"
+                                datasources="rdf:null"
+                                statedatasource=""
+                                ref=""
+                                tooltip="mcPopupTooltip"
+                                flags="dont-build-content"
+                                hidecolumnpicker="true"
+                                seltype="single"
+                                class="plain"
+                                flex="1">
+                                <treecols id="mcTreeCols">
+                                    <treecol id="mcTreeColTitle" hideheader="true" primary="true" class="sortDirectionIndicator" sortActive="true" sortDirection="natural" overflow="true" flex="90"/>
+                                    <treecol id="mcTreeColShortcut" hideheader="true" fixed="true" minWidth="60" width="60" crop="start"/>
+                                    <treecol id="mcTreeColStyle"    hideheader="true" fixed="true" minWidth="10" width="10"/>
+                                    <treecol id="mcTreeColWork"     hideheader="true" flex="1"/>
+                                </treecols>
+                                <template>
+                                    <rule id="mcTreeRule">
+                                        <treechildren flex="1">
+                                            <treeitem uri="rdf:*">
+                                                <treerow>
+                                                    <treecell
+                                                        id="mcTreeItem"
+                                                        label="rdf:http://www.bits.cc/Wired-Marker/wiredmarker-rdf#title"
+                                                        value="rdf:http://www.bits.cc/Wired-Marker/wiredmarker-rdf#uri"
+                                                        src="rdf:http://www.bits.cc/Wired-Marker/wiredmarker-rdf#icon"
+                                                        properties="Name rdf:http://www.bits.cc/Wired-Marker/wiredmarker-rdf#type"
+                                                    />
+                                                    <treecell
+                                                        label="rdf:http://www.bits.cc/Wired-Marker/wiredmarker-rdf#shortcut"
+                                                        properties="Shoutcut"
+                                                    />
+                                                    <treecell
+                                                        label=""
+                                                        properties="rdf:http://www.bits.cc/Wired-Marker/wiredmarker-rdf#cssrule"
+                                                    />
+                                                </treerow>
+                                            </treeitem>
+                                        </treechildren>
+                                    </rule>
+                                </template>
+                            </tree>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
+            </vbox>
+        </vbox>
+    </box>
+    <splitter id="bitsFindSplitter" hidden="true"/>
+    <vbox id="bitsFindVBox" hidden="true"/>
+    <splitter id="mcPropertyViewSplitter"/>
+    <vbox id="mcPropertyViewVBox"/>
+    <splitter id="bitsBrowserAutocacheSplitter"/>
+    <vbox id="bitsBrowserAutocacheVBox"/>
+    <splitter id="captureMenuSplitter" hidden="true" />
+    <vbox id="captureMenuVBox" hidden="true" />
+    <splitter id="htmlcanvasMenuSplitter" hidden="true" />
+    <vbox id="htmlcanvasMenuVBox" hidden="true" />
+    <popupset id="mcPopupSet">
+        <menupopup
+            id="mcPopup"
+            onpopupshowing="mcController.onPopupShowing(event);"
+            onpopuphiding="mcController.onPopupHiding(event);">
+            <menuitem
+                id="mcPopupOpen"
+                label="&markingcollection.open;"
+                oncommand="mcController.open(null,false);"
+                nodelay="true"
+                default="true"/>
+            <menuitem
+                id="mcPopupOpenNewTab"
+                label="&markingcollection.open.newtab;"
+                oncommand="mcController.open(null,true);"
+                nodelay="true"/>
+            <menuitem
+                id="mcPopupOpenAllItems"
+                label="&markingcollection.folder.openall;"
+                oncommand="mcController.openAllInTabs(null);"
+                hidden="true"/>
+            <menuseparator
+                id="mcPopupOpenSeparator"
+                hidden="true"/>
+            <menu
+                id="mcPopupCreates"
+                class="menu-iconic"
+                label="&markingcollection.new.folder;"
+                image="chrome://markingcollection/skin/menu_create.png"
+                onmouseover="event.stopPropagation();">
+                <menupopup
+                    id="mcPopupCreatesMenu"
+                    onpopupshowing="mcTreeTemplateFolder.onPopupShowing(event);"
+                    onpopuphiding="mcTreeTemplateFolder.onPopupHiding(event);"
+                    oncommand="mcTreeTemplateFolder.onCommand(event,mcTreeHandler.TREE.currentIndex);">
+                    <menuitem
+                        id="mcPopupCreateContents"
+                        class="menuitem-iconic"
+                        label="&markingcollection.new.defaultFolder;..."
+                        image="chrome://markingcollection/skin/treefolder.png"
+                        oncommand="mcTreeHandler.create(mcTreeHandler.TREE.currentIndex);event.stopPropagation();"/>
+                    <menuseparator
+                        id="mcPopupCreateContentsMenuseparator"
+                        observes="mcPopupCreateContents"/>
+                </menupopup>
+            </menu>
+
+            <menu
+                id="mcPopupViewMenu"
+                class="menu-iconic"
+                image="chrome://markingcollection/skin/view.png"
+                label="&treecontextmenu.view.list;">
+                <menupopup>
+                    <menuitem
+                        id="mcPopupListView"
+                        class="menuitem-iconic"
+                        label="&treecontextmenu.view.list;"
+                        image="chrome://markingcollection/skin/list.png"
+                        oncommand="window.top.bitsTreeListService.dispList(event,'chrome://markingcollection/content/listview_drag.xsl');"/>
+
+                    <menu
+                        id="mcPopupTreeListViewMenu"
+                        class="menu-iconic"
+                        label="&markingcollection.treelistview;"
+                        image="chrome://markingcollection/skin/toolbar_listview.png">
+                        <menupopup
+                            id="mcPopupTreeListViewMenuPopup"
+                            onpopupshowing="window.top.bitsTreeListService.onPopupShowing(event);"
+                            onpopuphiding="window.top.bitsTreeListService.onPopupHiding(event);"
+                            oncommand="window.top.bitsTreeListService.onCommand(event);">
+                            <menuitem
+                                id="mcPopupTreeListView"
+                                class="menuitem-iconic"
+                                label="&markingcollection.treelistview.defaults;"
+                                image="chrome://markingcollection/skin/stylesheet.png"
+                                oncommand="window.top.bitsTreeListService.dispList(event);"/>
+                            <menuseparator observes="mcPopupTreeListViewSeparator"/>
+                        </menupopup>
+                    </menu>
+                </menupopup>
+            </menu>
+
+            <menuseparator
+                id="mcPopupImportTagMenuSeparator"
+                observes="mcPopupImportTag"/>
+            <menuitem
+                id="mcPopupImportTag"
+                class="menuitem-iconic"
+                label="&markingcollection.importTagAll;..."
+                image="chrome://markingcollection/skin/importtag.png"
+                oncommand="window.top.bitsImportTagService.dispList(event);"/>
+            <menuseparator id="mcPopupAddonMenuSeparator" observes="mcPopupAddonMenu"/>
+            <menu
+                id="mcPopupAddonMenu"
+                class="menu-iconic"
+                label="&markingcollection.addon;"
+                image="chrome://markingcollection/skin/extensions_16.png"
+                hidden="true">
+                <menupopup
+                    id="mcPopupAddonMenuPopup"
+                    onpopupshowing="window.top.bitsScrapPartyAddonService.onPopupShowing(event,mcTreeHandler.resource);"
+                    onpopuphiding="window.top.bitsScrapPartyAddonService.onPopupHiding(event);"
+                    oncommand="window.top.bitsScrapPartyAddonService.onCommand(event,mcTreeHandler.resource);" />
+            </menu>
+            <menuseparator observes="mcPopupRootFolder"/>
+            <menuitem
+                id="mcPopupRootFolder"
+                type="checkbox"
+                label="&markingcollection.rootFolder;"
+                oncommand="mcTreeRootFolder.onClick(event);" />
+            <menuseparator id="mcPopupFolderAutoOpenSeparator"/>
+            <menuitem
+                id="mcPopupFolderAutoOpen"
+                type="checkbox"
+                label="&markingcollection.folderAutoOpen;"
+                oncommand="var checked = (event.target.getAttribute('checked')=='true'?true:false);nsPreferences.setBoolPref('wiredmarker.folderautoopen',!checked);event.target.setAttribute('checked',checked);" />
+            <menuseparator id="mcPopupFilterSeparator" hidden="true"/>
+            <menuitem
+                id="mcPopupFilter"
+                class="menuitem-iconic"
+                label="&markingcollection.filter;..."
+                image="chrome://markingcollection/skin/filter.png"
+                oncommand="mcTreeFolderFilterService.onCommand(event)"
+                disabled="false"/>
+            <menuseparator observes="mcPopupExport"/>
+            <menuitem
+                id="mcPopupImport"
+                label="&markingcollection.import;..."
+                oncommand=""
+                disabled="true"
+                hidden="true"/>
+            <menuitem
+                id="mcPopupExport"
+                class="menuitem-iconic"
+                label="&markingcollection.export;..."
+                image="chrome://markingcollection/skin/zip.png"
+                oncommand="window.top.bitsTreeExportService.saveFile(event)"
+                disabled="false"/>
+            <menuseparator observes="mcPopupEditReplacedURL"/>
+            <menuitem
+                id="mcPopupEditReplacedURL"
+                class="menuitem-iconic"
+                label="&markingcollection.edit.replacedURL;..."
+                image="chrome://markingcollection/skin/edit.png"
+                oncommand="mcTreeHandler.replacedURL(event);"
+                hidden="true"/>
+            <menuseparator observes="mcPopupRemoves"/>
+            <menu
+                id="mcPopupRemoves"
+                class="menu-iconic"
+                label="&markingcollection.remove;"
+                image="chrome://markingcollection/skin/menu_remove.png"
+                onmouseover="event.stopPropagation();">
+                <menupopup id="mcPopupRemovesMenu">
+                    <menuitem
+                        id="mcPopupRemoveFolder"
+                        class="menuitem-iconic"
+                        label="&markingcollection.remove.folder;"
+                        image="chrome://markingcollection/skin/treefolder.png"
+                        oncommand="setTimeout(function(){mcTreeHandler.removeFolder(event);},0);" />
+                    <menuitem
+                        id="mcPopupRemoveAllFolder"
+                        class="menuitem-iconic"
+                        label="&markingcollection.remove.folderall;"
+                        image="chrome://markingcollection/skin/treefolder.png"
+                        oncommand="setTimeout(function(){mcTreeHandler.removeAllFolder(event);},0);"/>
+                    <menuitem
+                        id="mcPopupRemoveAllContents"
+                        class="menuitem-iconic"
+                        label="&markingcollection.remove.itemall;"
+                        image="chrome://markingcollection/skin/treeitem.png"
+                        oncommand="setTimeout(function(){mcTreeHandler.removeAll(event);},0);" />
+                </menupopup>
+            </menu>
+            <menuseparator observes="mcPopupTemplateFolder"/>
+            <menu
+                id="mcPopupTemplateFolder"
+                label="&markingcollection.templateFolder;"
+                onpopupshowing="mcTreeTemplateFolder.onPopupShowingMng(event);">
+                <menupopup>
+                    <menuitem
+                        id="mcPopupTemplateFolderCreate"
+                        class="menuitem-iconic"
+                        label="&markingcollection.templateFolder.create;..."
+                        image="chrome://markingcollection/skin/menu_create.png"
+                        oncommand="mcTreeTemplateFolder.onClick(event,mcTreeHandler.TREE.currentIndex);" />
+                    <menuitem
+                        id="mcPopupTemplateFolderRemove"
+                        class="menuitem-iconic"
+                        label="&markingcollection.templateFolder.remove;..."
+                        image="chrome://markingcollection/skin/menu_remove.png"
+                        oncommand="mcTreeTemplateFolder.onRemove(event);" />
+                </menupopup>
+            </menu>
+            <menuseparator observes="mcPopupRemoveContents"/>
+            <menuitem
+                id="mcPopupRemoveContents"
+                class="menuitem-iconic"
+                label="&markingcollection.remove;"
+                image="chrome://markingcollection/skin/menu_remove.png"
+                oncommand="setTimeout(function(){mcTreeHandler.remove(event);},0);" />
+            <menuseparator observes="mcPopupProperty"/>
+            <menuitem
+                id="mcPopupProperty"
+                class="menuitem-iconic"
+                label="&markingcollection.property;"
+                image="chrome://markingcollection/skin/menu_property.png"
+                oncommand="mcController.property(null);" />
+        </menupopup>
+    </popupset>
+</window>

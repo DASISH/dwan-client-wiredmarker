@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+    <Description about="urn:mozilla:install-manifest">
+        <!-- Wired-Marker GUID -->
+        <!-- <em:id>{e36db930-f18d-4449-b45f-e286cfb9e03a}</em:id> -->
+        <!-- DASISH (email-style) ID -->
+        <em:id>webannotator@dasish.eu</em:id>
+        <em:unpack>true</em:unpack>
+        <em:localized>
+            <Description>
+                <em:locale>en-US</em:locale>
+                <!-- <em:name>Wired-Marker</em:name> -->
+                <em:name>DASISH Web Annotator</em:name>
+                <!-- <em:description>Put permanent marker line on web pages in many color and shapes / option.</em:description> -->
+                <!-- Hint: add-on description defined in about.properties file -->
+                <em:description>Annotate fragments of web documents with tags, colors and text notes.</em:description>
+            </Description>
+        </em:localized>
+        <!-- no Japanese version -->
+        <!--
+        <em:localized>
+            <Description>
+                <em:locale>ja-JP</em:locale>
+                <em:name>Wired-Marker</em:name>
+                <em:description>Webページに引く「消えないマーカー」です。</em:description>
+            </Description>
+        </em:localized>
+        -->
+        <!-- <em:name>Wired-Marker</em:name> -->
+        <em:name>DASISH Web Annotator</em:name>
+        <!-- <em:description>Put permanent marker line on web pages in many color and shapes / option.</em:description> -->
+        <em:description>Annotate web documents with text notes, titles and colours.</em:description>
+        <!-- <em:version>4.0.11120600</em:version> -->
+        <!-- DASISH prototype 3.0 -->
+        <em:version>3.0</em:version>
+        <em:creator>BITS Co., Ltd., extended by Swedish National Data Service (SND)</em:creator>
+        <em:developer>Stephanie S. Roth</em:developer>
+        <em:developer>Olof Olsson</em:developer>
+        <!-- <em:homepageURL>http://www.wired-marker.org/</em:homepageURL> -->
+        <em:homepageURL>http://dasish.eu/</em:homepageURL>
+        
+        <em:aboutURL>chrome://markingcollection/content/about.xul</em:aboutURL>
+        <!-- <em:iconURL>chrome://markingcollection/skin/icon_32.png</em:iconURL> -->
+        <!-- Replaced with DASISH icon, needs to be 32x32 -->
+        <em:iconURL>chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_32_32.png</em:iconURL>
+        <em:optionsURL>chrome://markingcollection/content/settingDialog.xul</em:optionsURL>
+
+        <!-- Firefox -->
+        <em:targetApplication>
+            <Description>
+                <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+                <em:minVersion>2.0</em:minVersion>
+                <!-- <em:maxVersion>10.*</em:maxVersion> -->
+                <!-- Current FF version is 30.0 -->
+                <em:maxVersion>30.*.*</em:maxVersion>
+            </Description>
+        </em:targetApplication>
+    </Description>
+</RDF>

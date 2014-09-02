@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<!DOCTYPE dialog [
+<!ENTITY % markingcollectionDTD SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%markingcollectionDTD;
+<!ENTITY % markerDTD SYSTEM "chrome://markingcollection/locale/marker.dtd" >
+%markerDTD;
+]>
+<dialog
+	id="bitsMarkerInitDataDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	title="&marker.initdata.dialog.title;"
+	buttons=","
+	width="600"
+	height="200"
+	ondialogaccept="return _bitsMarkerInitDataDialogAccept(event);"
+	>
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		function getTopWindow(){
+			return Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("navigator:browser");
+		}
+		function getSTRING(){
+			return getTopWindow().document.getElementById("MarkingCollectionOverlayString");
+		}
+		function getCommon(){
+			return getTopWindow().bitsObjectMng.Common;
+		}
+		function _bitsMarkerInitDataDialogOK(aEvent){
+			document.getElementById("bitsMarkerInitDataDialog").acceptDialog();
+		}
+		function _bitsMarkerInitDataDialogCancel(aEvent){
+			document.getElementById("bitsMarkerInitDataDialog").cancelDialog();
+		}
+		function _bitsMarkerInitDataDialogInit(aEvent){
+			var title = window.arguments[0].title;
+			title = title.replace(/^\s+/g,"").replace(/\s+$/g,"");
+			var TEXT = document.getElementById("bitsMarkerInitDataTitleText");
+			TEXT.value = title;
+			try{TEXT.editor.transactionManager.clear();}catch(e){}
+
+			var NOTE = document.getElementById("bitsMarkerInitDataNoteText");
+			NOTE.value = window.arguments[0].note;
+			try{NOTE.editor.transactionManager.clear();}catch(e){}
+
+			var edit = nsPreferences.getBoolPref("wiredmarker.marker.initdata.edit", true);
+			document.getElementById("bitsMarkerInitEditCheckbox").checked = edit;
+			window.sizeToContent();
+			if(title != ""){
+				document.getElementById("bitsMarkerInitDataOKButton").focus();
+			}else{
+				document.getElementById("bitsMarkerInitDataOKButton").disabled = true;
+			}
+		}
+		function _bitsMarkerInitDataDialogDone(aEvent){}
+		function _bitsMarkerInitDataDialogAccept(aEvent){
+			var title = document.getElementById("bitsMarkerInitDataTitleText").value;
+			title = title.replace(/^\s+/g,"").replace(/\s+$/g,"");
+			if(title == ""){
+				setTimeout(function(){ document.getElementById("bitsMarkerInitDataTitleText").focus();},250);
+				return false;
+			}
+			var edit = document.getElementById("bitsMarkerInitEditCheckbox").checked;
+			nsPreferences.setBoolPref("wiredmarker.marker.initdata.edit", edit);
+
+			window.arguments[0].accept = true;
+			window.arguments[0].title = document.getElementById("bitsMarkerInitDataTitleText").value;
+			window.arguments[0].note = document.getElementById("bitsMarkerInitDataNoteText").value;
+
+			return true;
+		}
+		function _bitsMarkerInitDataTitleTextInput(aEvent){
+			var TEXT = document.getElementById("bitsMarkerInitDataTitleText");
+			var title = TEXT.value;
+			title = title.replace(/^\s+/g,"").replace(/\s+$/g,"");
+			if(title != ""){
+				document.getElementById("bitsMarkerInitDataOKButton").disabled = false;
+				document.getElementById("bitsMarkerInitDataTitleHBox").style.borderColor = 'transparent';
+			}else{
+				document.getElementById("bitsMarkerInitDataOKButton").disabled = true;
+				document.getElementById("bitsMarkerInitDataTitleHBox").style.borderColor = 'red';
+			}
+		}
+		function _bitsMarkerInitDataTitleTextChange(aEvent){
+			var title = document.getElementById("bitsMarkerInitDataTitleText").value;
+			title = title.replace(/\t/mg,"        ");
+			title = getCommon().exceptCode(title);
+			title = title.replace(/\x0D\x0A|\x0D|\x0A/g, " ").replace(/^\s*/g,"").replace(/\s*$/g,"");
+			if(Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULRuntime).OS != "Darwin"){
+				if(title == ""){
+					getCommon().alert(getSTRING().getString("ERROR_NOT_ENTER_TITLE"));
+//					undoTitle();
+					aEvent.preventDefault();
+					aEvent.stopPropagation();
+				}else{
+					if(document.getElementById("bitsMarkerInitDataTitleText").value != title) document.getElementById("bitsMarkerInitDataTitleText").value = title;
+				}
+			}else{
+				if(document.getElementById("bitsMarkerInitDataTitleText").value != title) document.getElementById("bitsMarkerInitDataTitleText").value = title;
+			}
+		}
+		function _bitsMarkerInitDataNoteTextChange(aEvent){
+			var note = document.getElementById("bitsMarkerInitDataNoteText").value;
+			note = note.replace(/\t/g,"        ");
+			note = note.replace(/\x0D\x0A|\x0D|\x0A/g," __BR__ ");
+			note = getCommon().exceptCode(note);
+			note = note.replace(/ __BR__ /g,"\n");
+			if(document.getElementById("bitsMarkerInitDataNoteText").value != note) document.getElementById("bitsMarkerInitDataNoteText").value = note;
+		}
+		function undoTitle(){
+			var TITLE = document.getElementById("bitsMarkerInitDataTitleText");
+			try{
+				while(TITLE.editor.transactionManager.numberOfUndoItems>0){
+					TITLE.editor.undo(1);
+					var title = TITLE.value;
+					title = title.replace(/\t/mg,"        ");
+					title = getCommon().exceptCode(title);
+					title = title.replace(/[\r\n]/g, " ").replace(/^\s*/g,"").replace(/\s*$/g,"");
+					if(title != "") break;
+				}
+			}catch(e){}
+			window.focus();
+			setTimeout(function(){TITLE.focus();},100);
+		}
+		window.addEventListener("load", _bitsMarkerInitDataDialogInit, false);
+		window.addEventListener("unload", _bitsMarkerInitDataDialogDone, false);
+//		window.addEventListener("dialogaccept", _bitsMarkerInitDataDialogAccept, false);
+	]]>
+	</script>
+	<grid flex="1">
+		<columns>
+			<column/>
+			<column flex="1"/>
+		</columns>
+		<rows>
+			<row align="center">
+				<hbox flex="1" pack="end">
+					<label value="&marker.initdata.dialog.label.title; :" control="bitsMarkerInitDataTitleText"/>
+				</hbox>
+				<hbox id="bitsMarkerInitDataTitleHBox" flex="1" style="border:2px solid transparent;">
+					<textbox
+						id="bitsMarkerInitDataTitleText"
+						flex="1"
+						emptytext="&marker.initdata.dialog.emptytext.title;"
+						placeholder="&marker.initdata.dialog.emptytext.title;"
+						newlines="replacewithspaces"
+						onfocus="this.select()"
+						onkeypress="_bitsMarkerInitDataTitleTextInput(event);"
+						onkeydown="_bitsMarkerInitDataTitleTextInput(event);"
+						oninput="_bitsMarkerInitDataTitleTextInput(event);"
+						onblur="_bitsMarkerInitDataTitleTextInput(event);"
+						onchange="_bitsMarkerInitDataTitleTextChange(event);"/>
+				</hbox>
+			</row>
+			<row align="stretch" flex="1">
+				<hbox flex="1" pack="end">
+					<label value="&marker.initdata.dialog.label.note; :" control="bitsMarkerInitDataNoteText"/>
+				</hbox>
+				<hbox id="bitsMarkerInitDataNoteHBox" flex="1" style="border:2px solid transparent;">
+					<textbox
+						id="bitsMarkerInitDataNoteText"
+						multiline="true"
+						rows="5"
+						flex="1"
+						wrap="on"
+						onfocus="this.select()"
+						onchange="_bitsMarkerInitDataNoteTextChange(event);"/>
+				</hbox>
+			</row>
+			<row align="center">
+				<hbox flex="1"/>
+				<hbox flex="1">
+					<hbox flex="1" pack="start">
+						<checkbox id="bitsMarkerInitEditCheckbox" label="&marker.initdata.overlay.checkbox.edit;"/>
+					</hbox>
+					<hbox flex="1" pack="end">
+						<button label="OK" oncommand="_bitsMarkerInitDataDialogOK(event);" id="bitsMarkerInitDataOKButton"/>
+						<button label="Cancel" oncommand="_bitsMarkerInitDataDialogCancel(event);"/>
+					</hbox>
+				</hbox>
+			</row>
+		</rows>
+	</grid>
+</dialog>

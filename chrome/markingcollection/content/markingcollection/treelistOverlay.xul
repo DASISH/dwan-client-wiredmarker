@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/treecontextmenu.dtd">
+<overlay
+	id="bitsTreeListOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<popupset id="mainPopupSet">
+		<menupopup id="bitsTreeListContextmenu">
+			<menuitem
+				id="bitsTreeListContextmenuRemoveClass"
+				class="menuitem-iconic"
+				label="&treecontextmenu.view.list.remove;"
+				image="chrome://markingcollection/skin/folder-delete.png"
+				oncommand="window.top.bitsTreeListService.removeClass(event);"/>
+		</menupopup>
+	</popupset>
+</overlay>

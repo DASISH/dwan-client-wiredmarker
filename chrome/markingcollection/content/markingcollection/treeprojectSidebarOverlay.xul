@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://browser/skin/searchbar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/browser.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/content/places/places.css" type="text/css"?>
+<?xml-stylesheet href="chrome://browser/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/sidebar.css" type="text/css"?>
+<?xml-stylesheet href="chrome://markingcollection/skin/overlay.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="treeprojectOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _treeprojectMainInit(aEvent){
+			window.top.bitsTreeProjectService.load(aEvent);
+		}
+		function _treeprojectMainDone(aEvent){
+			window.top.bitsTreeProjectService.unload(aEvent);
+		}
+		window.addEventListener("load", _treeprojectMainInit, false);
+		window.addEventListener("unload", _treeprojectMainDone, false);
+	]]>
+	</script>
+	<popupset id="mcPopupSet">
+		<menupopup id="mcPopup">
+			<menu id="mcPopupProjectIndexMenu" class="menu-iconic" label="&markingcollection.project.index.menu.caption;" image="chrome://markingcollection/skin/index_list.png" insertafter="mcPopupViewMenu">
+				<menupopup id="mcPopupProjectIndexMenupopup">
+					<menu
+						class="menu-iconic"
+						label="&markingcollection.project.index.menu.display;"
+						image="chrome://markingcollection/skin/index_list.png">
+						<menupopup>
+							<menuitem
+								id="mcPopupProjectIndexOutputMenuitem"
+								class="menuitem-iconic"
+								label="&markingcollection.project.index.menu.display.normal;..."
+								image="chrome://markingcollection/skin/stylesheet.png"
+								oncommand="window.top.bitsTreeProjectService.displayIndex(event,'chrome://markingcollection/content/treeindex_standard.xsl');"/>
+							<menuitem
+								id="mcPopupProjectIndexOutputMenuitem"
+								class="menuitem-iconic"
+								label="&markingcollection.project.index.menu.display.url;..."
+								image="chrome://markingcollection/skin/stylesheet.png"
+								oncommand="window.top.bitsTreeProjectService.displayIndex(event,'chrome://markingcollection/content/treeindex_url.xsl');"/>
+						</menupopup>
+					</menu>
+					<menuitem
+						id="mcPopupCreateProjectContents1"
+						class="menuitem-iconic"
+						label="&markingcollection.project.index.menu.save;..."
+						image="chrome://markingcollection/skin/index_save.png"
+						oncommand="window.top.bitsTreeProjectService.saveIndex(event);"/>
+				</menupopup>
+			</menu>
+			<menu
+				id="mcPopupProjectMainMenu"
+				class="menu-iconic"
+				label="&markingcollection.menu.project;"
+				image="chrome://markingcollection/skin/project.png"
+				insertbefore="mcPopupOpen"
+				hidden="true">
+				<menupopup id="mcPopupProjectMainMenupopup">
+					<menuitem
+						label="&markingcollection.open;"
+						oncommand="alert('cmd_project_make_dictionary')" />
+					<menuitem
+						id="bitsTreeProjectPopupOpenNewTab"
+						label="&markingcollection.open.newtab;"/>
+					<menuseparator observes="bitsTreeProjectPopupOpen"/>
+					<menuitem
+						id="bitsTreeProjectPopupRemove"
+						class="menuitem-iconic"
+						label="&markingcollection.remove;"
+						image="chrome://markingcollection/skin/menu_remove.png"/>
+					<menuseparator observes="bitsTreeProjectPopupRemove"/>
+					<menuitem
+						id="bitsTreeProjectPopupProperty"
+						class="menuitem-iconic"
+						label="&markingcollection.property;"
+						image="chrome://markingcollection/skin/menu_property.png"/>
+				</menupopup>
+			</menu>
+			<menuseparator observes="mcPopupProjectMainMenu" insertbefore="mcPopupOpen"/>
+			<menuseparator
+				observes="mcPopupProjectDocumentsMenu"
+				insertbefore="mcPopupImportTagMenuSeparator"/>
+			<menu
+				id="mcPopupProjectDocumentsMenu"
+				class="menu-iconic"
+				label="&markingcollection.menu.documents;"
+				image="chrome://markingcollection/skin/documents.png"
+				insertbefore="mcPopupImportTagMenuSeparator">
+				<menupopup id="mcPopupProjectDocumentsMenupopup">
+					<menuitem
+						label="&markingcollection.project.documents.select.folder;..."
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/toolbar_folder.png"
+						oncommand="window.top.bitsTreeProjectService.readDocumentFromFolder(event);" />
+					<menuitem
+						label="&markingcollection.project.documents.select.file;..."
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/documents.png"
+						oncommand="window.top.bitsTreeProjectService.readDocumentFromFile(event);" />
+				</menupopup>
+			</menu>
+			<menuseparator
+				observes="mcPopupProjectDictionaryMenu"
+				insertbefore="mcPopupImportTagMenuSeparator"/>
+			<menu
+				id="mcPopupProjectDictionaryMenu"
+				class="menu-iconic"
+				label="&markingcollection.menu.dictionary;"
+				image="chrome://markingcollection/skin/dictionary.png"
+				insertbefore="mcPopupImportTagMenuSeparator">
+				<menupopup id="mcPopupProjectDictionaryMenupopup">
+					<menuitem
+						label="&markingcollection.project.dictionary.apply;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/dictionary_apply.png"
+						oncommand="window.top.bitsTreeProjectService.applyDictionary(event)" />
+					<menuseparator/>
+					<menuitem
+						label="&markingcollection.project.dictionary.edit;"
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/dictionary_edit.png"
+						oncommand="window.top.bitsTreeProjectService.makeDictionary(event)" />
+					<menuseparator/>
+					<menuitem
+						label="&markingcollection.project.dictionary.read;..."
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/toolbar_folder.png"
+						oncommand="window.top.bitsTreeProjectService.readDictionary(event)" />
+					<menuitem
+						label="&markingcollection.project.dictionary.save;..."
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/dictionary_save.png"
+						oncommand="window.top.bitsTreeProjectService.saveDictionary(event)" />
+					<menuitem
+						label="&markingcollection.project.dictionary.management;..."
+						class="menuitem-iconic"
+						image="chrome://markingcollection/skin/management.png"
+						oncommand="window.top.bitsTreeProjectService.mngDictionary(event)" />
+				</menupopup>
+			</menu>
+			<menu id="mcPopupProjectAnchorMenu" class="menu-iconic" label="&markingcollection.menu.anchor;" image="chrome://markingcollection/skin/hyperanchor.png" insertbefore="mcPopupOpen" hidden="true">
+				<menupopup id="mcPopupProjectAnchorMenupopup">
+					<menuitem
+						label="&markingcollection.open;"
+						oncommand="alert('cmd_project_make_dictionary')" />
+				</menupopup>
+			</menu>
+			<menuseparator observes="mcPopupProjectAnchorMenu" insertbefore="mcPopupOpen"/>
+		</menupopup>
+	</popupset>
+</overlay>

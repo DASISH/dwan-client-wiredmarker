@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="substitutiontreeOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/substitutiontreeOverlay.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _substitutiontreeInit(aEvent){
+			bitsSubstitutionTreeOverlay.init(aEvent);
+		}
+		function _substitutiontreeDone(aEvent){
+			bitsSubstitutionTreeOverlay.done(aEvent);
+		}
+		window.addEventListener("load", _substitutiontreeInit, false);
+		window.addEventListener("unload", _substitutiontreeDone, false);
+	]]>
+	</script>
+	<groupbox id="bitsSubstitutionTreeGroupBox">
+		<hbox flex="1">
+			<tree
+				id="bitsSubstitutionTree"
+				tooltip="mcPopupTooltip"
+				flex="1"
+				hidecolumnpicker="true"
+				seltype="single"
+				class="tree"
+				onclick="bitsSubstitutionTreeOverlay.onClick(event);"
+				ondblclick="bitsSubstitutionTreeOverlay.onDblClick(event);"
+			>
+				<treecols id="bitsSubstitutionTreeCols">
+					<treecol
+						id="bitsSubstitutionTreeSrcCol"
+						flex="1"
+						label="&markingcollection.substitutiontree.src;"
+						persist="width"/>
+					<splitter class="tree-splitter"/>
+					<treecol
+						id="bitsSubstitutionTreeAltCol"
+						flex="1"
+						label="&markingcollection.substitutiontree.alt;"
+						persist="width"/>
+				</treecols>
+				<treechildren/>
+			</tree>
+			<vbox>
+				<toolbarbutton
+					id="bitsSubstitutionTreeAdd"
+					label="&markingcollection.substitutiontree.add;"
+					image="chrome://markingcollection/skin/menu_create.png"
+					oncommand="bitsSubstitutionTreeOverlay.onAdd(event);"/>
+				<toolbarbutton
+					id="bitsSubstitutionTreeEdit"
+					label="&markingcollection.substitutiontree.edit;"
+					image="chrome://markingcollection/skin/menu_property.png"
+					disabled="true"
+					oncommand="bitsSubstitutionTreeOverlay.onEdit(event);"/>
+				<toolbarbutton
+					id="bitsSubstitutionTreeDel"
+					label="&markingcollection.substitutiontree.del;"
+					image="chrome://markingcollection/skin/menu_remove.png"
+					disabled="true"
+					oncommand="bitsSubstitutionTreeOverlay.onDel(event);"/>
+			</vbox>
+		</hbox>
+	</groupbox>
+</overlay>

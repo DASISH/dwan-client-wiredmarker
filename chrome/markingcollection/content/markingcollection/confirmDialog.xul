@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/scrappartymerge.dtd">
+<dialog
+	id="spmConfirmDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	title="&scrappartymerge.confirm.title;"
+	buttons="extra1,extra2,accept,cancel"
+	buttonlabelaccept="&scrappartymerge.mergemode.merge;"
+	buttonlabelextra1="&scrappartymerge.mergemode.overwrite;"
+	buttonlabelextra2="&scrappartymerge.mergemode.destruction;"
+	defaultButton="accept"
+	onload="spmConfirmDialog.init();"
+	ondialogaccept="spmConfirmDialog.merge();"
+	ondialogextra1="spmConfirmDialog.overwrite();"
+	ondialogextra2="spmConfirmDialog.destruction();"
+	ondialogcancel="spmConfirmDialog.cancel();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/confirmDialog.js" />
+	<stringbundleset id="spmStringBundles">
+		<stringbundle id="spmConfirmDialogString" src="chrome://markingcollection/locale/scrappartymerge.properties" />
+	</stringbundleset>
+	<hbox>
+		<groupbox flex="1">
+			<caption label="&scrappartymerge.confirm.dropobject;"/>
+			<vbox flex="1">
+				<textbox id="spmSrcTitle" multiline="false" style="plain" readonly="true"/>
+				<textbox id="spmSrcNote"  multiline="true" style="plain" readonly="true"/>
+			</vbox>
+		</groupbox>
+		<groupbox flex="1">
+			<caption label="&scrappartymerge.confirm.mergeobject;"/>
+			<textbox id="spmDstTitle" multiline="false" flex="1" style="plain" readonly="true"/>
+			<textbox id="spmDstNote"  multiline="true" flex="99" style="plain" readonly="true"/>
+		</groupbox>
+	</hbox>
+	<hbox>
+		<checkbox id="spmConfirmSameProcessing" label="&scrappartymerge.confirm.same_processing;"/>
+		<spacer flex="1"/>
+		<button dlgtype="accept"/>
+		<button dlgtype="extra1"/>
+		<button dlgtype="extra2"/>
+		<button dlgtype="cancel"/>
+	</hbox>
+</dialog>

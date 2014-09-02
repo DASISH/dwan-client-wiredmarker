@@ -1,0 +1,25 @@
+<!ENTITY treecontextmenu.folder                 "Folder">
+<!ENTITY treecontextmenu.folder.new             "Create an empty folder">
+<!ENTITY treecontextmenu.folder.template.new    "Create folders using the template">
+<!ENTITY treecontextmenu.folder.template.create "Create a template">
+<!ENTITY treecontextmenu.folder.template.remove "Delete Template">
+
+<!ENTITY treecontextmenu.view       "View">
+<!ENTITY treecontextmenu.view.list  "List view">
+<!ENTITY treecontextmenu.view.list.remove "Remove">
+<!ENTITY treecontextmenu.view.itemviewstyle         "Item view style">
+<!ENTITY treecontextmenu.view.itemviewstyle.favicon "Icon size">
+<!ENTITY treecontextmenu.view.itemviewstyle.items   "View item">
+<!ENTITY treecontextmenu.view.filter  "Folder filter">
+
+<!ENTITY treecontextmenu.import           "Import">
+<!ENTITY treecontextmenu.import.capture   "Capture image">
+<!ENTITY treecontextmenu.import.tag       "Retrieve by specifying HTML tag">
+<!ENTITY treecontextmenu.import.localfile "Block registration of local files">
+
+<!ENTITY treecontextmenu.export           "Export">
+<!ENTITY treecontextmenu.export.export    "Export in Wired-Marker format">
+<!ENTITY treecontextmenu.export.tagoutput "Output folder contents with tags">
+
+<!ENTITY treecontextmenu.automarking            "Auto marking">
+<!ENTITY treecontextmenu.automarking.dictionary "Dictionary">

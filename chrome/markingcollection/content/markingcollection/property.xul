@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/property.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/setting.css" type="text/css" ?>
+<!DOCTYPE dialog [
+<!ENTITY % overlayDTD   SYSTEM "chrome://markingcollection/locale/markingcollection.dtd" >
+%overlayDTD;
+<!ENTITY % markerCustomDTD SYSTEM "chrome://markingcollection/locale/markerCustom.dtd" >
+%markerCustomDTD;
+<!ENTITY % markerDTD SYSTEM "chrome://markingcollection/locale/marker.dtd" >
+%markerDTD;
+]>
+<dialog
+	id="mcPropDialog"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	buttons="accept,cancel"
+	onload="mcPropService.init();"
+	ondialogaccept="return mcPropService.accept(event);"
+	ondialogcancel="mcPropService.cancel();">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/property.js" />
+	<stringbundleset id="mcStringBundles">
+		<stringbundle id="mcPropString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<tabbox id="mcPropTabbox">
+		<tabs orient="horizontal">
+			<tab label="&markingcollection.prop.general;" id="mcPropGeneralTab" />
+			<tab label="&markingcollection.prop.note;" id="mcPropNoteTab" />
+			<tab label="&markingcollection.prop.extended_message;" id="mcPropExtendedMessageTab"/>
+			<tab label="PubMed Central" id="mcPropMedlineTab"/>
+			<tab label="HYPER-ANCHOR Code" id="mcPropURLTab"/>
+			<tab label="&markingcollection.prop.metacapture;" id="mcPropMetaCaptureTab"/>
+		</tabs>
+		<tabpanels id="mcPropTabpanels">
+			<tabpanel id="mcPropGeneralTabpanel" orient="vertical">
+				<groupbox id="mcPropTitleGroup" flex="1">
+					<caption label="&markingcollection.prop.title;" />
+					<hbox id="mcPropTitleHBox" style="border:2px solid transparent;">
+						<textbox
+							id="mcPropTitle"
+							multiline="true"
+							newlines="replacewithspaces"
+							readonly="true"
+							flex="1"
+							emptytext="&marker.initdata.dialog.emptytext.title;"
+							placeholder="&marker.initdata.dialog.emptytext.title;"
+							style="-moz-appearance:none !important;border:none;"
+							onfocus="this.select()"
+							oninput="mcPropService.inputTitle(event);"
+							onblur="mcPropService.inputTitle(event);"
+							onchange="mcPropService.checkedTitle(event);"/>
+					</hbox>
+				</groupbox>
+				<groupbox id="mcPropTagGroup" flex="1">
+					<caption label="&markingcollection.prop.tag;" />
+					<textbox
+						id="mcPropTagTextbox"
+						flex="1"
+						emptytext="&markingcollection.prop.tag.emptytext;"
+						placeholder="&markingcollection.prop.tag.emptytext;"
+						newlines="replacewithspaces"
+						readonly="true"
+						onfocus="this.select()"
+						onchange="mcPropService.checkedTag();"
+						style="-moz-appearance:none !important;border:none;"/>
+				</groupbox>
+				<groupbox id="mcPropMarkerGroup" flex="1">
+					<caption label="&markingcollection.marker;" />
+					<hbox flex="1">
+						<vbox flex="1" style="background:white;padding:10px;border:1px solid ThreeDShadow;text-align:center;" align="center">
+							<label id="mcPropSample" value="Firefox, rediscover the web" />
+						</vbox>
+						<spacer flex="1" />
+						<vbox flex="1">
+							<button id="mcPropMarkerCustomButton" label="&markingcollection.button.customize;..." oncommand="mcPropService.openDialog();" />
+						</vbox>
+					</hbox>
+				</groupbox>
+				<groupbox id="mcPropIconsizeGroup" flex="1" hidden="true">
+					<caption label="&markingcollection.icon_size;" />
+					<hbox flex="1">
+						<image id="mcPropIconsizeImage" class="iconsize" iconsize="small"/>
+						<radiogroup id="mcPropIconsize" orient="horizontal" onclick="mcPropService.commandIconsize(event);">
+							<radio id="mcPropIconsizeLarge" value="large" label="&markingcollection.icon_size.large;"/>
+							<radio id="mcPropIconsizeSmall" value="small" label="&markingcollection.icon_size.small;" selected="true"/>
+						</radiogroup>
+					</hbox>
+				</groupbox>
+				<groupbox id="mcPropShortcutGroup" flex="1">
+					<caption><checkbox id="mcPropShortcutDisabled" label="&markingcollection.shortcut;" oncommand="mcPropService.commandShortcut(event);"/></caption>
+					<description style="-moz-appearance:none;color:#ff0000;">&markingcollection.shortcut.attention_modifiers;</description>
+					<hbox flex="1" align="center" pack="center">
+						<checkbox id="mcPropShortcutAccel" label="Control" hidden="true"/>
+						<checkbox id="mcPropShortcutShift" label="Shift" hidden="true"/>
+						<checkbox id="mcPropShortcutAlt" label="Alt" hidden="true"/>
+						<label id="mcPropShortcutModifiers" control="mcPropShortcutKey"/>
+						<textbox id="mcPropShortcutKey" size="1" maxlength="1" readonly="true" onfocus="this.select()" onkeypress="mcPropService.inputShortcut(event);"/>
+					</hbox>
+				</groupbox>
+				<groupbox id="mcPropDatabaseGroup" flex="1">
+					<caption label="&markingcollection.database;" />
+					<grid flex="1">
+						<columns>
+							<column />
+							<column flex="1" />
+						</columns>
+						<rows id="mcPropDBRows">
+							<row align="center">
+								<label value="path:" />
+								<textbox id="mcPropDBPath" readonly="true" />
+							</row>
+							<row align="center">
+								<label value="date:" />
+								<textbox id="mcPropDBDate" readonly="true" />
+							</row>
+							<row id="mcPropSizeRow" align="center">
+								<label value="size:" />
+								<textbox id="mcPropDBSize" readonly="true" />
+							</row>
+						</rows>
+					</grid>
+					<hbox flex="1">
+						<spacer flex="1" />
+						<button id="mcPropMarkerCustomButton1" label="&markingcollection.database.vacuum;" oncommand="mcPropService.vacuumDB();" />
+					</hbox>
+				</groupbox>
+			</tabpanel>
+			<tabpanel id="mcPropNoteTabpanel">
+				<groupbox id="mcPropNoteGroup" flex="1">
+					<caption label="&markingcollection.prop.note;" />
+					<textbox
+						id="mcPropNote"
+						multiline="true"
+						readonly="true"
+						flex="1"
+						style="background:white;padding:10px;border:1px solid ThreeDShadow;text-align:center;"
+						onfocus="this.select()"
+						oninput="mcPropService.updateNoteTab(this.value);" />
+				</groupbox>
+			</tabpanel>
+			<tabpanel id="mcPropExtendedMessageTabpanel">
+				<grid flex="1">
+					<columns>
+						<column />
+						<column />
+					</columns>
+					<rows>
+						<row align="center">
+							<hbox flex="1" pack="end">
+								<label value="Logical Page:" />
+							</hbox>
+							<textbox id="mcPropExtendedMessageLogicalPageTextbox" size="1"   onfocus="this.select();"/>
+						</row>
+						<row align="center">
+							<hbox flex="1" pack="end">
+								<label value="Physical Page:" />
+							</hbox>
+							<textbox id="mcPropExtendedMessagePhysicalPageTextbox" size="1"  onfocus="this.select();"/>
+						</row>
+					</rows>
+				</grid>
+			</tabpanel>
+			<tabpanel id="mcPropMedlineTabpanel">
+				<grid flex="1">
+					<columns>
+						<column />
+						<column flex="1"/>
+					</columns>
+					<rows>
+						<row align="center">
+							<hbox flex="1" pack="end">
+								<label value="Pubmed Central ID:" />
+							</hbox>
+							<textbox
+								id="mcPropMedlinePMCIDTextbox"
+								readonly="true"
+								style="-moz-appearance:none !important;border:none;background:white !important;"
+								onfocus="this.select()"/>
+						</row>
+						<row align="center">
+							<hbox flex="1" pack="end">
+								<label value="Pubmed ID:" />
+							</hbox>
+							<textbox
+								id="mcPropMedlinePMIDTextbox"
+								readonly="true"
+								style="-moz-appearance:none !important;border:none;background:white !important;"
+								onfocus="this.select()"/>
+						</row>
+						<row align="start">
+							<hbox flex="1" pack="end">
+								<label value="Source:" />
+							</hbox>
+							<textbox
+								id="mcPropMedlineSOTextbox"
+								multiline="true"
+								readonly="true"
+								style="-moz-appearance:none !important;border:none;background:white !important;"
+								onfocus="this.select()"/>
+						</row>
+					</rows>
+				</grid>
+			</tabpanel>
+			<tabpanel id="mcPropURLTabpanel">
+				<textbox
+					id="mcPropURLTextbox"
+					multiline="true"
+					readonly="true"
+					flex="1"
+					style="-moz-appearance:none !important;border:none;background:white !important;"
+					onfocus="this.select()"/>
+			</tabpanel>
+			<tabpanel id="mcPropMetaCaptureTabpanel">
+				<textbox
+					id="mcPropMetaCaptureTextbox"
+					multiline="true"
+					readonly="true"
+					flex="1"
+					style="-moz-appearance:none !important;border:none;background:white !important;"
+					onfocus="this.select()"/>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</dialog>

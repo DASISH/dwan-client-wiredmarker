@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="generalDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _generalDialogOverlayInit(aEvent){
+			var selectimportimage = nsPreferences.copyUnicharPref("wiredmarker.selectimportimage","none");
+			switch(selectimportimage){
+				case "alt":
+					document.getElementById("bitsSelectImportImageNone").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageAlt").setAttribute("selected","true");
+					document.getElementById("bitsSelectImportImageAltAndSubstitution").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageSubstitution").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageSubstitutionAndAlt").removeAttribute("selected");
+					break;
+				case "alt_substitution":
+					document.getElementById("bitsSelectImportImageNone").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageAlt").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageAltAndSubstitution").setAttribute("selected","true");
+					document.getElementById("bitsSelectImportImageSubstitution").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageSubstitutionAndAlt").removeAttribute("selected");
+					document.getElementById("bitsSubstitutionConfirm").removeAttribute("disabled");
+					break;
+				case "substitution":
+					document.getElementById("bitsSelectImportImageNone").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageAlt").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageAltAndSubstitution").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageSubstitution").setAttribute("selected","true");
+					document.getElementById("bitsSelectImportImageSubstitutionAndAlt").removeAttribute("selected");
+					document.getElementById("bitsSubstitutionConfirm").removeAttribute("disabled");
+					break;
+				case "substitution_alt":
+					document.getElementById("bitsSelectImportImageNone").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageAlt").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageAltAndSubstitution").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageSubstitution").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageSubstitutionAndAlt").setAttribute("selected","true");
+					document.getElementById("bitsSubstitutionConfirm").removeAttribute("disabled");
+					break;
+				default:
+					document.getElementById("bitsSelectImportImageNone").setAttribute("selected","true");
+					document.getElementById("bitsSelectImportImageAlt").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageAltAndSubstitution").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageSubstitution").removeAttribute("selected");
+					document.getElementById("bitsSelectImportImageSubstitutionAndAlt").removeAttribute("selected");
+					break;
+			}
+
+			var confirm = nsPreferences.getBoolPref("wiredmarker.substitution.confirm", true);
+			document.getElementById("bitsSubstitutionConfirm").setAttribute("checked",confirm);
+		}
+		function _generalDialogOverlayDone(aEvent){
+
+		}
+		function _SelectImportImageCommand(aEvent){
+			nsPreferences.setUnicharPref("wiredmarker.selectimportimage", aEvent.target.value);
+			if(aEvent.target.value == "substitution" || aEvent.target.value == "substitution_alt" || aEvent.target.value == "alt_substitution"){
+				document.getElementById("bitsSubstitutionConfirm").removeAttribute("disabled");
+			}else{
+				document.getElementById("bitsSubstitutionConfirm").setAttribute("disabled","true");
+			}
+		}
+		function _SubstitutionConfirmCommand(aEvent){
+			nsPreferences.setBoolPref("wiredmarker.substitution.confirm", aEvent.target.checked);
+		}
+		window.addEventListener("load", _generalDialogOverlayInit, false);
+		window.addEventListener("unload", _generalDialogOverlayDone, false);
+	]]>
+	</script>
+	<tabbox id="mcSettingTabbox">
+		<tabpanels id="mcSettingTabPanels">
+			<tabbox id="mcMenuTabbox">
+				<tabs id="mcMenuTabs">
+					<tab id="mcGeneralTab" label="&markingcollection.setting.imagecapture;" image="chrome://markingcollection/skin/image.png"/>
+				</tabs>
+				<tabpanels id="mcMenuTabPanels">
+					<tabpanel id="mcGeneralTabPanel" orient="vertical" flex="1">
+						<groupbox flex="1">
+							<caption label="&markingcollection.selectimportimage;" style="background-color:#fff;"/>
+							<radiogroup id="" oncommand="_SelectImportImageCommand(event)">
+								<radio id="bitsSelectImportImageNone"               value="none"             label="&markingcollection.selectimportimage.none;"/>
+								<radio id="bitsSelectImportImageAlt"                value="alt"              label="&markingcollection.selectimportimage.alt;"/>
+								<radio id="bitsSelectImportImageAltAndSubstitution" value="alt_substitution" label="&markingcollection.selectimportimage.alt_substitution;"/>
+								<radio id="bitsSelectImportImageSubstitution"       value="substitution"     label="&markingcollection.selectimportimage.substitution;"/>
+								<radio id="bitsSelectImportImageSubstitutionAndAlt" value="substitution_alt" label="&markingcollection.selectimportimage.substitution_alt;"/>
+							</radiogroup>
+							<checkbox id="bitsSubstitutionConfirm" label="&markingcollection.substitutiontree.confirm;" checked="true" disabled="true" style="padding-left:1em;"  oncommand="_SubstitutionConfirmCommand(event)"/>
+							<groupbox flex="1" id="bitsSubstitutionTreeGroupBox">
+								<caption label="&markingcollection.substitutiontree.table;" style="background-color:#fff;"/>
+							</groupbox>
+						</groupbox>
+						<groupbox id="mcMetaCaptureTabGroupBox"/>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</tabpanels>
+	</tabbox>
+</overlay>

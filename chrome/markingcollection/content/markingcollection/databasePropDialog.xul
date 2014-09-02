@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/setting.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://markingcollection/skin/property.css" type="text/css" ?>
+<?xul-overlay href="chrome://markingcollection/content/databaseDialogOverlay.xul"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<dialog
+	id="mcDBPropWindow"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	title="&markingcollection.tools.settings; - &markingcollection.app.title;"
+	buttons="accept,cancel"
+	onload="mcDatabasePropService.init();"
+	onunload="mcDatabasePropService.done();"
+	ondialogaccept="return mcDatabasePropService.accept();"
+	ondialogcancel="return mcDatabasePropService.cancel();"
+>
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://markingcollection/content/databasePropDialog.js" />
+	<stringbundleset>
+		<stringbundle id="mcDBPropString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<groupbox flex="1">
+		<caption label="&markingcollection.prop.general;"/>
+		<grid>
+			<columns>
+				<column/>
+				<column flex="1"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="&markingcollection.database.name;" control="mcDBPropTitleTextbox"/>
+					<textbox id="mcDBPropTitleTextbox" oninput="mcDatabasePropService.input();"/>
+				</row>
+				<row>
+					<label value="&markingcollection.database.comment;" control="mcDBPropCommentTextbox"/>
+					<textbox id="mcDBPropCommentTextbox" multiline="true" rows="5"/>
+				</row>
+			</rows>
+		</grid>
+		<checkbox id="mcDBPropUseCheckbox" label="&markingcollection.database.use;" oncommand="mcDatabasePropService.commandUse(event);"/>
+		<checkbox id="mcDBPropContextmenuCheckbox" label="&markingcollection.database.contextmenu;"/>
+		<checkbox id="mcDBPropDefaultCheckbox" label="&markingcollection.database.default;" oncommand="mcDatabasePropService.commandDefault(event);" hidden="true"/>
+	</groupbox>
+	<groupbox id="mcDBPropDatabaseGroup" flex="1">
+		<caption label="&markingcollection.database;" />
+		<grid flex="1">
+			<columns>
+				<column />
+				<column flex="1" />
+			</columns>
+			<rows>
+				<row align="center">
+					<label value="path:" />
+					<textbox id="mcDBPropDBPath" readonly="true" />
+				</row>
+				<row align="center">
+					<label value="date:" />
+					<textbox id="mcDBPropDBDate" readonly="true" />
+				</row>
+				<row id="mcDBPropSizeRow" align="center">
+					<label value="size:" />
+					<textbox id="mcDBPropDBSize" readonly="true" />
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+</dialog>

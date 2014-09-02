@@ -1,0 +1,315 @@
+<!ENTITY markingcollection.app.menu.title "BITS">
+<!-- <!ENTITY markingcollection.app.title "Wired-Marker"> -->
+<!ENTITY markingcollection.app.title "DASISH Web Annotator">
+
+<!ENTITY markingcollection.general "General">
+<!ENTITY markingcollection.concordance "Concordance">
+<!ENTITY markingcollection.concordance.sidebar "Link with sidebar">
+<!ENTITY markingcollection.concordance.display "Always display">
+<!ENTITY markingcollection.concordance.none "Do not display">
+
+<!ENTITY markingcollection.display.style "Sidebar Layout (*Requires Firefox restart)">
+<!ENTITY markingcollection.display.itemview      "Layout style for folders and objects">
+<!ENTITY markingcollection.display.itemview.lr   "right and left">
+<!ENTITY markingcollection.display.itemview.tb   "up and down">
+<!ENTITY markingcollection.display.itemview.none "together">
+
+<!ENTITY markingcollection.contextmenu.type "Contextmenu Layout">
+<!ENTITY markingcollection.contextmenu.type.full   "Normal Menu">
+<!ENTITY markingcollection.contextmenu.type.simple "Simple Menu">
+
+<!ENTITY markingcollection.menu "Menu">
+<!ENTITY markingcollection.menu.title "BITS">
+<!ENTITY markingcollection.menu.addon "Add-ons">
+<!ENTITY markingcollection.menu.option "Option">
+<!ENTITY markingcollection.menu.disptopmenu "Show Wired-Marker menu on the top menu">
+<!ENTITY markingcollection.menu.project "Document Index">
+<!ENTITY markingcollection.menu.documents "Block registration">
+<!ENTITY markingcollection.menu.dictionary "Dictionary">
+<!ENTITY markingcollection.menu.anchor "Anchor">
+<!ENTITY markingcollection.menu.caption "Position menu">
+<!ENTITY markingcollection.menu.appmenu "App menu">
+<!ENTITY markingcollection.menu.topmenu "Top menu">
+<!ENTITY markingcollection.menu.bookmarks "Bookmarks menu">
+<!ENTITY markingcollection.menu.tools "Tools menu">
+
+<!ENTITY markingcollection.new.folder "New folder">
+<!ENTITY markingcollection.new.defaultFolder "Empty folder">
+<!ENTITY markingcollection.new.templateFolder "Template folder">
+<!ENTITY markingcollection.new.projectFolder "Project folder">
+<!ENTITY markingcollection.new.dictionaryFolder "Dictionary folder">
+<!ENTITY markingcollection.new.documentsFolder "Documents folder">
+
+<!ENTITY markingcollection.toggle.all "Open/close all the folders">
+<!ENTITY markingcollection.tools.settings "Settings">
+<!ENTITY markingcollection.tools.label.accept "Close">
+<!ENTITY markingcollection.tools.key.accept "C">
+
+<!ENTITY markingcollection.open "Open">
+<!ENTITY markingcollection.open.newtab "Open in a new tab">
+
+<!ENTITY markingcollection.export "Export">
+<!ENTITY markingcollection.remove "Delete">
+<!ENTITY markingcollection.remove.folder "Folder">
+<!ENTITY markingcollection.remove.folderall "All folders below">
+<!ENTITY markingcollection.remove.itemall "All objects below">
+
+<!ENTITY markingcollection.edit.replacedURL "Replace URL">
+<!ENTITY markingcollection.edit.searched "Search">
+<!ENTITY markingcollection.edit.replaced "Replace">
+<!ENTITY markingcollection.edit.getURL "Acquire URL">
+<!ENTITY markingcollection.edit.displayURL "Acquire current page URL">
+<!ENTITY markingcollection.edit.folderURL "Acquire URL from a folder">
+<!ENTITY markingcollection.edit.replacedTarget "Replacement target">
+<!ENTITY markingcollection.edit.replacedTarget.directory "Directory">
+<!ENTITY markingcollection.edit.replacedTarget.file "File">
+
+<!ENTITY markingcollection.property "Properties">
+<!ENTITY markingcollection.itemview "Item view">
+<!ENTITY markingcollection.listview "List view">
+<!ENTITY markingcollection.treelistview "Tree list view">
+<!ENTITY markingcollection.treelistview.defaults "Defaults">
+<!ENTITY markingcollection.addon "Add-ons">
+
+<!ENTITY markingcollection.prop.title "Title">
+<!-- <!ENTITY markingcollection.prop.note "Note"> -->
+<!ENTITY markingcollection.prop.note "Annotation">
+<!ENTITY markingcollection.prop.general "Brief overview">
+<!ENTITY markingcollection.prop.tag "Tag">
+<!ENTITY markingcollection.prop.tag.emptytext "Same title">
+<!ENTITY markingcollection.prop.extended_message "Extended message">
+<!ENTITY markingcollection.prop.metacapture "Page title">
+
+<!ENTITY markingcollection.folder.openall "Open all in tabs">
+
+
+<!ENTITY markingcollection.defaultFolder "All view">
+<!ENTITY markingcollection.rootFolder "Display folders below this">
+<!ENTITY markingcollection.rootTree "Tree">
+<!ENTITY markingcollection.rootSelectFolder "Display below selected folders">
+
+<!ENTITY markingcollection.templateFolder "Template">
+<!ENTITY markingcollection.templateFolder.create "Make">
+<!ENTITY markingcollection.templateFolder.remove "Delete">
+<!ENTITY markingcollection.filter "Filter">
+<!ENTITY markingcollection.import "Import">
+<!ENTITY markingcollection.importTagAll "Automatic object collection">
+<!ENTITY markingcollection.export "Export">
+<!ENTITY markingcollection.sharedFolder "Change location of shared folder">
+<!ENTITY markingcollection.mergeFolder "Change merge folder location">
+<!ENTITY markingcollection.folderAutoOpen "Do not expand a folder after dropping a object">
+
+<!ENTITY markingcollection.repository "Repository">
+<!ENTITY markingcollection.repository.folder "Folder">
+<!ENTITY markingcollection.repository.user "User">
+<!ENTITY markingcollection.repository.merge "Merge">
+<!ENTITY markingcollection.repository.settings "Settings">
+<!ENTITY markingcollection.repository.folderall "All folders below">
+<!ENTITY markingcollection.repository.itemall "All objects below">
+<!ENTITY markingcollection.repository.import "import">
+
+<!ENTITY markingcollection.viewMode "View mode">
+<!ENTITY markingcollection.viewMode.single "Single">
+<!ENTITY markingcollection.viewMode.all "All">
+<!ENTITY markingcollection.viewMode.each "Each">
+
+<!ENTITY markingcollection.analyze "Automated recognition">
+
+<!ENTITY markingcollection.newDatabase "New database">
+<!ENTITY markingcollection.newDatabase.newLocalDatabase "Local database">
+
+
+<!ENTITY markingcollection.pref.edit "Edit">
+<!ENTITY markingcollection.button.customize "Customize">
+<!ENTITY markingcollection.button.update "Update">
+
+<!ENTITY markingcollection.marker "Marker">
+<!-- <!ENTITY markingcollection.marker.remove "Clear this marker"> -->
+<!ENTITY markingcollection.marker.remove "Clear this annotation">
+<!-- <!ENTITY markingcollection.marker.remove.all "Clear all markers of this page"> -->
+<!ENTITY markingcollection.marker.remove.all "Clear all annotations on this page">
+<!-- <!ENTITY markingcollection.marker.remarker "Alter marking range to selected range"> -->
+<!ENTITY markingcollection.marker.remarker "Alter annotation range to selected range">
+<!ENTITY markingcollection.marker.uncategorized 'Register in "Uncategorized"'>
+
+<!ENTITY markingcollection.icon_size "Icon size">
+<!ENTITY markingcollection.icon_size.large "Large">
+<!ENTITY markingcollection.icon_size.small "Small">
+
+<!ENTITY markingcollection.shortcut "Shortcut">
+
+<!ENTITY markingcollection.database "Database">
+<!ENTITY markingcollection.database.vacuum "Vacuum">
+<!ENTITY markingcollection.database.name "Title">
+<!ENTITY markingcollection.database.filename "Filename">
+<!ENTITY markingcollection.database.comment "Comment">
+<!ENTITY markingcollection.database.status "Status">
+<!ENTITY markingcollection.database.add "Add">
+<!ENTITY markingcollection.database.set "Set">
+<!ENTITY markingcollection.database.del "Remove from list">
+<!ENTITY markingcollection.database.dis "Use/Unuse">
+<!ENTITY markingcollection.database.startupalldbunused "Unuse all on start-up">
+<!ENTITY markingcollection.database.use "Use">
+<!ENTITY markingcollection.database.contextmenu "Display on context menu">
+<!ENTITY markingcollection.database.default "Default">
+
+<!ENTITY markingcollection.server.tab "Server">
+<!ENTITY markingcollection.server.groupbox.caption "Select the back-end server for the annotation client">
+<!ENTITY markingcollection.server.rest.default "Default">
+<!ENTITY markingcollection.server.rest.userdefined "User-specified">
+
+<!ENTITY markingcollection.key.sidebar "X">
+<!ENTITY markingcollection.key.menubar "M">
+
+
+<!ENTITY markingcollection.filter "Filter">
+<!ENTITY markingcollection.filter.availableness "ON">
+<!ENTITY markingcollection.filter.invalidation "OFF">
+<!ENTITY markingcollection.filter.keyword "Keyword">
+<!ENTITY markingcollection.filter.casesensitive "Case sensitive">
+
+<!ENTITY markingcollection.capture "Capture">
+<!ENTITY markingcollection.capture.all "All document">
+<!ENTITY markingcollection.capture.cut "Cutout">
+<!ENTITY markingcollection.capture.document "Document">
+<!ENTITY markingcollection.capture.clipboard "Clipboard">
+<!ENTITY markingcollection.capture.title "Title">
+<!ENTITY markingcollection.capture.document_link "Link with the current document">
+<!ENTITY markingcollection.capture.all_select "Select All">
+
+<!ENTITY markingcollection.hyperanchor.icon_caption "When hyperlink of HYPER-ANCHOR format exists in the web page">
+<!ENTITY markingcollection.hyperanchor.icon_display_left "Always display icons to the left of each hyperlink">
+<!ENTITY markingcollection.hyperanchor.icon_display_right "Always display icons to the right of each hyperlink">
+<!ENTITY markingcollection.hyperanchor.icon_display_left_popup "Display an icon to the left of the hyperlink on mouse over">
+<!ENTITY markingcollection.hyperanchor.icon_display_right_popup "Display an icon to the right of the hyperlink on mouse over">
+<!ENTITY markingcollection.hyperanchor.icon_none "Do nothing">
+<!ENTITY markingcollection.hyperanchor.icon_attention "*If a web page is already opened, changes will not be applied. Please reload to apply the changes.">
+
+<!ENTITY markingcollection.hyperanchor.alignment_caption "If the marker position is staggering due to the update of document">
+<!ENTITY markingcollection.hyperanchor.alignment_length "Search, for specified number of characters, the characters around to find the correct position marker">
+<!ENTITY markingcollection.hyperanchor.alignment_attention "*If the number is 0, no correction will be made.">
+
+<!ENTITY markingcollection.hyperanchor.copy_to_clipboard "Copy the location marker(HYPER-ANCHOR Format)">
+<!ENTITY markingcollection.hyperanchor.sidebar_copy_to_clipboard "Copy">
+
+<!ENTITY markingcollection.favorite "Folder">
+<!ENTITY markingcollection.favorite.add "Add this folder as a working folder">
+<!ENTITY markingcollection.favorite.select_folder_add "Add the selected folder">
+
+<!ENTITY markingcollection.substitutiontree.add  "Add">
+<!ENTITY markingcollection.substitutiontree.edit "Edit">
+<!ENTITY markingcollection.substitutiontree.del  "Del">
+<!ENTITY markingcollection.substitutiontree.src  "File name">
+<!ENTITY markingcollection.substitutiontree.alt  "Substitute text">
+<!ENTITY markingcollection.substitutiontree.table  "Substitution table">
+<!ENTITY markingcollection.substitutiontree.confirm  "Check in cases when image file does not exist on substitution table.">
+
+<!ENTITY markingcollection.selectimportimage  "How to process images in the selected area.">
+<!ENTITY markingcollection.selectimportimage.none  "No processing">
+<!ENTITY markingcollection.selectimportimage.alt  "Substitute with the text of ALT attribute">
+<!ENTITY markingcollection.selectimportimage.substitution  "Use substitution table">
+<!ENTITY markingcollection.selectimportimage.substitution_alt  "Use substitution table or substitute with the text of ALT attribute (*Priority for substitution table)">
+<!ENTITY markingcollection.selectimportimage.alt_substitution  "Substitute with the text of ALT attribute or use substitution table (*Priority for ALT attribute)">
+
+<!ENTITY markingcollection.project.documents.select.folder  "Specify a folder">
+<!ENTITY markingcollection.project.documents.select.file  "Specify files">
+<!ENTITY markingcollection.project.dictionary.read "Read in the dictionary">
+<!ENTITY markingcollection.project.dictionary.save "Write the dictionary">
+<!ENTITY markingcollection.project.dictionary.management "Management dictionary">
+<!ENTITY markingcollection.project.dictionary.apply "Apply the dictionary">
+<!ENTITY markingcollection.project.dictionary.edit "Add to dictionary">
+<!ENTITY markingcollection.project.dictionary.item.add "Add">
+<!ENTITY markingcollection.project.dictionary.item.del "Invalidity">
+<!ENTITY markingcollection.project.dictionary.item.search "Search">
+<!ENTITY markingcollection.project.index.menu.caption "Subject Index">
+<!ENTITY markingcollection.project.index.menu.display "Display">
+<!ENTITY markingcollection.project.index.menu.save "Save">
+<!ENTITY markingcollection.project.index.menu.display.normal "Default">
+<!ENTITY markingcollection.project.index.menu.display.url "URL display">
+
+<!ENTITY markingcollection.tagoutput.menu.title "Output with the tag">
+<!ENTITY markingcollection.tagoutput.menu.save "Save">
+<!ENTITY markingcollection.tagoutput.menu.with_style "Save(With the style)">
+<!ENTITY markingcollection.tagoutput.output.caption "Output form of the tag">
+<!ENTITY markingcollection.tagoutput.style.caption "Style sheet of the tag">
+<!ENTITY markingcollection.tagoutput.style.no_style "No style">
+<!ENTITY markingcollection.tagoutput.style.with_style "With style">
+<!ENTITY markingcollection.tagoutput.visibility.caption "When a reference in your browser">
+<!ENTITY markingcollection.tagoutput.visibility.visible "Tag to appear">
+<!ENTITY markingcollection.tagoutput.visibility.hidden "Hide tags">
+<!ENTITY markingcollection.tagoutput.visibility.description1 "Warning : Tag does not hide">
+<!ENTITY markingcollection.tagoutput.visibility.description2 "Start with an alphabetic letter.">
+<!ENTITY markingcollection.tagoutput.format.caption "Output file format">
+<!ENTITY markingcollection.tagoutput.html.caption "If the target file in HTML format">
+<!ENTITY markingcollection.tagoutput.html.path "Convert relative path to absolute path for images and links.">
+
+<!ENTITY markingcollection.textplain "MIME type (text / plain) Format">
+<!ENTITY markingcollection.textplain.usually  "Usually (No wrapping)">
+<!ENTITY markingcollection.textplain.confirm  "When the wrapping area to be searched for">
+<!ENTITY markingcollection.textplain.wrapping "Always display in the browser to fit within an area of the wrapping">
+<!ENTITY markingcollection.textplain.attr             "An indication attribute after the automatic new line">
+<!ENTITY markingcollection.textplain.background-color "Background color">
+<!ENTITY markingcollection.textplain.font-family      "Font">
+<!ENTITY markingcollection.textplain.font-size        "Font size">
+
+<!ENTITY markingcollection.autocache.tab "Auto-caching">
+<!ENTITY markingcollection.autocache.caption "Auto-caching">
+<!ENTITY markingcollection.autocache.tooltiptext "Caching">
+<!-- <!ENTITY markingcollection.autocache.open "Open cache"> -->
+<!ENTITY markingcollection.autocache.open "Open local cache">
+<!-- <!ENTITY markingcollection.autocache.open.newtab "Open a new tab"> -->
+<!ENTITY markingcollection.autocache.open.newtab "Open local cache in new tab">
+<!ENTITY markingcollection.autocache.open.remote "Open remote cache">
+<!ENTITY markingcollection.autocache.open.remotenewtab "Open remote cache in new tab">
+<!ENTITY markingcollection.autocache.past "Cache list">
+<!ENTITY markingcollection.autocache.disabled "Disabled">
+<!ENTITY markingcollection.autocache.switching "Manually">
+<!ENTITY markingcollection.autocache.valid "Enable">
+<!ENTITY markingcollection.autocache.marking "Marking the cached document">
+<!ENTITY markingcollection.autocache.marking.disabled "Prohibit">
+<!ENTITY markingcollection.autocache.marking.confirm "Confirm when marking">
+<!ENTITY markingcollection.autocache.marking.valid "Enable">
+<!ENTITY markingcollection.autocache.manually.caption "Run manually">
+<!ENTITY markingcollection.autocache.manually.confirm "Check on runtime">
+<!-- <!ENTITY markingcollection.autocache.cache "Local Cache"> -->
+<!ENTITY markingcollection.autocache.cache "Cached Representations">
+<!ENTITY markingcollection.autocache.list "Cache list">
+<!ENTITY markingcollection.autocache.list.open "Open">
+<!ENTITY markingcollection.autocache.list.close "Close">
+<!ENTITY markingcollection.autocache.remove "Delete Cache">
+<!ENTITY markingcollection.autocache.timestamp "Cache time">
+<!ENTITY markingcollection.autocache.filesize "Size">
+<!ENTITY markingcollection.autocache.open.all "Open all of this cache">
+<!ENTITY markingcollection.autocache.remove.all "Delete all of this cache">
+<!ENTITY markingcollection.autocache.view "Cache List">
+<!ENTITY markingcollection.autocache.view.tooltiptext "Cache List (Show / Hide)">
+<!ENTITY markingcollection.autocache.save.folder "Saving location">
+<!ENTITY markingcollection.autocache.save.user "User-specified">
+<!ENTITY markingcollection.autocache.save.default "Default">
+<!ENTITY markingcollection.autocache.topmenu.caption "Top menu">
+<!ENTITY markingcollection.autocache.topmenu.display "Display">
+<!ENTITY markingcollection.autocache.topmenu.number "Display number">
+<!ENTITY markingcollection.autocache.topmenu.attention "*If the number is 0, all of the cache will be displayed.">
+
+<!ENTITY markingcollection.shortcut.tab "Shortcut">
+<!ENTITY markingcollection.shortcut.add  "Add">
+<!ENTITY markingcollection.shortcut.edit "Edit">
+<!ENTITY markingcollection.shortcut.del  "Del">
+<!ENTITY markingcollection.shortcut.disptree  "Display the shortcut key to the folder on tree">
+<!ENTITY markingcollection.shortcut.attention1 "*For shortcut to the folder, set from properties screen of each folder.">
+<!ENTITY markingcollection.shortcut.attention2 "*Use the definition above if a duplicate of shortcut key.">
+<!ENTITY markingcollection.shortcut.attention_modifiers "*Press the modifier key and any selected key to specify.">
+
+<!ENTITY markingcollection.setting.view "View">
+<!ENTITY markingcollection.setting.marker "Marker">
+<!ENTITY markingcollection.setting.markerinitdata "Initial input of marker">
+<!ENTITY markingcollection.setting.imagecapture "Image capture">
+<!ENTITY markingcollection.setting.pubmedcentral "PubMed Central">
+<!ENTITY markingcollection.setting.uncategorized "Uncategorized folder">
+<!ENTITY markingcollection.setting.uncategorized.use "Use">
+<!ENTITY markingcollection.setting.protocol "Protocol">
+<!ENTITY markingcollection.setting.marker.mouseover "When mouse over on marker">
+<!ENTITY markingcollection.setting.marker.mouseover.disptooltip "Display object information">
+<!ENTITY markingcollection.setting.marker.mouseover.title "Title">
+<!-- <!ENTITY markingcollection.setting.marker.mouseover.note "Note"> -->
+<!ENTITY markingcollection.setting.marker.mouseover.note "Annotation">

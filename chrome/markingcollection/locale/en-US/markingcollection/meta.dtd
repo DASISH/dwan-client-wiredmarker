@@ -1,0 +1,23 @@
+<!ENTITY meta.dialog.capture.groupbox.caption          "Capture the metadata from documents">
+<!ENTITY meta.dialog.capture.groupbox.checkbox.confirm "Not to capture metadata at the marker">
+<!ENTITY meta.dialog.capture.tag.groupbox.caption      "Tags that capture">
+
+<!ENTITY meta.menuitem.hyperanchor.copy_to_clipboard       "HYPER-ANCHOR Code">
+<!ENTITY meta.menuitem.hyperanchor.copyformat_to_clipboard "Copy (User format)">
+<!ENTITY meta.menuitem.hyperanchor.copytitle_to_clipboard  "Title">
+<!ENTITY meta.menuitem.hyperanchor.copynote_to_clipboard   "Note">
+<!ENTITY meta.menuitem.hyperanchor.copymeta_to_clipboard   "Page Title">
+<!ENTITY meta.menuitem.hyperanchor.copyformatsetting       "Copy format settings">
+
+<!ENTITY meta.dialog.copyformat.checkbox.hyperanchor "Anchor tag">
+<!ENTITY meta.dialog.copyformat.checkbox.title       "Title">
+<!ENTITY meta.dialog.copyformat.checkbox.note        "Note">
+<!ENTITY meta.dialog.copyformat.checkbox.meta        "Page title">
+<!ENTITY meta.dialog.copyformat.checkbox.hash        "HYPER-ANCHOR Code to include the information to anchor the page (URL string after the #)">
+
+<!ENTITY meta.dialog.copyformat.radio.tag     "With tag">
+<!ENTITY meta.dialog.copyformat.radio.nonetag "No Tags">
+
+<!ENTITY meta.dialog.pubmedcentral.pdf.groupbox.caption              "When processing the document of PubMed Central">
+<!ENTITY meta.dialog.pubmedcentral.pdf.capture.checkbox.confirm      "Retrieve MEDLINE information from NCBI">
+<!ENTITY meta.dialog.pubmedcentral.pdf.substitution.checkbox.confirm "Replace the page title with the retrieved MEDLINE information">

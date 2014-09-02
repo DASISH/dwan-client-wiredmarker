@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="repositoryOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://global/content/nsJSSupportsUtils.js"/>
+	<script type="application/x-javascript" src="chrome://global/content/nsJSComponentManager.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/repository.js"/>
+	<script type="application/x-javascript" src="chrome://markingcollection/content/md5.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _repositoryMainInit(){
+			mcRepository.init();
+		}
+		function _repositoryMainDone(){
+			mcRepository.done();
+		}
+		window.addEventListener("load", _repositoryMainInit, false);
+		window.addEventListener("unload", _repositoryMainDone, false);
+	]]>
+	</script>
+	<toolbox id="mcToolbox">
+		<toolbar id="mcToolbar">
+			<toolbarbutton id="mcToolbarRepositorySettingButton" image="chrome://markingcollection/skin/repository.png" tooltiptext="&markingcollection.repository;&markingcollection.repository.settings;" oncommand="mcRepository.commandRepositorySetting(event)" insertbefore="mcToolbarPropertyViewButton"/>
+		</toolbar>
+	</toolbox>
+	<popupset id="mcPopupSet">
+		<menupopup id="mcPopup">
+			<menuseparator id="mcMenuseparatorRepository" observes="mcMenuRepository" insertbefore="mcPopupTreeListViewMenuSeparator"/>
+			<menu id="mcMenuRepository" class="menu-iconic" label="&markingcollection.repository;" image="chrome://markingcollection/skin/repository.png" onmouseover="event.stopPropagation();" insertbefore="mcPopupTreeListViewMenuSeparator">
+				<menupopup id="mcMenupopupRepository">
+					<menuitem id="mcMenuitemRepositoryMerge"  class="menuitem-iconic" label="&markingcollection.repository.merge;"  image="chrome://markingcollection/skin/merge.png"  oncommand="mcRepository.merge(event);" />
+					<menuitem id="mcMenuitemRepositoryImport" class="menuitem-iconic" label="&markingcollection.repository.import;" image="chrome://markingcollection/skin/import.png" oncommand="mcRepository.import(event);" />
+				</menupopup>
+			</menu>
+		</menupopup>
+	</popupset>
+</overlay>

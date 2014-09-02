@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE prefwindow SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<overlay
+	id="treeprojectDialogOverlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js" />
+	<script type="application/x-javascript" src="chrome://mozapps/content/preferences/fontbuilder.js"/>
+	<script type="application/x-javascript">
+	<![CDATA[
+		var defLanguageGroup;
+		var defFontFamily;
+		var defFontSize;
+		var defBackgroundColor;
+
+		function STRING() { return document.getElementById("bitsSelectDisplayTextPlainStringbundle"); }
+
+		function _treeprojectDialogOverlayInit(aEvent){
+			var textplain_display = nsPreferences.copyUnicharPref("wiredmarker.textplain.display","usually");
+			switch(textplain_display){
+				case "confirm":
+					document.getElementById("bitsSelectDisplayTextPlainUsually").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayTextPlainConfirm").setAttribute("selected","true");
+					document.getElementById("bitsSelectDisplayTextPlainWrapping").removeAttribute("selected");
+					break;
+				case "wrapping":
+					document.getElementById("bitsSelectDisplayTextPlainUsually").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayTextPlainConfirm").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayTextPlainWrapping").setAttribute("selected","true");
+					break;
+				default:
+					document.getElementById("bitsSelectDisplayTextPlainUsually").setAttribute("selected","true");
+					document.getElementById("bitsSelectDisplayTextPlainConfirm").removeAttribute("selected");
+					document.getElementById("bitsSelectDisplayTextPlainWrapping").removeAttribute("selected");
+					break;
+			}
+
+			_rebuildFonts();
+			_rebuildColor();
+		}
+
+		function _treeprojectDialogOverlayDone(aEvent){
+		}
+
+		function _SelectTextPlainCommand(aEvent){
+			nsPreferences.setUnicharPref("wiredmarker.textplain.display", aEvent.target.value);
+		}
+
+		function _commandTextPlainFontFamily(aEvent){
+			const prefKey = "wiredmarker.textplain.font.name";
+			if(aEvent.target.value == defFontFamily){
+				var branch = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+				try{branch.clearUserPref(prefKey);}catch(e){}
+			}else{
+				nsPreferences.setUnicharPref(prefKey, aEvent.target.value);
+			}
+		}
+
+		function _changeTextPlainFontSize(aEvent){
+			const prefKey = "wiredmarker.textplain.font.size";
+			if(aEvent.target.value == defFontSize){
+				var branch = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+				try{branch.clearUserPref(prefKey);}catch(e){}
+			}else{
+				if(aEvent.target.value>72) aEvent.target.value=72;
+				if(aEvent.target.value<9) aEvent.target.value=9;
+				nsPreferences.setIntPref(prefKey, aEvent.target.value);
+			}
+		}
+
+		function _changeTextPlainBackgroundColor(aEvent){
+			const prefKey = "wiredmarker.textplain.background_color";
+			if(aEvent.target.color == defBackgroundColor){
+				var branch = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+				try{branch.clearUserPref(prefKey);}catch(e){}
+			}else{
+				nsPreferences.setUnicharPref(prefKey, aEvent.target.color);
+			}
+		}
+
+		function _rebuildColor(){
+			if(!defBackgroundColor) defBackgroundColor = nsPreferences.copyUnicharPref("browser.display.background_color");
+			var backgroundColor = nsPreferences.copyUnicharPref("wiredmarker.textplain.background_color",defBackgroundColor);
+			document.getElementById("bitsSelectDisplayTextPlainAttrBackgroundColor").color = backgroundColor;
+		}
+
+		function _rebuildFonts(){
+			const kFontNameFmtMonospace = "font.name.monospace.%LANG%";
+			const kFontSizeFmtMonospace = "font.size.fixed.%LANG%";
+
+			defLanguageGroup = STRING().getString("font.language.group");
+
+			if(!defFontFamily) defFontFamily = nsPreferences.copyUnicharPref(kFontNameFmtMonospace.replace(/%LANG%/, defLanguageGroup));
+			var fontFamily = nsPreferences.copyUnicharPref("wiredmarker.textplain.font.name",defFontFamily);
+
+			if(!defFontSize) defFontSize = nsPreferences.getIntPref(kFontSizeFmtMonospace.replace(/%LANG%/, defLanguageGroup));
+			var fontSize = nsPreferences.getIntPref("wiredmarker.textplain.font.size",defFontSize);
+
+			var element = document.getElementById("bitsSelectDisplayTextPlainAttrFontFamily");
+			if(element){
+				FontBuilder.buildFontList(defLanguageGroup, "monospace", element);
+				element.value = fontFamily;
+			}
+			var elementSize = document.getElementById("bitsSelectDisplayTextPlainAttrFontSize");
+			if(elementSize){
+				elementSize.value = fontSize;
+			}
+		}
+
+		function _dump2(aString){
+			var dumpString = new String(aString);
+			var aConsoleService = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
+			aConsoleService.logStringMessage(dumpString);
+			window.dump(aString+"\n");
+		}
+
+		window.addEventListener("load", _treeprojectDialogOverlayInit, false);
+		window.addEventListener("unload", _treeprojectDialogOverlayDone, false);
+	]]>
+	</script>
+	<stringbundleset id="mcSettingStringbundleset">
+		<stringbundle id="bitsSelectDisplayTextPlainStringbundle" src="chrome://global/locale/intl.properties" />
+	</stringbundleset>
+	<tabbox id="mcSettingTabbox">
+		<tabpanels id="mcSettingTabPanels">
+			<tabbox id="mcMenuTabbox">
+				<tabpanels id="mcMenuTabPanels">
+					<tabpanel id="mcMenuTabPanel" orient="vertical" flex="1">
+						<hbox>
+							<groupbox id="bitsSelectDisplayTextPlain" insertafter="mcMenuTabPanelRow3">
+								<caption label="&markingcollection.textplain;" style="background-color:#fff;"/>
+								<radiogroup id="" oncommand="_SelectTextPlainCommand(event)">
+									<radio id="bitsSelectDisplayTextPlainUsually"  value="usually"  label="&markingcollection.textplain.usually;"/>
+									<radio id="bitsSelectDisplayTextPlainConfirm"  value="confirm"  label="&markingcollection.textplain.confirm;"/>
+									<radio id="bitsSelectDisplayTextPlainWrapping" value="wrapping" label="&markingcollection.textplain.wrapping;"/>
+								</radiogroup>
+								<groupbox id="bitsSelectDisplayTextPlainAttr" insertafter="" orient="horizontal" align="center">
+									<caption label="&markingcollection.textplain.attr;" style="background-color:#fff;"/>
+									<hbox>
+										<grid>
+											<columns>
+												<column pack="end"/>
+												<column pack="start" flex="1"/>
+											</columns>
+											<rows>
+												<row align="center">
+													<hbox align="center"  pack="end">
+														<label value="&markingcollection.textplain.font-family;:" control="bitsSelectDisplayTextPlainAttrFontFamily"/>
+													</hbox>
+													<menulist id="bitsSelectDisplayTextPlainAttrFontFamily" oncommand="_commandTextPlainFontFamily(event)"/>
+												</row>
+												<row align="center">
+													<hbox align="center"  pack="end">
+														<label value="&markingcollection.textplain.font-size;:" control="bitsSelectDisplayTextPlainAttrFontSize"/>
+													</hbox>
+													<hbox align="center">
+														<textbox id="bitsSelectDisplayTextPlainAttrFontSize" maxlength="2" min="9" max="72" size="1" type="number" wraparound="false" onchange="_changeTextPlainFontSize(event)"/>
+														<label value="&markingcollection.textplain.background-color;:" control="bitsSelectDisplayTextPlainAttrBackgroundColor"/>
+														<colorpicker id="bitsSelectDisplayTextPlainAttrBackgroundColor" type="button" onchange="_changeTextPlainBackgroundColor(event)"/>
+													</hbox>
+												</row>
+											</rows>
+										</grid>
+									</hbox>
+								</groupbox>
+							</groupbox>
+						</hbox>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</tabpanels>
+	</tabbox>
+</overlay>

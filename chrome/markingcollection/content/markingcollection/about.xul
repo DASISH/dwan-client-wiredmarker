@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<window
+	class="dialog"
+	title=""
+	orient="vertical"
+	autostretch="always"
+	onload="sizeToContent()"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/x-javascript">
+	<![CDATA[
+		function _setAboutInfo(addon){
+			document.getElementById("aboutVersion").setAttribute("value","Version "+addon.version);
+			var app_title = document.getElementById("MarkingCollectionOverlayString").getString("APP_DISP_TITLE");
+			document.getElementById("aboutTitle").setAttribute("value",app_title);
+			document.title = app_title + " - About";
+		}
+		function _aboutInit(aEvent){
+			window.setTimeout(
+				function(){
+					var app_id = document.getElementById("MarkingCollectionOverlayString").getString("APP_ID");
+					try{
+						var em = Components.classes["@mozilla.org/extensions/manager;1"].getService(Components.interfaces.nsIExtensionManager);
+						_setAboutInfo(em.getItemForID(app_id));
+					}catch(e){
+						Components.utils.import("resource://gre/modules/AddonManager.jsm");
+						AddonManager.getAddonByID(app_id, _setAboutInfo);
+					}
+				},0);
+		}
+		function _aboutDone(aEvent){
+		}
+		window.addEventListener("load", _aboutInit, false);
+		window.addEventListener("unload", _aboutDone, false);
+	]]>
+	</script>
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="MarkingCollectionOverlayString" src="chrome://markingcollection/locale/markingcollection.properties" />
+	</stringbundleset>
+	<groupbox align="center" orient="horizontal">
+		<vbox flex="1">
+			<hbox>
+				<text id="aboutTitle" value="Wired-Marker" style="font-weight: bold; font-size: x-large;"/>
+				<spring flex="1"/>
+				<!-- <image src="chrome://markingcollection/skin/icon_32.png"/> -->
+                                <image src="chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_32_32.png"/>                               
+			</hbox>
+			<vbox flex="1" align="right">
+				<text id="aboutVersion" value=""/>
+			</vbox>
+			<separator class="thin"/>
+			<text value="Project scope:" style="font-weight: bold;"/>
+			<vbox flex="1" align="right">
+				<hbox>
+                                    <label value="Developed for the DASISH infrastructure project, WP 5, Data Enrichment and Shared Data Access."/>
+				</hbox>
+			</vbox>
+			<separator class="thin"/>
+			<text value="Home Page:" style="font-weight: bold;"/>
+			<vbox flex="1" align="right">
+                                <label value="http://dasish.eu/" class="text-link" href="http://dasish.eu/"/>
+			</vbox>
+                        <separator class="thin"/>
+			<text value="Original Concept &amp; Design:" style="font-weight: bold;"/>
+			<vbox flex="1" align="right">
+				<hbox>
+				<label value="BITS Co., Ltd." class="text-link" href="http://www.bits.cc/"/><label value="&amp;"/><label value="Prof. Okubo" class="text-link" href="http://www.nig.ac.jp/section/okubo/okubo-j.html"/>
+				</hbox>
+			</vbox>
+			<separator class="thin"/>
+			<text value="Home Page:" style="font-weight: bold;"/>
+			<vbox flex="1" align="right">
+				<label value="http://www.wired-marker.org/" class="text-link" href="http://www.wired-marker.org/"/>
+			</vbox>
+			<separator class="thin"/>
+                        <vbox flex="1">
+				<hbox>
+				<label value="The extension was modified and extended by"/><label style="margin-left: -4px; margin-right: -4px;" value="SND" class="text-link" href="http://snd.gu.se/"/><label value="in collaboration with"/><label style="margin-left: -4px; margin-right: -4px;" value="TLA - MPI." class="text-link" href="http://tla.mpi.nl/"/>
+				</hbox>
+			</vbox>
+                        <separator class="thin"/>
+		</vbox>
+	</groupbox>
+	<hbox>
+		<spacer flex="1"/>
+		<button label="Close" oncommand="window.close();"/>
+	</hbox>
+</window>
