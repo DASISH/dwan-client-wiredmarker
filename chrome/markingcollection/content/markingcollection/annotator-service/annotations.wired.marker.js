@@ -132,8 +132,6 @@ var annotationProxy = (function() {
                     cacheURL += '/stream';
                     annotationProxy.log('cacheURL');
                     annotationProxy.log(cacheURL);
-                    alert('cacheURL: '+cacheURL+" tab: "+tabbed);
-                    annotationProxy.log('cacheURL: '+cacheURL+" tab: "+tabbed);
                     bitsAutocacheService.Common.loadURL(cacheURL, tabbed);
                 });
             });
