@@ -53,7 +53,7 @@
                 <em:minVersion>2.0</em:minVersion>
                 <!-- <em:maxVersion>10.*</em:maxVersion> -->
                 <!-- Current FF version is 30.0 -->
-                <em:maxVersion>30.*.*</em:maxVersion>
+                <em:maxVersion>33.*.*</em:maxVersion>
             </Description>
         </em:targetApplication>
     </Description>
