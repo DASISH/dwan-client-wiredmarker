@@ -136,7 +136,7 @@ var annotationFramework = (function() {
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
                     annotationProxy.log("Status Code: " + jqXHR.status);
                     annotationProxy.log("Error : " + thrownError);
-                    annotationProxy.showError({title:"Error posting annotation",info:jqXHR.responseText});
+                    annotationProxy.showError({title:"Error posting annotation",info:jqXHR.responseText, code:jqXHR.status});
                 },
                 complete: function(jqXHR, status, responseText) {
                     
@@ -217,7 +217,7 @@ var annotationFramework = (function() {
                     annotationProxy.log("Status Code: " + jqXHR.status);
                     annotationProxy.log("Error : " + thrownError);
                     
-                    annotationProxy.showError({title:"HTTP: "+jqXHR.status+" - Update annotation error", info:thrownError});
+                    annotationProxy.showError({title:"HTTP: "+jqXHR.status+" - Update annotation error", info:thrownError, code:jqXHR.status});
                 },
                 complete: function(jqXHR, status, responseText) {
                     var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
@@ -253,7 +253,7 @@ var annotationFramework = (function() {
             annotationProxy.log(postBody);    
             
             xhr.addEventListener("error", function(errorSendingEvent) {
-                annotationProxy.showError({title:"Cache Error", info:"Error sending cached representation to backend"});
+                annotationProxy.showError({title:"Cache Error", info:"Error sending cached representation to backend", code:jqXHR.status});
             }, false);
             
             xhr.send(postBody);
@@ -277,7 +277,7 @@ var annotationFramework = (function() {
                     callback.call(undefined, targets);                
                 },
                 error: function(jqXHR, status, thrownError) {
-                    annotationProxy.showError({title:"Resolving targets", info:"Error resolving targets for\n AID "+aid});
+                    annotationProxy.showError({title:"Resolving targets", info:"Error resolving targets for\n AID "+aid, code:jqXHR.status});
                 }
             });         
         },

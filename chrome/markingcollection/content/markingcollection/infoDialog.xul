@@ -14,9 +14,12 @@
                     //set info
                     document.getElementById("info").value = window.arguments[0].info;  
                     
+                    var header = document.getElementById("header");
+                    
                     if(window.arguments[0].code){
-                        if(window.arguments[0].code){
-                            
+                        if(window.arguments[0].code == "401"){        
+                            header.setAttribute("hidden","false");
+                            header.setAttribute("description", "You don´t have access to this function");
                         }
                     }
                     
@@ -27,7 +30,7 @@
                 
             ]]>
     </script>
-    <dialogheader id="header" title="Status" hidden="true" description="Not loged in"/>
+    <dialogheader id="header" title="Status" hidden="true" description="No access"/>
     <textbox  id="info" width="350" height="400" style="background-color: transparent;" flex="1"
         multiline="true" readonly="true"
         onoverflow="this.height = this.inputField.scrollHeight;" />
