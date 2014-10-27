@@ -485,10 +485,15 @@ var bitsItemView = {
 		return icon;
 	},
 	getRowProperties: function(row,prop){},
-	getCellProperties: function(row, column, prop) {
+	getCellProperties: function(row, column, prop) {                     
+            
 		if(column.id == this.idTREE_IFAVICON){
+                    if(prop) {
 			var aserv=Components.classes["@mozilla.org/atom-service;1"].getService(Components.interfaces.nsIAtomService);
 			prop.AppendElement(aserv.getAtom("ItemView"));
+                    } else {
+                        return "ItemView";
+                    }
 			if(this.itemObjects && this.itemObjects[row]){
 				var aObject = this.itemObjects[row];
 				prop.AppendElement(aserv.getAtom("ItemViewImage"));
