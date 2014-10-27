@@ -98,7 +98,7 @@
                      type="checkbox" group="sidebar"
                      sidebarurl="chrome://markingcollection/content/sidebar.xul"
                      sidebartitle="My Annotations"
-                     oncommand="toggleSidebar('viewMarkingCollection'); document.getElementById('sidebar-title').setAttribute('style','font-size: 1.2em; text-align: center; margin: 2pt 28pt 2pt 0; vertical-align: middle; height: 30px;');"/>
+                     oncommand="toggleSidebar('viewMarkingCollection'); document.getElementById('sidebar-title').setAttribute('style','font-size: 1.2em; text-align: center; margin: 2pt 28pt 2pt 0; vertical-align: middle; height: 30px;');getElementById('sidebar-box').width=330;"/>
     </broadcasterset>
     <toolbarpalette id="BrowserToolbarPalette">
         <toolbarbutton
