@@ -7,13 +7,18 @@
     xmlns:html="http://www.w3.org/1999/xhtml"
     title="Info from annotator backend"
     buttons="accept"
-    defaultButton="none"
     onload="infoDialogLoad()">
     <script type="application/x-javascript">
             <![CDATA[       
                 function infoDialogLoad() {
                     //set info
                     document.getElementById("info").value = window.arguments[0].info;  
+                    
+                    if(window.arguments[0].code){
+                        if(window.arguments[0].code){
+                            
+                        }
+                    }
                     
                     if(window.arguments[0].title){
                         document.title = window.arguments[0].title;
@@ -22,6 +27,7 @@
                 
             ]]>
     </script>
+    <dialogheader id="header" title="Status" hidden="true" description="Not loged in"/>
     <textbox  id="info" width="350" height="400" style="background-color: transparent;" flex="1"
         multiline="true" readonly="true"
         onoverflow="this.height = this.inputField.scrollHeight;" />
