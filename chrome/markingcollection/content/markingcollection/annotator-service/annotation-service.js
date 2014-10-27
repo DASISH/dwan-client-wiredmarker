@@ -134,7 +134,7 @@ var annotationFramework = (function() {
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
                     annotationProxy.log("Status Code: " + jqXHR.status);
                     annotationProxy.log("Error : " + thrownError);
-                    
+                    annotationProxy.showError({title:"Error posting annotation",info:jqXHR.responseText});
                 },
                 complete: function(jqXHR, status, responseText) {
                     
@@ -143,34 +143,29 @@ var annotationFramework = (function() {
                     annotationProxy.log("Response Body: " + jqXHR.responseText);
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");                    
                     
-                    if(jqXHR.status === "200") {
-                        var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
-                        var aid = response[response.length - 1];
+                    var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
+                    var aid = response[response.length - 1];
 
+                    annotationProxy.log("OID: " + oid);
+                    annotationProxy.log("AID: " + aid);
+                    // Firebug.Console.log(bitsObjectMng.Database.getObject({oid: oid}));
 
-
-                        annotationProxy.log("OID: " + oid);
-                        annotationProxy.log("AID: " + aid);
-                        // Firebug.Console.log(bitsObjectMng.Database.getObject({oid: oid}));
-
-                        var aSql = 'UPDATE om_object SET dasish_aid = "' + aid + '" WHERE oid="' + oid + '"';
-                        annotationProxy.log(aSql);
-                        // insert request to local sqlite database where aid gets inserted
-                        if(bitsObjectMng.Database._idExists('local', oid, true)){
-                            var rtn = bitsObjectMng.Database.cmd('local', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
-                            annotationProxy.log('UPDATE of AID done in local');
-                        }else if(bitsObjectMng.Database._idExists('_uncategorized', oid, true)){
-                             var rtn = bitsObjectMng.Database.cmd('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
-                             annotationProxy.log('UPDATE of AID done in _uncategorized');
-                        }
-
-                        // Database insert request is true if successful
-                        // Firebug.Console.log(rtn);
-                        annotationProxy.log('called cache stuff');
-                        callback.call(undefined, aid);  
-                    }else{
-                        annotationProxy.showError({title:"Error posting annotation",info:jqXHR.responseText});
+                    var aSql = 'UPDATE om_object SET dasish_aid = "' + aid + '" WHERE oid="' + oid + '"';
+                    annotationProxy.log(aSql);
+                    // insert request to local sqlite database where aid gets inserted
+                    if(bitsObjectMng.Database._idExists('local', oid, true)){
+                        var rtn = bitsObjectMng.Database.cmd('local', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+                        annotationProxy.log('UPDATE of AID done in local');
+                    }else if(bitsObjectMng.Database._idExists('_uncategorized', oid, true)){
+                         var rtn = bitsObjectMng.Database.cmd('_uncategorized', aSql); // aMode = "" defaults to predefined value; aSql contains sql statement
+                         annotationProxy.log('UPDATE of AID done in _uncategorized');
                     }
+
+                    // Database insert request is true if successful
+                    // Firebug.Console.log(rtn);
+                    annotationProxy.log('called cache stuff');
+                    callback.call(undefined, aid);  
+
                 }
             });
         },
