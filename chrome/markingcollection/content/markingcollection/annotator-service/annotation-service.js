@@ -57,7 +57,9 @@ var annotationFramework = (function() {
           $.ajax({
                 type: "GET",
                 url: this.getBackend() + '/api/authentication/logout',
-                success: function(xml, textStatus, jqXHR) {},
+                success: function(xml, textStatus, jqXHR) {
+                    UserLogin.checkUserLogin();
+                },
                 error: function(jqXHR, status, thrownError) {
                     alert('Logout failed. Status code: '+jqXHR.status);
                 }
