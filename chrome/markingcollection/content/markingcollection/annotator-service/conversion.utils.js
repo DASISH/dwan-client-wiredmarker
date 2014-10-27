@@ -95,6 +95,10 @@ function om_object2annotation(om_object) {
     var style = '';
     var timestamp = new Date(om_object.oid_date);
 
+    note = escapeHtml(note);
+    om_object.oid_txt = escapeHtml(om_object.oid_txt);
+    om_object.oid_title = escapeHtml(om_object.oid_title);
+    
     hyperanchor = unescape(hyperanchor);
 
     hyperanchor.match(/^(.+\([0-9]+\)\([0-9]+\)\([\s\S]*\))&(.+\([0-9]+\)\([0-9]+\)\([\s\S]*\))&(.+)$/);
@@ -229,4 +233,16 @@ if (!Date.prototype.toISOString) {
                 + pad(this.getUTCMinutes()) + ':'
                 + pad(this.getUTCSeconds()) + 'Z';
     };
+}
+
+function escapeHtml(text) {
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+
+  return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }

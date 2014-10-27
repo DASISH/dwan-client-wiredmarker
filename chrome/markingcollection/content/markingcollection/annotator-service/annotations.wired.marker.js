@@ -117,12 +117,10 @@ var annotationProxy = (function() {
                 annotationFramework.putFullAnnotation(aid, xmlString);
             });
         },
-        openRemoteCache: function(event){
+        openRemoteCache: function(event, tabbed){
             this.log(event);
             var oid = bitsAutocacheService.bitsItemView.object.oid;
-            var cacheUrl = this.getCacheURL(oid);
-            
-            
+            this.getCacheURL(oid, tabbed);
         },
         getCacheURL: function(oid, tabbed){
             var aid = this.getAidFromOid(oid);
@@ -134,8 +132,7 @@ var annotationProxy = (function() {
                     cacheURL += '/stream';
                     annotationProxy.log('cacheURL');
                     annotationProxy.log(cacheURL);
-                    
-                    bitsAutocacheService.Common.loadURL(cacheURL,tabbed);
+                    bitsAutocacheService.Common.loadURL(cacheURL, tabbed);
                 });
             });
             

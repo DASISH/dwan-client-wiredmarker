@@ -1,11 +1,13 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
 #markingcollection-button {
-  list-style-image: url("chrome://markingcollection/skin/icon_24.gif");
+    
+  list-style-image: url("chrome://markingcollection/skin/annotator-skin/icon_dasish_about_32x32.gif");
+  //list-style-image: url("chrome://markingcollection/skin/icon_24.gif");
 }
 
 toolbar[iconsize="small"] #markingcollection-button {
-  list-style-image: url("chrome://markingcollection/skin/icon_16.gif");
+  list-style-image: url("chrome://markingcollection/skin/annotator-skin/icon_dasish_16.gif");
 }
 
 /*****************************************************************************/
