@@ -45,7 +45,7 @@ var annotationProxy = (function() {
                     annotationProxy.log(annotations);
 
                     $.each(annotations, function(index, annotationURL) {
-                        annotationFramework.getAnnotation(annotationURL, function(result) {
+                        annotationFramework.getAnnotation(annotationFramework.getBackend()+"/api/annotations/"+annotationURL, function(result) {
                             annotationProxy.log('checking if annotation exist in DB:');
                             annotationProxy.log(result);
 
@@ -136,10 +136,11 @@ var annotationProxy = (function() {
         getCacheURL: function(oid, tabbed){
             var aid = this.getAidFromOid(oid);
             annotationFramework.getTargets(aid, function(targets){
-                var targetURL = targets[0];
-                annotationProxy.log('targets');
-                annotationProxy.log(targets[0]);
+                var targetURL = annotationFramework.getBackend()+"/api/targets/"+targets[0];
+                annotationProxy.log('target url '+targetURL);
+                
                 annotationFramework.getCacheURL(targetURL, function(cacheURL){
+                    annotationProxy.log('cache url '+cacheURL);
                     cacheURL += '/stream';
                     annotationProxy.log('cacheURL');
                     annotationProxy.log(cacheURL);

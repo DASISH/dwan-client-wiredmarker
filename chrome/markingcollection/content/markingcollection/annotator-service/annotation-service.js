@@ -24,7 +24,7 @@ var annotationFramework = (function() {
             
             //default get all
             var requestURL = this.getBackend() + '/api/annotations';
-            if(url !== '' && url === undefined){
+            if(url !== '' && url !== undefined){
                 requestURL += '?link='+url;
             }
             
@@ -40,8 +40,9 @@ var annotationFramework = (function() {
                     annotationProxy.log($xml);
                     
                     jQuery($xml).find('annotationInfo').each(function() {
-                        annotationProxy.log(this);
-                        var aid = this.getAttribute('href').split("api/annotations/")[1];                                           annotationProxy.log("annotationInfo href: " + aid);
+                        
+                        var aid = this.getAttribute('href').split("api/annotations/")[1];                                           
+                        annotationProxy.log("annotationInfo href: " + aid);
                         annotations.push(aid);
                     });
                     
@@ -283,20 +284,26 @@ var annotationFramework = (function() {
             });         
         },
         getCacheURL: function (targetURL, callback){
+            annotationProxy.log("getCacheURL, targetURL: " + targetURL);
             $.ajax({
                 type: "GET",
                 url: targetURL,
                 dataType: "xml",
                 success: function(xml, textStatus, jqXHR) {
                     $xml = $.parseXML(jqXHR.responseText);
-                    
+                    annotationProxy.log("getCacheURL done: ");
+                    annotationProxy.log(jQuery($xml).find('cached'));
                     jQuery($xml).find('cached').each(function() {
                         
-                        var cacheURL = this.getBackend() + this.getAttribute('href').split("api/cached/")[1];
+                        var cacheURL = annotationFramework.getBackend() + this.getAttribute('href').split("api/cached/")[1];
                         annotationProxy.log("cacheURL: " + cacheURL);
                         callback.call(undefined, cacheURL);
                     });
                                  
+                },
+                error: function(jqXHR, status, thrownError) {
+                    annotationProxy.log("Error geting cache: " + thrownError);
+                    annotationProxy.showError({title:"Error geting cache", info:thrownError, code:jqXHR.status});
                 }
             });               
         },
