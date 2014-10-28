@@ -234,6 +234,7 @@ var annotationFramework = (function() {
             });
         },
         postCache: function(targetURL, cacheMetadata, cache, cacheMimeType){
+            annotationProxy.log("posting cache to "+targetURL);
             var xhr = new XMLHttpRequest();
             xhr.onload = function() {
                 annotationProxy.log("Cache POST status for "+targetURL+": "+xhr.status);
@@ -295,7 +296,7 @@ var annotationFramework = (function() {
                     annotationProxy.log(jQuery($xml).find('cached'));
                     jQuery($xml).find('cached').each(function() {
                         
-                        var cacheURL = annotationFramework.getBackend() + this.getAttribute('href').split("api/cached/")[1];
+                        var cacheURL = annotationFramework.getBackend() +"/api/cached/"+ this.getAttribute('href').split("api/cached/")[1];
                         annotationProxy.log("cacheURL: " + cacheURL);
                         callback.call(undefined, cacheURL);
                     });

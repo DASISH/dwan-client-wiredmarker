@@ -84,14 +84,16 @@ var annotationProxy = (function() {
                             //POST cache representation for HTML
                             var htmlDump = annotationProxy.getCurrentHtmlDocument();
                             var cacheMetadata = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'+
-                                                '<cashedRepresentationInfo xmlns="http://www.dasish.eu/ns/addit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n'+
-                                                '    URI="tmpNewCacheURI" xsi:schemaLocation="http://www.dasish.eu/ns/addit https://svn.clarin.eu/DASISH/t5.6/schema/trunk/annotator-schema/src/main/resources/DASISH-schema.xsd">\n'+
+                                                '<cachedRepresentationInfo xmlns="http://www.dasish.eu/ns/addit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n'+
+                                                '    xml:id="tmpNewCacheURI" href="temp" xsi:schemaLocation="http://www.dasish.eu/ns/addit http://lux17.mpi.nl/ds/webannotator-basic/SCHEMA/DASISH-schema.xsd">\n'+
                                                 '    <mimeType>text/html</mimeType>\n'+
                                                 '    <tool>DWAN</tool>\n'+
                                                 '    <type>html</type>\n'+
-                                                '</cashedRepresentationInfo>';
+                                                '</cachedRepresentationInfo>';
                             var cacheMimeType = 'text/html';
-                            $.each(targets, function(index, targetURL){
+                            $.each(targets, function(index, target){
+                                
+                                var targetURL = annotationFramework.getBackend()+"/api/targets/"+target;
                                 var xpointer = encodeURIComponent(om_object_xpointer(om_object));
                                 
                                 var xpointer = xpointer.replace(/%/g,'--');
