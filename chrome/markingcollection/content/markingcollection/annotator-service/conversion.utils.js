@@ -34,9 +34,8 @@ function annotation2om_object(annotation) {
     var link = $(annotation).find('link').text();
     var time = $(annotation).find('lastModified').text();
 
-    //get aid
-    var URI = $(annotation).find('annotation').attr('URI');
-    om_object.dasish_aid = URI.split('/annotations/')[1];
+    // get aid = uuid
+    om_object.dasish_aid = $(annotation).find('annotation').attr('xml:id');
 
     //get xpointer from url
     var urlParts = link.split("#xpointer");
@@ -208,7 +207,7 @@ function om_object_annotation_body(om_object){
 <annotationBody xmlns="http://www.dasish.eu/ns/addit"\n\
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n\
     xmlns:xhtml="http://www.w3.org/1999/xhtml/" \n\
-    xsi:schemaLocation="http://www.dasish.eu/ns/addit file:/Users/olhsha/repositories/DASISH/t5.6/schema/trunk/annotator-schema/src/main/resources/DASISH-schema.xsd">\n\
+    xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd">\n\
     <xmlBody mimeType="application/xml">\n\
         <any>\n\
             <xhtml:span title="'+om_object.oid_txt+'" style="' + style + '">' + note + '</xhtml:span>\n\
