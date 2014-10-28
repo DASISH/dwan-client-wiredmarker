@@ -120,13 +120,23 @@ function om_object2annotation(om_object) {
     var xpointer = "#xpointer(start-point(string-range(" + path.start + "/text()[1],''," + path.startOffset + "))";
     xpointer    += "/range-to(string-range(" + path.end + "/text()[1],''," + path.endOffset + ")))";
 
+    /* retrieve relative path part (without protocol and domain name parts of backend server address) */
+    var backend_url = annotationFramework.getBackend();
+    var backend_relpath = backend_url.substring(backend_url.indexOf(":")+3);
+    var pos = backend_relpath.indexOf("/");
+    
+    /* Notes on var annotation:
+     * UUID is hardcoded starting with a letter (below), because value is used for attribute xml:id as well. */
+
+
     var annotation = '<?xml version="1.0" encoding="UTF-8"?>\n\
                       <annotation xmlns="http://www.dasish.eu/ns/addit"\n\
                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n\
                             xsi:schemaLocation="http://www.dasish.eu/ns/addit http://dasish.eu/DASISH-schema.xsd"\n\
                             xmlns:xhtml="http://www.w3.org/1999/xhtml"\n\
-                            URI="' + annotationFramework.getBackend() + '/api/annotations/00000000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00"\n\
-                            ownerRef="' + annotationFramework.getBackend() + '/api/principals/00000000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00">\n\
+                            xml:id="aaa00000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00"\n\
+                            href="' + backend_relpath.substring(pos) + '/api/annotations/aaa00000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00">\n\
+                        <ownerHref>' + backend_relpath.substring(pos) + '/api/principals/aaa00000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00</ownerHref>\n\
                         <headline>' + om_object.oid_title + '</headline>\n\
                         <lastModified>' + timestamp.toISOString() + '</lastModified>\n\
                         <body>\n\
@@ -136,7 +146,7 @@ function om_object2annotation(om_object) {
                             </xmlBody>\n\
                         </body>\n\
                         <targets>\n\
-                            <targetInfo ref="' + annotationFramework.getBackend() + '/api/targets/00000000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00">\n\
+                            <targetInfo href="' + backend_relpath.substring(pos) + '/api/targets/aaa00000-0000-0000-' + om_object.oid.substring(0, 4) + '-' + om_object.oid.substring(4, 14) + '00">\n\
                                 <link>' + om_object.doc_url + xpointer + '</link>\n\
                                 <version>' + timestamp.toISOString() + '</version>\n\
                             </targetInfo>\n\
