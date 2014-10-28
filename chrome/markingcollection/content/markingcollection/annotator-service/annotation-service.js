@@ -24,13 +24,13 @@ var annotationFramework = (function() {
             
             //default get all
             var requestURL = this.getBackend() + '/api/annotations';
-            if(url != '' || url === undefined){
+            if(url !== '' && url === undefined){
                 requestURL += '?link='+url;
             }
             
             $.ajax({
                 type: "GET",
-                url: this.getBackend() + '/api/annotations?link='+url,
+                url: requestURL,
                 dataType: "xml",
                 beforeSend: function(xhr){xhr.setRequestHeader('Content-Type', 'application/xml');},
                 success: function(xml, textStatus, jqXHR) {

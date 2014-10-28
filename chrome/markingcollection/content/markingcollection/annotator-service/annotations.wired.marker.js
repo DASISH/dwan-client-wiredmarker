@@ -35,6 +35,7 @@ var annotationProxy = (function() {
 
             //return user_placeholder;
         },
+        logout: function(){annotationFramework.logout();},
         getAnnotations: function(url) {
             annotationProxy.log('getAnnotations for: ' + url);
 
@@ -61,6 +62,12 @@ var annotationProxy = (function() {
                     });
                 }
             );
+        },
+        updateLocalAnnotation:function(aid, annotation){
+            var om_object = annotation2om_object(annotation);
+            var aSql = 'UPDATE om_object SET doc_title = "'+om_object.doc_title+'", oid_title="'+om_object.oid_title+'", oid_property="'+om_object.oid_property+'" WHERE dasish_aid = '+aid;
+            Database.cmd('local', aSql, undefined);
+            Database.cmd('_uncategorized', aSql, undefined);
         },
         postAnnotation: function(om_object) {
             var annotation = om_object2annotation(om_object);

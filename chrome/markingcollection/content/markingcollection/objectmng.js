@@ -3507,21 +3507,23 @@ var bitsObjectMng = {
 		},
 /////////////////////////////////////////////////////////////////////
 		_dasish_aid_exists : function(aMode,dasish_aid,aTransaction){
-                        //helper function for finding existing annotations
-                        var found = false;
-                        
-			if(aMode == undefined || aMode == "" || aMode == "dwan") aMode = 'local';
-			if(aTransaction == undefined) aTransaction = true;
-			var oSql = 'SELECT COUNT(dasish_aid) FROM om_object WHERE dasish_aid="'+dasish_aid+'"';
-			var oRtn = this.selectCount(aMode,oSql,aTransaction);
-			if(oRtn > 0){ 
-                            return true;
-                        }else{
-                            return false;
-                        }
-                        
-		},
+                    //helper function for finding existing annotations
+                    var found = false;
 
+                    if(aMode == undefined || aMode == "" || aMode == "dwan") {
+                        aMode = 'local';
+                    }
+                    if(aTransaction == undefined) { 
+                        aTransaction = true;
+                    }
+                    var oSql = 'SELECT COUNT(dasish_aid) FROM om_object WHERE dasish_aid="'+dasish_aid+'"';
+                    var oRtn = this.selectCount(aMode,oSql,aTransaction);
+                    if(oRtn > 0){ 
+                        return true;
+                    }else{
+                        return false;
+                    }
+		},
 /////////////////////////////////////////////////////////////////////
 		_oidExists : function(aMode,aID,aTransaction){
 			if(aTransaction == undefined) aTransaction = true;
