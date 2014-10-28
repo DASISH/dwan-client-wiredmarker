@@ -2,12 +2,12 @@
 
 #markingcollection-button {
     
-  list-style-image: url("chrome://markingcollection/skin/annotator-skin/icon_dasish_about_32x32.gif");
+  list-style-image: url("chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_32_32.png");
   //list-style-image: url("chrome://markingcollection/skin/icon_24.gif");
 }
 
 toolbar[iconsize="small"] #markingcollection-button {
-  list-style-image: url("chrome://markingcollection/skin/annotator-skin/icon_dasish_16.gif");
+  list-style-image: url("chrome://markingcollection/skin/annotator-skin/alphatransparent/dasish_16_16.png");
 }
 
 /*****************************************************************************/
