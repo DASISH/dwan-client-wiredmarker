@@ -41,9 +41,8 @@ var annotationFramework = (function() {
                     
                     jQuery($xml).find('annotationInfo').each(function() {
                         annotationProxy.log(this);
-                        annotationProxy.log(this.getAttribute('ref'));
-                        
-                        annotations.push(this.getAttribute('ref'));
+                        var aid = this.getAttribute('href').split("api/annotations/")[1];                                           annotationProxy.log("annotationInfo href: " + aid);
+                        annotations.push(aid);
                     });
                     
                     callback.call(undefined, annotations);
@@ -146,9 +145,15 @@ var annotationFramework = (function() {
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");                    
                     
                     if(jqXHR.responseText !== null) {
-                        var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
-                        var aid = response[response.length - 1];
-
+                        // var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
+                        // var aid = response[response.length - 1];
+                        var aid;
+                        
+                        $xml = $.parseXML(jqXHR.responseText);
+                        jQuery($xml).find('annotation').each(function() {
+                            aid = $(this).attr('xml:id');
+                        });
+                        
                         annotationProxy.log("OID: " + oid);
                         annotationProxy.log("AID: " + aid);
                         // Firebug.Console.log(bitsObjectMng.Database.getObject({oid: oid}));
@@ -183,7 +188,7 @@ var annotationFramework = (function() {
                     // Handle any errors
                     
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                    annotationProxy.log("Faild to PUT updated annotation: " + aid);
+                    annotationProxy.log("Failed to PUT updated annotation: " + aid);
                     annotationProxy.log("Status Code: " + jqXHR.status);
                     annotationProxy.log("Error : " + thrownError);
                     
@@ -191,8 +196,6 @@ var annotationFramework = (function() {
                     
                 },
                 complete: function(jqXHR, status, responseText) {
-                    var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
-                    var aid = response[response.length - 1];
 
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
                     annotationProxy.log("Status Code PUT request: " + jqXHR.status);
@@ -213,15 +216,13 @@ var annotationFramework = (function() {
                     // Handle any errors
                     
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
-                    annotationProxy.log("Faild to PUT updated annotation: " + aid);
+                    annotationProxy.log("Failed to PUT updated annotation: " + aid);
                     annotationProxy.log("Status Code: " + jqXHR.status);
                     annotationProxy.log("Error : " + thrownError);
                     
                     annotationProxy.showError({title:"HTTP: "+jqXHR.status+" - Update annotation error", info:thrownError, code:jqXHR.status});
                 },
-                complete: function(jqXHR, status, responseText) {
-                    var response = jqXHR.responseText.match(/URI="(.+?)"/)[1].split('/');
-                    var aid = response[response.length - 1];
+                complete: function(jqXHR, status, responseText) {                  
 
                     annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
                     annotationProxy.log("Status Code PUT request: " + jqXHR.status);
@@ -270,9 +271,9 @@ var annotationFramework = (function() {
                     
                     jQuery($xml).find('targetInfo').each(function() {
                         annotationProxy.log(this);
-                        annotationProxy.log(this.getAttribute('ref'));
-                        
-                        targets.push(this.getAttribute('ref'));
+                        var targetid = this.getAttribute('href').split("api/targets/")[1];
+                        annotationProxy.log("targetInfo href: " + targetid);                   
+                        targets.push(targetid);
                     });
                     callback.call(undefined, targets);                
                 },
@@ -290,10 +291,11 @@ var annotationFramework = (function() {
                     $xml = $.parseXML(jqXHR.responseText);
                     
                     jQuery($xml).find('cached').each(function() {
-                        var cacheURL = this.getAttribute('ref');
+                        
+                        var cacheURL = this.getBackend() + this.getAttribute('href').split("api/cached/")[1];
+                        annotationProxy.log("cacheURL: " + cacheURL);
                         callback.call(undefined, cacheURL);
                     });
-                    
                                  
                 }
             });               
