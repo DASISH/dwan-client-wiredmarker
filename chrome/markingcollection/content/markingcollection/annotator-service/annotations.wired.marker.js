@@ -71,6 +71,10 @@ var annotationProxy = (function() {
         },
         postAnnotation: function(om_object) {
             var annotation = om_object2annotation(om_object);
+            
+            /* log XML serialization output to Firebug console */
+            annotationProxy.log("\n\nFull content of XML representation that is posted:\n\n" + annotation + "\n\n++++ end of XML representation content ++++\n\n");
+            
             annotationFramework.postAnnotation(annotation, om_object.oid, 
                 function(aid){
                     annotationProxy.log('Annotation posted and returned AID: '+aid);
