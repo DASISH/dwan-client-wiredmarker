@@ -135,6 +135,12 @@ var annotationProxy = (function() {
             var oid = bitsAutocacheService.bitsItemView.object.oid;
             this.getCacheURL(oid, tabbed);
         },
+        openAccessDialog: function(){
+            var params = {om_object : bitsAutocacheService.bitsItemView.object};
+            
+            window.openDialog('chrome://markingcollection/content/annotationPermissionDialog.xul', '', 
+                              'chrome,centerscreen,modal', params);
+        },
         getCacheURL: function(oid, tabbed){
             var aid = this.getAidFromOid(oid);
             annotationFramework.getTargets(aid, function(targets){

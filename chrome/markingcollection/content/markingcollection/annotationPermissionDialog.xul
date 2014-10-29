@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
+<!DOCTYPE overlay SYSTEM "chrome://markingcollection/locale/markingcollection.dtd">
+<dialog
+    id="annotationPermissionDialog"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    title="Annotation permission settings"
+    buttons="accept"
+    onload="accessDialogLoad()">
+    <script type="application/x-javascript">
+            <![CDATA[       
+                function accessDialogLoad() {
+                    //set info
+                    //window.arguments[0].om_object;  
+                    //bitsAutocacheService.bitsItemView.object
+                    var om_object = window.arguments[0].om_object;
+                    document.title = 'Permissions for "'+om_object.oid_title+'"';
+                    
+                    
+                    //var header = document.getElementById("header");
+                    
+                    //header.setAttribute("description", window.arguments[0].om_object.oid_title);
+                    
+                }
+                
+            ]]>
+    </script>
+    <dialogheader id="header" title="Access permissions" hidden="false" description=""/>
+    <groupbox>
+        <caption label="Public access"/>
+        <menulist>
+          <menupopup>
+            <menuitem label="read" value="read"/>
+            <menuitem label="write" value="write"/>
+            <menuitem label="none" value="none"/>
+          </menupopup>
+        </menulist>
+    </groupbox>  
+    <groupbox>
+      <caption label="Access per user"/>  
+      <html:table>
+        <html:thead>
+            <html:tr>
+                <html:th>Email</html:th>
+                <html:th>Permission</html:th>
+            </html:tr>
+        </html:thead>
+        <html:tbody id="users">
+            <html:tr>
+                <html:td>
+                    <html:input name="user_1"></html:input>
+                </html:td>
+                <html:td>
+                    <html:select>
+                        <html:option value="read">read</html:option>
+                        <html:option value="write">write</html:option>
+                        <html:option value="none">none</html:option>
+                    </html:select>
+                </html:td>
+            </html:tr>
+            <html:tr>
+                <html:td>
+                    <html:input name="user_2"></html:input>
+                </html:td>
+                <html:td>
+                    <html:select>
+                        <html:option value="read">read</html:option>
+                        <html:option value="write">write</html:option>
+                        <html:option value="none">none</html:option>
+                    </html:select>
+                </html:td>
+            </html:tr>
+        </html:tbody>        
+      </html:table>
+    </groupbox>
+</dialog>

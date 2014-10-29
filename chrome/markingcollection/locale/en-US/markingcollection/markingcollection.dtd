@@ -291,6 +291,8 @@
 <!ENTITY markingcollection.autocache.topmenu.number "Display number">
 <!ENTITY markingcollection.autocache.topmenu.attention "*If the number is 0, all of the cache will be displayed.">
 
+<!ENTITY markingcollection.permissions "Permissions">
+
 <!ENTITY markingcollection.shortcut.tab "Shortcut">
 <!ENTITY markingcollection.shortcut.add  "Add">
 <!ENTITY markingcollection.shortcut.edit "Edit">

@@ -114,7 +114,13 @@
             </menu>
             <menuseparator observes="mcPopupCache" insertafter="mcPopupOpenNewTab"/>
         </menupopup>
+
         <menupopup id="bitsItemTreePopup">
+            <menuitem
+                id="bitsItemTreePopupAnnotationPermission"
+                label="&markingcollection.permissions;"
+                image="chrome://markingcollection/skin/key.png"
+                oncommand="window.top.annotationProxy.openAccessDialog();"/>
             <menuseparator id="bitsItemTreePopupCacheMenuseparator" observes="bitsItemTreePopupCache" insertafter="bitsItemTreePopupOpenMenuseparator"/>
             <menu id="bitsItemTreePopupCache" class="menu-iconic" label="&markingcollection.autocache.cache;" image="chrome://markingcollection/skin/autocache.png" insertafter="bitsItemTreePopupOpenMenuseparator" hidden="true">
                 <menupopup>
