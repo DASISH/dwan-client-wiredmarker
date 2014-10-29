@@ -17,30 +17,30 @@
                     var om_object = window.arguments[0].om_object;
                     var annotation = window.arguments[0].annotation;
                     
-                    //set title 
-                    document.title = 'Permissions for "'+om_object.oid_title+'"';
-                    
                     var parser = new DOMParser();
                     annotation = parser.parseFromString(annotation, "text/xml");
                     
                     //Set the public access
                     document.getElementById("public").value = annotation.getElementsByTagName("permissions")[0].getAttribute("public");
                     
-                    var permissions = annotation.getElementsByTagName("permission");
+                    //set title 
+                    document.title = 'Permissions for "'+om_object.oid_title+'"';
                     
                     
-                    
-                    for(var i = 0; i < permissions.length; i++){
-                        addPermission(i, i, i);
-
+                    if(annotation.getElementsByTagName("permission").length == 0){
+                        addPermission("", "read", 0);
+                    }else{
+                        var permissions = annotation.getElementsByTagName("permission");
+                        for(var i = 0; i < permissions.length; i++){
+                            addPermission(permissions[i].getAttribute("principalHref"), permissions[i].getAttribute("level"), "read");
+                        }  
                     }
-                    
                 }
                 
-                function addPermission(name, level, index){
+                function addPermission(principal, level, index){
                     var elementString = '<html:tr id="permission_'+index+'" xmlns:html="http://www.w3.org/1999/xhtml">\n\
                                             <html:td>\n\
-                                                <html:input id="principal_'+index+'" value="'+name+'"></html:input>\n\
+                                                <html:input id="principal_'+index+'" value="'+principal+'"></html:input>\n\
                                             </html:td>\n\
                                             <html:td>\n\
                                                 <html:select id="level_'+index+'">\n\
@@ -54,7 +54,9 @@
                     var parser = new DOMParser();
                     var element = parser.parseFromString(elementString, "text/xml").documentElement;
                     var permissionsElement = document.getElementById("permissions");
-                    permissionsElement.appendChild(element);                
+                    permissionsElement.appendChild(element);
+                    
+                    document.getElementById("level_"+index).value = level;             
                 }
                 
             ]]>
