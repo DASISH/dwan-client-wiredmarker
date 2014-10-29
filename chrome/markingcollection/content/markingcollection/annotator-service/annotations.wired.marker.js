@@ -136,10 +136,22 @@ var annotationProxy = (function() {
             this.getCacheURL(oid, tabbed);
         },
         openAccessDialog: function(){
-            var params = {om_object : bitsAutocacheService.bitsItemView.object};
-            
-            window.openDialog('chrome://markingcollection/content/annotationPermissionDialog.xul', '', 
-                              'chrome,centerscreen,modal', params);
+            var om_object = bitsAutocacheService.bitsItemView.object;
+            annotationProxy.getLoggedInInfo(function(info){
+                if(info.status === 200){
+                    
+                    var aid = annotationProxy.getAidFromOid(om_object.oid);
+                    annotationFramework.getAnnotationXml(aid, function(annotation){
+                        var params = {om_object : om_object, annotation:annotation, callback:annotationFramework.putFullAnnotation};
+
+                        window.openDialog('chrome://markingcollection/content/annotationPermissionDialog.xul', '', 
+                                          'chrome,centerscreen,modal', params);
+                    });
+
+                }else{
+                    annotationProxy.showError({title:"Not logged in",info:"You must be signed in to change permissions", code:info.status});
+                }
+            });
         },
         getCacheURL: function(oid, tabbed){
             var aid = this.getAidFromOid(oid);
@@ -189,7 +201,6 @@ var annotationProxy = (function() {
              */
         },
         showError: function(message) {
-            
             if(typeof message != 'object') {
                 var tmp = new Object();
                 tmp.info = message;
@@ -204,10 +215,7 @@ var annotationProxy = (function() {
             message.info = message.info.replace(/<(?:.|\n)*?>/gm, '');
             
             window.openDialog("chrome://markingcollection/content/infoDialog.xul", "", 
-                              "chrome,centerscreen,modal", 
-                              message);
-            
-            //alert(body);
+                              "chrome,centerscreen,modal", message);
         }
     }
 }());

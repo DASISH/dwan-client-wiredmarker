@@ -7,7 +7,7 @@
     xmlns:html="http://www.w3.org/1999/xhtml"
     title="Annotation permission settings"
     buttons="accept"
-    onload="accessDialogLoad()">
+    onload="accessDialogLoad()"> 
     <script type="application/x-javascript">
             <![CDATA[       
                 function accessDialogLoad() {
@@ -15,13 +15,46 @@
                     //window.arguments[0].om_object;  
                     //bitsAutocacheService.bitsItemView.object
                     var om_object = window.arguments[0].om_object;
+                    var annotation = window.arguments[0].annotation;
+                    
+                    //set title 
                     document.title = 'Permissions for "'+om_object.oid_title+'"';
                     
+                    var parser = new DOMParser();
+                    annotation = parser.parseFromString(annotation, "text/xml");
                     
-                    //var header = document.getElementById("header");
+                    //Set the public access
+                    document.getElementById("public").value = annotation.getElementsByTagName("permissions")[0].getAttribute("public");
                     
-                    //header.setAttribute("description", window.arguments[0].om_object.oid_title);
+                    var permissions = annotation.getElementsByTagName("permission");
                     
+                    
+                    
+                    for(var i = 0; i < permissions.length; i++){
+                        addPermission(i, i, i);
+
+                    }
+                    
+                }
+                
+                function addPermission(name, level, index){
+                    var elementString = '<html:tr id="permission_'+index+'" xmlns:html="http://www.w3.org/1999/xhtml">\n\
+                                            <html:td>\n\
+                                                <html:input id="principal_'+index+'" value="'+name+'"></html:input>\n\
+                                            </html:td>\n\
+                                            <html:td>\n\
+                                                <html:select id="level_'+index+'">\n\
+                                                    <html:option value="read">read</html:option>\n\
+                                                    <html:option value="write">write</html:option>\n\
+                                                    <html:option value="none">none</html:option>\n\
+                                                </html:select>\n\
+                                            </html:td>\n\
+                                        </html:tr>';
+                                        
+                    var parser = new DOMParser();
+                    var element = parser.parseFromString(elementString, "text/xml").documentElement;
+                    var permissionsElement = document.getElementById("permissions");
+                    permissionsElement.appendChild(element);                
                 }
                 
             ]]>
@@ -29,7 +62,7 @@
     <dialogheader id="header" title="Access permissions" hidden="false" description=""/>
     <groupbox>
         <caption label="Public access"/>
-        <menulist>
+        <menulist id="public">
           <menupopup>
             <menuitem label="read" value="read"/>
             <menuitem label="write" value="write"/>
@@ -46,31 +79,7 @@
                 <html:th>Permission</html:th>
             </html:tr>
         </html:thead>
-        <html:tbody id="users">
-            <html:tr>
-                <html:td>
-                    <html:input name="user_1"></html:input>
-                </html:td>
-                <html:td>
-                    <html:select>
-                        <html:option value="read">read</html:option>
-                        <html:option value="write">write</html:option>
-                        <html:option value="none">none</html:option>
-                    </html:select>
-                </html:td>
-            </html:tr>
-            <html:tr>
-                <html:td>
-                    <html:input name="user_2"></html:input>
-                </html:td>
-                <html:td>
-                    <html:select>
-                        <html:option value="read">read</html:option>
-                        <html:option value="write">write</html:option>
-                        <html:option value="none">none</html:option>
-                    </html:select>
-                </html:td>
-            </html:tr>
+        <html:tbody id="permissions">
         </html:tbody>        
       </html:table>
     </groupbox>
