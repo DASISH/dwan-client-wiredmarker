@@ -7,9 +7,13 @@
     xmlns:html="http://www.w3.org/1999/xhtml"
     title="Annotation permission settings"
     buttons="accept"
-    onload="accessDialogLoad()"> 
+    height="360"
+    width="330"
+    onload="accessDialogLoad()"
+    ondialogaccept="return doCallback();"> 
     <script type="application/x-javascript">
-            <![CDATA[       
+            <![CDATA[   
+                var counter = 0;
                 function accessDialogLoad() {
                     //set info
                     //window.arguments[0].om_object;  
@@ -28,17 +32,18 @@
                     
                     
                     if(annotation.getElementsByTagName("permission").length == 0){
-                        addPermission("", "read", 0);
+                        addPermission("", "read");
                     }else{
                         var permissions = annotation.getElementsByTagName("permission");
                         for(var i = 0; i < permissions.length; i++){
-                            addPermission(permissions[i].getAttribute("principalHref"), permissions[i].getAttribute("level"), "read");
+                            addPermission(permissions[i].getAttribute("principalHref"), permissions[i].getAttribute("level"));
                         }  
                     }
                 }
                 
-                function addPermission(principal, level, index){
-                    var elementString = '<html:tr id="permission_'+index+'" xmlns:html="http://www.w3.org/1999/xhtml">\n\
+                function addPermission(principal, level){
+                    var index = counter;
+                    var elementString = '<html:tr id="permission_'+index+'" class="'+index+'" xmlns:html="http://www.w3.org/1999/xhtml">\n\
                                             <html:td>\n\
                                                 <html:input id="principal_'+index+'" value="'+principal+'"></html:input>\n\
                                             </html:td>\n\
@@ -49,6 +54,9 @@
                                                     <html:option value="none">none</html:option>\n\
                                                 </html:select>\n\
                                             </html:td>\n\
+                                            <html:td>\n\
+                                                <html:button onclick="removePermission('+index+');">X</html:button>\n\
+                                            </html:td>\n\
                                         </html:tr>';
                                         
                     var parser = new DOMParser();
@@ -56,7 +64,41 @@
                     var permissionsElement = document.getElementById("permissions");
                     permissionsElement.appendChild(element);
                     
-                    document.getElementById("level_"+index).value = level;             
+                    document.getElementById("level_"+index).value = level;  
+                    
+                    counter++;
+                }
+                
+                function removePermission(index){
+                    document.getElementById("permission_"+index).outerHTML='';
+                }
+                
+                function serializePermissions(){                
+                    var permissions = document.getElementById("permissions").children;
+                    
+                    var output = '<permissions public="'+document.getElementById("public").value+'">';
+                    
+                    for(var i = 0; i < permissions.length; i++){
+                        
+                        if(permissions[i] !== undefined){
+                            var num = permissions[i].getAttribute("class");
+                           
+                            var principal = document.getElementById("principal_"+num).value.trim();
+                            var level = document.getElementById("level_"+num).value;
+                            if(principal !== ""){
+                                output += '<permission principalHref="'+principal+'" level="'+level+'"/>';
+                            }
+                        }
+                    }
+                    
+                    output += '</permissions>';
+                    return output;
+                }
+                
+                function doCallback(){
+                    var p = window.arguments[0];
+                    p.callback(serializePermissions());
+                    return true;
                 }
                 
             ]]>
@@ -73,16 +115,20 @@
         </menulist>
     </groupbox>  
     <groupbox>
-      <caption label="Access per user"/>  
+      <caption label="Access per user"/>
+      <vbox flex="1" style="overflow:auto"  height="120">  
       <html:table>
         <html:thead>
             <html:tr>
                 <html:th>Email</html:th>
                 <html:th>Permission</html:th>
+                <html:th></html:th>
             </html:tr>
         </html:thead>
         <html:tbody id="permissions">
-        </html:tbody>        
+        </html:tbody>       
       </html:table>
+      </vbox>
+      <html:button onclick="addPermission('', 'read');">Add permission</html:button>
     </groupbox>
 </dialog>

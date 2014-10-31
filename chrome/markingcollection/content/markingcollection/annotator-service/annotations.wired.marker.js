@@ -141,8 +141,53 @@ var annotationProxy = (function() {
                 if(info.status === 200){
                     
                     var aid = annotationProxy.getAidFromOid(om_object.oid);
+                    
                     annotationFramework.getAnnotationXml(aid, function(annotation){
-                        var params = {om_object : om_object, annotation:annotation, callback:annotationFramework.putFullAnnotation};
+                        
+                        var $annotation = $.parseXML(annotation);
+                        $($annotation).find('permission').each(function(i){
+                            var href = $(this).attr("principalHref");
+                            var email = annotationFramework.getPrincipalEmailFromHref(href);
+                            $(this).attr("principalHref", email);
+                        });
+                        
+                        annotation = (new XMLSerializer()).serializeToString($annotation);
+                        
+                        var params = {om_object : om_object, annotation:annotation, callback: function(permissions){
+                            annotationProxy.log(permissions);
+                            
+                            var pXml = $.parseXML(permissions);
+                            
+                            var public = $(pXml).find('permissions').attr('public');
+                            
+                            var newPermissions = '<permissions public="'+public+'" xmlns="http://www.dasish.eu/ns/addit">';
+                            $(pXml).find('permission').each(function(i){
+                                var email = this.getAttribute("principalHref");
+                                var level = this.getAttribute("level");
+                                var href = annotationFramework.getPrincipalHrefFromEmail(email);
+                                annotationProxy.log("email: "+email+" href: "+href);
+                                if(href !== ''){
+                                    newPermissions += '<permission principalHref="'+href+'" level="'+level+'"/>';
+                                }
+                            });
+                            newPermissions += '</permissions>';
+                            annotationProxy.log(newPermissions);
+                            
+                            annotationProxy.log("original annotation: ");
+                            annotationProxy.log(annotation);
+                            
+                            var $annotation = $.parseXML(annotation);
+                            var aid = $($annotation).find('annotation').attr("xml:id");
+                            annotationProxy.log("aid: "+aid);
+                            
+                            $($annotation).find('permissions').replaceWith(newPermissions);
+                            var updatedAnnotation = (new XMLSerializer()).serializeToString($annotation);
+
+                            annotationProxy.log("updated annotation: ");
+                            annotationProxy.log(updatedAnnotation);
+
+                            annotationFramework.putFullAnnotation(aid, updatedAnnotation);
+                        }};
 
                         window.openDialog('chrome://markingcollection/content/annotationPermissionDialog.xul', '', 
                                           'chrome,centerscreen,modal', params);

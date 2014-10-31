@@ -261,6 +261,36 @@ var annotationFramework = (function() {
             
             xhr.send(postBody);
         },
+        getPrincipalHrefFromEmail : function(email){
+            var href = '';
+            $.ajax({
+                type: "GET",
+                async: false,
+                url: this.getBackend() + '/api/principals/info',
+                data:{email:email},
+                dataType: "xml",
+                success: function(xml, textStatus, jqXHR) {
+                    $xml = $.parseXML(jqXHR.responseText);
+                    href = $($xml).find('principal').attr("href");
+                }
+            });
+            return href;
+        },
+        getPrincipalEmailFromHref : function(href){
+            var email = '';
+            var id = href.split("api/principals/")[1];
+            $.ajax({
+                type: "GET",
+                async: false,
+                url: this.getBackend() + '/api/principals/'+id,
+                dataType: "xml",
+                success: function(xml, textStatus, jqXHR) {
+                    $xml = $.parseXML(jqXHR.responseText);
+                    email = $($xml).find('eMail').text();
+                }
+            });
+            return email;
+        },
         getTargets : function(aid, callback){
             $.ajax({
                 type: "GET",
