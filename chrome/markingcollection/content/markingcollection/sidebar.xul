@@ -107,6 +107,7 @@
             <toolbox id="mcToolbox" class="plain" style="overflow:hidden;min-width:10em;">
                 <toolbar id="mcToolbar" class="plain">
                     <toolbarbutton id="mcToolbarCreateFolderButton" image="chrome://markingcollection/skin/toolbar_create.png" oncommand="mcTreeHandler.create(-1);" checked="false" hidden="true"/>
+                    <toolbarbutton tooltiptext="&markingcollection.tools.settings;" image="chrome://markingcollection/skin/icon_option.gif" oncommand="window.top.bitsMarkingCollection.openPrefWindow();" />
                     <toolbarbutton id="mcToolbarToggle" tooltiptext="&markingcollection.toggle.all;" image="chrome://markingcollection/skin/toolbar_toggle.png" oncommand="mcTreeHandler.toggleAllFolders();" hidden="true"/>
                     <toolbarbutton id="mcToolbarMenuButton" type="menu" label="menu " hidden="true">
                         <menupopup id="mcToolbarMenuPopup">
