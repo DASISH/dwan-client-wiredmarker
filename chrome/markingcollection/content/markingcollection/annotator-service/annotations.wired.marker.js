@@ -194,7 +194,7 @@ var annotationProxy = (function() {
                     });
 
                 }else{
-                    annotationProxy.showError({title:"Not logged in",info:"You must be signed in to change permissions", code:info.status});
+                    annotationProxy.showError({title:"Not logged in", info:"You must be signed in to change permissions.", code:info.status});
                 }
             });
         },
@@ -252,12 +252,16 @@ var annotationProxy = (function() {
                 message = tmp;
             }
             
-            message.info = message.info.substring(message.info.lastIndexOf("<body>")+6,message.info.lastIndexOf("</body>"));
-            message.info = message.info.replace("<p>", "\n");
-            message.info = message.info.replace("<h1>", "\n");
-            message.info = message.info.replace("<h3>", "\n");
-            message.info = message.info.replace("</p>", "\n");
-            message.info = message.info.replace(/<(?:.|\n)*?>/gm, '');
+            /* Error messages for e.g. 'not authenticated', 'permission can't be changed' etc. */
+            /* Clean-up of variable content of message.info only if formatted in HTML. */
+            if (message.info.match(/html/)) {
+                message.info = message.info.substring(message.info.lastIndexOf("<body>")+6,message.info.lastIndexOf("</body>"));
+                message.info = message.info.replace("<p>", "\n");
+                message.info = message.info.replace("<h1>", "\n");
+                message.info = message.info.replace("<h3>", "\n");
+                message.info = message.info.replace("</p>", "\n");
+                message.info = message.info.replace(/<(?:.|\n)*?>/gm, '');
+            }
             
             window.openDialog("chrome://markingcollection/content/infoDialog.xul", "", 
                               "chrome,centerscreen,modal", message);
