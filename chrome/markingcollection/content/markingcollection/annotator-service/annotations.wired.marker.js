@@ -11,7 +11,7 @@ var annotationProxy = (function() {
                 type: 'GET',
                 url: authURL,
                 dataType: "xml",
-                timeout: 4000, // In order to be able to catch server inaccessibility, e.g. due to security restrictions.
+                timeout: 5000, // In order to be able to catch server inaccessibility, e.g. due to security restrictions.
                 success: function(xml ,textStatus, jqXHR) {
                    $xml = $.parseXML(jqXHR.responseText);
                    var user = new Object();
