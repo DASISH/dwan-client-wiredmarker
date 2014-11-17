@@ -51,6 +51,7 @@
                                                 <html:select id="level_'+index+'">\n\
                                                     <html:option value="read">read</html:option>\n\
                                                     <html:option value="write">write</html:option>\n\
+                                                    <html:option value="write">all</html:option>\n\
                                                     <html:option value="none">none</html:option>\n\
                                                 </html:select>\n\
                                             </html:td>\n\
@@ -110,6 +111,7 @@
           <menupopup>
             <menuitem label="read" value="read"/>
             <menuitem label="write" value="write"/>
+            <menuitem label="none" value="all"/>
             <menuitem label="none" value="none"/>
           </menupopup>
         </menulist>
