@@ -119,6 +119,7 @@
             <menuitem
                 id="bitsItemTreePopupAnnotationPermission"
                 label="&markingcollection.permissions;"
+                class="menuitem-iconic"
                 image="chrome://markingcollection/skin/key.png"
                 oncommand="window.top.annotationProxy.openAccessDialog();"/>
             <menuseparator id="bitsItemTreePopupCacheMenuseparator" observes="bitsItemTreePopupCache" insertafter="bitsItemTreePopupOpenMenuseparator"/>
