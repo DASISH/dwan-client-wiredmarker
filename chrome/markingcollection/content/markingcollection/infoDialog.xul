@@ -21,6 +21,10 @@
                             header.setAttribute("hidden","false");
                             header.setAttribute("description", "You don´t have access to this function");
                         }
+                        if(window.arguments[0].code == "403"){
+                            header.setAttribute("hidden","false");
+                            header.setAttribute("description", "403 Forbidden");
+                        }
                     }
                     
                     if(window.arguments[0].title){
