@@ -110,6 +110,7 @@ var annotationFramework = (function() {
                 return $.ajax({
                     url: this.getBackend() + '/api/annotations/' + aid,
                     type: 'DELETE',
+                    async: false, /* complete each statement before next statement can be called */
                     error: function(jqXHR, status, thrownError) {
                         // Log any errors to debug console
                         annotationProxy.log("+ + + + + + + + + + + + + + + + + + + + + + + +");
