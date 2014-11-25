@@ -4798,12 +4798,27 @@ var bitsObjectMng = {
 				if(aTransaction) if(!this.beginTransaction(aMode)) return false;
 				var rtn = false;
 				if(aObject && aObject.oid){
+                                    
+                                        // Send DELETE request to MPI REST server and save result in variable. 
+                                        var responseObj = annotationFramework.deleteAnnotationByOid(aObject.oid);
+                                        
+                                        if(typeof responseObj === "undefined") {
+                                            annotationProxy.log('No response object available.');
+                                            annotationProxy.log('User is not logged in.');
+                                            /* User not logged in OR server connection is broken. */
+                                            /* TODO: Annotation can currently still get deleted from local sqlite db. */
+                                        }                                                                              
+                                        
+                                        /* The user does not have permission OWNER or access mode ALL for the respective annotation. */
+                                        if(typeof responseObj !== "undefined" && responseObj.status===403) {
+                                            annotationProxy.showError({title:"403 Forbidden", info:"You must have permission access mode set to ALL to be able to delete this annotation.", code:responseObj.status});
+                                            /* Abort deletion from local sqlite db. */        
+                                            return false;                                                   
+                                        }                                                                                                                     
+                                    
 					rtn = this.removeLink(aObject,aMode,false);
 					if(rtn && this._oidCount(aMode,aObject.oid,false) == 0){
-                                            
-                                                // send DELETE request to MPI REST server  
-                                                annotationFramework.deleteAnnotationByOid(aObject.oid);
-                                                
+                                                                                                                                         
 						var aSql = "delete from om_object";
 						aSql += ' where oid="'+ aObject.oid +'"';
 						rtn = this.cmd(aMode,aSql,false);
