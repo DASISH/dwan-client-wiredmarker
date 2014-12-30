@@ -1,9 +1,14 @@
 var annotationFramework = (function() {
-    // default value for REST service
-    // SND backend for first tests
-    // var default_backend = "http://pelle.ssd.gu.se:8080/exist/rest/db/annotation-framework/api/annotations.xql";
-    // MPI backend
-    var default_backend = "https://lux17.mpi.nl/ds/webannotator";
+    
+    // Default value for REST service
+    // Grab the MPI backend from chrome://markingcollection/locale/about.properties
+
+    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+            .getService(Components.interfaces.nsIPrefService);
+    var branch = prefs.getBranch("extensions.webannotator@dasish.eu.");
+    var value = branch.getComplexValue("default_server",
+            Components.interfaces.nsIPrefLocalizedString).data;
+    var default_backend = value;
 
     return {
         getDefaultBackend: function() {
